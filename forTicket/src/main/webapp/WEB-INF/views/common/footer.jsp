@@ -32,8 +32,7 @@
 				</div>
 				<div>
 
-			<img src="${contextPath  }/resources/images/logo.png" style="width:100px; height: 80px; margin-top:10px;  float: left;">
-
+				<img src="${contextPath}/resources/images/logo.png" style="width:100px; height: 80px; margin-top:10px;  float: left;">
 
 				</div>
 			</div>
