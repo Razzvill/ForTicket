@@ -31,7 +31,9 @@
 				<div style="font-size:14px; font-weight:600; color:#000; margin-top:5px; text-align:left;">월-금 09:00 ~ 18:00(주말·공휴일 휴무)
 				</div>
 				<div>
+
 				<img src="${contextPath  }/resources/image/logo.png" style="width:100px; height: 80px; margin-top:10px;  float: left;">
+
 				</div>
 			</div>
 			
