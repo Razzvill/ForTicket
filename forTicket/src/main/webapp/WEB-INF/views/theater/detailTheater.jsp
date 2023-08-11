@@ -37,24 +37,22 @@
 	  padding: 0;
 	  margin: 0;
 	}
+	img #map {
+		width: 350px;
+	}
 	.clear {
 	  clear: both;
 	}
 	.theater_list {
 	  position: relative;
-	  width: 255px;
 	  margin-right: 26px;
 	  margin-bottom: 60px;
 	  letter-spacing: -1px;
 	  text-align: left;
 	  transition: transform 0.3s ease-in-out;
 	}
-	.theater_list:hover {
-	  transform: translateY(-5px);
-	}
 	.theater_list .thumb img {
-	  width: 255px;
-	  height: 357px;
+	  width: 400px;
 	  border-radius: 10px;
 	  border: 1px solid #eee;
 	}
@@ -80,20 +78,21 @@
 	}
 	.theater_list .theater_info .title {
 	  margin-top: 10px;
-	  font-size: 18px;
+	  font-size: 25px;
 	  color: #000;
-	  font-weight: 400;
+	  font-weight: 600;
 	  display: block;
 	  overflow: hidden;
 	  white-space: nowrap;
 	  text-overflow: ellipsis;
+	  text-align: left;
 	  word-break: break-all;
 	}
-	.theater_list .theater_info .price {
+	.theater_list .theater_info .detail {
 	  display: flex;
 	  justify-content: space-between;
 	  margin-top: 15px;
-	  font-size: 18px;
+	  font-size: 15px;
 	  color: #000;
 	  font-weight: 600;
 	  text-align: left;
@@ -109,9 +108,9 @@
 	  font-size:14px; font-weight: 300;
 	}
 	.main_title {
-		font-size: 25px;
-		font-weight: 900;
+		font-size: 15px;
 		text-align: left;
+		color:#333;
 		padding-left: 30px;
 		padding-top: 50px;
 		padding-bottom: 20px;
@@ -119,58 +118,37 @@
 </style>
 </head>
 <body>
-<%-- <div class="main_book">
-   <c:set  var="goods_count" value="0" />
-	<h3>베스트셀러</h3>
-	<c:forEach var="item" items="${goodsMap.bestseller }">
-	   <c:set  var="goods_count" value="${goods_count+1 }" />
-		<div class="book">
-			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-			<img class="link"  src="${contextPath}/resources/image/1px.gif"> 
-			</a> 
-				<img width="121" height="154" 
-				     src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-
-			<div class="title">${item.goods_title }</div>
-			<div class="price">
-		  	   <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		          ${goods_price}원
-			</div>
-		</div>
-	   <c:if test="${goods_count==15   }">
-         <div class="book">
-           <font size=20> <a href="#">more</a></font>
-         </div>
-     </c:if>
-  </c:forEach>
-</div> --%>
 <div class="wrap_1100">
 <div class="main_title">
-	공연장 목록
+	공연장 목록 > ${t_name}
 </div>
 <div style="margin-top: 25px;">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tbody>
 		<tr>
 			<td valign="top" align="left">
-				<a href="${contextPath}/theater/detailTheater.do?t_name=아신극장">
 					<div class="theater_list">
 						<div class="thumb">
 							<img src="${contextPath}/resources/images/asin.jpeg" alt="아신극장">
 						</div>
-						<div class="theater_info">
-							<p class="category">민간</p>
-							<p class="title">아신극장</p>
-							<%-- <div class="price">
-								<div>
-									<span class="stars" style=";">
-										<img src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8<span>(59)</span>
-									</span>
-								</div>
-							</div> --%>
-						</div>
 					</div>
-				</a>
+			</td>
+			<td valign="top" align="left">
+				<div class="theater_list">
+					<div class="theater_info">
+						<p class="title">${t_name}</p>
+						<p class="detail">분류 : 민간 공연시설</p>
+						<p class="detail">
+							객석수 : 150석 <br>
+							운영시간 : 09:00~23:00 <br>
+							* 운영시간은 극장 사정에 따라 변경될 수 있습니다. <br>
+							위치 : 대전광역시 중구 대흥동 159-1 <br>
+							전화번호 : 042-123-1234 <br>
+							오시는길 : AAAA -> BBB -> CC -> D
+						</p>
+						<img src="${contextPath}/resources/images/mapExample.png" id="map" alt="지도">
+					</div>
+				</div>
 			</td>
 		</tr>
 	</tbody>
