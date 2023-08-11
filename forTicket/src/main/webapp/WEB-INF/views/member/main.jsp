@@ -105,12 +105,13 @@
 			</div>
 		</div>
 		<br>
+		
 		<div class="swiper">
 			<ul style="transform: translate3d(0px, 0px, 0px);">
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png" style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -124,10 +125,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -141,10 +142,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -158,10 +159,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 
 							</div>
 							<div>
@@ -185,18 +186,19 @@
 <section>
 	<div class="wrap_1100">
 		<div class="main_title">
-			뮤지컬
+			연극
 			<div class="main_title_more">
 				<a href="#" style="text-decoration: none;"> 더보기 &gt; </a>
 			</div>
 		</div>
 		<br>
+		
 		<div class="swiper">
 			<ul style="transform: translate3d(0px, 0px, 0px);">
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png" style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -210,10 +212,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -227,10 +229,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -244,10 +246,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 
 							</div>
 							<div>
@@ -265,9 +267,8 @@
 			</ul>
 		</div>
 	</div>
-</section>
-
-<!-- 뮤지컬 -->
+</section>	
+	<!-- 뮤지컬 -->
 <section>
 	<div class="wrap_1100">
 		<div class="main_title">
@@ -277,12 +278,12 @@
 			</div>
 		</div>
 		<br>
-		<div class="swiper">
+		<iv class="swiper">
 			<ul style="transform: translate3d(0px, 0px, 0px);">
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png" style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -296,10 +297,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -313,10 +314,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 							</div>
 							<div>
 								<p>NEW</p>
@@ -330,10 +331,10 @@
 						</div>
 				</a></li>
 
-				<li style="width: 300px; margin-right: 15px;"><a href="#">
+				<li style="width: 240px; margin-right: 30px;"><a href="#">
 						<div>
-							<div class="inline" style="width: 187.727px; margin-right: 15px;">
-								<img src="/image/1.png" alt="내일은 스타">
+							<div class="inline" style="width: 187.727px; margin-right: 30px;">
+								<img src="/image/1.png"  style="width: 230px;" alt="내일은 스타">
 
 							</div>
 							<div>
@@ -350,7 +351,6 @@
 
 			</ul>
 		</div>
-	</div>
 </section>
 </body>
 
