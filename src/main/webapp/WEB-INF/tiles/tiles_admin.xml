@@ -18,6 +18,7 @@ PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
 		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp"/>
 	</definition>
 	
+	
 	<definition name="/admin/listMembers" extends="baseLayout">
 		<put-attribute name="title" value="학생목록창"/>
 		<put-attribute name="body" value="/WEB-INF/views/member/listMembers.jsp"/>
