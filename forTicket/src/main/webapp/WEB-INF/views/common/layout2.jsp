@@ -28,7 +28,7 @@
 			height: 145px;
 		}
 		
-		#sidebar-left{
+		/* #sidebar-left{
 			width: 15%;
 			height: 500px;
 			padding: 5px;
@@ -38,10 +38,10 @@
 			background-color: yellow;
 			border: 0px solid #bcbcbc;
 			font-size: 10px;
-		}
+		} */
 		
 		#content{
-			width: 75%;
+			width: 90%;
 			padding: 0px;
 			margin: 0px auto;
 			float: center;
@@ -61,9 +61,9 @@
 			<tiles:insertAttribute name="header" />
 		</div>
 		
-		<div id="sidebar-left">
+		<%-- <div id="sidebar-left">
 			<tiles:insertAttribute name="side" />
-		</div>
+		</div> --%>
 		
 		<div id="content">
 			<tiles:insertAttribute name="body" />
