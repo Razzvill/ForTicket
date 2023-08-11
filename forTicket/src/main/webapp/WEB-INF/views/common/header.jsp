@@ -21,7 +21,7 @@
     	list-style: none;
     	padding: 0;
 	}
-	
+
 	.gnb_wrap{
 		position: relative;
    		width: 1100px;
@@ -159,15 +159,19 @@
 	</c:choose>
 	<!-- header 중단 -->
 	<div class="gnb_wrap" style="height:55px; padding-top:0px;">
-		<a href="#">
-	      <img src="/image/logo.png" style="width:100px; height:55px; margin-top:0px; float: left;">
+
+		<a href="${contextPath}/main.do">
+	      <img src="${contextPath}/resources/images/logo.png" style="width:100px; height:55px; margin-top:0px; float: left;">
+
 	    </a>
 	    <div style="position:absolute; top:2px; left:380px;">
 			<form name="frm" method="get" action="">
 				<div style="vertical-align:top; position:relative;">
 	    			<input type="text" name="search_word" id="search_word" value="" class="search_box">
 						<div style="position:absolute; top:2px; left:300px;">
-	      					<input name="image" type="image" src="/image/search_btn.png" alt="검색하기" style="padding: 8px;">
+
+	      					<input name="image" type="image" src="${contextPath}/resources/images/search_btn.png" alt="검색하기" style="padding: 8px;">
+
 	    				</div>
 	  			</div>
 			</form>
@@ -207,7 +211,9 @@
 		      <li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">연극</a></li>
 		      <li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
 		      <li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연</a></li>
-		      <li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연장</a></li>
+
+		      <li class="" style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
+
 		      <li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
 		      <li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 		      <li><a href="#" class="button" onclick="changeStyle(this)">고객센터</a></li>
