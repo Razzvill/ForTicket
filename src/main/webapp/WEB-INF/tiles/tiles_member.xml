@@ -12,14 +12,7 @@
 		<put-attribute name="body" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 	</definition>
-	
-	<definition name="/member/listProduct" extends="baseLayout">
-		<put-attribute name="title" value="연극페이지" />
-		<put-attribute name="body" value="/WEB-INF/views/member/listProduct.jsp" />
-	</definition>
-	
 
-<!--
 	<definition name="/member/main" extends="baseLayout">
 		<put-attribute name="title" value="메인페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/member/main.jsp" />
@@ -39,7 +32,6 @@
 		<put-attribute name="title" value="회원수정" />
 		<put-attribute name="body" value="/WEB-INF/views/member/modMember.jsp" />
 	</definition>
--->
 </tiles-definitions>
 
 
