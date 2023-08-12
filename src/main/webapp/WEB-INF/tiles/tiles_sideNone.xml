@@ -5,24 +5,34 @@
 
 
 <tiles-definitions>
-	<definition name="baseLayout" template="/WEB-INF/views/common/layout2.jsp">
+	<definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
 		<put-attribute name="title" value=""/>
 		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 		<put-attribute name="side" value=""/>
 		<put-attribute name="body" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 	</definition>
-
+	
+	<!-- main -->
 	<definition name="/main" extends="baseLayout">
 		<put-attribute name="title" value="메인페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/main.jsp" />
 	</definition>
 	
+	<!-- 연극 목록-->
+	<definition name="/drama/listDrama" extends="baseLayout">
+		<put-attribute name="title" value="연극 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/drama/listDrama.jsp" />
+	</definition>
+	
+	<!-- 공연장 목록-->
 	<definition name="/theater/listTheater" extends="baseLayout">
 		<put-attribute name="title" value="공연장 목록" />
 		<put-attribute name="body" value="/WEB-INF/views/theater/listTheater.jsp" />
 	</definition>
 	
+
+
 	<!-- <definition name="/member/loginForm" extends="baseLayout">
 		<put-attribute name="title" value="로그인창" />
 		<put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />

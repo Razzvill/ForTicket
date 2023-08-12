@@ -13,10 +13,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 사이드 있는 layout -->
 	<meta charset="UTF-8">
 	<style>
 		#container{
-			width: 75%;
+			width: 100%;
 			margin: 0px auto;
 			text-align: center;
 			border: 0px solid #bcbcbc;
@@ -28,7 +29,7 @@
 			height: 145px;
 		}
 		
-		/* #sidebar-left{
+		#sidebar-left{
 			width: 15%;
 			height: 500px;
 			padding: 5px;
@@ -38,10 +39,10 @@
 			background-color: yellow;
 			border: 0px solid #bcbcbc;
 			font-size: 10px;
-		} */
+		}
 		
 		#content{
-			width: 90%;
+			width: 75%;
 			padding: 0px;
 			margin: 0px auto;
 			float: center;
@@ -61,9 +62,9 @@
 			<tiles:insertAttribute name="header" />
 		</div>
 		
-		<%-- <div id="sidebar-left">
+		<div id="sidebar-left">
 			<tiles:insertAttribute name="side" />
-		</div> --%>
+		</div>
 		
 		<div id="content">
 			<tiles:insertAttribute name="body" />
