@@ -1,117 +1,188 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-         <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-         <c:set var="result" value="${param.result }" />
-         <% request.setCharacterEncoding("UTF-8"); %>
-            <!DOCTYPE html>
-            <html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<%
+   request.setCharacterEncoding("UTF-8");
+%>     
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.input_box {
+    width: 350px;
+    height: 55px;
+    padding: 0 10px 0 60px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 20px 15px;
+}
+body, table {
+    word-break: break-all;
+    font-size: 13px;
+    font-weight: 400;
+}
+.login_btn {
+    width: 425px;
+    height: 60px;
+    border: 1px solid #ff4b4b;
+    border-radius: 10px;
+    background: #ff4b4b;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.login_submenu {
+    margin-top: 25px;
+    font-size: 14px;
+}
 
-            <head>
-               <meta charset="UTF-8">
-               <title>로그인창</title>
-               <c:choose>
-                  <c:when test="${result=='loginFailed' }">
-                     <script>
-                        window.onload = function () {
-                           alert("아이디나 비밀번호가 틀립니다.다시 로그인 하세요!");
-                        }
-                     </script>
-                  </c:when>
-               </c:choose>
-               <style>
-                  .login1 {
-                     border: 1px solid #99e6ff;
-                     border-collapse: collapse;
-                     border-style: hidden;
-                     box-shadow: 0 0 0 1px #99e6ff;
-                     border-spacing: 0;
-                     border-radius: 15px;
-                  }
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', 'Pretendard Variable';
+}
+div {
+    display: block;
+}
+</style>
+  <meta charset="UTF-8">
+  <title>로그인창</title>
+</head>
+   <link rel="stylesheet" href="/resources/css/login.css">
+<body>
+<body style="max-height:650px;">
 
-                  .login2 {
-                     font-family: 'Cafe24Supermagic-Bold-v1.0';
-                     border: 1px solid #99e6ff;
-                     padding: 10px;
-                     font-size: 20px;
-                     border-radius: 5px;
-                  }
+  <div class="login_wrap">
 
-                  .login3 {
-                     width: 100px;
-                     height: 30px;
-                     background-color: #99e6ff;
-                     color: #0066cc;
-                     border: none;
-                     border-radius: 5px;
-                     font-family: 'Cafe24Supermagic-Bold-v1.0';
-                     font-size: 20px;
-                  }
+    <div>
+      <img src="${contextPath}/resources/image/logo.png" style="width:150px; height: 102px;">
+    </div>
 
-                  .login4 {
-                     border: 1px solid #99e6ff;
-                     width: 150px;
-                     height: 30px;
-                     border-radius: 5px;
+    <form action="/login/?mode=login_reg" method="post">
+      <input type="hidden" name="r" value="/">
 
-                  }
+      <div style="margin-top: 50px;">
+        <input type="text" name="member_id" placeholder="아이디" class="input_box icon_id">
+      </div>
+      <div style="margin-top: 20px;">
+        <input type="password" name="member_pass" placeholder="비밀번호" class="input_box icon_pass">
+      </div>
+      <div style="margin-top: 20px;">
+        <input type="submit" class="login_btn" value="로그인">
+      </div>
 
-                  .login5 {
-                     font-family: 'Cafe24Supermagic-Bold-v1.0';
-                     border: 1px solid #99e6ff;
-                     padding: 10px;
-                     font-size: 20px;
-                     border-radius: 15px 0px 0px 0px;
-                     background-color: #b3ecff;
-                  }
+      <div class="login_submenu">
+        <a href="/happy_member.php?mode=find_id">아이디 찾기</a>
+        <span>|</span>
+        <a href="/happy_member.php?mode=find_pass">비밀번호 찾기</a>
+        <span>|</span>
+        <a href="${contextPath}/member/memberForm.do">회원가입</a>
+      </div>
+    </form>
 
-                  .login6 {
-                     font-family: 'Cafe24Supermagic-Bold-v1.0';
-                     border: 1px solid #99e6ff;
-                     padding: 10px;
-                     font-size: 20px;
-                     border-radius: 0px 15px 0px 0px;
-                     background-color: #b3ecff;
-                  }
+    <div class="simple_title">
+      <div class="simple_line">
+        <span class="simple_text">간편 로그인</span>
+      </div>
+    </div>
 
-                  .login7 {
-                     font-family: 'Cafe24Supermagic-Bold-v1.0';
-                     text-decoration: none;
-                     color: #0066cc;
-                     text-align: center;
-                     font-size: 20px;
-                  }
+    <div class="social_wrap">
+      <div>
+        <img src="${contextPath}/resources/image/kakao.png" id="login_kakao" class="social_join_btn" alt="카카오로그인">
+      </div>
+    </div>
 
-                  @font-face {
-                     font-family: 'Cafe24Supermagic-Bold-v1.0';
-                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
-                     font-weight: 700;
-                     font-style: normal;
-                  }
-               </style>
-            </head>
+    <div class="join_noti">
+      <a href="/bbs_detail.php?bbs_num=65&amp;tb=board_faq" style="width:100px; height: 102px;" target="_blank" alt="불편사항">
+        ※ 회원가입/로그인에 문제가 있어요! &gt;
+      </a>
+    </div>
 
-            <body>
-               <br><br><br><br>
-               <form name="frmLogin" method="post" action="${contextPath}/member/login.do">
-                  <table class="login1" width="80%" align="center">
-                     <tr class="login2" align="center">
-                        <td class="login5">아이디</td>
-                        <td class="login6">비밀번호</td>
-                     </tr>
-                     <tr class="login2" align="center">
-                        <td class="login2"><input class="login4" type="text" name="id" value="" size="20"></td>
-                        <td class="login2"><input class="login4" type="password" name="pwd" value="" size="20"></td>
-                     </tr>
-                     <tr class="login2" align="center">
-                        <td class="login2" colspan="2">
-                           <input class="login3" type="submit" value="로그인"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           <input class="login3" type="reset" value="다시입력">
-                        </td>
-                     </tr>
-                  </table><br>
-                  <a class="login7" href="${contextPath}/member/memberForm.do">회원가입하기</a>
-               </form>
-            </body>
+  </div>
 
-            </html>
+  <!-- 하단 공통 통계 스크립트 -->
+  <!-- 웹 통계 설정파일 -->
+<!--
+    - bottom_copyright.html에서 이 파일을 호출함
+    - login/html 폴더의 html은 bottom_copyright.html을 호출하지 않기에 직접 include 함
+    - 구글, 페이스북 픽셀 등 헤더 호출형은 config.php에서 가져옴
+-->
+
+<!-- 네이버 통계 공통 적용 스크립트 , 모든 페이지에 노출되도록 설치. 단 전환페이지 설정값보다 항상 하단에 위치해야함 -->
+<script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript">
+if (!wcs_add) var wcs_add={};
+wcs_add["wa"] = "s_48e319c7dc98";
+
+if (!_nasa) var _nasa={};
+wcs.inflow("timeticket.co.kr");
+
+wcs_do(_nasa);
+</script>
+
+
+
+
+
+
+<script>
+
+  //// 회원가입 대문 페이지 ////
+  
+    // 필요한 내용 없음.. 쿼리스트링 전달도 필요없음
+
+
+  //// 회원가입 or 수정 페이지
+  
+
+  // 로그인P or 회원가입 대문P : SNS로그인 처리
+      // SNS 아이디로 로그인/가입, app 스킴 예외처리
+    var sns_login = function (site, r, scheme = null) {
+      r = r || '';
+      let url;
+      let cid = '';
+      if (scheme === 'y') {
+        authorizeUrl = encodeURIComponent(`https://timeticket.co.kr/login/app${site}.php/?r=${r}`);
+        url = `timeticket://sns_login?url=${authorizeUrl}&provider=${site}`;
+      } else {
+        url = `/login/authorize?t=${site}&r=${r}`;
+      }
+      window.location.href = url;
+    }
+
+    // app 스킴 예외처리
+    const appScheme = '';
+
+    // 간편 로그인 : 회원가입 일때는 join과 cid 함께 전달
+    if (window.location.href.includes('join')) {
+      r = encodeURI('&from=join&cid=');
+    } else if (window.location.href.includes('login')) {
+      r = '';
+    }
+    $('#login_kakao').click(function (e) {
+      sns_login('kakao', r, appScheme);
+    });
+    $('#login_naver').click(function (e) {
+      sns_login('naver', r, appScheme);
+    });
+    $('#login_apple').click(function (e) {
+      sns_login('apple', r);
+    });
+
+  
+  function removeSpace(input) {
+    var value = input.value.replace(/\s/g, ''); // 공백 제거
+    input.value = value; // 수정된 값을 다시 입력란에 설정
+  }
+
+</script>
+  
+</body>
+</html>
