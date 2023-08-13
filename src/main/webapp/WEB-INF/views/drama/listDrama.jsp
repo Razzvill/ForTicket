@@ -135,12 +135,12 @@ request.setCharacterEncoding("utf-8");
 			<a href="#">
 				<div class="drama_list">
 					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
+						<img src="${contextPath}/resources/images/drama/drama2.jpg" alt="연극2">
 						<div></div>
 					</div>
 					<div class="text">
 						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
+						<p style="font-size: 20px;">망원동 브라더스</p>
 					<div>
 						<div class="price">
 						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
@@ -155,12 +155,12 @@ request.setCharacterEncoding("utf-8");
 			<a href="#">
 				<div class="drama_list">
 					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
+						<img src="${contextPath}/resources/images/drama/drama3.jpg" alt="연극3">
 						<div></div>
 					</div>
 					<div class="text">
 						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
+						<p style="font-size: 20px;">시간을 파는 상점</p>
 					<div>
 						<div class="price">
 						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
@@ -175,176 +175,12 @@ request.setCharacterEncoding("utf-8");
 			<a href="#">
 				<div class="drama_list">
 					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
+						<img src="${contextPath}/resources/images/drama/drama4.jpg" alt="연극4">
 						<div></div>
 					</div>
 					<div class="text">
 						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-	</tr>
-	<tr>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-	</tr>
-	<tr>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
-					<div>
-						<div class="price">
-						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-						<span style="padding-right:30px;">33,000원</span>
-						</div>
-					</div>
-					</div>
-				</div>
-			</a>
-		</td>
-		<td valign="top" align="left">
-			<a href="#">
-				<div class="drama_list">
-					<div class="thumb">
-						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
-						<div></div>
-					</div>
-					<div class="text">
-						<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-						<p style="font-size: 20px;">불편한 편의점</p>
+						<p style="font-size: 20px;">내일은 내일에게</p>
 					<div>
 						<div class="price">
 						<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
