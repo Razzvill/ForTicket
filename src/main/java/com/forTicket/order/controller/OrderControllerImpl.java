@@ -1,4 +1,4 @@
-package com.forTicket.drama.controller;
+package com.forTicket.order.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller("DramaController")
-public class DramaControllerImpl implements DaramaController{
-	
-	//연극 페이지 이동
-	@RequestMapping(value= "/drama/listDrama.do", method = {RequestMethod.GET,RequestMethod.POST})
-	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
+import com.forTicket.drama.controller.DaramaController;
+
+@Controller("OrderController")
+public class OrderControllerImpl implements OrderController{
+
+	//결제화면
+	@RequestMapping(value= "/order/ticketReservation.do", method = {RequestMethod.GET,RequestMethod.POST})
+	private ModelAndView ticketReservation(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
 		
 		HttpSession session=request.getSession();
@@ -24,5 +26,7 @@ public class DramaControllerImpl implements DaramaController{
 		
 		return mav;
 	}
+	
+
 	
 }

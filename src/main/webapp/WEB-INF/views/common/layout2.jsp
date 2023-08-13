@@ -17,7 +17,7 @@
 	<meta charset="UTF-8">
 	<style>
 		#container{
-			width: 100%;
+			width: 45%;
 			margin: 0px auto;
 			text-align: center;
 			border: 0px solid #bcbcbc;
@@ -25,27 +25,28 @@
 		
 		#header{
 			padding: 5px;
-			border: 1px solid #eee;
-			height: 145px;
+			height: 180px;
+			border-bottom: 1px solid #eee;
 		}
 		
 		#sidebar-left{
 			width: 15%;
 			height: 500px;
 			padding: 5px;
-			margin-right: 5px;
-			margin-bottom: 5px;
+			margin-top: 40px;
+			margin-bottom: 40px;
 			float: left;
-			background-color: yellow;
-			border: 0px solid #bcbcbc;
+			border: 3px solid #FF6251;
 			font-size: 10px;
+			border-radius : 30px;
 		}
 		
 		#content{
-			width: 75%;
+			width: 78%;
 			padding: 0px;
-			margin: 0px auto;
-			float: center;
+			margin-top: 50px;
+			margin-left: 30px;
+			float: left;
 			border: 0px solid #bcbcbc;
 		}
 		

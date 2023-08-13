@@ -26,11 +26,19 @@
 	
 	tr,td{
 		border-bottom: 2px solid #FF6251;
-		padding: 10px;
+		padding-top: 10px;
+		padding-bottom:10px;
 		font-size: 15px;
 	}
 	
 	.inputSize{
+		border: 1px solid #696969;
+        height: 20px;
+        border-radius: 10px;
+	}
+	
+	.inputSize1{
+		width:80px;
 		border: 1px solid #696969;
         height: 20px;
         border-radius: 10px;
@@ -64,7 +72,7 @@
 	<table class="search">
 		<tr>
 		<td>공연명</td>
-		<td><input class="inputSize" type="text"></td>
+		<td><input class="inputSize1" type="text"></td>
 		<td>공연일자</td>
 		<td>
 			<input class="inputSize" type="text"  size="4" value="${beginYear}" />년
@@ -99,7 +107,7 @@
 		
 		<tr>
 		<td>예매번호</td>
-		<td><input class="inputSize" type="text"></td>
+		<td><input class="inputSize1" type="text"></td>
 		<td>조회기간</td>
 		<td>
 			<input class="inputSize" type="text"  size="4" value="${beginYear}" />년

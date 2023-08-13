@@ -15,6 +15,8 @@
 	<title>메인 페이지</title>
 	<style>
 		.container {
+			padding-top: 100px;
+			padding-bottom: 100px;
             width: 800px;
             height: 600px;
             margin: 0 auto; 
@@ -58,14 +60,14 @@
 	<div class="container">
         <div class="div1">
 		<a href="#" style="text-decoration: none;">
-			<div><img src="/image/mem.png" style="width:260px; height:260px; margin-top:50px;" alt="회원">
+			<div><img src="${contextPath}/resources/images/member/mem1.png" style="width:260px; height:260px; margin-top:50px;" alt="회원">
 			<div class="div1_1" >일반 사용자 회원가입</div>
 			</div>
 		</a>
         </div>
         <div class="div2">
         <a href="#" style="text-decoration: none;">
-			<div><img src="/image/mem2.png" style="width:260px; height:260px; margin-top:50px;" alt="사업자">
+			<div><img src="${contextPath}/resources/images/member/mem2.png" style="width:260px; height:260px; margin-top:50px;" alt="사업자">
 			<div class="div1_1" >사업자 사용자 회원가입</div>
 			</div>
 		</a>

@@ -28,21 +28,7 @@
 			height: 180px;
 			border-bottom: 1px solid #eee;
 		}
-		
-		<%--
-		#sidebar-left{
-			width: 15%;
-			height: 500px;
-			padding: 5px;
-			margin-right: 5px;
-			margin-bottom: 5px;
-			float: left;
-			background-color: yellow;
-			border: 0px solid #bcbcbc;
-			font-size: 10px;
-		}
-		--%>
-		
+				
 		#content{
 			padding: 0px;
 			margin: 0px auto;

@@ -19,6 +19,24 @@
 		<put-attribute name="body" value="/WEB-INF/views/main.jsp" />
 	</definition>
 	
+	<!-- 로그인 -->
+	<definition name="/member/loginForm" extends="baseLayout">
+		<put-attribute name="title" value="로그인" />
+		<put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+	</definition>
+	
+	<!-- 회원가입 선택 -->
+	<definition name="/member/join" extends="baseLayout">
+		<put-attribute name="title" value="회원선택" />
+		<put-attribute name="body" value="/WEB-INF/views//member/join.jsp" />
+	</definition>
+	
+	<!-- 회원가입 -->
+	<definition name="/member/memberForm" extends="baseLayout">
+		<put-attribute name="title" value="회원가입" />
+		<put-attribute name="body" value="/WEB-INF/views//member/memberForm.jsp" />
+	</definition>
+
 	<!-- 연극 목록-->
 	<definition name="/drama/listDrama" extends="baseLayout">
 		<put-attribute name="title" value="연극 목록" />
@@ -31,6 +49,14 @@
 		<put-attribute name="body" value="/WEB-INF/views/theater/listTheater.jsp" />
 	</definition>
 	
+	<!-- 결제 화면-->
+	<definition name="/order/ticketReservation" extends="baseLayout">
+		<put-attribute name="title" value="결제 화면" />
+		<put-attribute name="body" value="/WEB-INF/views/order/ticketReservation.jsp" />
+	</definition>
+
+
+
 
 
 	<!-- <definition name="/member/loginForm" extends="baseLayout">
