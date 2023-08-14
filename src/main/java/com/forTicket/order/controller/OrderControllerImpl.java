@@ -16,16 +16,28 @@ import com.forTicket.goods.controller.GoodsController;
 @Controller("OrderController")
 public class OrderControllerImpl {
 
-	//二쇰Ц�럹�씠吏�(�궇吏쒖꽑�깮 �벑)
-	@RequestMapping(value={"/member/order.do"}, method={RequestMethod.GET, RequestMethod.POST})
-	private ModelAndView order(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+	//예매 페이지-좌석선택(날짜선택 등)
+	@RequestMapping(value={"/member/order_seat.do"}, method={RequestMethod.GET, RequestMethod.POST})
+	private ModelAndView order_seat(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
 	}
 	
-	//寃곗젣�솕硫�
+
+	//예매 페이지-좌석 미선택(날짜선택 등)
+		@RequestMapping(value={"/member/order_seatNone.do"}, method={RequestMethod.GET, RequestMethod.POST})
+		private ModelAndView order_seatNone(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+			String viewName = (String)req.getAttribute("viewName");
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName(viewName);
+			return mav;
+		}
+	
+	//결제화면
 	@RequestMapping(value= "/order/ticketReservation.do", method = {RequestMethod.GET,RequestMethod.POST})
 	private ModelAndView ticketReservation(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
@@ -76,5 +88,18 @@ public class OrderControllerImpl {
 		
 		return mav;
 	}
+	
+	//환불 완료 페이지
+		@RequestMapping(value= "/order/refundSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
+		private ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) {
+			String viewName = (String)request.getAttribute("viewName");
+			
+			HttpSession session=request.getSession();
+					
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName(viewName);
+			
+			return mav;
+		}
 	
 }
