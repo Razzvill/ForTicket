@@ -61,10 +61,16 @@
 		<put-attribute name="body" value="/WEB-INF/views/theater/detailTheater.jsp" />
 	</definition>
 	
-	<!-- 상품 예매-->
-	<definition name="/member/order" extends="baseLayout">
-		<put-attribute name="title" value="상품 예매" />
-		<put-attribute name="body" value="/WEB-INF/views/member/order.jsp" />
+	<!-- 상품 예매(좌석 지정) -->
+	<definition name="/member/order_seat" extends="baseLayout">
+		<put-attribute name="title" value="상품 예매(좌석 지정)" />
+		<put-attribute name="body" value="/WEB-INF/views/member/order_seat.jsp" />
+	</definition>
+	
+	<!-- 상품 예매(좌석 미지정) -->
+	<definition name="/member/order_seatNone" extends="baseLayout">
+		<put-attribute name="title" value="상품 예매(좌석 미지정)" />
+		<put-attribute name="body" value="/WEB-INF/views/member/order_seatNone.jsp" />
 	</definition>
 	
 	<!-- 결제 화면-->

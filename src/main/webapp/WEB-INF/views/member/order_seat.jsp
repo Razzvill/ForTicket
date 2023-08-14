@@ -172,7 +172,7 @@ request.setCharacterEncoding("utf-8");
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 400px;
+	height: 450px;
 }
 
 .movieContainer {
@@ -233,6 +233,7 @@ li {
 	transform: rotateX(-45deg);
 	/* box-shadow: 0 3px 10px rgb(255 255 255/ 70%); */
 }
+
 .colNum {
 	width: 15px;
 	height: 12px;
@@ -252,6 +253,7 @@ li {
 .colNum:nth-of-type(8) {
 	margin-left: 19px;
 }
+
 .rowNum {
 	width: 15px;
 	height: 12px;
@@ -259,6 +261,7 @@ li {
 	display: flex;
 	color: black;
 }
+
 .seat {
 	background-color: #444451;
 	width: 15px;
@@ -339,14 +342,15 @@ li {
 .text {
 	margin-top: 30px;
 	padding: 20px;
+	color: black;
 }
 
 #count {
-	color: #6feaf6;
+	color: #ff4b4b;
 }
 
 #costs {
-	color: #6feaf6;
+	color: #ff4b4b;
 }
 </style>
 
@@ -354,19 +358,23 @@ li {
 
 <body>
 	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
+		<!-- 카테고리 -->
 		<div class="now_engine" style="margin-right: 680px;">
 			🗂️ <a href="#">공연 &gt; </a><a href="#">연극 &gt; </a>
 		</div>
 
+		<!-- 왼쪽 -->
 		<div
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
 			<img src="${contextPath}/resources/images/act1.jpg"
 				style="width: 482px; border-radius: 10px;">
 			<div class="info_bg_gradient"></div>
 
+			<!-- 좌석지정 -->
 			<div id="body">
 				<div id="container">
-				<p style="font-size:18px; color:#333333; text-align:center">좌석 선택</p>
+					<p style="font-size: 18px; color: #333333; text-align: center">좌석
+						선택</p>
 					<ul class="showcase">
 						<li>
 							<div class="availableSeat"></div> <small class="small">빈
@@ -385,84 +393,100 @@ li {
 					<div class="seatContainer">
 						<div class="screen"></div>
 						<div class="rowNum">
-							<span class="colNum">&nbsp;&nbsp;</span><span class="colNum">A</span><span class="colNum">B</span>
-							<span class="colNum">C</span><span class="colNum">D</span><span class="colNum">E</span>
-							<span class="colNum">F</span><span class="colNum">G</span><span class="colNum">H</span>
+							<span class="colNum">&nbsp;&nbsp;</span><span class="colNum">A</span><span
+								class="colNum">B</span> <span class="colNum">C</span><span
+								class="colNum">D</span><span class="colNum">E</span> <span
+								class="colNum">F</span><span class="colNum">G</span><span
+								class="colNum">H</span>
 						</div>
 						<div class="row">
-							<span class="rowNum">1</span>
-							<span class="seat"><input type="hidden" name="seat" value="A-1"></span>
-							<span class="seat"><input type="hidden" name="seat" value="B-1"></span>
-							<span class="seat"><input type="hidden" name="seat" value="C-1"></span>
-							<span class="seat"><input type="hidden" name="seat" value="D-1"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="E-1"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="F-1"></span>
-							<span class="seat"><input type="hidden" name="seat" value="G-1"></span>
-							<span class="seat"><input type="hidden" name="seat" value="H-1"></span>
-						</div>
-
-						<div class="row">
-							<span class="rowNum">2</span>
-							<span class="seat"><input type="hidden" name="seat" value="A-2"></span>
-							<span class="seat"><input type="hidden" name="seat" value="B-2"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="C-2"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="D-2"></span>
-							<span class="seat"><input type="hidden" name="seat" value="E-2"></span>
-							<span class="seat"><input type="hidden" name="seat" value="F-2"></span>
-							<span class="seat"><input type="hidden" name="seat" value="G-2"></span>
-							<span class="seat"><input type="hidden" name="seat" value="H-2"></span>
+							<span class="rowNum">1</span> <span class="seat"><input
+								type="hidden" name="seat" value="A-1"></span> <span
+								class="seat"><input type="hidden" name="seat" value="B-1"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="C-1"></span> <span class="seat"><input
+								type="hidden" name="seat" value="D-1"></span> <span
+								class="occupiedSeat"><input type="hidden" name="seat"
+								value="E-1"></span> <span class="occupiedSeat"><input
+								type="hidden" name="seat" value="F-1"></span> <span
+								class="seat"><input type="hidden" name="seat" value="G-1"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="H-1"></span>
 						</div>
 
 						<div class="row">
-							<span class="rowNum">3</span>
-							<span class="seat"><input type="hidden" name="seat" value="A-3"></span>
-							<span class="seat"><input type="hidden" name="seat" value="B-3"></span>
-							<span class="seat"><input type="hidden" name="seat" value="C-3"></span>
-							<span class="seat"><input type="hidden" name="seat" value="D-3"></span>
-							<span class="seat"><input type="hidden" name="seat" value="E-3"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="F-3"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="G-3"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="H-3"></span>
+							<span class="rowNum">2</span> <span class="seat"><input
+								type="hidden" name="seat" value="A-2"></span> <span
+								class="seat"><input type="hidden" name="seat" value="B-2"></span>
+							<span class="occupiedSeat"><input type="hidden"
+								name="seat" value="C-2"></span> <span class="occupiedSeat"><input
+								type="hidden" name="seat" value="D-2"></span> <span
+								class="seat"><input type="hidden" name="seat" value="E-2"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="F-2"></span> <span class="seat"><input
+								type="hidden" name="seat" value="G-2"></span> <span
+								class="seat"><input type="hidden" name="seat" value="H-2"></span>
 						</div>
 
 						<div class="row">
-							<span class="rowNum">4</span>
-							<span class="seat"><input type="hidden" name="seat" value="A-4"></span>
-							<span class="seat"><input type="hidden" name="seat" value="B-4"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="C-4"></span>
-							<span class="seat"><input type="hidden" name="seat" value="D-4"></span>
-							<span class="seat"><input type="hidden" name="seat" value="E-4"></span>
-							<span class="seat"><input type="hidden" name="seat" value="F-4"></span>
-							<span class="seat"><input type="hidden" name="seat" value="G-4"></span>
-							<span class="seat"><input type="hidden" name="seat" value="H-4"></span>
+							<span class="rowNum">3</span> <span class="seat"><input
+								type="hidden" name="seat" value="A-3"></span> <span
+								class="seat"><input type="hidden" name="seat" value="B-3"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="C-3"></span> <span class="seat"><input
+								type="hidden" name="seat" value="D-3"></span> <span
+								class="seat"><input type="hidden" name="seat" value="E-3"></span>
+							<span class="occupiedSeat"><input type="hidden"
+								name="seat" value="F-3"></span> <span class="occupiedSeat"><input
+								type="hidden" name="seat" value="G-3"></span> <span
+								class="occupiedSeat"><input type="hidden" name="seat"
+								value="H-3"></span>
 						</div>
 
 						<div class="row">
-							<span class="rowNum">5</span>
-							<span class="seat"><input type="hidden" name="seat" value="A-5"></span>
-							<span class="seat"><input type="hidden" name="seat" value="B-5"></span>
-							<span class="seat"><input type="hidden" name="seat" value="C-5"></span>
-							<span class="seat"><input type="hidden" name="seat" value="D-5"></span>
-							<span class="seat"><input type="hidden" name="seat" value="E-5"></span>
-							<span class="occupiedSeat"><input type="hidden" name="seat" value="F-5"></span>
-							<span class="seat"><input type="hidden" name="seat" value="G-5"></span>
-							<span class="seat"><input type="hidden" name="seat" value="H-5"></span>
+							<span class="rowNum">4</span> <span class="seat"><input
+								type="hidden" name="seat" value="A-4"></span> <span
+								class="seat"><input type="hidden" name="seat" value="B-4"></span>
+							<span class="occupiedSeat"><input type="hidden"
+								name="seat" value="C-4"></span> <span class="seat"><input
+								type="hidden" name="seat" value="D-4"></span> <span
+								class="seat"><input type="hidden" name="seat" value="E-4"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="F-4"></span> <span class="seat"><input
+								type="hidden" name="seat" value="G-4"></span> <span
+								class="seat"><input type="hidden" name="seat" value="H-4"></span>
 						</div>
 
 						<div class="row">
-							<span class="rowNum">6</span>
-							<span class="seat"><input type="hidden" name="seat" value="A-6"></span>
-							<span class="seat"><input type="hidden" name="seat" value="B-6"></span>
-							<span class="seat"><input type="hidden" name="seat" value="C-6"></span>
-							<span class="seat"><input type="hidden" name="seat" value="D-6"></span>
-							<span class="seat"><input type="hidden" name="seat" value="E-6"></span>
-							<span class="seat"><input type="hidden" name="seat" value="F-6"></span>
-							<span class="seat"><input type="hidden" name="seat" value="G-6"></span>
-							<span class="seat"><input type="hidden" name="seat" value="H-6"></span>
+							<span class="rowNum">5</span> <span class="seat"><input
+								type="hidden" name="seat" value="A-5"></span> <span
+								class="seat"><input type="hidden" name="seat" value="B-5"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="C-5"></span> <span class="seat"><input
+								type="hidden" name="seat" value="D-5"></span> <span
+								class="seat"><input type="hidden" name="seat" value="E-5"></span>
+							<span class="occupiedSeat"><input type="hidden"
+								name="seat" value="F-5"></span> <span class="seat"><input
+								type="hidden" name="seat" value="G-5"></span> <span
+								class="seat"><input type="hidden" name="seat" value="H-5"></span>
+						</div>
+
+						<div class="row">
+							<span class="rowNum">6</span> <span class="seat"><input
+								type="hidden" name="seat" value="A-6"></span> <span
+								class="seat"><input type="hidden" name="seat" value="B-6"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="C-6"></span> <span class="seat"><input
+								type="hidden" name="seat" value="D-6"></span> <span
+								class="seat"><input type="hidden" name="seat" value="E-6"></span>
+							<span class="seat"><input type="hidden" name="seat"
+								value="F-6"></span> <span class="seat"><input
+								type="hidden" name="seat" value="G-6"></span> <span
+								class="seat"><input type="hidden" name="seat" value="H-6"></span>
 						</div>
 
 					</div>
-
+					<p class="text">선택한 좌석 수 : <span id="count">0</span></p>
 				</div>
 			</div>
 		</div>
@@ -473,23 +497,27 @@ li {
 
 const seatContainer = document.querySelector('.seatContainer');
 
-/* const movie = document.getElementById('movie'); // 선택할 영화
-let moviePrice = Number(movie.value); // 영화가격 
+/* const movie = document.getElementById('movie'); // 선택할 영화 */
+const moviePrice = 16800; // 영화가격 
 
 let count = document.querySelector('#count'); // 인원수
-let costs = document.querySelector('#costs'); // 가격 */
+let costs = document.querySelector('#costs'); // 가격
 
 // 선택한 좌석수 텍스트 변경해주기
-
 function countSeatPrice(){
     const selectedSeatCount = document.querySelectorAll('.selectedSeat').length;
 
     count.textContent = selectedSeatCount;
-    costs.textContent = selectedSeatCount * moviePrice;
+    
+    
+    costs.textContent = costFormatToWon(selectedSeatCount * moviePrice);
     
 }
 
-
+//원 단위 콤마 찍기
+function costFormatToWon(x){
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 //좌석 클릭했을때
 
 seatContainer.addEventListener('click', (e) => {
@@ -519,7 +547,7 @@ movie.addEventListener('change', (e) => {
 })
     </script>
 
-
+		<!-- 오른쪽 -->
 		<section style="float: right; width: 307px;">
 			<div id="calendar_popup" class="calendar_popup_02 choice_day"
 				style="">
@@ -603,7 +631,7 @@ movie.addEventListener('change', (e) => {
 					</div>
 					<div class="total_warp" style="display: flex;">
 						<p class="title">총 결제금액</p>
-						<p class="total_price">16,800원</p>
+						<p class="total_price"><span id="costs">0</span>원</p>
 					</div>
 					<div class="submit_btn">
 						<button href="#" class="">결제하기</button>
@@ -612,6 +640,8 @@ movie.addEventListener('change', (e) => {
 			</div>
 		</section>
 		<div style="clear: both;"></div>
+
+		<!-- 후기 -->
 		<section style="width: 820px; margin: 0 auto; padding-top: 20px;">
 			<div class="review_preview" style="">
 				<div class="review_preview_container">
@@ -684,6 +714,7 @@ movie.addEventListener('change', (e) => {
 			</div>
 		</section>
 
+		<!-- 상세정보 -->
 		<section
 			style="width: 820px; margin: 0 auto; padding-top: 20px; border-radius: 10px; border: 1px solid #eee;">
 			<div id="ajaxcontentarea" class="contentstyle1">
@@ -695,6 +726,7 @@ movie.addEventListener('change', (e) => {
 							style="width: 700px; border-radius: 10px;" alt="예매전 주의사항 - 클래스">
 					</div>
 
+					<!-- 예매정보 -->
 					<div style="margin-top: 10px;">
 						<div class="viewpage_noti">예매정보</div>
 						<div class="viewpage_text radius_box">
@@ -703,14 +735,14 @@ movie.addEventListener('change', (e) => {
 							<p>· 이용시간: 약 90분</p>
 						</div>
 					</div>
-
+					<!-- 기획사 공지사항 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">기획사 공지사항</div>
 						<div class="viewpage_text radius_box">
 							<p>· 공연사 전화문의는 마지막 회차 공연 시작 전까지 가능합니다.</p>
 						</div>
 					</div>
-
+					<!-- 이용정보 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">이용정보</div>
 						<div class="viewpage_text radius_box">
@@ -750,7 +782,7 @@ movie.addEventListener('change', (e) => {
 					</div>
 					<div class="main_img"></div>
 
-
+					<!-- 유의사항 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">유의사항</div>
 						<div class="viewpage_text radius_box">
@@ -762,7 +794,7 @@ movie.addEventListener('change', (e) => {
 						</div>
 					</div>
 
-					<!--------- 장소안내 --------->
+					<!-- 장소안내 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">장소안내</div>
 						<div class="viewpage_text radius_box"
@@ -771,6 +803,7 @@ movie.addEventListener('change', (e) => {
 							<p>· 주소: 서울 종로구 대학로10길 5 , 지하1층</p>
 							<p>· 주차: 주차불가(인근 유료주차장 이용 권장)</p>
 						</div>
+						<!-- 지도 -->
 						<div align="center" style="margin-top: 10px;">
 							<div style="z-index: -1;" id="daum_map">
 								<div id="map"
