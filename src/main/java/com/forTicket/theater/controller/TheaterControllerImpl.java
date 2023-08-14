@@ -11,19 +11,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller("theaterController")
-public class TheaterController {
-	@RequestMapping(value={"/main.do"}, method={RequestMethod.GET, RequestMethod.POST})
-	private ModelAndView main(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+public class TheaterControllerImpl {
+	@RequestMapping(value="/theater/listTheater.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView listTheater(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
 	}
 	
-	@RequestMapping(value="/theater/listTheater.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView listTheater(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	@RequestMapping(value="/theater/detailTheater.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView detailTheater(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
+		String t_name = req.getParameter("t_name");
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("t_name", t_name);
 		mav.setViewName(viewName);
 		return mav;
 	}
