@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.forTicket.theater.dao.TheaterDAO;
 import com.forTicket.theater.vo.TheaterVO;
 
-@Service("memberService")
+@Service("theaterService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class TheaterServiceImpl implements TheaterService {
 	@Autowired

@@ -13,6 +13,18 @@ request.setCharacterEncoding("utf-8");
 <head>
 <meta charset="UTF-8">
 <title>공연장 목록</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function readURL(input) {
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$('#preview').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
 <style>
 a, a.underline {
 	color: #000;
@@ -143,34 +155,39 @@ img #map {
 	<div class="wrap_1100">
 		<div class="main_title">공연장 목록 > ${theater_name}</div>
 		<div style="margin-top: 25px;">
+			<form name="frmTheater" method="get" action="${contextPath}/theater/addTheater.do" encType="multipart/form-data">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 				<tbody>
 					<tr>
 						<td valign="top" align="left">
 							<div class="theater_list">
 								<div class="thumb">
-									<img src="${contextPath}/resources/images/asin.jpeg" alt="아신극장">
+									<label for="inputImage">사진</label>
+									<input type="file" name="theater_image" id="inputImage" onchange="readURL(this);" />
+									<img id="preview" src="#" width="200" height="200" />
 								</div>
 							</div>
 						</td>
 						<td valign="top" align="left">
 							<div class="theater_list">
 								<div class="theater_info">
-									<p class="title">${theater_name}</p>
-									<p class="detail">분류 : ${theater_cat} 공연시설</p>
-									<p class="detail">객석수 : ${theater_seats}</p>
-									<p class="detail">${theater_detail}</p>
+									<label for="inputName" class="title">공연장 이름 : 
+									<input type="text" name="theater_name" id="inputName"/></label>
+									<label for="inputCat" class="title">공연장 분류 : 
+									<input type="text" name="theater_cat" id="inputCat"/></label>
+									<label for="inputSeats" class="title">공연장 객석수 : 
+									<input type="text" name="theater_seats" id="inputSeats"/></label>
+									<label for="inputDetail" class="title">공연장 상세정보 : 
+									<input type="text" name="theater_detail" id="inputDetail"/></label>
 									<img src="${contextPath}/resources/images/mapExample.png"
-										id="map" alt="지도"/>
-									<c:if test="${isLogOn == true && member.id == 'admin' }">
-										<input type="button" onclick="location.href='${contextPath}/theater/modTheaterForm.do?theater_id=${theater_id}'"/>
-									</c:if>
+										id="map" alt="지도">
 								</div>
 							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+			</form>
 		</div>
 	</div>
 </body>

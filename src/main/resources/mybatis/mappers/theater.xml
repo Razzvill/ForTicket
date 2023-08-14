@@ -11,6 +11,10 @@
 		<result property="theater_address" column="theater_address" />
 		<result property="theater_image" column="theater_image" />
 		<result property="theater_creDate" column="theater_creDate" />
+		<result property="theater_cat" column="theater_cat" />
+		<result property="theater_seats" column="theater_seats" />
+		<result property="theater_lat" column="theater_lat" />
+		<result property="theater_long" column="theater_long" />
 	</resultMap>
 	
 	<select id="selectAllTheaterList" resultMap="theaterResult">
@@ -27,13 +31,13 @@
 
 	<insert id="insertTheater" parameterType="java.util.Map">
 		<![CDATA[
-			INSERT INTO theater(theater_id, theater_name, theater_detail, theater_address, theater_image) VALUES(#{theater_id}, #{theater_name}, #{theater_detail}, #{theater_address}, #{theater_image})
+			INSERT INTO theater(theater_id, theater_name, theater_detail, theater_address, theater_image, theater_cat, theater_lat, theater_long) VALUES(#{theater_id}, #{theater_name}, #{theater_detail}, #{theater_address}, #{theater_image}, #{theater_cat}, #{theater_seats}, #{theater_lat}, #{theater_long})
 		]]>
 	</insert>
 
 	<update id="updateTheater" parameterType="java.util.Map">
 		<![CDATA[
-			UPDATE theater SET theater_name=#{theater_name}, theater_detail=#{theater_detail}, theater_address=#{theater_address}, theater_image=#{theater_image} WHERE theater_id=#{theater_id}
+			UPDATE theater SET theater_name=#{theater_name}, theater_detail=#{theater_detail}, theater_address=#{theater_address}, theater_image=#{theater_image}, theater_cat=#{theater_cat}, theater_seats=#{theater_seats}, theater_lat=#{theater_lat}, theater_long=#{theater_long} WHERE theater_id=#{theater_id}
 		]]>
 	</update>
 
