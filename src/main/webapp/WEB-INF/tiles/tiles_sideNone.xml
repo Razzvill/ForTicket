@@ -19,6 +19,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/main.jsp" />
 	</definition>
 	
+	<!-- main search -->
+	<definition name="/mainsearch" extends="baseLayout">
+		<put-attribute name="title" value="메인페이지검색결과" />
+		<put-attribute name="body" value="/WEB-INF/views/mainsearch.jsp" />
+	</definition>
+	
 	<!-- 로그인 -->
 	<definition name="/member/loginForm" extends="baseLayout">
 		<put-attribute name="title" value="로그인" />
@@ -78,8 +84,7 @@
 		<put-attribute name="title" value="결제 완료 화면" />
 		<put-attribute name="body" value="/WEB-INF/views/order/reservationSuccess.jsp" />
 	</definition>
-
-
+	
 
 
 	<!-- <definition name="/member/loginForm" extends="baseLayout">
