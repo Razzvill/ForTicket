@@ -17,7 +17,7 @@
 	<meta charset="UTF-8">
 	<style>
 		#container{
-			width: 45%;
+			width: 1100px;
 			margin: 0px auto;
 			text-align: center;
 			border: 0px solid #bcbcbc;

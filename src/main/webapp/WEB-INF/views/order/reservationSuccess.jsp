@@ -111,12 +111,25 @@
 		width:90px;
 		float:left;
 		color:#888;
+		font-size:15px; 
 	}
 	
-	.option_content{
+	.option_con1{
+		width:100%;
+		font-size:15px;
+		text-align:left;
+		padding-left:150px;
+		font-weight:bold;
+	}
+	
+	.option_con2{
 		width:100%; 
 		vertical-align:bottom; 
-		font-size:20px;
+		font-size:15px; 
+		text-align:left; 
+		padding-left:150px;
+		font-weight:bold;
+		
 	}
 </style>
 </head>
@@ -130,7 +143,7 @@
 
 <div style="margin-top:17px; padding:25px 0; border:1px solid #ff6060; border-radius:10px; text-align:center;">
 
-   
+  
 
 	<div style="font-size:20px; font-weight:bold; color:#ff6060;">
 		결제가 정상적으로 완료되었습니다.
@@ -143,36 +156,36 @@
 
 <div style="height:500px; margin-top:10px; border:1px solid #d2d2d2; border-radius: 10px; background:#fff; padding:10px 25px; font-size:15px; color:#313131; line-height:280%; border-color: #FF6251;">
         <div class="option_title">티켓명</div>
-        <div style="width:100%; font-size:20px;">라면</div>
+        <div class="option_con1">라면</div>
         
         <div class="option_title">예매번호</div>
-        <div style="width:100%; font-size:20px;">095-8176-601</div>
+        <div class="option_con1">095-8176-601</div>
         
         <div class="option_title">장소</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom; font-size:20px;">아신극장</div>
+        <div class="option_con2">아신극장</div>
         
         <div class="option_title">연락처</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom; font-size:20px;">1599-3091</div>
+        <div class="option_con2">1599-3091</div>
         
         <div class="option_title">날짜/시간</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom; font-size:20px;">2023.08.31(목)19:00</div>
+        <div class="option_con2">2023.08.31(목)19:00</div>
         
         <div class="option_title">수량</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom; font-size:20px;">1</div>
+        <div class="option_con2">1</div>
         
         <div class="option_title">좌석번호</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom; font-size:20px;">c-1</div>
+        <div class="option_con2">c-1</div>
         
         <div class="option_title">이용자</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom; font-size:20px;">이중민(010-****-****)</div>
+        <div class="option_con2">이중민(010-****-****)</div>
         
         <div class="option_title">티켓합계</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom; font-size:20px;">19,000원</div>
+        <div class="option_con2">19,000원</div>
         
         <div class="option_title">환불기한</div>
-        <div class="option_content" style="width:100%; vertical-align:bottom;">이용 1일 전 자정까지 신청가능<br>(환불규정에 따라 위약금이 발생할 수 있음)</div>
+        <div class="option_con2">이용 1일 전 자정까지 신청가능<br>(환불규정에 따라 위약금이 발생할 수 있음)</div>
      
-        <input type="hidden" name="row_price_value_258000" id="row_price_value_258000" value="18900">
+          <input type="hidden" name="row_price_value_258000" id="row_price_value_258000" value="18900">
         </div>
       </div>
 
