@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
-=======
+
 import com.forTicket.goods.controller.GoodsController;
 
->>>>>>> refs/remotes/origin/sc
+
 @Controller("OrderController")
 public class OrderControllerImpl {
 
