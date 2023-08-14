@@ -76,7 +76,6 @@ public class OrderControllerImpl {
 		return mav;
 	}
 	
-<<<<<<< HEAD
 	//환불 신청 화면
 	@RequestMapping(value= "/order/ticketrefund.do", method = {RequestMethod.GET,RequestMethod.POST})
 	private ModelAndView ticketrefund(HttpServletRequest request, HttpServletResponse response) {
@@ -89,27 +88,6 @@ public class OrderControllerImpl {
 		
 		return mav;
 	}
-=======
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//환불 완료 페이지
 		@RequestMapping(value= "/order/refundSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -123,30 +101,5 @@ public class OrderControllerImpl {
 			
 			return mav;
 		}
-	
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
->>>>>>> refs/remotes/origin/yeji
 	
 }
