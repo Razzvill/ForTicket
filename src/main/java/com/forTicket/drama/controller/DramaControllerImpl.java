@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller("DramaController")
-public class DramaControllerImpl implements DaramaController{
+public class DramaControllerImpl{
 	
 	//연극 페이지 이동
 	@RequestMapping(value= "/drama/listDrama.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -22,16 +22,8 @@ public class DramaControllerImpl implements DaramaController{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		
+		
 		return mav;
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 }
