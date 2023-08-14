@@ -27,6 +27,17 @@ public class OrderControllerImpl implements OrderController{
 		return mav;
 	}
 	
-
+	//결제완료
+	@RequestMapping(value= "/order/reservationSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
+	private ModelAndView reservationSuccess(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		
+		HttpSession session=request.getSession();
+				
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
 	
 }
