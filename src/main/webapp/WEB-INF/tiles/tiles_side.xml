@@ -19,6 +19,17 @@
 		<put-attribute name="body" value="/WEB-INF/views/member/myPage4.jsp" />
 	</definition>
 	
+	<!-- 예매 상세 내역 조회 -->
+	<definition name="/order/ticketDetail" extends="baseLayout1">
+		<put-attribute name="title" value="로그인창" />
+		<put-attribute name="body" value="/WEB-INF/views/order/ticketDetail.jsp" />
+	</definition>
+	
+	<!-- 환불 신청 화면-->
+	<definition name="/order/ticketrefund" extends="baseLayout1">
+		<put-attribute name="title" value="환불 신청 화면" />
+		<put-attribute name="body" value="/WEB-INF/views/order/ticketrefund.jsp" />
+	</definition>
 	
 	
 	

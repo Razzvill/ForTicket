@@ -16,7 +16,6 @@
 	    float: center;
 	    width: 800px;
 	    min-height: 640px;
-	    padding: 40px 30px 0 30px;
 	    background: #fff;
 	    border-radius: 10px;
 	    text-align:center;
@@ -107,96 +106,109 @@
 		width:77%;
 	}
 	
+	.detail{
+		border:3px solid #d2d2d2;
+		border-radius: 20px;
+		background:#fff;
+		padding:10px 25px;
+		font-size:15px;
+		color:#313131;
+		line-height:280%;
+		border-color: #FF6251;
+		height: 700px;
+	}
+	
+	.detail_title{
+		width:150px;
+		font-size:30px;
+		font-weight:bold; 
+		margin-bottom:30px;
+		margin-top: 30px;
+	}
+	
 	.option_title{
-		width:90px;
+		width:170px;
 		float:left;
 		color:#888;
-		font-size:15px; 
+		font-size:20px;
+		text-align: left;
+		margin-left: 15px;
 	}
+	
+	.option_title1{
+		width:170px;
+		float:left;
+		color:#888;
+		font-size:20px;
+		text-align: left;
+		margin-left: 15px;
+		margin-top: 15px;
+	}
+	
 	
 	.option_con1{
 		width:100%;
-		font-size:15px;
+		font-size:20px;
 		text-align:left;
 		padding-left:150px;
 		font-weight:bold;
+		margin-top:15px;
 	}
 	
 	.option_con2{
 		width:100%; 
 		vertical-align:bottom; 
-		font-size:15px; 
+		font-size:20px; 
 		text-align:left; 
 		padding-left:150px;
 		font-weight:bold;
-		
+		margin-top:15px;
 	}
 </style>
 </head>
 <body>
 <div class="mypage_right_wrap">
 
-      <div class="mypage_right_title" style="margin-bottom:20px;">
-        <h2 style="text-align:left;">결제 완료</h2>
-        <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
-        <div style="border-color: #FF6251; width:auto;"></div>
-        </div>
-
-<div style="margin-top:17px; padding:25px 0; border:1px solid #ff6060; border-radius:10px; text-align:center;">
-
-  
-
-	<div style="font-size:20px; font-weight:bold; color:#ff6060;">
-		결제가 정상적으로 완료되었습니다.
-		<div style="font-size:14px; font-weight:300; color:#333; padding-top:15px;">
-			세부사항은 하단 예매내역을 참고해주세요.
-		</div>
-	</div>
-
-</div>
-
-<div style="height:500px; margin-top:10px; border:1px solid #d2d2d2; border-radius: 10px; background:#fff; padding:10px 25px; font-size:15px; color:#313131; line-height:280%; border-color: #FF6251;">
+	<div class="detail">
+        <div class="detail_title">상세 내역</div>
+        
         <div class="option_title">티켓명</div>
         <div class="option_con1">라면</div>
         
-        <div class="option_title">예매번호</div>
+        <div class="option_title1">예매번호</div>
         <div class="option_con1">095-8176-601</div>
         
-        <div class="option_title">장소</div>
+        <div class="option_title1">장소</div>
         <div class="option_con2">아신극장</div>
         
-        <div class="option_title">연락처</div>
+        <div class="option_title1">연락처</div>
         <div class="option_con2">1599-3091</div>
         
-        <div class="option_title">날짜/시간</div>
+        <div class="option_title1">날짜/시간</div>
         <div class="option_con2">2023.08.31(목)19:00</div>
         
-        <div class="option_title">수량</div>
+        <div class="option_title1">수량</div>
         <div class="option_con2">1</div>
         
-        <div class="option_title">좌석번호</div>
+        <div class="option_title1">좌석번호</div>
         <div class="option_con2">c-1</div>
         
-        <div class="option_title">이용자</div>
+        <div class="option_title1">이용자</div>
         <div class="option_con2">이중민(010-****-****)</div>
         
-        <div class="option_title">티켓합계</div>
+        <div class="option_title1">티켓합계</div>
         <div class="option_con2">19,000원</div>
         
-        <div class="option_title">환불기한</div>
-        <div class="option_con2">이용 1일 전 자정까지 신청가능<br>(환불규정에 따라 위약금이 발생할 수 있음)</div>
+        <div class="option_title1">환불기한</div>
+        <div class="option_con2">이용 1일 전 자정까지 신청가능<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(환불규정에 따라 위약금이 발생할 수 있음)</div>
      
           <input type="hidden" name="row_price_value_258000" id="row_price_value_258000" value="18900">
-        </div>
-      </div>
+	</div>
+</div>
 
 <div style="padding:30px; text-align:center;">
-	<span>
-		<a href=""><button style="width:200px; height:50px; border:1px solid #ff4b4b; border-radius:5px; background:#fff; color:#ff4b4b; font-size:18px; font-weight:bold; cursor:pointer ">홈으로</button></a>
-	</span>
-
 	<span style="padding-left:20px;">
-		<a href=""><button style="width:200px; height:50px; border:none; background:#ff4b4b; color:#fff; border-radius:5px; font-size:18px; font-weight:bold; cursor:pointer ">예매내역 전체보기</button></a>
+		<a href=""><button style="width:200px; height:50px; border:none; background:#ff4b4b; color:#fff; border-radius:5px; font-size:18px; font-weight:bold; cursor:pointer ">환불신청하기</button></a>
 	</span>
 </div>
 </body>
