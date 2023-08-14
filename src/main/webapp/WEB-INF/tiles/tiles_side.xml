@@ -25,6 +25,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/order/ticketDetail.jsp" />
 	</definition>
 	
+	<!-- 환불 신청 화면-->
+	<definition name="/order/ticketrefund" extends="baseLayout1">
+		<put-attribute name="title" value="환불 신청 화면" />
+		<put-attribute name="body" value="/WEB-INF/views/order/ticketrefund.jsp" />
+	</definition>
+	
 	
 	
 	<!-- <definition name="/main" extends="baseLayout">

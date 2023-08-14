@@ -15,4 +15,15 @@ public class MainController {
 	 HttpServletResponse resp) throws Exception { String viewName =
 	 (String)req.getAttribute("viewName"); ModelAndView mav = new ModelAndView();
 	 mav.setViewName(viewName); return mav; }
-}
+     
+
+     //메인검색결과
+     @RequestMapping(value={"/mainsearch.do"}, method={RequestMethod.GET,
+		 RequestMethod.POST}) private ModelAndView mainsearch(HttpServletRequest req,
+		 HttpServletResponse resp) throws Exception { String viewName =
+		 (String)req.getAttribute("viewName"); ModelAndView mav = new ModelAndView();
+		 mav.setViewName(viewName); return mav; }
+	     }
+
+
+
