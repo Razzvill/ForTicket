@@ -20,7 +20,7 @@
 				     src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 
 			<div class="title">${item.goods_title }</div>
-			<div class="price">
+			 <div class="price">
 		  	   <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
 		          ${goods_price}원
 			</div>
