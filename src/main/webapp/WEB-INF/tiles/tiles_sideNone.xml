@@ -54,7 +54,12 @@
 		<put-attribute name="title" value="결제 화면" />
 		<put-attribute name="body" value="/WEB-INF/views/order/ticketReservation.jsp" />
 	</definition>
-
+	
+	<!-- 결제 완료 화면-->
+	<definition name="/order/reservationSuccess" extends="baseLayout">
+		<put-attribute name="title" value="결제 완료 화면" />
+		<put-attribute name="body" value="/WEB-INF/views/order/reservationSuccess.jsp" />
+	</definition>
 
 
 
