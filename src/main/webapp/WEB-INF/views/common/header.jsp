@@ -205,7 +205,7 @@
 	<c:otherwise>
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 			<ul class="gnb_nav">
-				<li class="" style="padding-right:105px;"><a href="${contextPath}/drama/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
+				<li class="" style="padding-right:105px;"><a href="${contextPath}/goods/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
 				<li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
 				<li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연</a></li>
 				
