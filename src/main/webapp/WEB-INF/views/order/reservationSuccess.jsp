@@ -137,7 +137,8 @@
 <div class="mypage_right_wrap">
 
       <div class="mypage_right_title" style="margin-bottom:20px;">
-        <h2 style="text-aling:left;">예매완료</h2>
+        <h2 style="text-align:left;">결제 완료</h2>
+        <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         <div style="border-color: #FF6251; width:auto;"></div>
         </div>
 
