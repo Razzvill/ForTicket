@@ -14,13 +14,31 @@ request.setCharacterEncoding("utf-8");
 
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예매 페이지</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/ajaxtabs.js"></script>
 
 <script>
+	$(function() {
+		$("#datepicker").datepicker();
+	});
+
+	$("#datepicker").datepicker(
+			{
+				dateFormat : 'yy-mm-dd',
+				yearSuffix : '년',
+				showMonthAfterYear : true,
+				changeMonth : true,
+				dayNames : [ '월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일' ],
+				dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+				monthNamesShort : [ '1', '2', '3', '4', '5', '6', '7', '8',
+						'9', '10', '11', '12' ],
+				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+						'9월', '10월', '11월', '12월' ]
+			});
 </script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -139,58 +157,196 @@ request.setCharacterEncoding("utf-8");
 .now_engine a {
 	color: #555;
 }
-
-.theater_list {
-	position: relative;
-	margin-right: 26px;
-	margin-bottom: 60px;
-	letter-spacing: -1px;
-	text-align: left;
-	transition: transform 0.3s ease-in-out;
-}
-
-.theater_list .theater_info {
-	width: 95%;
-	padding: 0 5px;
-	letter-spacing: -0.5px;
-}
-
-.theater_list .theater_info .title {
-	margin-top: 10px;
-	font-size: 25px;
-	color: #000;
-	font-weight: 600;
-	display: block;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	text-align: left;
-	word-break: break-all;
-}
-
-.theater_list .theater_info .detail {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 15px;
-	font-size: 15px;
-	color: #000;
-	font-weight: 600;
-	text-align: left;
-}
-
-.submit_btn button {
-	display: inline-block;
-	width: 45%;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
-	background: #ff4b4b;
+/* 좌석선택 스타일 */
+#body {
+	font-family: 'Lato', sans-serif;
+	background-color: #ffffff;
 	color: #fff;
-	font-size: 16px;
-	font-weight: bold;
+	box-sizing: border-box;
+	border: 1px solid #c5c5c5;
 	border-radius: 10px;
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 400px;
+}
+
+.movieContainer {
+	margin: 20px 0px;
+}
+
+.showcase {
+	background-color: #777;
+	background: rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	margin: 16px 0;
+	padding: 5px 10px;
+}
+
+.movieContainer select {
+	margin: 10px;
+	padding: 5px 15px 5px 15px;
+	border-radius: 7px;
+	appearance: none;
 	border: 0;
+}
+
+.movieContainer select option {
+	text-align: left;
+}
+
+li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 10px;
+}
+
+.small {
+	color: #777;
+	margin-left: 2px;
+}
+
+.showcase .seat:hover {
+	cursor: default;
+	scale: 1;
+}
+
+.showcase .selectedSeat:hover {
+	cursor: default;
+	scale: 1;
+}
+
+.screen {
+	background-color: #fff;
+	margin: 15px auto;
+	border: 1px solid #ccc;
+	padding: 5px;
+	width: 140px;
+	height: 80px;
+	transform: rotateX(-45deg);
+	/* box-shadow: 0 3px 10px rgb(255 255 255/ 70%); */
+}
+.colNum {
+	width: 15px;
+	height: 12px;
+	margin: 3px;
+	margin-right: 10px;
+	margin-left: 4px;
+	display: flex;
+	color: black;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.colNum:nth-of-type(3) {
+	margin-right: 19px;
+}
+
+.colNum:nth-of-type(8) {
+	margin-left: 19px;
+}
+.rowNum {
+	width: 15px;
+	height: 12px;
+	margin: 3px;
+	display: flex;
+	color: black;
+}
+.seat {
+	background-color: #444451;
+	width: 15px;
+	height: 12px;
+	margin: 3px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 	cursor: pointer;
+}
+
+.availableSeat {
+	background-color: #444451;
+	width: 15px;
+	height: 12px;
+	margin: 3px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	cursor: default;
+}
+
+.selectedSeatIcon {
+	background-color: #ff4b4b;
+	width: 15px;
+	height: 12px;
+	margin: 3px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	cursor: default;
+}
+
+.seat:hover {
+	scale: 1.2;
+}
+
+.selectedSeat:hover {
+	scale: 1.2;
+}
+
+.seat:nth-of-type(3) {
+	margin-right: 18px;
+}
+
+.seat:nth-of-type(8) {
+	margin-left: 18px;
+}
+
+.occupiedSeat:nth-of-type(3) {
+	margin-right: 18px;
+}
+
+.occupiedSeat:nth-of-type(8) {
+	margin-left: 18px;
+}
+
+.selectedSeat {
+	background-color: #ff4b4b;
+	width: 15px;
+	height: 12px;
+	margin: 3px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	cursor: pointer;
+}
+
+.occupiedSeat {
+	background-color: #ccc;
+	width: 15px;
+	height: 12px;
+	margin: 3px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.row {
+	display: flex;
+}
+
+.text {
+	margin-top: 30px;
+	padding: 20px;
+}
+
+#count {
+	color: #6feaf6;
+}
+
+#costs {
+	color: #6feaf6;
 }
 </style>
 
@@ -199,7 +355,7 @@ request.setCharacterEncoding("utf-8");
 <body>
 	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
 		<div class="now_engine" style="margin-right: 680px;">
-			🗂️ <a href="#">공연 &gt; </a><a href="#">연극 </a>
+			🗂️ <a href="#">공연 &gt; </a><a href="#">연극 &gt; </a>
 		</div>
 
 		<div
@@ -207,31 +363,163 @@ request.setCharacterEncoding("utf-8");
 			<img src="${contextPath}/resources/images/act1.jpg"
 				style="width: 482px; border-radius: 10px;">
 			<div class="info_bg_gradient"></div>
-		</div>
-		
-		<!-- 오른쪽  -->
-		<section style="float: right; width: 307px;">
-			<div class="theater_list">
-				<div class="theater_info">
-					<p class="title">죽여주는 이야기</p>
-					<p class="detail">분류 : 연극</p>
-					<p class="detail">장르 : 코믹</p>
-					<p class="detail">공연기간 : 2023.08.01 ~ 2023.08.31</p>
-					<p class="detail">러닝타임 : 약 90분</p>
-					<p class="detail">이용등급 : 전체이용가</p>
-					<p class="detail">정가 : 16,800원</p>
-					<p class="detail">할인율 :</p>
+
+			<div id="body">
+				<div id="container">
+				<p style="font-size:18px; color:#333333; text-align:center">좌석 선택</p>
+					<ul class="showcase">
+						<li>
+							<div class="availableSeat"></div> <small class="small">빈
+								좌석</small>
+						</li>
+						<li>
+							<div class="selectedSeatIcon"></div> <small class="small">선택
+								좌석</small>
+						</li>
+						<li>
+							<div class="occupiedSeat"></div> <small class="small">예매
+								불가 좌석</small>
+						</li>
+					</ul>
+
+					<div class="seatContainer">
+						<div class="screen"></div>
+						<div class="rowNum">
+							<span class="colNum">&nbsp;&nbsp;</span><span class="colNum">A</span><span class="colNum">B</span>
+							<span class="colNum">C</span><span class="colNum">D</span><span class="colNum">E</span>
+							<span class="colNum">F</span><span class="colNum">G</span><span class="colNum">H</span>
+						</div>
+						<div class="row">
+							<span class="rowNum">1</span>
+							<span class="seat"><input type="hidden" name="seat" value="A-1"></span>
+							<span class="seat"><input type="hidden" name="seat" value="B-1"></span>
+							<span class="seat"><input type="hidden" name="seat" value="C-1"></span>
+							<span class="seat"><input type="hidden" name="seat" value="D-1"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="E-1"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="F-1"></span>
+							<span class="seat"><input type="hidden" name="seat" value="G-1"></span>
+							<span class="seat"><input type="hidden" name="seat" value="H-1"></span>
+						</div>
+
+						<div class="row">
+							<span class="rowNum">2</span>
+							<span class="seat"><input type="hidden" name="seat" value="A-2"></span>
+							<span class="seat"><input type="hidden" name="seat" value="B-2"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="C-2"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="D-2"></span>
+							<span class="seat"><input type="hidden" name="seat" value="E-2"></span>
+							<span class="seat"><input type="hidden" name="seat" value="F-2"></span>
+							<span class="seat"><input type="hidden" name="seat" value="G-2"></span>
+							<span class="seat"><input type="hidden" name="seat" value="H-2"></span>
+						</div>
+
+						<div class="row">
+							<span class="rowNum">3</span>
+							<span class="seat"><input type="hidden" name="seat" value="A-3"></span>
+							<span class="seat"><input type="hidden" name="seat" value="B-3"></span>
+							<span class="seat"><input type="hidden" name="seat" value="C-3"></span>
+							<span class="seat"><input type="hidden" name="seat" value="D-3"></span>
+							<span class="seat"><input type="hidden" name="seat" value="E-3"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="F-3"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="G-3"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="H-3"></span>
+						</div>
+
+						<div class="row">
+							<span class="rowNum">4</span>
+							<span class="seat"><input type="hidden" name="seat" value="A-4"></span>
+							<span class="seat"><input type="hidden" name="seat" value="B-4"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="C-4"></span>
+							<span class="seat"><input type="hidden" name="seat" value="D-4"></span>
+							<span class="seat"><input type="hidden" name="seat" value="E-4"></span>
+							<span class="seat"><input type="hidden" name="seat" value="F-4"></span>
+							<span class="seat"><input type="hidden" name="seat" value="G-4"></span>
+							<span class="seat"><input type="hidden" name="seat" value="H-4"></span>
+						</div>
+
+						<div class="row">
+							<span class="rowNum">5</span>
+							<span class="seat"><input type="hidden" name="seat" value="A-5"></span>
+							<span class="seat"><input type="hidden" name="seat" value="B-5"></span>
+							<span class="seat"><input type="hidden" name="seat" value="C-5"></span>
+							<span class="seat"><input type="hidden" name="seat" value="D-5"></span>
+							<span class="seat"><input type="hidden" name="seat" value="E-5"></span>
+							<span class="occupiedSeat"><input type="hidden" name="seat" value="F-5"></span>
+							<span class="seat"><input type="hidden" name="seat" value="G-5"></span>
+							<span class="seat"><input type="hidden" name="seat" value="H-5"></span>
+						</div>
+
+						<div class="row">
+							<span class="rowNum">6</span>
+							<span class="seat"><input type="hidden" name="seat" value="A-6"></span>
+							<span class="seat"><input type="hidden" name="seat" value="B-6"></span>
+							<span class="seat"><input type="hidden" name="seat" value="C-6"></span>
+							<span class="seat"><input type="hidden" name="seat" value="D-6"></span>
+							<span class="seat"><input type="hidden" name="seat" value="E-6"></span>
+							<span class="seat"><input type="hidden" name="seat" value="F-6"></span>
+							<span class="seat"><input type="hidden" name="seat" value="G-6"></span>
+							<span class="seat"><input type="hidden" name="seat" value="H-6"></span>
+						</div>
+
+					</div>
 
 				</div>
 			</div>
-			<div class="submit_btn">
-				<button
-					onClick="location.href='${contextPath}/member/order_seat.do'"
-					class="">예매하기</button>
-				<button href="#" class="">관심 ☆</button>
-			</div>
-		</section>
-		<%--
+		</div>
+
+		<!-- 좌석 스크립트 -->
+		<script>
+        document.addEventListener('DOMContentLoaded', () =>{
+
+const seatContainer = document.querySelector('.seatContainer');
+
+/* const movie = document.getElementById('movie'); // 선택할 영화
+let moviePrice = Number(movie.value); // 영화가격 
+
+let count = document.querySelector('#count'); // 인원수
+let costs = document.querySelector('#costs'); // 가격 */
+
+// 선택한 좌석수 텍스트 변경해주기
+
+function countSeatPrice(){
+    const selectedSeatCount = document.querySelectorAll('.selectedSeat').length;
+
+    count.textContent = selectedSeatCount;
+    costs.textContent = selectedSeatCount * moviePrice;
+    
+}
+
+
+//좌석 클릭했을때
+
+seatContainer.addEventListener('click', (e) => {
+
+    if(e.target.className === 'seat'){
+        e.target.className = 'selectedSeat';
+    } else if(e.target.className === 'selectedSeat'){
+        e.target.className = 'seat';
+    }
+
+    countSeatPrice();
+})
+
+/* // 영화 변경할때
+
+movie.addEventListener('change', (e) => {
+
+    moviePrice = Number(e.target.value);
+
+    countSeatPrice()
+    
+}) */
+
+
+
+
+})
+    </script>
+
+
 		<section style="float: right; width: 307px;">
 			<div id="calendar_popup" class="calendar_popup_02 choice_day"
 				style="">
@@ -301,9 +589,7 @@ request.setCharacterEncoding("utf-8");
 												style="width: 18px; vertical-align: -3px;">
 										</button>
 									</div>
-									<p class="price">
-										<span id="costs">0</span>
-									</p>
+									<p class="price">16,800원</p>
 									<input type="hidden" name="product_cate[]" value="264681"><input
 										type="hidden" name="product_cate_price[]" class="item_price"
 										value="16800"><input type="hidden" name="item_jaego"
@@ -324,11 +610,8 @@ request.setCharacterEncoding("utf-8");
 					</div>
 				</form>
 			</div>
-		</section> --%>
-
+		</section>
 		<div style="clear: both;"></div>
-
-		<!-- 후기 영역 시작 -->
 		<section style="width: 820px; margin: 0 auto; padding-top: 20px;">
 			<div class="review_preview" style="">
 				<div class="review_preview_container">
@@ -401,7 +684,6 @@ request.setCharacterEncoding("utf-8");
 			</div>
 		</section>
 
-		<!-- 상세정보 -->
 		<section
 			style="width: 820px; margin: 0 auto; padding-top: 20px; border-radius: 10px; border: 1px solid #eee;">
 			<div id="ajaxcontentarea" class="contentstyle1">
@@ -413,7 +695,6 @@ request.setCharacterEncoding("utf-8");
 							style="width: 700px; border-radius: 10px;" alt="예매전 주의사항 - 클래스">
 					</div>
 
-					<!-- 예매정보 -->
 					<div style="margin-top: 10px;">
 						<div class="viewpage_noti">예매정보</div>
 						<div class="viewpage_text radius_box">
@@ -423,7 +704,6 @@ request.setCharacterEncoding("utf-8");
 						</div>
 					</div>
 
-					<!-- 공지사항 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">기획사 공지사항</div>
 						<div class="viewpage_text radius_box">
@@ -431,7 +711,6 @@ request.setCharacterEncoding("utf-8");
 						</div>
 					</div>
 
-					<!-- 이용정보 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">이용정보</div>
 						<div class="viewpage_text radius_box">
@@ -471,7 +750,7 @@ request.setCharacterEncoding("utf-8");
 					</div>
 					<div class="main_img"></div>
 
-					<!-- 유의사항 -->
+
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">유의사항</div>
 						<div class="viewpage_text radius_box">
