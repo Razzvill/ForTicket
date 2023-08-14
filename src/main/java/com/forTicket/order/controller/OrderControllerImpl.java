@@ -9,9 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
+=======
+import com.forTicket.goods.controller.GoodsController;
+
+>>>>>>> refs/remotes/origin/sc
 @Controller("OrderController")
 public class OrderControllerImpl {
 
+	//주문페이지(날짜선택 등)
+	@RequestMapping(value={"/member/order.do"}, method={RequestMethod.GET, RequestMethod.POST})
+	private ModelAndView order(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String viewName = (String)req.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
 	//결제화면
 	@RequestMapping(value= "/order/ticketReservation.do", method = {RequestMethod.GET,RequestMethod.POST})
 	private ModelAndView ticketReservation(HttpServletRequest request, HttpServletResponse response) {
