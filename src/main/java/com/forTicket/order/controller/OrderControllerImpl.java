@@ -40,4 +40,17 @@ public class OrderControllerImpl implements OrderController{
 		return mav;
 	}
 	
+	//예매 상세 페이지
+	@RequestMapping(value= "/order/ticketDetail.do", method = {RequestMethod.GET,RequestMethod.POST})
+	private ModelAndView ticketDetail(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		
+		HttpSession session=request.getSession();
+				
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
+	
 }
