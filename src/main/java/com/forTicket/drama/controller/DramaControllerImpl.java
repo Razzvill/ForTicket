@@ -23,6 +23,15 @@ public class DramaControllerImpl implements DaramaController{
 		mav.setViewName(viewName);
 		
 		return mav;
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 }
