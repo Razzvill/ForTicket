@@ -64,4 +64,20 @@ public class OrderControllerImpl {
 		return mav;
 	}
 	
+	
+	//환불 완료 페이지
+		@RequestMapping(value= "/order/refundSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
+		private ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) {
+			String viewName = (String)request.getAttribute("viewName");
+			
+			HttpSession session=request.getSession();
+					
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName(viewName);
+			
+			return mav;
+		}
+	
+	
+	
 }
