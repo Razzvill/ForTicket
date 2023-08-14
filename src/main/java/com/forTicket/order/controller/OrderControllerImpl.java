@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.forTicket.drama.controller.DaramaController;
-
 @Controller("OrderController")
-public class OrderControllerImpl implements OrderController{
+public class OrderControllerImpl {
 
 	//결제화면
 	@RequestMapping(value= "/order/ticketReservation.do", method = {RequestMethod.GET,RequestMethod.POST})

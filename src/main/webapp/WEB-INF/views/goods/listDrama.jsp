@@ -112,7 +112,7 @@ request.setCharacterEncoding("utf-8");
 	<tbody>
 	<tr>
 		<td valign="top" align="left">
-			<a href="#">
+			<a href="${contextPath}/goods/detailGoods.do">
 				<div class="drama_list">
 					<div class="thumb">
 						<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">

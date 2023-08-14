@@ -129,10 +129,10 @@
 	<tbody>
 		<tr>
 			<td valign="top" align="left">
-				<a href="#">
+				<a href="${contextPath}/theater/detailTheater.do">
 					<div class="theater_list">
 						<div class="thumb">
-							<img src="${contextPath}/resources/images/theater1.jpg" alt="아신극장">
+							<img src="${contextPath}/resources/images/asin.jpeg" alt="아신극장">
 						</div>
 						<div class="theater_info">
 							<p class="category">민간</p>
