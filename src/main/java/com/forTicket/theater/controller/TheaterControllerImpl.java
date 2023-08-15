@@ -16,6 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller("theaterController")
 public class TheaterControllerImpl {
+	private static String ARTICLE_IMAGE_REPO = "C:\\forTicket\\theater";
+	
+	
+	
 	@RequestMapping(value="/theater/listTheater.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView listTheater(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName = (String)req.getAttribute("viewName");

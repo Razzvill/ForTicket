@@ -299,17 +299,48 @@
 <form method="post">
 <div class="mypage4">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left;">예매 내역</h2>
+    	<h2 style="text-align:left;">사업자 정보</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>
 	<table class="search">
 		<tr>
-		<td>공연명</td>
-		<td><input class="inputSize1" type="text"></td>
-		<td width="100px">공연일자</td>
-		<td width="200px">
-			<select name="beginYear" class="optionsize" >
+			<td>사업자명</td>
+			<td><input class="inputSize1" type="text"></td>
+			<td>사업장 번호</td>
+			<td><input class="inputSize1" type="text"></td>
+			<td align=right>
+				<a class="alink" href="javascript:search_goods_list('today')">
+				   <img   src="${contextPath}/resources/images/button/btn_search_one_day.jpg">
+				</a>
+				<a class="alink" href="javascript:search_goods_list('one_week')">
+				   <img   src="${contextPath}/resources/images/button/btn_search_1_week.jpg">
+				</a>
+				<a class="alink" href="javascript:search_goods_list('two_week')">
+				   <img   src="${contextPath}/resources/images/button/btn_search_2_week.jpg">
+				</a>
+				<a class="alink" href="javascript:search_goods_list('one_month')">
+				   <img   src="${contextPath}/resources/images/button/btn_search_1_month.jpg">
+				</a>
+				<a class="alink" href="javascript:search_goods_list('two_month')">
+				   <img   src="${contextPath}/resources/images/button/btn_search_2_month.jpg">
+				</a>
+				<a class="alink" href="javascript:search_goods_list('three_month')">
+				   <img   src="${contextPath}/resources/images/button/btn_search_3_month.jpg">
+				</a>
+				<a class="alink" href="javascript:search_goods_list('four_month')">
+				   <img   src="${contextPath}/resources/images/button/btn_search_4_month.jpg">
+				</a>
+				&nbsp;까지 조회
+			</td>
+		</tr>
+		
+		<tr>
+			<td>아이디</td>
+			<td><input class="inputSize1" type="text"></td>
+			<td>가입 일자</td>
+			<td colspan=2 align=left>
+				<select name="beginYear" class="optionsize" >
 					<c:forEach   var="i" begin="0" end="5">
 						<c:choose>
 					    	<c:when test="${beginYear==beginYear-i }">
@@ -320,8 +351,8 @@
 					        </c:otherwise>
 					     </c:choose>
 					</c:forEach>
-			</select>년 
-			<select name="beginMonth" class="optionsize">
+				</select>년 
+				<select name="beginMonth" class="optionsize">
 					<c:forEach   var="i" begin="1" end="12">
 						<c:choose>
 					    	<c:when test="${beginMonth==i }">
@@ -339,8 +370,8 @@
 					        </c:otherwise>
 						</c:choose>
 					 </c:forEach>					
-			</select>월
-			<select name="beginDay" class="optionsize">
+				</select>월
+				<select name="beginDay" class="optionsize">
 					<c:forEach   var="i" begin="1" end="31">
 						<c:choose>
 					    	<c:when test="${beginDay==i }">
@@ -358,39 +389,14 @@
 					    	</c:otherwise>
 						</c:choose>
 					</c:forEach>	
-			</select>일
-		</td>
-		<td colspan="3">
-			<a href="javascript:search_goods_list('today')">
-			   <img   src="${contextPath}/resources/images/button/btn_search_one_day.jpg">
-			</a>
-			<a href="javascript:search_goods_list('one_week')">
-			   <img   src="${contextPath}/resources/images/button/btn_search_1_week.jpg">
-			</a>
-			<a href="javascript:search_goods_list('two_week')">
-			   <img   src="${contextPath}/resources/images/button/btn_search_2_week.jpg">
-			</a>
-			<a href="javascript:search_goods_list('one_month')">
-			   <img   src="${contextPath}/resources/images/button/btn_search_1_month.jpg">
-			</a>
-			<a href="javascript:search_goods_list('two_month')">
-			   <img   src="${contextPath}/resources/images/button/btn_search_2_month.jpg">
-			</a>
-			<a href="javascript:search_goods_list('three_month')">
-			   <img   src="${contextPath}/resources/images/button/btn_search_3_month.jpg">
-			</a>
-			<a href="javascript:search_goods_list('four_month')">
-			   <img   src="${contextPath}/resources/images/button/btn_search_4_month.jpg">
-			</a>
-			&nbsp;까지 조회
-		</td>
+				</select>일
+			</td>
 		</tr>
-		
 		<tr>
-		<td>예매번호</td>
-		<td><input class="inputSize1" type="text"></td>
-		<td>조회기간</td>
-					<td colspan=3 align=left>
+			<td>사업자 번호</td>
+			<td><input class="inputSize1" type="text"></td>	
+		  	<td>조회 기간</td>
+			<td colspan=3 align=left>
 				<select name="beginYear" class="optionsize" >
 					<c:forEach   var="i" begin="0" end="5">
 						<c:choose>
@@ -492,10 +498,10 @@
 				    </c:forEach>	
 				</select>
 			</td>
-		<td>
+			<td>
 			<input type="button" value="검색">
 			<input type="button" value="초기화">
-		</td>
+			</td>
 	</table>
 </form>
 
@@ -503,24 +509,26 @@
 
 <table class="result">
 	<tr>
-		<td>예매번호</td>
-		<td>공연명</td>
-		<td>공연일자</td>
-		<td>공연시간</td>
-		<td>공연장소</td>
-		<td>인원</td>
-		<td>좌석번호</td>
-		<td>예매상태</td>
+		<td>회원명</td>
+		<td>아이디</td>
+		<td>비밀번호</td>
+		<td>핸드폰번호</td>
+		<td>이메일</td>
+		<td>주소</td>
+		<td>가입일자</td>
+		<td>수정</td>
+		<td>삭제</td>
 	</tr>
 	<tr>
-		<td>095-8176-601</td>
-		<td>운빨로맨스</td>
-		<td>2023.08.04</td>
-		<td>19:30</td>
-		<td>대전 xx구 xx로 xx길</td>
-		<td>1</td>
-		<td>C-1</td>
-		<td>예매완료/<a href="#" class="reply">리뷰쓰기</a></td>
+		<td>회원명{}</td>
+		<td>아이디{}</td>
+		<td>비밀번호{}</td>
+		<td>핸드폰번호{}</td>
+		<td>이메일{}</td>
+		<td>주소{}</td>
+		<td>가입일자{}</td>
+		<td><a href="#" class="reply">수정하기{}</td>
+		<td><a href="#" class="reply">삭제하기{}</td>
 	</tr>
 </table>
 </div>
