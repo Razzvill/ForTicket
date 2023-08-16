@@ -28,10 +28,16 @@
 			SELECT * FROM theater WHERE theater_id=#{theater_id}
 		]]>
 	</select>
+	
+	<select id="selectIdFromData" resultType="int" parameterType="java.util.Map">
+		<![CDATA[
+			SELECT theater_id FROM theater WHERE theater_name=#{theater_name} AND theater_address=#{theater_address}
+		]]>
+	</select>
 
 	<insert id="insertTheater" parameterType="java.util.Map">
 		<![CDATA[
-			INSERT INTO theater(theater_id, theater_name, theater_detail, theater_address, theater_image, theater_cat, theater_lat, theater_long) VALUES(#{theater_id}, #{theater_name}, #{theater_detail}, #{theater_address}, #{theater_image}, #{theater_cat}, #{theater_seats}, #{theater_lat}, #{theater_long})
+			INSERT INTO theater(theater_name, theater_detail, theater_address, theater_image, theater_cat, theater_seats) VALUES(#{theater_name}, #{theater_detail}, #{theater_address}, #{theater_image}, #{theater_cat}, #{theater_seats})
 		]]>
 	</insert>
 
