@@ -33,8 +33,8 @@
 			width: 15%;
 			height: 500px;
 			padding: 5px;
-			margin-top: 40px;
-			margin-bottom: 40px;
+			margin-top: 50px;
+			margin-bottom: 50px;
 			float: left;
 			border: 3px solid #FF6251;
 			font-size: 10px;
@@ -42,10 +42,10 @@
 		}
 		
 		#content{
-			width: 78%;
+			width: 82%;
 			padding: 0px;
 			margin-top: 50px;
-			margin-left: 30px;
+			margin-left: 15px;
 			float: left;
 			border: 0px solid #bcbcbc;
 		}

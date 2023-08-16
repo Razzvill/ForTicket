@@ -1,5 +1,7 @@
 package com.forTicket.theater.controller;
 
+import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,10 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller("theaterController")
 public class TheaterControllerImpl {
+	private static String ARTICLE_IMAGE_REPO = "C:\\forTicket\\theater";
+	
+	
+	
 	@RequestMapping(value="/theater/listTheater.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView listTheater(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName = (String)req.getAttribute("viewName");
@@ -60,5 +68,23 @@ public class TheaterControllerImpl {
 			viewName = viewName.substring(viewName.lastIndexOf("/", 1), viewName.length());
 		}
 		return viewName;
+	}
+	
+	private String upload(MultipartHttpServletRequest multipartReq) throws Exception {
+		String imageFileName = null;
+		Iterator<String> fileNames = multipartReq.getFileNames();
+		while(fileNames.hasNext()) {
+			String fileName = fileNames.next();
+			MultipartFile mFile = multipartReq.getFile(fileName);
+			imageFileName = mFile.getOriginalFilename();
+			File file = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+fileName);
+			if(mFile.getSize()!=0) {
+				if(!file.exists()) {
+					file.getParentFile().mkdirs();
+					mFile.transferTo(new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName));
+				}
+			}
+		}
+		return imageFileName;
 	}
 }

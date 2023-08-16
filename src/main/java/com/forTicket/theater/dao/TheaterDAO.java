@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.forTicket.theater.vo.TheaterVO;
 
 @Mapper
-@Repository("memberDAO")
+@Repository("theaterDAO")
 public interface TheaterDAO {
 	public List selectAllTheaterList() throws DataAccessException;
 	public TheaterVO selectTheaterInfo(int theater_id) throws DataAccessException;
