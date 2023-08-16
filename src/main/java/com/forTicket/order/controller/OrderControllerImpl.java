@@ -50,7 +50,7 @@ public class OrderControllerImpl {
 		return mav;
 	}
 	
-	//寃곗젣�셿猷�
+	//예약완료
 	@RequestMapping(value= "/order/reservationSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
 	private ModelAndView reservationSuccess(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
@@ -63,7 +63,7 @@ public class OrderControllerImpl {
 		return mav;
 	}
 	
-	//�삁留� �긽�꽭 �럹�씠吏�
+	//예매상세
 	@RequestMapping(value= "/order/ticketDetail.do", method = {RequestMethod.GET,RequestMethod.POST})
 	private ModelAndView ticketDetail(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");

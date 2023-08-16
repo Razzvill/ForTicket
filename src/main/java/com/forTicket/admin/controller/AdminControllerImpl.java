@@ -25,16 +25,16 @@ public class AdminControllerImpl implements AdminController {
 	}
 	
 	//관리자 사업자관리
-		@RequestMapping(value= "/admin/member/adminBus.do", method = {RequestMethod.GET,RequestMethod.POST})
-		private ModelAndView adminBus(HttpServletRequest request, HttpServletResponse response) {
-			String viewName = (String)request.getAttribute("viewName");
-			
-			HttpSession session=request.getSession();
-					
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName(viewName);
-			
-			return mav;
-		}
+	@RequestMapping(value= "/admin/member/adminBus.do", method = {RequestMethod.GET,RequestMethod.POST})
+	private ModelAndView adminBus(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		
+		HttpSession session=request.getSession();
+				
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
 	
 }
