@@ -55,16 +55,16 @@ public class MemberControllerImpl implements MemberController{
 	}
 	
 	//마이페이지 예매내역 이동
-		@RequestMapping(value= "/member/myPage4.do", method = {RequestMethod.GET,RequestMethod.POST})
-		private ModelAndView mypage4(HttpServletRequest request, HttpServletResponse response) {
-			String viewName = (String)request.getAttribute("viewName");
-			
-			HttpSession session=request.getSession();
-					
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName(viewName);
-			
-			return mav;
-		}	
+	@RequestMapping(value= "/member/myPage4.do", method = {RequestMethod.GET,RequestMethod.POST})
+	private ModelAndView mypage4(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		
+		HttpSession session=request.getSession();
+				
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		
+		return mav;
+	}	
 	
 }
