@@ -10,8 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller("mainController")
 public class MainController {
-	
-	
 	 @RequestMapping(value={"/main.do"}, method={RequestMethod.GET,RequestMethod.POST})
 	 private ModelAndView main(HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		 String viewName = (String)req.getAttribute("viewName");
@@ -20,7 +18,7 @@ public class MainController {
 	}
      
 
-     //���ΰ˻����
+     //검색 결과 창
      @RequestMapping(value={"/mainsearch.do"}, method={RequestMethod.GET, RequestMethod.POST})
      private ModelAndView mainsearch(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     	 String viewName = (String)req.getAttribute("viewName");
