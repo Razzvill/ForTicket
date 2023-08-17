@@ -20,9 +20,9 @@
 	</definition>
 	
 	<!-- main search -->
-	<definition name="/mainsearch" extends="baseLayout">
-		<put-attribute name="title" value="메인페이지검색결과" />
-		<put-attribute name="body" value="/WEB-INF/views/mainsearch.jsp" />
+	<definition name="/mainSearch" extends="baseLayout">
+		<put-attribute name="title" value="메인페이지 검색결과" />
+		<put-attribute name="body" value="/WEB-INF/views/mainSearch.jsp" />
 	</definition>
 	
 	<!-- 로그인 -->
@@ -67,16 +67,28 @@
 		<put-attribute name="body" value="/WEB-INF/views/theater/detailTheater.jsp" />
 	</definition>
 	
+	<!-- 공연장 등록-->
+	<definition name="/theater/modTheaterForm" extends="baseLayout">
+		<put-attribute name="title" value="공연장 등록" />
+		<put-attribute name="body" value="/WEB-INF/views/theater/modTheaterForm.jsp" />
+	</definition>
+	
+	<!-- 공연장 수정-->
+	<definition name="/theater/theaterForm" extends="baseLayout">
+		<put-attribute name="title" value="공연장 수정" />
+		<put-attribute name="body" value="/WEB-INF/views/theater/theaterForm.jsp" />
+	</definition>
+	
 	<!-- 상품 예매(좌석 지정) -->
-	<definition name="/member/order_seat" extends="baseLayout">
+	<definition name="/order/order_seat" extends="baseLayout">
 		<put-attribute name="title" value="상품 예매(좌석 지정)" />
-		<put-attribute name="body" value="/WEB-INF/views/member/order_seat.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/order_seat.jsp" />
 	</definition>
 	
 	<!-- 상품 예매(좌석 미지정) -->
-	<definition name="/member/order_seatNone" extends="baseLayout">
+	<definition name="/order/order_seatNone" extends="baseLayout">
 		<put-attribute name="title" value="상품 예매(좌석 미지정)" />
-		<put-attribute name="body" value="/WEB-INF/views/member/order_seatNone.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/order_seatNone.jsp" />
 	</definition>
 	
 	<!-- 결제 화면-->
@@ -91,6 +103,14 @@
 		<put-attribute name="body" value="/WEB-INF/views/order/reservationSuccess.jsp" />
 	</definition>
 	
+<<<<<<< HEAD
+=======
+	<!-- 회원 정보 수정창-->
+	<definition name="/member/modmember" extends="baseLayout">
+		<put-attribute name="title" value="회원 정보 수정창" />
+		<put-attribute name="body" value="/WEB-INF/views/member/modmember.jsp" />
+	</definition>
+	
 
 
 
@@ -103,13 +123,18 @@
 
 
 	
+>>>>>>> refs/remotes/origin/master
 	<!-- 환불 완료 화면-->
 	<definition name="/order/refundSuccess" extends="baseLayout">
 		<put-attribute name="title" value="환불 완료 화면" />
 		<put-attribute name="body" value="/WEB-INF/views/order/refundSuccess.jsp" />
 	</definition>
 	
-
+	<!-- 공연장 목록-->
+	<definition name="/event/listEvent" extends="baseLayout">
+		<put-attribute name="title" value="이벤트 목록(사용자)" />
+		<put-attribute name="body" value="/WEB-INF/views/event/listEvent.jsp" />
+	</definition>
 
 	<!-- <definition name="/member/loginForm" extends="baseLayout">
 		<put-attribute name="title" value="로그인창" />

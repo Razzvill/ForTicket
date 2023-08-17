@@ -1,1 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.forTicket.member.dao.MemberDAO">	
+   <resultMap id="memResult" type="memberVO">
+      <result property="mem_id" column="mem_id" />
+      <result property="pwd" column="pwd" />
+      <result property="mem_name" column="mem_name" />
+      <result property="email" column="email" />
+      <result property="phone1" column="phone1" />
+      <result property="phone2" column="phone2" />
+      <result property="post" column="post" />
+      <result property="addr1" column="addr1" />
+      <result property="addr2" column="addr2" />
+      <result property="b_number" column="b_number" />
+      <result property="b_name" column="b_name" />
+      <result property="b_phone1" column="b_phone1" />
+      <result property="b_phone2" column="b_phone2" />
+      <result property="checkbox" column="checkbox" />
+      <result property="memberCheck" column="memberCheck" />
+      <result property="joinDate" column="joinDate" />
+      
+   </resultMap> 
+ 
+ 
+   <select id="selectAllMemberList" resultMap="memResult"   >
+      <![CDATA[
+        select * from member order by joinDate desc			
+      ]]>
+   </select>
+
+   <insert id="insertMember"  parameterType="memberVO">
+		<![CDATA[
+		 insert into member(mem_id,pwd, mem_name, email, phone1, addr1, addr2)
+		 values(#{mem_id}, #{pwd}, #{mem_name}, #{email},#{phone1},#{addr1},#{addr2})
+		]]>      
+	</insert>
+	
+   
+   <update id="updateMember"  parameterType="memberVO">
+     <![CDATA[
+	     update member
+	     set pwd=#{pwd}, name=#{mem_name}, email=#{email}
+	     where
+	     mem_id = #{mem_id}
+      ]]>      
+   </update> 
+     
+   <delete id="deleteMember"  parameterType="String">
+	<![CDATA[
+	   delete from  member
+	   where
+	   mem_id = #{mem_id}
+	]]>      
+  </delete>
+  <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+	<![CDATA[
+		select * from member	
+		where mem_id = #{mem_id} and pwd=#{pwd}		
+	]]>
+  </select>
+  <select id="selectMemberById" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			select * from member where mem_id = #{mem_id}
+		]]>
+	</select>
+	
+	<select id="selectMemberByPwd" resultMap="memResult" parameterType="int">
+		<![CDATA[
+			select * from member where pwd = #{pwd}
+		]]>
+	</select>
+	
+	<select id="selectLike" resultMap="memResult" parameterType="String">
+		<![CDATA[
+			select * from member
+			where name like CONCAT('%', #{mem_name}, '%')
+		]]>
+	</select>
+	
+	<select id="selectOverlappedID" parameterType="String" resultType="String">
+      select if(count(*)=1, 'true', 'false')
+	   from member
+	   where mem_id = #{id}
+   </select>
+	
+   
+</mapper>
