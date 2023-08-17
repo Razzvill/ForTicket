@@ -109,7 +109,7 @@
 						<table align="center">
 							<tr class="mod2">
 								<td class="mod2">아이디</td>
-								<td class="mod3"><input type="text" class="mod4" name="id" id="i_id"
+								<td class="mod3"><input type="text" class="mod4" name="mem_id" id="i_id"
 										value="${member.id}" readonly>
 								</td>
 							</tr>
@@ -121,7 +121,7 @@
 							<tr class="mod2">
 								<td class="mod2">이름</td>
 								<td class="mod3">
-									<input type="text" class="mod4" name="name" value="${member.name}">
+									<input type="text" class="mod4" name="mem_name" value="${member.name}">
 								</td>
 							</tr>
 							<tr class="mod2">
