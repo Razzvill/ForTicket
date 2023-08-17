@@ -85,6 +85,10 @@ request.setCharacterEncoding("utf-8");
 	.stars{
 		width: 20px;
 	}
+	hr {
+		width: 90%;
+		float: left;
+	}
 </style>
 </head>
 
@@ -105,7 +109,7 @@ request.setCharacterEncoding("utf-8");
 				<li><a href="#"> 최고가순 </a></li>
 			</ul>
 		</div>
-		</div>
+		</div><hr>
 	<!-- 중단 상품 나열 -->
 	<div style="padding-top: 50px;">
 	<table style="width: 100%; border: 0; cellpadding: 0; cellspacing: 0;">

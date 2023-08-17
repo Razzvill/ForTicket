@@ -117,6 +117,10 @@
 	    cursor: pointer;
 	    float: right;
 	}
+	hr {
+		width: 90%;
+		float: left;
+	}
 </style>
 </head>
 <body>
@@ -125,7 +129,7 @@
 <%-- <c:if test="${isLogOn == true && member.id == 'admin' }"> --%>
 <input type="button" value="등록하기" class="btn1" onclick="location.href='${contextPath}/theater/theaterForm.do'" />
 <%-- </c:if> --%>
-</div>
+</div><hr>
 <div style="margin-top: 25px;">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tbody>

@@ -12,7 +12,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title>검색 결과</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
