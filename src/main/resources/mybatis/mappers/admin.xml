@@ -52,14 +52,31 @@
 			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
 			 from (		
 		    	SELECT * FROM member WHERE b_name IS NOT NULL AND DATE_FORMAT(joinDate, '%Y-%m-%d') BETWEEN #{beginDate} AND #{endDate}
-				ORDER BY joinDate DESC
-				) as table1
+					ORDER BY joinDate DESC
+					) as table1
 				) as table2				
 			where				
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				
-
-      		    
 	</select>
+
+	<!--수정창 이동시 id가져오기 -->
+	<select id="selectMemberById" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			select mem_name,pwd,phone2,email,concat(addr1,addr2) from member
+			where
+			id=#{id}
+		]]>	
+	</select>
+
+	<!-- 사업자 회원 수정 -->	
+	<update id="adminUpdateMember"  parameterType="memberVO">
+     <![CDATA[
+	     update member
+	     	set mem_name=#{mem_name}, pwd=#{pwd}, phone2=#{phone2}, email=#{email}, concat(addr1,addr2) = concat(#{addr1},#{addr2})
+	     	where
+			mem_id=#{mem_id}
+      ]]>      
+   </update> 
 </mapper>
    
    	

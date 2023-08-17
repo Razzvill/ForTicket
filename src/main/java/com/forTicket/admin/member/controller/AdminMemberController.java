@@ -14,4 +14,9 @@ public interface AdminMemberController {
 
 	//관리자 사업자관리
 	public ModelAndView adminBus(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+
+	//회원 수정이동 페이지 이동, memberVO값 가져오기
+	public ModelAndView adminModMember(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+
 }

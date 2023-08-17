@@ -10,20 +10,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller("mainController")
 public class MainController {
-	 @RequestMapping(value={"/main.do"}, method={RequestMethod.GET,
-	 RequestMethod.POST}) private ModelAndView main(HttpServletRequest req,
-	 HttpServletResponse resp) throws Exception { String viewName =
-	 (String)req.getAttribute("viewName"); ModelAndView mav = new ModelAndView();
-	 mav.setViewName(viewName); return mav; }
+	
+	
+	 @RequestMapping(value={"/main.do"}, method={RequestMethod.GET,RequestMethod.POST})
+	 private ModelAndView main(HttpServletRequest req,HttpServletResponse resp) throws Exception {
+		 String viewName = (String)req.getAttribute("viewName");
+		 ModelAndView mav = new ModelAndView();
+		 mav.setViewName(viewName); return mav;
+	}
      
 
-     //¸ÞÀÎ°Ë»ö°á°ú
-     @RequestMapping(value={"/mainsearch.do"}, method={RequestMethod.GET,
-		 RequestMethod.POST}) private ModelAndView mainsearch(HttpServletRequest req,
-		 HttpServletResponse resp) throws Exception { String viewName =
-		 (String)req.getAttribute("viewName"); ModelAndView mav = new ModelAndView();
-		 mav.setViewName(viewName); return mav; }
-	     }
+     //ï¿½ï¿½ï¿½Î°Ë»ï¿½ï¿½ï¿½ï¿½
+     @RequestMapping(value={"/mainsearch.do"}, method={RequestMethod.GET, RequestMethod.POST})
+     private ModelAndView mainsearch(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    	 String viewName = (String)req.getAttribute("viewName");
+    	 ModelAndView mav = new ModelAndView();
+		 mav.setViewName(viewName); return mav;
+		 }
+}
 
 
 

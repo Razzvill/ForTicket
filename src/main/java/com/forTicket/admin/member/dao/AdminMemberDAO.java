@@ -17,7 +17,9 @@ public interface AdminMemberDAO {
 
 	//관리자 사업자관리
 	public ArrayList<MemberVO> adminListBus(HashMap condMap) throws DataAccessException;
-
+	
+	//수정창 이동시 id가져오기
+	public MemberVO selectMemberById(MemberVO memberVO)  throws DataAccessException;
 
 
 }

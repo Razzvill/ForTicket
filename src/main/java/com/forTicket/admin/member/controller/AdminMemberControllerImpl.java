@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,13 @@ import com.forTicket.member.vo.MemberVO;
 public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	@Autowired
+	private MemberVO memberVO;
+	
+	@Autowired
 	private AdminMemberService adminMemberService;
+	
+	//
+	
 	
 	//관리자 회원관리
 	@Override
@@ -145,6 +150,28 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 				
 		return mav;
 	}
+	
+	//회원 수정창 이동, memberVO값 가져오기
+	@RequestMapping(value="admin/member/adminModMember.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView adminModMember(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		
+		String viewName = (String)request.getAttribute("viewName");
+		
+		memberVO.setMem_id(id);		
+		
+		memberVO = adminMemberService.adminModMember(memberVO);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("member", memberVO);
+		mav.setViewName(viewName);
+		
+		return mav;
+}
+	
+	
+	
 	
 	
 	
