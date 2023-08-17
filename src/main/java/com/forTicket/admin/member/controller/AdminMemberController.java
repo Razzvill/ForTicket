@@ -33,6 +33,6 @@ public interface AdminMemberController {
 	public ModelAndView adminModBus(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//회원 수정
-	public ModelAndView adminUpdateMember(@ModelAttribute("info") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity adminUpdateMember(@ModelAttribute("info") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 }
