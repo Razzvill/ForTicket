@@ -80,12 +80,11 @@ public class MemberControllerImpl implements MemberController{
 	@RequestMapping(value= "/member/myPage4.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView mypage4(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
-			
+
 		HttpSession session=request.getSession();
 				
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-			
 		return mav;
 	}
     
@@ -138,5 +137,6 @@ public class MemberControllerImpl implements MemberController{
 		resEntity =new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
 	}
+
 	
 }

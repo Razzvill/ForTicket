@@ -3,4 +3,63 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
+<mapper namespace="com.forTicket.admin.member.dao.AdminMemberDAO">
+	<resultMap id="memResult" type="MemberVO">
+		<result property="mem_id" column="mem_id" />
+		<result property="pwd" column="pwd" />
+		<result property="mem_name" column="mem_name" />
+		<result property="email" column="email" />
+		<result property="phone1" column="phone1" />
+		<result property="phone2" column="phone2" />
+		<result property="post" column="post" />
+		<result property="addr1" column="addr1" />
+		<result property="addr2" column="addr2" />
+		<result property="b_number" column="b_number" />
+		<result property="b_name" column="b_name" />
+		<result property="b_phone1" column="b_phone1" />
+		<result property="b_phone2" column="b_phone2" />
+		<result property="b_phone3" column="b_phone3" />
+		<result property="checkbox" column="checkbox" />
+		<result property="memberCheck" column="memberCheck" />
+		<result property="joinDate" column="joinDate" />
+	</resultMap>
 	
+	<!-- 회원 목록 -->
+	<select id="adminListMember" resultMap="memResult"   parameterType="java.util.HashMap">
+		select * from (
+			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
+			 from (
+				select * from member where date_format(joinDate,'%Y-%m-%d')  between #{beginDate} and #{endDate} 
+				<if test="search_type=='mem_name' and  mem_name != null" >
+		        	mem_name=#{search_word}
+				</if>
+				<if test="search_type=='mem_id' and mem_id != null">
+		        	mem_id=#{search_word}
+				</if>
+				<if test="search_type=='mem_phone' and phone2 != null">
+					concat(phone1)=concat(#{search_word})
+				</if>
+					order by joinDate desc
+					 ) as table1
+				) as table2				
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				      		    
+	</select>
+	
+	<!-- 사업자 목록 -->
+	<select id="adminListBus" resultMap="memResult"   parameterType="java.util.HashMap">
+		select * from (
+			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
+			 from (		
+		    	SELECT * FROM member WHERE b_name IS NOT NULL AND DATE_FORMAT(joinDate, '%Y-%m-%d') BETWEEN #{beginDate} AND #{endDate}
+				ORDER BY joinDate DESC
+				) as table1
+				) as table2				
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				
+
+      		    
+	</select>
+</mapper>
+   
+   	

@@ -34,7 +34,9 @@ public class TheaterServiceImpl implements TheaterService {
 
 	@Override
 	public int addTheater(Map theaterMap) throws DataAccessException {
-		return theaterDAO.insertTheater(theaterMap);
+		theaterDAO.insertTheater(theaterMap);
+		int theater_id = theaterDAO.selectIdFromData(theaterMap);
+		return theater_id;
 	}
 
 	@Override
@@ -43,8 +45,8 @@ public class TheaterServiceImpl implements TheaterService {
 	}
 
 	@Override
-	public int removeTheater(Map theaterMap) throws DataAccessException {
-		return theaterDAO.deleteTheater(theaterMap);
+	public int removeTheater(int theater_id) throws DataAccessException {
+		return theaterDAO.deleteTheater(theater_id);
 	}
 	
 }

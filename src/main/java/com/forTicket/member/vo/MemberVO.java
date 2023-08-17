@@ -3,6 +3,7 @@ package com.forTicket.member.vo;
 import java.sql.Date;
 
 import org.springframework.stereotype.Component;
+
 @Component("memberVO")
 public class MemberVO {
 	private String mem_id;
