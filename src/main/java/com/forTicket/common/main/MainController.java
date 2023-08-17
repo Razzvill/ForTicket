@@ -24,7 +24,7 @@ public class MainController {
     	 String viewName = (String)req.getAttribute("viewName");
     	 ModelAndView mav = new ModelAndView();
 		 mav.setViewName(viewName); return mav;
-		 }
+		 }  
 }
 
 
