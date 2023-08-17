@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.forTicket.admin.member.service.AdminMemberService;
 import com.forTicket.member.vo.MemberVO;
@@ -151,15 +155,82 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		return mav;
 	}
 	
+	//회원 삭제
+	@Override
+	@RequestMapping(value="/admin/adminRemoveMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ResponseEntity adminRemoveMember(String mem_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
+		try{
+			adminMemberService.adminRemoveMember(mem_id);
+			message = "<script>";
+			message += " alert('삭제했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/admin/member/adminMember.do?mem_id=" + mem_id
+					+ "';";
+			message += "</script>";
+			
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch(Exception e) {
+			message = "<script>";
+			message += " alert('오류가 생겼습니다.');";
+			message += " location.href='" + request.getContextPath() + "/admin/member/adminMember.do?mem_id=" + mem_id
+					+ "';";
+			message += "</script>";
+			
+			e.printStackTrace();
+		}
+		return resEnt;
+	}
+	
+	//사업자 삭제
+	@Override
+	@RequestMapping(value="/admin/adminRemoveBus.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ResponseEntity adminDeleteBus(String name, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
+		try{
+			adminMemberService.adminDeleteBus(name);
+			message = "<script>";
+			message += " alert('삭제했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/admin/member/adminBus.do?b_name=" + name
+					+ "';";
+			message += "</script>";
+			
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch(Exception e) {
+			message = "<script>";
+			message += " alert('오류가 생겼습니다.');";
+			message += " location.href='" + request.getContextPath() + "/admin/member/adminBus.do?b_name=" + name
+					+ "';";
+			message += "</script>";
+			
+			e.printStackTrace();
+		}
+		return resEnt;
+	}
+
 	//회원 수정창 이동, memberVO값 가져오기
-	@RequestMapping(value="admin/member/adminModMember.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView adminModMember(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@Override
+	@RequestMapping(value="/admin/member/adminModMember.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView adminModMember(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		
 		String viewName = (String)request.getAttribute("viewName");
 		
-		memberVO.setMem_id(id);		
-		
+		memberVO.setMem_id(mem_id);		
+
 		memberVO = adminMemberService.adminModMember(memberVO);
 		
 		ModelAndView mav = new ModelAndView();
@@ -168,15 +239,45 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		mav.setViewName(viewName);
 		
 		return mav;
-}
+	}
 	
+	//사업자 수정창 이동, memberVO값 가져오기
+	@Override
 	
+	public ModelAndView adminModBus(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("utf-8");
+		
+		String viewName = (String)request.getAttribute("viewName");
+		
+		memberVO.setMem_id(id);		
+
+		memberVO = adminMemberService.adminModMember(memberVO);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("member", memberVO);
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
 	
-	
-	
-	
-	
-	
+	//회원 수정	
+	@Override
+	@RequestMapping(value="/admin/member/adminUpdateMember.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView adminUpdateMember(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		
+		String viewName = (String)request.getAttribute("viewName");
+		
+		int result = 0;
+		
+		result = adminMemberService.adminUpdateMember(member);
+		
+		ModelAndView mav = new ModelAndView("redirect:/admin/member/adminMember.do");
+		
+		return mav;
+	}
+
 	protected String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
 		String endDate=null;
