@@ -29,7 +29,7 @@
 		select * from (
 			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
 			 from (
-				select * from member where date_format(joinDate,'%Y-%m-%d')  between #{beginDate} and #{endDate} 
+				select * from member where b_name IS NULL and date_format(joinDate,'%Y-%m-%d')  between #{beginDate} and #{endDate} 
 				<if test="search_type=='mem_name' and  mem_name != null" >
 		        	mem_name=#{search_word}
 				</if>
@@ -52,14 +52,50 @@
 			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
 			 from (		
 		    	SELECT * FROM member WHERE b_name IS NOT NULL AND DATE_FORMAT(joinDate, '%Y-%m-%d') BETWEEN #{beginDate} AND #{endDate}
-				ORDER BY joinDate DESC
-				) as table1
+					ORDER BY joinDate DESC
+					) as table1
 				) as table2				
 			where				
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				
-
-      		    
 	</select>
+	
+	<!-- 관리자 회원 삭제 -->
+	<delete id="adminDeleteMember" parameterType="String">
+		<![CDATA[
+	  		delete from member
+	   			where
+	   		mem_id=#{mem_id}
+			]]>      
+	</delete>
+	
+	<!-- 관리자 사업자 삭제 -->
+	<delete id="adminDeleteBus" parameterType="String">
+		<![CDATA[
+	  		delete from member
+	   			where
+	   		b_name=#{b_name}
+			]]>      
+	</delete>
+	
+	
+	<!--수정창 이동시 id가져오기 -->
+	<select id="selectMemberById" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			select * from member
+			where
+			mem_id=#{mem_id}
+		]]>	
+	</select>
+
+	<!-- 관리자 회원 수정 -->	
+	<update id="adminUpdateMember"  parameterType="memberVO">
+     <![CDATA[
+	     update member
+	     	set mem_name=#{mem_name}, pwd=#{pwd}, phone2=#{phone2}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
+	     	where
+			mem_id=#{mem_id}
+      ]]>      
+   </update> 
 </mapper>
    
    	

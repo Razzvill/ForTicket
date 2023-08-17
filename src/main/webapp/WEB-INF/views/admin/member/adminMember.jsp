@@ -337,8 +337,8 @@
 							<c:set var="join_date" value="${list.joinDate}" />
 						    <c:set var="arr" value="${fn:split(join_date,' ')}" />
 						    <c:out value="${arr[0]}" />
-						<td><a href="#" class="reply">수정하기</td>
-						<td><a href="#" class="reply">삭제하기</td>
+						<td><a href="${contextPath}/admin/member/adminModMember.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
+						<td><a href="${contextPath }/admin/adminRemoveMember.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
@@ -347,11 +347,11 @@
              <td colspan=8 class="fixed">
                  <c:forEach   var="page" begin="1" end="10" step="1" >
 		         <c:if test="${section >1 && page==1 }">
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMember.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+		          <a href="${contextPath}/admin/member/adminMember.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
 		         </c:if>
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMember.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+		          <a href="${contextPath}/admin/member/adminMember.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
 		         <c:if test="${page ==10 }">
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMember.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+		          <a href="${contextPath}/admin/member/adminMember.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 		         </c:if> 
 	      		</c:forEach> 
            </td>

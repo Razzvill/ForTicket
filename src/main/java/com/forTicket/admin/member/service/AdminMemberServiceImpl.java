@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,32 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		return adminMemberDAO.adminListBus(condMap);
 	}
 	
+	//관리자 회원 삭제	
+	@Override
+	public int adminRemoveMember(String id) throws DataAccessException {
+		
+		return adminMemberDAO.adminDeleteMember(id);		
+	}
 	
+	//관리자 사업자 삭제
+	public int adminDeleteBus(String name) throws DataAccessException{
+		return adminMemberDAO.adminDeleteBus(name);
+		
+	}
+	
+	
+	//회원 수정창 이동, memberVO값 가져오기
+	public MemberVO adminModMember(MemberVO memberVO) throws DataAccessException{
+		memberVO = adminMemberDAO.selectMemberById(memberVO);
+		
+		return memberVO;
+	}
+	
+	//회원 수정
+	@Override
+	public int adminUpdateMember(MemberVO memberVO) throws DataAccessException {
+		return adminMemberDAO.adminUpdateMember(memberVO);
+	}
 	
 
 }
