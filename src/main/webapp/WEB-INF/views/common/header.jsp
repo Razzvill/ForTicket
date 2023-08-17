@@ -111,7 +111,7 @@
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
-			<li><a class="top" href="#">{member.id}님<br></a></li>
+			<li><a class="top">${member.mem_id }님<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="#">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
@@ -120,7 +120,7 @@
 		</div>
 	</div>
 	</c:when>
-	<c:when test="${isLogOn == true && member.id == 'business' }">
+	<c:when test="${isLogOn == true && member.mem_id == 'business' }">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
@@ -133,7 +133,7 @@
 		</div>
 	</div>
 	</c:when>
-	<c:when test="${isLogOn == true && member.id == 'admin' }">
+	<c:when test="${isLogOn == true && member.mem_id == 'admin' }">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
@@ -150,7 +150,7 @@
 		<ul id="top_gnb">
 			<li><a href="${contextPath}/member/loginForm.do" class="top">로그인</a></li>
   			<li>&nbsp;|&nbsp;</li>
-  			<li><a href="#" class="top">회원가입</a></li>
+  			<li><a href="/member/join.do" class="top">회원가입</a></li>
 		</ul>
 		</div>
 	</div>
