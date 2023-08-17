@@ -20,4 +20,12 @@ public class TestController {
 		mav.setViewName(viewName);
 		return mav;
 	}
+	
+	@RequestMapping(value = "/example/listEvent.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView listEvent(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String viewName = (String) req.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
 }
