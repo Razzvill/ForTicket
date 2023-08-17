@@ -71,19 +71,28 @@
 		cursor: pointer;
 	}
 	</style>
+	<c:choose>
+	<c:when test="${result=='loginFailed' }">
+	  <script>
+	    window.onload=function(){
+	      alert("아이디나 비밀번호가 틀립니다.다시 로그인 하세요!");
+	    }
+	  </script>
+	</c:when>
+</c:choose>
 </head>
 <body style="max-height:650px;">
 	<div>
     	<div style="margin-top:50px;">
      		<img src="${contextPath}/resources/images/logo.png" style="width:150px;">
     	</div>
-    	<form action="" method="post">
+    	<form name="frmLogin" method="post" action="${contextPath}/member/login.do" >
       		<input type="hidden" name="r" value="/">
 		    	<div style="margin-top: 30px;">
-        			<input type="text" name="member_id" placeholder="아이디" class="input_box icon_id">
+        			<input type="text" name="mem_id" placeholder="아이디" class="input_box icon_id">
         		</div>
 			    <div style="margin-top: 30px;">
-			        <input type="password" name="member_pass" placeholder="비밀번호" class="input_box icon_pass">
+			        <input type="password" name="pwd" placeholder="비밀번호" class="input_box icon_pass">
 			    </div>
 			    <div style="margin-top: 30px;">
 			        <input type="submit" class="login_btn" value="로그인">
@@ -93,7 +102,7 @@
         			<span>|</span>
         			<a href="#" class="find">비밀번호 찾기</a>
         			<span>|</span>
-        			<a href="${contextPath}/member/memberForm.do" class="find">회원가입</a>
+        			<a href="${contextPath}/member/join.do" class="find">회원가입</a>
       			</div>
     	</form>
 	    <div class="social_wrap">
@@ -124,18 +133,12 @@
 
     // 간편 로그인 : 회원가입 일때는 join과 cid 함께 전달
     if (window.location.href.includes('join')) {
-      r = encodeURI('&from=join&cid=');
+      r = encodeURI('&from=join&mem_id=');
     } else if (window.location.href.includes('login')) {
       r = '';
     }
     $('#login_kakao').click(function (e) {
       sns_login('kakao', r, appScheme);
-    });
-    $('#login_naver').click(function (e) {
-      sns_login('naver', r, appScheme);
-    });
-    $('#login_apple').click(function (e) {
-      sns_login('apple', r);
     });
 
   
