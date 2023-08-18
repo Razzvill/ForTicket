@@ -210,11 +210,15 @@ img #map {
 	box-sizing: border-box;
 	resize: none;
 }
+hr {
+	width: 90%;
+	float: left;
+}
 </style>
 </head>
 <body>
 	<div class="wrap_1100">
-		<div class="main_title">공연장 목록 > ${theater.theater_name}</div>
+		<div class="main_title">공연장 목록 > ${theater.theater_name}</div><hr>
 		<div style="margin-top: 25px;">
 			<form name="frmTheater" method="post" action="${contextPath}/theater/modTheater.do" encType="multipart/form-data">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
