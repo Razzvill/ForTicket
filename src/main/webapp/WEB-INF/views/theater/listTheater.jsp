@@ -126,9 +126,9 @@
 <body>
 <div class="wrap_1100">
 <div class="main_title">공연장 목록
-<%-- <c:if test="${isLogOn == true && member.id == 'admin' }"> --%>
+<c:if test="${isLogOn == true && member.id == 'admin' }">
 <input type="button" value="등록하기" class="btn1" onclick="location.href='${contextPath}/theater/theaterForm.do'" />
-<%-- </c:if> --%>
+</c:if>
 </div><hr>
 <div style="margin-top: 25px;">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">

@@ -14,6 +14,9 @@
 		<result property="event_status" column="event_status" />
 		<result property="mem_id" column="mem_id" />
 		<result property="event_image" column="event_image" />
+		<result property="event_finalDate" column="event_finalDate" />
+		<result property="event_creDate" column="event_creDate" />
+		<result property="goods_id" column="goods_id" />
 	</resultMap>
 	
 	<resultMap id="imageResult" type="imageFileVO">
@@ -26,7 +29,7 @@
 	
 	<select id="selectAllEventList" resultMap="eventResult">
 		<![CDATA[
-			SELECT * FROM event ORDER BY event_endDate DESC
+			SELECT * FROM event ORDER BY event_creDate DESC
 		]]>
 	</select>
 	
@@ -44,13 +47,13 @@
 
 	<insert id="insertEvent" parameterType="java.util.Map">
 		<![CDATA[
-			INSERT INTO event(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image})
+			INSERT INTO event(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image, event_finalDate, goods_id) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image}, #{event_finalDate}, #{goods_id})
 		]]>
 	</insert>
 
 	<update id="updateEvent" parameterType="java.util.Map">
 		<![CDATA[
-			UPDATE event SET event_name=#{event_name}, event_startDate=#{event_startDate}, event_endDate=#{event_endDate}, event_type=#{event_type}, event_detail=#{event_detail}, event_status=#{event_status}, event_image=#{event_image} WHERE event_no=#{event_no}
+			UPDATE event SET event_name=#{event_name}, event_startDate=#{event_startDate}, event_endDate=#{event_endDate}, event_type=#{event_type}, event_detail=#{event_detail}, event_status=#{event_status}, event_image=#{event_image}, event_finalDate=#{event_finalDate}, goods_id=#{goods_id} WHERE event_no=#{event_no}
 		]]>
 	</update>
 	

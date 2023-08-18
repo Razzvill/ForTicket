@@ -116,10 +116,34 @@
 		<put-attribute name="body" value="/WEB-INF/views/order/refundSuccess.jsp" />
 	</definition>
 	
-	<!-- 이벤트 목록-->
+	<!-- 이벤트 목록(사용자)-->
 	<definition name="/event/listEvent" extends="baseLayout">
 		<put-attribute name="title" value="이벤트 목록(사용자)" />
 		<put-attribute name="body" value="/WEB-INF/views/event/listEvent.jsp" />
+	</definition>
+	
+	<!-- 이벤트 목록(사업자)-->
+	<definition name="/event/B_listEvent" extends="baseLayout">
+		<put-attribute name="title" value="이벤트 목록(사업자)" />
+		<put-attribute name="body" value="/WEB-INF/views/event/B_listEvent.jsp" />
+	</definition>
+	
+	<!-- 이벤트 목록(관리자)-->
+	<definition name="/event/A_listEvent" extends="baseLayout">
+		<put-attribute name="title" value="이벤트 목록(관리자)" />
+		<put-attribute name="body" value="/WEB-INF/views/event/A_listEvent.jsp" />
+	</definition>
+	
+	<!-- 이벤트 등록-->
+	<definition name="/event/addEventForm" extends="baseLayout">
+		<put-attribute name="title" value="이벤트 등록" />
+		<put-attribute name="body" value="/WEB-INF/views/event/addEventForm.jsp" />
+	</definition>
+	
+	<!-- 이벤트 수정-->
+	<definition name="/event/modEventForm" extends="baseLayout">
+		<put-attribute name="title" value="이벤트 수정" />
+		<put-attribute name="body" value="/WEB-INF/views/event/modEventForm.jsp" />
 	</definition>
 
 	<!-- <definition name="/member/loginForm" extends="baseLayout">

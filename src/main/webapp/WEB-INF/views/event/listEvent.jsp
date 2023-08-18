@@ -131,11 +131,11 @@ $(function(){
 });
 
 //탭 전환 이벤트
-const $nav = document.querySelector('#tab-button-nav')
+const $nav = document.querySelector('#event-division')
 const $sections = document.querySelectorAll('.tab-section');
 
 $nav.addEventListener('click', (e) => {
-  if (!e.target.classList.contains('tab-button')) {
+  if (!e.target.classList.contains('tab')) {
     return;
   }
   
@@ -164,54 +164,68 @@ $nav.addEventListener('click', (e) => {
 	</nav>
 	<div class="clear"></div>
 	<div class="event-main-list">
-		<section id="tab-section-1" class="event-ing">
+		<section id="event-ing" class="tab-section">
 			<ul>
-				<c:forEach var="event" items="eventList">
-					<c:if test="${event.event_status == 'ing'}">
-						<li>
-							<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
-								<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_image}" alt="${event.event_name}">
-								<div class="eve-mlist-box">
-									<c:choose>
-										<c:when test="${event.event_type == 'disc'}">
-											<p class="eve-mlist-mark"><span id="disc">할인</span></p>
-										</c:when>
-										<c:otherwise>
-											<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
-										</c:otherwise>
-									</c:choose>
-									<p class="eve-mlist-tit">${event.event_name}</p>
-									<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate} | ${event.event_finalDate} 발표</p>
-								</div>
-							</a>
-						</li>
-					</c:if>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${empty eventList}">
+						<strong>진행중인 이벤트가 없습니다.</strong>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="event" items="eventList">
+							<c:if test="${event.event_status == '진행중'}">
+								<li>
+									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
+										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_image}" alt="${event.event_name}">
+										<div class="eve-mlist-box">
+											<c:choose>
+												<c:when test="${event.event_type == 'disc'}">
+													<p class="eve-mlist-mark"><span id="disc">예매 할인</span></p>
+												</c:when>
+												<c:otherwise>
+													<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
+												</c:otherwise>
+											</c:choose>
+											<p class="eve-mlist-tit">${event.event_name}</p>
+											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate} | ${event.event_finalDate} 발표</p>
+										</div>
+									</a>
+								</li>
+							</c:if>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</section>
-		<section id="tab-section-2" class="event-end">
+		<section id="event-end" class="tab-section">
 			<ul>
-				<c:forEach var="event" items="eventList">
-					<c:if test="${event.event_status == 'end'}">
-						<li>
-							<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
-								<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_image}" alt="${event.event_name}">
-								<div class="eve-mlist-box">
-									<c:choose>
-										<c:when test="${event.event_type == 'disc'}">
-											<p class="eve-mlist-mark"><span id="disc">할인</span></p>
-										</c:when>
-										<c:otherwise>
-											<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
-										</c:otherwise>
-									</c:choose>
-									<p class="eve-mlist-tit">${event.event_name}</p>
-									<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate} | ${event.event_finalDate} 발표</p>
-								</div>
-							</a>
-						</li>
-					</c:if>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${empty eventList}">
+						<strong>종료된 이벤트가 없습니다.</strong>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="event" items="eventList">
+							<c:if test="${event.event_status == '종료'}">
+								<li>
+									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
+										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_image}" alt="${event.event_name}">
+										<div class="eve-mlist-box">
+											<c:choose>
+												<c:when test="${event.event_type == 'disc'}">
+													<p class="eve-mlist-mark"><span id="disc">예매 할인</span></p>
+												</c:when>
+												<c:otherwise>
+													<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
+												</c:otherwise>
+											</c:choose>
+											<p class="eve-mlist-tit">${event.event_name}</p>
+											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate} | ${event.event_finalDate} 발표</p>
+										</div>
+									</a>
+								</li>
+							</c:if>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</section>
 	</div>
