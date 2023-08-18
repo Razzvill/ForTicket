@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
@@ -10,57 +8,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>회원 가입창</title>
-	<style>
-	.join_wrap {
-	    width: 500px;
-	    margin: 50px auto;
-	    padding: 60px 0 50px 0;
-	    text-align: center;
-	    border: 3px solid #ffd1d1;
-	    border-radius: 30px;
-	    background-color: #fff;
-	}
-
-	.dot_line {
-		margin-top:10px;
-	    width: 350px;
-	    height: 55px;
-	    padding: 0 10px 0 60px;
-	    font-size: 18px;
-	    border-radius: 20px;
-	    border: 1px solid #ddd;
-	    background-repeat: no-repeat;
-	    background-size: 24px;
-	    background-position: 20px 15px;
+<meta charset="UTF-8">
+<title>회원 가입창</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<style>
+.join_wrap {
+width: 600px;
+margin: 50px auto;
+padding: 60px 0 50px 0;
+text-align: center;
+border: 3px solid #ffd1d1;
+border-radius: 30px;
+background-color: #fff;
+}
+.dot_line {
+margin-top: 10px;
+width: 350px;
+height: 55px;
+padding: 0 10px 0 60px;
+font-size: 18px;
+border-radius: 20px;
+border: 1px solid #ddd;
+background-repeat: no-repeat;
+background-size: 24px;
+background-position: 20px 15px;
+}
+	
+.icon_id {
+background-image: url("${contextPath}/resources/images/member/user_id.png");
+}
+	
+.icon_pass {
+background-image: url("${contextPath}/resources/images/member/user_pass.png");
+}
+	
+.icon_pass2 {
+background-image: url("${contextPath}/resources/images/member/user_pass2.png");
 	}
 	
-	.icon_id {
-    	background-image: url("${contextPath}/resources/images/member/user_id.png");
-	}
+.icon_name {
+background-image: url("${contextPath}/resources/images/member/user_name.png");
+}
 	
-	.icon_pass {
-    	background-image: url("${contextPath}/resources/images/member/user_pass.png");
-	}
+.icon_email {
+background-image: url("${contextPath}/resources/images/member/user_email.png");
+}
 	
-	.icon_pass2 {
-    	background-image: url("${contextPath}/resources/images/member/user_pass2.png");
-	}
-	
-	.icon_name {
-    	background-image: url("${contextPath}/resources/images/member/user_name.png");
-	}
-	
-	.icon_email {
-    	background-image: url("${contextPath}/resources/images/member/user_email.png");
-	}
-	
-	.icon_phone{
-		background-image: url("${contextPath}/resources/images/member/user_phone.png");
-	}
+.icon_phone{
+background-image: url("${contextPath}/resources/images/member/user_hphone.png");
+}
 		
-	.post {
+.post {
 		margin-top: 10px;
 	    width: 235px;
 	    height: 55px;
@@ -73,7 +71,7 @@
 	    background-position: 20px 15px;
 	}
 	
-	.post1{
+.post1{
 		margin-top: 10px;
 	    width: 100px;
 	    height: 55px;
@@ -87,19 +85,19 @@
 	    text-decoration: none;
 	}
 
-	.section_wrap {
+.section_wrap {
 	    margin-top: 7px;
 	}
 
-	:root {
+:root {
 	    --swiper-navigation-size: 44px;
 	}
 	
-	:root {
+:root {
 	    --swiper-theme-color: #007aff;
 	}
 	
-	.checkbox_group {
+.checkbox_group {
 	    width: 350px;
 	    padding: 5px 25px;
 	    margin-top: 20px;
@@ -113,88 +111,110 @@
 	    line-height: 180%;
 	}
 	
-	.btn_submit {
-	    width: 350px;
-	    height: 55px;
-	    border: 1px solid #ff4b4b;
-	    border-radius: 20px;
-	    background: #ff4b4b;
-	    color: #fff;
-	    font-size: 18px;
-	    font-weight: 600;
-	    cursor: pointer;
-	}
+.btn_submit {
+            width: 350px;
+            height: 55px;
+            border: 1px solid #ff4b4b;
+            border-radius: 20px;
+            background: #ff4b4b;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+.btn_hphone_on {
+    width: 90px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background: #ff4b4b;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	
 </head>
 <body>
 	<div class="join_wrap">
 	<div>
     	<img src="${contextPath}/resources/images/logo.png" style="width:150px;">
     </div>
-    <form action="${contextPath}/member/addMember.do" method="post">	
+    <form action="${contextPath}/member/addMember.do" method="post">
 	<div id="detail_table">
+	<input type="hidden" name="type" value="U"/>
 		<table>
 			<tbody>
 				<tr>
+                   <td> 
+                        <input type="text" name="_mem_id" id="_mem_id" placeholder="아이디" size="20" class="dot_line icon_id"/>
+                        <input type="hidden" name="mem_id" id="mem_id"/>
+                        <input type="button" value="중복검사" class="btn_hphone_on" id="btnOverlapped" onClick="fn_overlapped()"/>  
+                   </td>
+                </tr>
+                <tr>
 					<td>
-						<input type="text" name="_mem_id"  id="_mem_id" placeholder="아이디" size="20" class="dot_line icon_id"/>
-						<input type="hidden" name="mem_id"  id="mem_id" />
-                        <input type="button" id="btnOverlapped" value="중복검사" onClick="fn_overlapped()"/>			
-					</td>
+                        <input type="password" name="pwd" id="passwordConfirm" placeholder="비밀번호" size="20" class="dot_line icon_pass"/>
+                        <br>
+                        <span id="passwordFormatHint" style="color: gray; font-size: 8px;">(영문 대소문자, 숫자, 특수문자를 포함한 8자 이상)</span>
+                        <br>
+                        <span id="passwordError" style="color: red; font-size: 8px;"></span> <!-- 비밀번호 형식 에러 메시지 표시 요소 -->
+                    </td>
 				</tr>
 				<tr>
-					<td><input name="pwd" id="password" placeholder="비밀번호" size="20" class="dot_line icon_pass"/></td>
-				</tr>
-				<tr>
-					<td><input name="pwd2" id="passwordConfirm" placeholder="비밀번호확인" size="20" class="dot_line icon_pass2"/></td>
-					
+					<td><input type="password" name="pwd2" id="password" placeholder="비밀번호확인" size="20" class="dot_line icon_pass2"/></td>
+					<td><span id="confirmMsg"></span></td>
 				</tr>
 				<tr>
 					<td><input name="mem_name" type="text" placeholder="이름" size="20" class="dot_line icon_name"/></td>
 				</tr>
 				<tr>
-					<td><input name="email" type="text" placeholder="이메일" size="20" class="dot_line icon_email"/></td>
+					<td><input name="email" id="email" type="text" placeholder="이메일" size="20" class="dot_line icon_email"/></td>
+                        <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
 				</tr>
 				<tr>
-					<td><input size="10px"  type="text" name="phone1"class="dot_line icon_phone"></td> 
+					<td><input size="10px"  type="text" placeholder="핸드폰번호" name="phone2"class="dot_line icon_phone"></td> 
 				</tr>
 				<tr>
 					<td>
-						<input type="text" id="post" name="post" size="10" class="post" disabled> <a href="javascript:execDaumPostcode()" class="post1">우편번호찾기</a>
-						<input type="text" id="addr1"  name="addr1" placeholder="세부주소1" size="50" class="dot_line">
-					  	<input type="text" id="addr2" name="addr2" placeholder="세부주소2" size="50" class="dot_line">
-					</td>
+						<input name="post" id="post" placeholder="우편번호" readonly="readonly" class="dot_line">
+                        <button type="button" style="width: 20%; display: inline;" class="btn_hphone_on" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input placeholder="세부주소1" name="addr1" id="addr1" type="text" readonly="readonly" class="dot_line" />
+                </tr>
+                <tr>
+					<td><input placeholder="세부주소2" name="addr2" id="addr2" type="text" class="dot_line"  />
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </table>
 	<section class="section_wrap" style="margin-top:30px;">
-	<div>이용약관 동의</div>
-	<div class="checkbox_group" style="margin-top:0;">
-		<div class="check_all">
-			<input type="checkbox" id="checkbox" class="checkbox">
-			<label name="checkbox">전체 동의</label>
-		</div>
-		<div class="checkbox_line">
-			<input type="checkbox" id="checkbox" class="checkbox">
-			<label bane="check_1">만 14세 이상입니다<span class="check_req">(필수)</span></label>
-		</div>
-		<div class="detail_seperate">
-		<div>
-			<input type="checkbox" id="checkbox" class="checkbox">
-			<label for="check_2">이용약관 동의<span class="check_req">(필수)</span></label>
-		</div>
-		<div class="detail_seperate" style="border:none;">
-		<div>
-			<input type="checkbox" id="checkbox" class="checkbox">
-			<label for="checkbox">개인정보 수집·이용 동의<span class="check_req">(필수)</span></label>
-		</div>
-		</div>
-		</div>
+            <div>이용약관 동의</div>
+            <div class="checkbox_group" style="margin-top:0;">
+                <div class="check_all">
+                    <input type="checkbox" name="checkbox" id="checkAll" class="checkbox">
+                    <label for="checkAll">전체 동의</label>
+                </div>
+                <div class="checkbox_line">
+                    <input type="checkbox" id="check_1" class="checkbox">
+                    <label for="check_1">만 14세 이상입니다<span class="check_req">(필수)</span></label>
+                </div>
+                <div class="detail_seperate" style="border:none;">
+                    <div>
+                        <input type="checkbox" id="check_2" class="checkbox">
+                        <label for="check_2">이용약관 동의<span class="check_req">(필수)</span></label>
+                    </div>
+                    <div class="detail_seperate" style="border:none;">
+                        <div>
+                            <input type="checkbox" id="check_3" class="checkbox">
+                            <label for="check_3">개인정보 수집·이용 동의<span class="check_req">(필수)</span></label>
+                        </div>
+                    </div>
+                </div>
 		<div>
 			<div class="input_title" disabled="" id="recaptcha-container"><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LcMZR0UAAAAALgPMcgHwga7gY5p8QMg1Hj-bmUv&amp;co=aHR0cHM6Ly90aW1ldGlja2V0LmNvLmtyOjQ0Mw..&amp;hl=ko&amp;v=3kTz7WGoZLQTivI-amNftGZO&amp;size=invisible&amp;cb=sqgb2miiatpc" width="256" height="60" role="presentation" name="a-9xajmtra3vir" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
 		</div>
@@ -206,64 +226,145 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-function fn_overlapped(){
-    var _id=$("#_mem_id").val();
-    if(_id==''){
-   	 alert("ID를 입력하세요");
-   	 return;
+//아이디
+function fn_overlapped() {
+    var _id = $("#_mem_id").val();
+    
+    if (_id === '') {
+        alert("ID를 입력하세요");
+        return;
     }
+    
+    var idPattern = /^[A-Za-z0-9]{4,20}$/;
+    
+    if (!idPattern.test(_id)) {
+        alert("아이디는 4~20자의 영문, 숫자로 구성되어야 합니다..");
+        return;
+    }
+    
     $.ajax({
-       type:"post",
-       async:false,  
-       url:"${contextPath}/member/overlapped.do",
-       dataType:"text",
-       data: {id:_id},
-       success: function(data, textStatus) {
-    	    if (data == 'false') {
-    	        alert("사용할 수 있는 ID입니다.");
-    	        $('#btnOverlapped').prop("disabled", true);
-    	        $('#_mem_id').prop("disabled", true);
-    	        $('#mem_id').val(_id);
-    	    } else {
-    	        alert("사용할 수 없는 ID입니다.");
-    	    }
-    	},
-       error:function(data,textStatus){ 
-          alert("에러가 발생했습니다.");ㅣ
-       },
-       complete:function(data,textStatus){
-          //alert("작업을완료 했습니다");
-       }
-    });  //end ajax	 
+        type: "post",
+        async: false,
+        url: "${contextPath}/member/overlapped.do",
+        dataType: "text",
+        data: { id: _id },
+        success: function(data, textStatus) {
+            if (data === 'false') {
+                alert("사용할 수 있는 ID입니다.");
+                $('#btnOverlapped').prop(true);
+                $('#_mem_id').prop( true);
+                $('#mem_id').val(_id);
+            } else {
+                alert("사용할 수 없는 ID입니다.");
+            }
+        },
+        error: function(data, textStatus) {
+            alert("에러가 발생했습니다.");
+        },
+        complete: function(data, textStatus) {
+            //alert("작업을 완료 했습니다");
+        }
+    }); //end ajax
 }
-
-function passConfirm() {
-    var password = document.getElementById('password');
-    var passwordConfirm = document.getElementById('passwordConfirm');
-    var confirmMsg = document.getElementById('confirmMsg');
-    var correctColor = "#00ff00";
-    var wrongColor = "#ff0000";
-
-    if (password.value === passwordConfirm.value) {
-        confirmMsg.style.color = correctColor;
-        confirmMsg.innerHTML = "비밀번호 일치";
-    } else {
-        confirmMsg.style.color = wrongColor;
-        confirmMsg.innerHTML = "비밀번호 불일치";
-    }
-}
-
-// DOMContentLoaded 이벤트 핸들러
+//비밀번호
 document.addEventListener('DOMContentLoaded', function() {
-    // 비밀번호 입력란과 비밀번호 확인 입력란에 이벤트 리스너 추가
     var passwordInput = document.getElementById('password');
     var passwordConfirmInput = document.getElementById('passwordConfirm');
+    var confirmMsg = document.getElementById('confirmMsg');
+    var passwordError = document.getElementById('passwordError');
+    var passwordFormatHint = document.getElementById('passwordFormatHint');
 
-    // 입력할 때마다 비밀번호 확인 함수 호출
-    passwordInput.addEventListener('input', passConfirm);
-    passwordConfirmInput.addEventListener('input', passConfirm);
+    passwordInput.addEventListener('input', function() {
+        var passwordValue = passwordInput.value;
+        var passwordConfirm = passwordConfirmInput.value;
+
+        var passwordIsValid = isPasswordValid(passwordValue);
+        var color = passwordIsValid ? "#00ff00" : "#ff0000";
+        passwordError.style.color = color;
+        passwordError.innerHTML = passwordIsValid ? "" : "비밀번호 조건을 만족하지 않습니다.";
+
+        if (passwordValue !== passwordConfirm) {
+            confirmMsg.style.color = "#ff0000";
+            confirmMsg.innerHTML = "비밀번호 불일치";
+        } else {
+            confirmMsg.style.color = color;
+            confirmMsg.innerHTML = passwordValue ? "비밀번호 일치" : "";
+        }
+    });
+
+    function isPasswordValid(password) {
+        var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
+        return pattern.test(password);
+    }
+});
+//이메일
+document.addEventListener('DOMContentLoaded', function() {
+    var emailInput = document.getElementById('email');
+    var emailError = document.getElementById('emailError');
+
+    emailInput.addEventListener('input', function() {
+        var emailValue = emailInput.value;
+        if (isEmailValid(emailValue)) {
+            emailError.textContent = "";
+        } else {
+            emailError.textContent = "올바른 이메일 형식이 아닙니다.";
+        }
+    });
+
+    function isEmailValid(email) {
+        var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return pattern.test(email);
+    }
+});
+//우편번호찾기
+
+function execPostCode() {
+    new daum.Postcode({
+        oncomplete: function(data) { 
+           var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+           var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+               extraRoadAddr += data.bname;
+           }
+           // 건물명이 있고, 공동주택일 경우 추가한다.
+           if(data.buildingName !== '' && data.apartment === 'Y'){
+              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+           }
+           // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+           if(extraRoadAddr !== ''){
+               extraRoadAddr = ' (' + extraRoadAddr + ')';
+           }
+           // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+           if(fullRoadAddr !== ''){
+               fullRoadAddr += extraRoadAddr;
+           }
+
+           // 우편번호와 주소 정보를 해당 필드에 넣는다.
+           console.log(data.zonecode);
+           console.log(fullRoadAddr);
+           
+           
+           $("[name=post]").val(data.zonecode);
+           $("[name=addr1]").val(fullRoadAddr);
+       }
+    }).open();
+}
+//체크박스
+document.addEventListener('DOMContentLoaded', function() {
+    var checkAll = document.getElementById('checkAll');
+    var check_1 = document.getElementById('check_1');
+    var check_2 = document.getElementById('check_2');
+    var check_3 = document.getElementById('check_3');
+    
+    checkAll.addEventListener('click', function() {
+        var isChecked = checkAll.checked;
+        check_1.checked = isChecked;
+        check_2.checked = isChecked;
+        check_3.checked = isChecked;
+    });
 });
 </script>
-
+</div>
 </body>
 </html>

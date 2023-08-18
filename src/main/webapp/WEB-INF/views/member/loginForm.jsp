@@ -98,7 +98,7 @@
 			        <input type="submit" class="login_btn" value="로그인">
 			    </div>
 			    <div class="login_submenu">
-        			<a href="#" class="find">아이디 찾기</a>
+        			<a href="${contextPath}/member/findId.do" class="find">아이디 찾기</a>
         			<span>|</span>
         			<a href="#" class="find">비밀번호 찾기</a>
         			<span>|</span>
