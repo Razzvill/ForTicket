@@ -34,5 +34,7 @@ public interface AdminMemberController {
 	
 	//회원 수정
 	public ResponseEntity adminUpdateMember(@ModelAttribute("info") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
+	
+	//사업자 수정
+	public ResponseEntity adminUpdateBus(@ModelAttribute("info") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

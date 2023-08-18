@@ -25,8 +25,11 @@ public interface AdminMemberDAO {
 	public int adminDeleteBus(String name) throws DataAccessException;
 	
 	//수정창 이동시 id가져오기
-	public MemberVO selectMemberById(MemberVO memberVO)  throws DataAccessException;
+	public MemberVO selectMemberById(HashMap condMap)  throws DataAccessException;
 
 	//회원 수정
 	public int adminUpdateMember(MemberVO memberVO) throws DataAccessException;
+	
+	//사업자 수정
+	public int adminUpdateBus(MemberVO memberVO) throws DataAccessException;
 }

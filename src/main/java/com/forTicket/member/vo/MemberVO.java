@@ -130,6 +130,14 @@ public class MemberVO {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
+	@Override
+	public String toString() {
+		return "MemberVO [mem_id=" + mem_id + ", pwd=" + pwd + ", mem_name=" + mem_name + ", email=" + email
+				+ ", phone1=" + phone1 + ", phone2=" + phone2 + ", post=" + post + ", addr1=" + addr1 + ", addr2="
+				+ addr2 + ", b_number=" + b_number + ", b_name=" + b_name + ", b_phone1=" + b_phone1 + ", b_phone2="
+				+ b_phone2 + ", b_phone3=" + b_phone3 + ", checkbox=" + checkbox + ", type=" + type + ", joinDate="
+				+ joinDate + "]";
+	}
 	
 	
 	

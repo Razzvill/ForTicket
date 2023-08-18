@@ -90,8 +90,8 @@
 	</div>
 	<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
 	<ul class="side_ul">
-		<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">회원</a></li>
-		<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">사업자</a></li>
+		<li class="side_li"><a href="${contextPath}/member/adminMember.do" class="side2">회원</a></li>
+		<li class="side_li"><a href="${contextPath}/member/adminBus.do" class="side2">사업자</a></li>
 	</ul>
 	</c:when>
 	

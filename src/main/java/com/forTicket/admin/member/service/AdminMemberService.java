@@ -21,9 +21,12 @@ public interface AdminMemberService {
 	public int adminDeleteBus(String name) throws DataAccessException;
 		
 	//회원 수정창 이동, memberVO값 가져오기
-	public MemberVO adminModMember(MemberVO memberVO) throws DataAccessException;
+	public MemberVO adminModMember(HashMap condMap) throws DataAccessException;
 	
 	//회원 수정 
 	public int adminUpdateMember(MemberVO memberVO) throws DataAccessException;
+	
+	//사업자 수정 
+	public int adminUpdateBus(MemberVO memberVO) throws DataAccessException;
 	
 }

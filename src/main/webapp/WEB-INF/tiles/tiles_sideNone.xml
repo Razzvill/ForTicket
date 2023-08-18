@@ -103,11 +103,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/order/reservationSuccess.jsp" />
 	</definition>
 	
-
 	<!-- 회원 정보 수정창-->
-	<definition name="/member/modmember" extends="baseLayout">
+	<definition name="/community/adminCommunity" extends="baseLayout">
 		<put-attribute name="title" value="회원 정보 수정창" />
-		<put-attribute name="body" value="/WEB-INF/views/member/modmember.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/community/adminCommunity.jsp" />
 	</definition>
 	
 <<<<<<< HEAD
@@ -124,9 +123,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/member/findIdResult.jsp" />
 	</definition>
 	
-
-
-
 
 
 
