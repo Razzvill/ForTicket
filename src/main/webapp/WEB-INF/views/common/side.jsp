@@ -81,61 +81,60 @@
     }
 	</style>
 </head>
-
-	<body>
-		<div class="side1">
-		<c:choose>
-		<c:when test="${side_menu=='mem_mode' }">
-		<div class="side_div">
-			회원관리(관리자)
-		</div>
-		<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
-		<ul class="side_ul">
-			<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">회원</a></li>
-			<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">사업자</a></li>
-		</ul>
-		</c:when>
-		
-		<c:when test="${side_menu=='bus_mode' }">
-		<div class="side_div">
-			마이페이지(사업자)
-		</div>
-		<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
-		<ul class="side_ul">
-			<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">사업자 정보 수정</a></li>
-			<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">예매관리</a></li>
-			<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">1:1 문의</a></li>
-		</ul>
-		</c:when>
-			
-		<c:when test="${side_menu=='center' }">
-		<div class="side_div">
-			고객센터(모두)
-		</div>
-		<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
-		<ul class="side_ul">
-			<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">환불안내</a></li>
-			<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">공지사항</a></li>
-			<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">FAQ</a></li>
-			<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">1:1 문의</a></li>
-		</ul>
-			
-		</c:when>
-		</c:choose>
+<body>
+	<div class="side1">
+	<c:choose>
+	<c:when test="${side_menu=='admin_mode' }">
+	<div class="side_div">
+		회원관리
+	</div>
+	<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
+	<ul class="side_ul">
+		<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">회원</a></li>
+		<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">사업자</a></li>
+	</ul>
+	</c:when>
 	
-		<div class="side_div">
-			마이페이지(회원)
-		</div>
-		<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
-		<ul class="side_ul">		
+	<c:when test="${side_menu=='bus_mode' }">
+	<div class="side_div">
+		마이페이지(사업자)
+	</div>
+	<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
+	<ul class="side_ul">
+		<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">사업자 정보 수정</a></li>
+		<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">예매관리</a></li>
+		<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">1:1 문의</a></li>
+	</ul>
+	</c:when>
+		
+	<c:when test="${side_menu=='center' }">
+	<div class="side_div">
+		고객센터(모두)
+	</div>
+	<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
+	<ul class="side_ul">
+		<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">환불안내</a></li>
+		<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">공지사항</a></li>
+		<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">FAQ</a></li>
+		<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">1:1 문의</a></li>
+	</ul>
+		
+	</c:when>
+	<c:otherwise>
+	<div class="side_div">
+		마이페이지(회원)
+	</div>
+	<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
+	<ul class="side_ul">		
 		<li class="side_li"><a href="javascript:fn_login('${isLogOn }', '${contextPath }/admin/getUserInfo.do','${contextPath }/member/loginForm.do')" class="side2" onclick="changeStyle(this)">회원 정보 수정</a></li>
 		<li class="side_li"><a href="javascript:fn_login1('${isLogOn }', '${contextPath }/admin/getUserGrade.do','${contextPath }/member/loginForm.do')" class="side2" onclick="changeStyle(this)">관심 공연</a></li>
 		<li class="side_li"><a href="javascript:fn_login1('${isLogOn }', '${contextPath }/admin/getUserGrade.do','${contextPath }/member/loginForm.do')" class="side2" onclick="changeStyle(this)">예매 내역</a></li>
 		<li class="side_li"><a href="#" class="side2" onclick="changeStyle(this)">1:1 문의</a></li>
-		</ul>
-		
-		</div>
-	</body>
+	</ul>
+	</c:otherwise>
+	</c:choose>
+	</div>
+</body>
 
-	</html>
-	<input type="hidden" name="UserId" id="UserId" value="${UserId}" />
+</html>
+<input type="hidden" name="UserId" id="UserId" value="${UserId}" />

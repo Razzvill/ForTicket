@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -31,14 +32,16 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	@Autowired
 	private AdminMemberService adminMemberService;
-	
-	//
-	
-	
+
 	//관리자 회원관리
 	@Override
 	@RequestMapping(value="/admin/member/adminMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		
+		HttpSession session=request.getSession();
+		session=request.getSession();
+		session.setAttribute("side_menu", "admin_mode"); //마이페이지 사이드 메뉴로 설정한다.
+		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
@@ -264,19 +267,36 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	//회원 수정	
 	@Override
 	@RequestMapping(value="/admin/member/adminUpdateMember.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView adminUpdateMember(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ResponseEntity adminUpdateMember(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
-		String viewName = (String)request.getAttribute("viewName");
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		
 		int result = 0;
 		
-		result = adminMemberService.adminUpdateMember(member);
-		
-		ModelAndView mav = new ModelAndView("redirect:/admin/member/adminMember.do");
-		
-		return mav;
+		try{						
+			result = adminMemberService.adminUpdateMember(member);
+			message = "<script>";
+			message += " alert('수정했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/admin/member/adminMember.do?';";
+			message += "</script>";
+			
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch(Exception e) {
+			message = "<script>";
+			message += " alert('오류가 생겼습니다.');";
+			message += " location.href='" + request.getContextPath() + "/admin/member/adminMember.do?';";
+			message += "</script>";
+			
+			e.printStackTrace();
+		}
+		return resEnt;
 	}
+
 
 	protected String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
