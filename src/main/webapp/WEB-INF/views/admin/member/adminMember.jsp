@@ -147,6 +147,7 @@
 
 <body>
 <div class="mypage4">
+
 <form method="post" name="frm_list">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left;">회원 정보</h2>

@@ -337,8 +337,8 @@
 							<c:set var="join_date" value="${list.joinDate}" />
 						    <c:set var="arr" value="${fn:split(join_date,' ')}" />
 						    <c:out value="${arr[0]}" />
-						<td><a href="${contextPath}/member/adminModMember.do?name=${list.b_name }" class="reply">수정하기</a></td>
-						<td><a href="${contextPath }/admin/adminRemoveBus.do?name=${list.b_name }" class="reply">삭제하기</a></td>
+						<td><a href="${contextPath}/member/adminModBus.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
+						<td><a href="${contextPath }/admin/adminRemoveBus.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>

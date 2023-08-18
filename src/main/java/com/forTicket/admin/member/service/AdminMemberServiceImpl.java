@@ -43,13 +43,10 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		return adminMemberDAO.adminDeleteBus(name);
 		
 	}
-	
-	
-	//회원 수정창 이동, memberVO값 가져오기
-	public MemberVO adminModMember(MemberVO memberVO) throws DataAccessException{
-		memberVO = adminMemberDAO.selectMemberById(memberVO);
 		
-		return memberVO;
+	//회원 수정창 이동, memberVO값 가져오기
+	public MemberVO adminModMember(HashMap condMap) throws DataAccessException{
+		return adminMemberDAO.selectMemberById(condMap);
 	}
 	
 	//회원 수정
@@ -58,5 +55,10 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		return adminMemberDAO.adminUpdateMember(memberVO);
 	}
 	
+	//사업자 수정
+	@Override
+	public int adminUpdateBus(MemberVO memberVO) throws DataAccessException {
+		return adminMemberDAO.adminUpdateBus(memberVO);
+		}
 
 }

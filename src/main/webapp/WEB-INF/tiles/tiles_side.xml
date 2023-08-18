@@ -32,12 +32,16 @@
 	</definition>
 	
 	<!-- 관리자 회원 수정 화면-->
-	<definition name="/admin/member/adminModMember" extends="baseLayout1">
-		<put-attribute name="title" value="환불 신청" />
-		<put-attribute name="body" value="/WEB-INF/views/admin/member/adminModMember.jsp" />
+	<definition name="/member/adminModMember" extends="baseLayout1">
+		<put-attribute name="title" value="관리자 회원 수정" />
+		<put-attribute name="body" value="/WEB-INF/views/member/adminModMember.jsp" />
 	</definition>
 	
-	
+	<!-- 관리자 회원 수정 화면-->
+	<definition name="/member/adminModBus" extends="baseLayout1">
+		<put-attribute name="title" value="관리자 회원 수정" />
+		<put-attribute name="body" value="/WEB-INF/views/member/adminModBus.jsp" />
+	</definition>
 	
 	
 	
@@ -45,15 +49,16 @@
 	
 	
 	<!-- 관리자 회원관리 화면-->
-	<definition name="/admin/member/adminMember" extends="baseLayout1">
+	<definition name="/member/adminMember" extends="baseLayout1">
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 		<put-attribute name="title" value="관리자 회원관리" />
-		<put-attribute name="body" value="/WEB-INF/views/admin/member/adminMember.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/adminMember.jsp" />
 	</definition>
 	
 	<!-- 관리자 사업자관리 화면-->
-	<definition name="/admin/member/adminBus" extends="baseLayout1">
+	<definition name="/member/adminBus" extends="baseLayout1">
 		<put-attribute name="title" value="관리자 사업자관리" />
-		<put-attribute name="body" value="/WEB-INF/views/admin/member/adminBus.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/adminBus.jsp" />
 	</definition>
 	
 	

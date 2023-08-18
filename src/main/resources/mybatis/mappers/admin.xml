@@ -79,9 +79,9 @@
 	
 	
 	<!--수정창 이동시 id가져오기 -->
-	<select id="selectMemberById" resultType="memberVO" parameterType="String">
+	<select id="selectMemberById" resultMap="memResult" parameterType="java.util.HashMap">
 		<![CDATA[
-			select * from member
+			select *  from member
 			where
 			mem_id=#{mem_id}
 		]]>	
@@ -92,6 +92,16 @@
      <![CDATA[
 	     update member
 	     	set mem_name=#{mem_name}, pwd=#{pwd}, phone2=#{phone2}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
+	     	where
+			mem_id=#{mem_id}
+      ]]>      
+   </update>
+   
+   	<!-- 관리자 사업자 수정 -->	
+	<update id="adminUpdateBus"  parameterType="memberVO">
+     <![CDATA[
+	     update member
+	     	set b_name=#{b_name}, pwd=#{pwd}, b_phone2=#{b_phone2}, b_phone3=#{b_phone3}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
 	     	where
 			mem_id=#{mem_id}
       ]]>      
