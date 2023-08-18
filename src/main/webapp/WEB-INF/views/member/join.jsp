@@ -12,7 +12,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>메인 페이지</title>
+	<title>회원,사업주 선택창</title>
 	<style>
 		.container {
 			padding-top: 100px;
@@ -59,7 +59,7 @@
 <body>
 	<div class="container">
         <div class="div1">
-		<a href="#" style="text-decoration: none;">
+		<a href="${contextPath}/member/memberForm.do" style="text-decoration: none;">
 			<div><img src="${contextPath}/resources/images/member/mem1.png" style="width:260px; height:260px; margin-top:50px;" alt="회원">
 			<div class="div1_1" >일반 사용자 회원가입</div>
 			</div>

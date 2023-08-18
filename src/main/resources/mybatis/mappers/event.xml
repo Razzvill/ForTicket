@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.forTicket.event.dao.EventDAO">
+	<resultMap id="eventResult" type="eventVO">
+		<result property="event_no" column="event_no" />
+		<result property="event_name" column="event_name" />
+		<result property="event_startDate" column="event_startDate" />
+		<result property="event_endDate" column="event_endDate" />
+		<result property="event_type" column="event_type" />
+		<result property="event_detail" column="event_detail" />
+		<result property="event_status" column="event_status" />
+		<result property="mem_id" column="mem_id" />
+		<result property="event_image" column="event_image" />
+		<result property="event_finalDate" column="event_finalDate" />
+		<result property="event_creDate" column="event_creDate" />
+		<result property="goods_id" column="goods_id" />
+	</resultMap>
+	
+	<resultMap id="imageResult" type="imageFileVO">
+	   <result property="image_id" column="image_id" />
+	   <result property="event_no" column="event_no" />
+	   <result property="fileName" column="fileName" />
+	   <result property="fileType" column="fileType" />
+	   <result property="reg_id" column="reg_id" />
+	</resultMap>
+	
+	<select id="selectAllEventList" resultMap="eventResult">
+		<![CDATA[
+			SELECT * FROM event ORDER BY event_creDate DESC
+		]]>
+	</select>
+	
+	<select id="selectEventInfo" resultType="eventVO" parameterType="int">
+		<![CDATA[
+			SELECT * FROM event WHERE event_no=#{event_no}
+		]]>
+	</select>
+	
+	<select id="selectEventNo" resultType="int" parameterType="java.util.Map">
+		<![CDATA[
+			SELECT event_no FROM event WHERE mem_id=#{mem_id} AND event_name=#{event_name}
+		]]>
+	</select>
+
+	<insert id="insertEvent" parameterType="java.util.Map">
+		<![CDATA[
+			INSERT INTO event(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image, event_finalDate, goods_id) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image}, #{event_finalDate}, #{goods_id})
+		]]>
+	</insert>
+
+	<update id="updateEvent" parameterType="java.util.Map">
+		<![CDATA[
+			UPDATE event SET event_name=#{event_name}, event_startDate=#{event_startDate}, event_endDate=#{event_endDate}, event_type=#{event_type}, event_detail=#{event_detail}, event_status=#{event_status}, event_image=#{event_image}, event_finalDate=#{event_finalDate}, goods_id=#{goods_id} WHERE event_no=#{event_no}
+		]]>
+	</update>
+	
+	<update id="updateEventStatus" parameterType="java.util.Map" >
+		update event
+		<set> 
+			<if test=" event_status!='' and event_status!=null">
+				event_status=#{event_status}
+			</if>
+		</set>
+		where 
+		event_no=#{event_no}
+	</update>	
+
+	<delete id="deleteEvent" parameterType="int">
+		<![CDATA[
+			DELETE FROM event WHERE event_no=#{event_no}
+		]]>
+	</delete>
+
+	<select id="selectEventImageFileList" resultMap="imageResult"   parameterType="int"  >
+	    <![CDATA[
+		    	select * from  event_detail_image 
+		    	where  
+			    event_no=#{event_no}
+			    order by image_id asc
+    	]]>
+	</select>
+	
+	<insert id="insertEventImage" parameterType="imageFileVO">
+		<![CDATA[
+			INSERT INTO event_detail_image(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image})
+		]]>
+	</insert>
+	
+	<update id="updateEventImage" parameterType="imageFileVO">
+		<![CDATA[
+		update event_detail_image
+		set fileName=#{fileName}
+		where	 
+		event_no=#{event_no} and image_id=#{image_id}
+		]]>
+	</update>
+	
+	<delete id="deleteEventImage" parameterType="int">
+		<![CDATA[
+		delete from event_detail_image
+		where image_id=#{image_id}
+		]]>
+	</delete>
+	
+</mapper>

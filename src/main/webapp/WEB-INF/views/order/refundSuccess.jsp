@@ -17,7 +17,6 @@
 	    width: 800px;
 	    min-height: 640px;
 	    padding: 40px 30px 0 30px;
-	    background: #fff;
 	    border-radius: 10px;
 	    text-align:center;
 	    line-height:200%;
@@ -30,34 +29,53 @@
 	.refundTable td{
 		padding-left: 100px;
 		padding-top: 40px;
-		
 	}
 	
 	.liFont{
 		font-size: 20px;
-		
+	}
+	
+	.refund_1{
+		height:500px;
+		margin-top:10px;
+		border:1px solid #d2d2d2;
+		border-radius: 10px;
+		padding:10px 25px;
+		font-size:15px;
+		line-height:280%;
+		border-color: #FF6251;
+		padding-bottom: 50px;
+	}
+	
+	.refund_2{
+		height:180px;
+		margin-top:30px; 
+		border:1px solid #d2d2d2; 
+		border-radius: 10px; 
+		padding:10px 25px; 
+		font-size:15px; 
+		line-height:280%; 
+		border-color: #FF6251; 
+		padding-bottom: 50px; 
+		text-align:left;
 	}
 </style>
 </head>
 <body>
 <div class="mypage_right_wrap">
-	<div class="mypage_right_title" style="margin-bottom:20px;">
+	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left;">환불 완료</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>
 
 <div style="margin-top:17px; padding:25px 0; text-align:center;">
-
-  
-
 	<div style="font-size:30px; font-weight:bold; color:#ff6060; margin-top: 10px; margin-bottom:10px;">
 		환불 처리가 완료 되었습니다.
 	</div>
-
 </div>
 
-<div style="height:500px; margin-top:10px; border:1px solid #d2d2d2; border-radius: 10px; background:#fff; padding:10px 25px; font-size:15px; color:#313131; line-height:280%; border-color: #FF6251; padding-bottom: 50px;">
+<div class="refund_1">
 	<table class="refundTable">
     	<tr>
     	<td><input type="image" src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1"></td>
@@ -75,7 +93,7 @@
     	</tr>
      </table>
 </div>
-<div style="height:180px; margin-top:30px; border:1px solid #d2d2d2; border-radius: 10px; background:#fff; padding:10px 25px; font-size:15px; color:#313131; line-height:280%; border-color: #FF6251; padding-bottom: 50px; text-align:left;">
+<div class="refund_2">
 	● 신용카드는 익월 청구내역에서 제외되며 영업일(평일) 기준 1~2일 후 각 카드사를 통해 확인 가능합니다.<br>
 	● 체크카드는 영업일(평일)기준 3~5일 후 연결된 계좌로 환불 금액이 입금됩니다.<br>
 	● 페이코 등 간편결제 포인트를 이용하신 경우 동일한 결제수단의 포인트로 환불이 진행됩니다.<br><br>

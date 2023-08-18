@@ -9,7 +9,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface TheaterController {
-	public ResponseEntity listTheater(MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
-	public ResponseEntity detailTheater(@RequestParam("theater_id") int id, MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
-	public ModelAndView modTheater(@RequestParam("id") String id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
+	public ModelAndView listTheater(HttpServletRequest req, HttpServletResponse resp) throws Exception;
+	public ModelAndView detailTheater(@RequestParam("theater_id") int id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
+	public ResponseEntity addTheater(MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
+	public ResponseEntity removeTheater(@RequestParam("id") int id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
+	public ModelAndView modForm(@RequestParam("id") int id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
+	public ResponseEntity modTheater(MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
 }

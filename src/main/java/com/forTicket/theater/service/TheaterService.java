@@ -13,5 +13,5 @@ public interface TheaterService {
 	public TheaterVO theaterInfo(int theater_id) throws DataAccessException;
 	public int addTheater(Map theaterMap) throws DataAccessException;
 	public int modTheater(Map theaterMap) throws DataAccessException;
-	public int removeTheater(Map theaterMap) throws DataAccessException;
+	public int removeTheater(int theater_id) throws DataAccessException;
 }

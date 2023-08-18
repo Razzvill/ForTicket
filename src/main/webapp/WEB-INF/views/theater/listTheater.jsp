@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,62 +95,60 @@
 	  font-weight: 600;
 	  text-align: left;
 	}
+	.main_title {
+		font-size: 25px;
+		font-weight: 900;
+		text-align: left;
+		padding-top: 50px;
+	}
+	.btn1 {
+	    display: inline-block;
+	    width: 100px;
+	    height: 30px;
+	    text-align: center;
+	    margin-right: 15px;
+	    margin-top: 10px;
+	    background: #ff4b4b;
+	    color: #fff;
+	    font-size: 16px;
+	    font-weight: bold;
+	    border-radius: 10px;
+	    border: 0;
+	    cursor: pointer;
+	    float: right;
+	}
+	hr {
+		width: 90%;
+		float: left;
+	}
 </style>
 </head>
 <body>
-<%-- <div class="main_book">
-   <c:set  var="goods_count" value="0" />
-	<h3>베스트셀러</h3>
-	<c:forEach var="item" items="${goodsMap.bestseller }">
-	   <c:set  var="goods_count" value="${goods_count+1 }" />
-		<div class="book">
-			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-			<img class="link"  src="${contextPath}/resources/image/1px.gif"> 
-			</a> 
-				<img width="121" height="154" 
-				     src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-
-			<div class="title">${item.goods_title }</div>
-			<div class="price">
-		  	   <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		          ${goods_price}원
-			</div>
-		</div>
-	   <c:if test="${goods_count==15   }">
-         <div class="book">
-           <font size=20> <a href="#">more</a></font>
-         </div>
-     </c:if>
-  </c:forEach>
-</div> --%>
 <div class="wrap_1100">
-<div>
-	<p >공연장 목록</p>
-</div>
+<div class="main_title">공연장 목록
+<c:if test="${isLogOn == true && member.id == 'admin' }">
+<input type="button" value="등록하기" class="btn1" onclick="location.href='${contextPath}/theater/theaterForm.do'" />
+</c:if>
+</div><hr>
 <div style="margin-top: 25px;">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tbody>
 		<tr>
+			<c:forEach var="theater" items="${theatersList}">
 			<td valign="top" align="left">
-				<a href="${contextPath}/theater/detailTheater.do">
+				<a href="${contextPath}/theater/detailTheater.do?theater_id=${theater.theater_id}">
 					<div class="theater_list">
 						<div class="thumb">
-							<img src="${contextPath}/resources/images/asin.jpeg" alt="아신극장">
+							<img src="${contextPath}/theater/download.do?theater_id=${theater.theater_id}&theater_image=${theater.theater_image}" alt="${theater.theater_name}">
 						</div>
 						<div class="theater_info">
-							<p class="category">민간</p>
-							<p class="title">아신극장</p>
-							<div class="price">
-								<div>
-									<span class="stars" style=";">
-										<img src="${contextPath}/resources/images/ico_star.png" alt="별점">"4.8"<span>(59)</span>
-									</span>
-								</div>
-							</div>
+							<p class="category">${theater.theater_cat}</p>
+							<p class="title">${theater.theater_name}</p>
 						</div>
 					</div>
 				</a>
 			</td>
+			</c:forEach>
 		</tr>
 	</tbody>
 </table>
