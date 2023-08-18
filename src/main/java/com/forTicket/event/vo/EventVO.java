@@ -15,6 +15,7 @@ public class EventVO {
 	private String event_status;
 	private String mem_id;
 	private Date event_finalDate;
+	private Date event_creDate;
 	
 	public int getEvent_no() {
 		return event_no;
@@ -69,6 +70,12 @@ public class EventVO {
 	}
 	public void setEvent_finalDate(Date event_finalDate) {
 		this.event_finalDate = event_finalDate;
+	}
+	public Date getEvent_creDate() {
+		return event_creDate;
+	}
+	public void setEvent_creDate(Date event_creDate) {
+		this.event_creDate = event_creDate;
 	}
 	
 	

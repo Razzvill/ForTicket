@@ -1,5 +1,7 @@
 package com.forTicket.event.service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +25,17 @@ public class EventServiceImpl implements EventService {
 	
 	@Override
 	public List listEvents() throws DataAccessException {
-		return eventDAO.selectAllEventList();
+		Date date = new Date(System.currentTimeMillis());
+		List<EventVO> eventList = eventDAO.selectAllEventList();
+		for(EventVO event : eventList) {
+			if(event.getEvent_endDate().compareTo(date)<0) {
+				event.setEvent_status("종료");
+				Map eventMap = new HashMap();
+				eventDAO.updateEventStatus(eventMap);
+			}
+		}
+		eventList = eventDAO.selectAllEventList();
+		return eventList;
 	}
 
 	@Override
