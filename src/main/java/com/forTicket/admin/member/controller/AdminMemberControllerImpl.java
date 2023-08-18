@@ -32,11 +32,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	@Autowired
 	private AdminMemberService adminMemberService;
-<<<<<<< HEAD
-		
-=======
->>>>>>> refs/heads/yeji
-	
+
 	//관리자 회원관리
 	@Override
 	@RequestMapping(value="/admin/member/adminMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
