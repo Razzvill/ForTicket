@@ -35,7 +35,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 
 	//관리자 회원관리
 	@Override
-	@RequestMapping(value="/admin/member/adminMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/member/adminMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
 		HttpSession session=request.getSession();
