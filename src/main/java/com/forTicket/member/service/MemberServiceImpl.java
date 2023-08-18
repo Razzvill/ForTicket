@@ -1,6 +1,6 @@
 package com.forTicket.member.service;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;	
 	
 	@Override
-	public int addMember(MemberVO member) throws DataAccessException {
+	public int insertMember(MemberVO member) throws DataAccessException {
 		return memberDAO.insertMember(member);
 	}
 
@@ -47,4 +47,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectOverlappedID(id);
 	}
 	
+	 @Override
+	 public String findId(String mem_name, String phone2) {
+	     String findId = memberDAO.findId(mem_name, phone2);
+	     return findId;
+	    }
+
+
 }

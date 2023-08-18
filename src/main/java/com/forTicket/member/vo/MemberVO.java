@@ -21,7 +21,7 @@ public class MemberVO {
 	private String b_phone2;
 	private String b_phone3;
 	private String checkbox;
-	private String memberCheck;
+	private String type;
 	private Date joinDate;
 	
 	
@@ -65,6 +65,7 @@ public class MemberVO {
 	public String getPost() {
 		return post;
 	}
+	
 	public void setPost(String post) {
 		this.post = post;
 	}
@@ -116,11 +117,12 @@ public class MemberVO {
 	public void setCheckbox(String checkbox) {
 		this.checkbox = checkbox;
 	}
-	public String getMemberCheck() {
-		return memberCheck;
+	
+	public String getType() {
+		return type;
 	}
-	public void setMemberCheck(String memberCheck) {
-		this.memberCheck = memberCheck;
+	public void setType(String type) {
+		this.type = type;
 	}
 	public Date getJoinDate() {
 		return joinDate;
