@@ -1,7 +1,6 @@
 package com.forTicket.event.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,5 +77,26 @@ public class EventControllerImpl implements EventController {
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	@RequestMapping(value="/event/modEventStatus.do" ,method={RequestMethod.POST})
+	public ResponseEntity modEventStatus(@RequestParam("event_no") int event_no,
+			                     @RequestParam("attribute") String attribute,
+			                     @RequestParam("value") String value,
+			HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		//System.out.println("modifyGoodsInfo");
+		
+		Map goodsMap=new HashMap();
+		goodsMap.put("event_no", event_no);
+		goodsMap.put(attribute, value);
+		eventService.modEventStatus(goodsMap);
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		message  = "mod_success";
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 }
