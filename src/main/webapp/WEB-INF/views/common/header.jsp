@@ -107,7 +107,7 @@
 <div style="width:100%;">
 	<!-- header 상단 -->
 	<c:choose>
-	<c:when test="${isLogOn == true && member != null }">
+	<c:when test="${isLogOn == true && member != null && member.mem_id !='admin' && member.b_name == null }">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
@@ -120,7 +120,7 @@
 		</div>
 	</div>
 	</c:when>
-	<c:when test="${isLogOn == true && member.mem_id == 'business' }">
+	<c:when test="${isLogOn == true && member.b_name != null  }">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
@@ -133,7 +133,7 @@
 		</div>
 	</div>
 	</c:when>
-	<c:when test="${isLogOn == true && member.mem_id == 'admin' }">
+	<c:when test="${isLogOn == true and member.mem_id == 'admin' }">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
@@ -176,28 +176,28 @@
 	
 	<!-- header 하단 -->
 	<c:choose>
-	<c:when test="${header_menu }='admin_mode'}">
+	<c:when test="${isLogOn == true and member.mem_id == 'admin' }">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">공연장관리</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">회원관리</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
+				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">공연장관리</a></li>
+				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/admin/member/adminMember.do" class="button" onclick="changeStyle(this)">회원관리</a></li>
+				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="#" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
 	</div>
 	</c:when>
-	<c:when test="${header_menu }='business_mode'}">
+	<c:when test="${isLogOn == true && member.b_name != null  }">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">스케쥴관리</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">공연장</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">예매관리</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li class="" style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
+				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">스케쥴관리</a></li>
+				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">공연장</a></li>
+				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">예매관리</a></li>
+				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="#" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
 	</div>
@@ -205,14 +205,14 @@
 	<c:otherwise>
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 			<ul class="gnb_nav">
-				<li class="" style="padding-right:105px;"><a href="${contextPath}/goods/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
-				<li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
-				<li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연</a></li>
 				
-				<li class="" style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				
-				<li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li class="" style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="#" class="button" onclick="changeStyle(this)">고객센터</a></li>
 			</ul>
 		</div>
