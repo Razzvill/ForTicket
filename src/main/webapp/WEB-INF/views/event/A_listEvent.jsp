@@ -85,7 +85,40 @@
 	}
 	</style>
 	<script>
-		//버튼으로 조회하기
+	function fn_modify_event(event_no, attribute){
+		var frm_list=document.frm_list;
+		var value="";
+		if(attribute=='event_status'){
+			value=frm_list.event_status.value;
+		}
+
+		$.ajax({
+			type : "post",
+			async : false, //false인 경우 동기식으로 처리한다.
+			url : "${contextPath}/event/modEventStatus.do",
+			data : {
+				event_no:event_no,
+				attribute:attribute,
+				value:value
+			},
+			success : function(data, textStatus) {
+				if(data.trim()=='mod_success'){
+					alert("등록 상태를 수정했습니다.");
+				}else if(data.trim()=='failed'){
+					alert("다시 시도해 주세요.");	
+				}
+				
+			},
+			error : function(data, textStatus) {
+				alert("에러가 발생했습니다."+data);
+			},
+			complete : function(data, textStatus) {
+				//alert("작업을완료 했습니다");
+				
+			}
+		}); //end ajax	
+	}	
+	//버튼으로 조회하기
 		function search_member(fixedSearchPeriod){	
 			var formObj=document.createElement("form");
 			var i_fixedSearch_period = document.createElement("input");
@@ -358,7 +391,7 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td><a href="${contextPath}/event/modEventForm.do?event_no=${list.event_no }" class="reply">반영</a></td>
+						<td><a onClick="fn_modify_goods('${event.event_no }','event_status')" class="reply">반영</a></td>
 						<td><a href="${contextPath }/event/removeEvent.do?event_no=${list.event_no }" class="reply">삭제</a></td>
 					</tr>
 				</c:forEach>
