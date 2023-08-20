@@ -21,44 +21,44 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	
 	//관리자 회원 관리
 	@Override
-	public ArrayList<MemberVO> adminListMember(HashMap condMap) throws Exception {
-		return adminMemberDAO.adminListMember(condMap);
+	public ArrayList<MemberVO> a_Profile(HashMap condMap) throws Exception {
+		return adminMemberDAO.a_Profile(condMap);
 	}
 	
 	//관리자 사업자 관리
 	@Override
-	public ArrayList<MemberVO> adminListBus(HashMap condMap) throws Exception {
-		return adminMemberDAO.adminListBus(condMap);
+	public ArrayList<MemberVO> a_ProfileBus(HashMap condMap) throws Exception {
+		return adminMemberDAO.a_ProfileBus(condMap);
 	}
 	
 	//관리자 회원 삭제	
 	@Override
-	public int adminRemoveMember(String id) throws DataAccessException {
+	public int deleteMember(String id) throws DataAccessException {
 		
-		return adminMemberDAO.adminDeleteMember(id);		
+		return adminMemberDAO.deleteMember(id);		
 	}
 	
 	//관리자 사업자 삭제
-	public int adminDeleteBus(String name) throws DataAccessException{
-		return adminMemberDAO.adminDeleteBus(name);
+	public int deleteBus(String name) throws DataAccessException{
+		return adminMemberDAO.deleteBus(name);
 		
 	}
 		
 	//회원 수정창 이동, memberVO값 가져오기
-	public MemberVO adminModMember(HashMap condMap) throws DataAccessException{
-		return adminMemberDAO.selectMemberById(condMap);
+	public MemberVO a_Edit(HashMap condMap) throws DataAccessException{
+		return adminMemberDAO.selectById(condMap);
 	}
 	
 	//회원 수정
 	@Override
-	public int adminUpdateMember(MemberVO memberVO) throws DataAccessException {
-		return adminMemberDAO.adminUpdateMember(memberVO);
+	public int a_Update(MemberVO memberVO) throws DataAccessException {
+		return adminMemberDAO.a_Update(memberVO);
 	}
 	
 	//사업자 수정
 	@Override
-	public int adminUpdateBus(MemberVO memberVO) throws DataAccessException {
-		return adminMemberDAO.adminUpdateBus(memberVO);
+	public int a_UpdateBus(MemberVO memberVO) throws DataAccessException {
+		return adminMemberDAO.a_UpdateBus(memberVO);
 		}
 
 }

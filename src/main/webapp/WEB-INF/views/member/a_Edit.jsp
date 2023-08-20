@@ -88,7 +88,7 @@
 <body>
 <div class="mypage4">
 
-<form method="post"   action="${contextPath}/member/adminUpdateMember.do">
+<form method="post"   action="${contextPath}/admin/a_Update.do">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left;">회원 정보</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>

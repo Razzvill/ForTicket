@@ -35,8 +35,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	//관리자 회원관리
 	@Override
-	@RequestMapping(value="/member/adminMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+	@RequestMapping(value="/member/a_Profile.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView a_Profile(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
 		HttpSession session=request.getSession();
 		session=request.getSession();
@@ -75,7 +75,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		
-		ArrayList<MemberVO> member_list=adminMemberService.adminListMember(condMap);
+		ArrayList<MemberVO> member_list=adminMemberService.a_Profile(condMap);
 		
 		mav.addObject("member_list", member_list);
 		
@@ -101,8 +101,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	//관리자 사업자관리
 	@Override
-	@RequestMapping(value="/member/adminBus.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView adminBus(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+	@RequestMapping(value="/member/a_ProfileBus.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView a_ProfileBus(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
@@ -135,7 +135,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		
-		ArrayList<MemberVO> member_list=adminMemberService.adminListBus(condMap);
+		ArrayList<MemberVO> member_list=adminMemberService.a_ProfileBus(condMap);
 		
 		mav.addObject("member_list", member_list);
 		
@@ -161,8 +161,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	//회원 삭제
 	@Override
-	@RequestMapping(value="/admin/adminRemoveMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ResponseEntity adminRemoveMember(String mem_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value="/admin/deleteMember.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ResponseEntity deleteMember(String mem_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -172,10 +172,10 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		
 		try{
-			adminMemberService.adminRemoveMember(mem_id);
+			adminMemberService.deleteMember(mem_id);
 			message = "<script>";
 			message += " alert('삭제했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/adminMember.do?mem_id=" + mem_id
+			message += " location.href='" + request.getContextPath() + "/member/a_Profile.do?mem_id=" + mem_id
 					+ "';";
 			message += "</script>";
 			
@@ -183,7 +183,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		} catch(Exception e) {
 			message = "<script>";
 			message += " alert('오류가 생겼습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/adminMember.do?mem_id=" + mem_id
+			message += " location.href='" + request.getContextPath() + "/member/a_Profile.do?mem_id=" + mem_id
 					+ "';";
 			message += "</script>";
 			
@@ -194,8 +194,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	//사업자 삭제
 	@Override
-	@RequestMapping(value="/admin/adminRemoveBus.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ResponseEntity adminDeleteBus(String name, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value="/admin/deleteBus.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ResponseEntity deleteBus(String name, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -205,10 +205,10 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		
 		try{
-			adminMemberService.adminDeleteBus(name);
+			adminMemberService.deleteBus(name);
 			message = "<script>";
 			message += " alert('삭제했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/adminBus.do?b_name=" + name
+			message += " location.href='" + request.getContextPath() + "/member/b_Profile.do?b_name=" + name
 					+ "';";
 			message += "</script>";
 			
@@ -216,7 +216,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		} catch(Exception e) {
 			message = "<script>";
 			message += " alert('오류가 생겼습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/adminBus.do?b_name=" + name
+			message += " location.href='" + request.getContextPath() + "/member/b_Profile.do?b_name=" + name
 					+ "';";
 			message += "</script>";
 			
@@ -227,8 +227,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 
 	//회원 수정창 이동, memberVO값 가져오기
 	@Override
-	@RequestMapping(value="/member/adminModMember.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView adminModMember(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value="/member/a_Edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView a_Edit(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		MemberVO member = new MemberVO();
 		
 		request.setCharacterEncoding("utf-8");
@@ -240,10 +240,9 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 
 		condMap.put("mem_id", mem_id);
 
-		member = adminMemberService.adminModMember(condMap);
+		member = adminMemberService.a_Edit(condMap);
 		
 		mav.addObject("taget", member);
-		System.out.println(member);
 		
 		mav.setViewName(viewName);
 		
@@ -252,19 +251,24 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	//사업자 수정창 이동, memberVO값 가져오기
 	@Override
-	@RequestMapping(value="/member/adminModBus.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView adminModBus(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
-		request.setCharacterEncoding("utf-8");
+	@RequestMapping(value="/member/a_EditBus.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView a_EditBus(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		MemberVO member = new MemberVO();
 		
+		request.setCharacterEncoding("utf-8");
+
 		String viewName = (String)request.getAttribute("viewName");
 		
-		memberVO.setMem_id(mem_id);		
-		
-		//memberVO = adminMemberService.adminModMember(mem_id);
+		HashMap<String,String> condMap = new HashMap<String,String>();
 		
 		ModelAndView mav = new ModelAndView();
+
+		condMap.put("mem_id", mem_id);
+
+		member = adminMemberService.a_Edit(condMap);
 		
-		mav.addObject("member", memberVO);
+		mav.addObject("taget", member);
+		
 		mav.setViewName(viewName);
 		
 		return mav;
@@ -272,8 +276,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	//회원 수정	
 	@Override
-	@RequestMapping(value="/member/adminUpdateMember.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ResponseEntity adminUpdateMember(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value="/admin/a_Update.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity a_Update(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -285,17 +289,17 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		int result = 0;
 		
 		try{						
-			result = adminMemberService.adminUpdateMember(member);
+			result = adminMemberService.a_Update(member);
 			message = "<script>";
 			message += " alert('수정했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/admin/member/adminMember.do?';";
+			message += " location.href='" + request.getContextPath() + "/member/a_Profile.do?';";
 			message += "</script>";
 			
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		} catch(Exception e) {
 			message = "<script>";
 			message += " alert('오류가 생겼습니다.');";
-			message += " location.href='" + request.getContextPath() + "/admin/member/adminMember.do?';";
+			message += " location.href='" + request.getContextPath() + "/member/a_Profile.do?';";
 			message += "</script>";
 			
 			e.printStackTrace();
@@ -305,8 +309,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	//사업자 수정	
 	@Override
-	@RequestMapping(value="/member/adminUpdateBus.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ResponseEntity adminUpdateBus(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value="/admin/a_UpdateBus.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity a_UpdateBus(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -318,25 +322,24 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		int result = 0;
 		
 		try{						
-			result = adminMemberService.adminUpdateBus(member);
+			result = adminMemberService.a_UpdateBus(member);
 			message = "<script>";
 			message += " alert('수정했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/adminBus.do?';";
+			message += " location.href='" + request.getContextPath() + "/member/a_ProfileBus.do';";
 			message += "</script>";
 			
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		} catch(Exception e) {
 			message = "<script>";
 			message += " alert('오류가 생겼습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/adminBus.do?';";
+			message += " location.href='" + request.getContextPath() + "/member/a_ProfileBus.do';";
 			message += "</script>";
 			
 			e.printStackTrace();
 		}
 		return resEnt;
 	}
-	
-	
+
 	protected String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
 		String endDate=null;

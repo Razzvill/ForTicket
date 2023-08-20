@@ -81,9 +81,11 @@
 	</select>
 	
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
-      select if(count(*)=1, 'true', 'false')
+     <![CDATA[ 
+     	select if(count(*)=1, 'true', 'false')
 	   from member
 	   where mem_id = #{id}
+	   ]]>
    </select>
    
    <select id="findId" parameterType="map" resultType="string">

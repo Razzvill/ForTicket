@@ -1,4 +1,4 @@
-package com.forTicket.admin.community.controller;
+package com.forTicket.community.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller("adminCommunityController")
-public class adminCommunityControllerImpl implements adminCommunityController{
+@Controller("communityController")
+public class CommunityControllerImpl implements CommunityController{
 	
-	@RequestMapping(value={"/community/adminCommunity.do"}, method={RequestMethod.GET,RequestMethod.POST})
-	private ModelAndView main(HttpServletRequest req,HttpServletResponse resp) throws Exception {
+	@Override
+	@RequestMapping(value="/community/a_Comm.do", method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView a_Comm(HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		
 		HttpSession session=req.getSession();
 		session=req.getSession();

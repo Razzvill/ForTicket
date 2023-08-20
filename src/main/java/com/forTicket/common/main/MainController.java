@@ -15,9 +15,6 @@ public class MainController {
 	@RequestMapping(value={"/main.do"}, method={RequestMethod.GET,RequestMethod.POST})
 	 private ModelAndView main(HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		
-		HttpSession session=req.getSession();
-		session=req.getSession();
-		
 		String viewName = (String)req.getAttribute("viewName");
 		 
 		ModelAndView mav = new ModelAndView();
@@ -31,6 +28,7 @@ public class MainController {
      //검색 결과 창
      @RequestMapping(value={"/mainsearch.do"}, method={RequestMethod.GET,RequestMethod.POST})
      private ModelAndView mainsearch(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    	 
     	 String viewName = (String)req.getAttribute("viewName");
     	 
     	 ModelAndView mav = new ModelAndView();
@@ -38,5 +36,6 @@ public class MainController {
     	 mav.setViewName(viewName);
     	 
     	 return mav;
-    	 }
+     }
+     
 }

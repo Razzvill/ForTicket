@@ -13,128 +13,151 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <style>
 .join_wrap {
-width: 600px;
-margin: 50px auto;
-padding: 60px 0 50px 0;
-text-align: center;
-border: 3px solid #ffd1d1;
-border-radius: 30px;
-background-color: #fff;
+	width: 600px;
+	margin: 50px auto;
+	padding: 60px 0 50px 0;
+	text-align: center;
+	border: 3px solid #ffd1d1;
+	border-radius: 30px;
+	background-color: #fff;
 }
+
+.formtable{
+	margin:auto;
+}
+
+.dot_line1 {
+	margin-top: 10px;
+	width: 260px;
+	height: 55px;
+	padding: 0 10px 0 60px;
+	font-size: 18px;
+	border-radius: 20px;
+	border: 1px solid #ddd;
+	background-repeat: no-repeat;
+	background-size: 24px;
+	background-position: 20px 15px;
+}
+
 .dot_line {
-margin-top: 10px;
-width: 350px;
-height: 55px;
-padding: 0 10px 0 60px;
-font-size: 18px;
-border-radius: 20px;
-border: 1px solid #ddd;
-background-repeat: no-repeat;
-background-size: 24px;
-background-position: 20px 15px;
+	margin-top: 10px;
+	width: 345px;
+	height: 55px;
+	padding: 0 10px 0 60px;
+	font-size: 18px;
+	border-radius: 20px;
+	border: 1px solid #ddd;
+	background-repeat: no-repeat;
+	background-size: 24px;
+	background-position: 20px 15px;
 }
 	
 .icon_id {
-background-image: url("${contextPath}/resources/images/member/user_id.png");
+	background-image: url("${contextPath}/resources/images/member/user_id.png");
 }
 	
 .icon_pass {
-background-image: url("${contextPath}/resources/images/member/user_pass.png");
+	background-image: url("${contextPath}/resources/images/member/user_pass.png");
 }
 	
 .icon_pass2 {
-background-image: url("${contextPath}/resources/images/member/user_pass2.png");
+	background-image: url("${contextPath}/resources/images/member/user_pass2.png");
 	}
 	
 .icon_name {
-background-image: url("${contextPath}/resources/images/member/user_name.png");
+	background-image: url("${contextPath}/resources/images/member/user_name.png");
 }
 	
 .icon_email {
-background-image: url("${contextPath}/resources/images/member/user_email.png");
+	background-image: url("${contextPath}/resources/images/member/user_email.png");
 }
 	
 .icon_phone{
-background-image: url("${contextPath}/resources/images/member/user_hphone.png");
+	background-image: url("${contextPath}/resources/images/member/user_hphone.png");
 }
 		
 .post {
-		margin-top: 10px;
-	    width: 235px;
-	    height: 55px;
-	    padding: 0 10px 0 60px;
-	    font-size: 18px;
-	    border-radius: 20px;
-	    border: 1px solid #ddd;
-	    background-repeat: no-repeat;
-	    background-size: 24px;
-	    background-position: 20px 15px;
+	margin-top: 10px;
+    width: 235px;
+    height: 55px;
+    padding: 0 10px 0 60px;
+    font-size: 18px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 20px 15px;
 	}
 	
 .post1{
-		margin-top: 10px;
-	    width: 100px;
-	    height: 55px;
-	    border: 1px solid #ff4b4b;
-	    border-radius: 10px;
-	    background: #ff4b4b;
-	    color: #fff;
-	    font-size: 18px;
-	    font-weight: 600;
-	    cursor: pointer;
-	    text-decoration: none;
-	}
-
-.section_wrap {
-	    margin-top: 7px;
-	}
-
-:root {
-	    --swiper-navigation-size: 44px;
-	}
-	
-:root {
-	    --swiper-theme-color: #007aff;
-	}
-	
-.checkbox_group {
-	    width: 350px;
-	    padding: 5px 25px;
-	    margin-top: 20px;
-	    margin-left: 70px;
-	    margin-bottom: 15px;
-	    border: none;
-	    border-radius: 10px;
-	    background: #f5f5f5;
-	    color: #333;
-	    text-align: left;
-	    line-height: 180%;
-	}
-	
-.btn_submit {
-            width: 350px;
-            height: 55px;
-            border: 1px solid #ff4b4b;
-            border-radius: 20px;
-            background: #ff4b4b;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-.btn_hphone_on {
-    width: 90px;
-    height: 50px;
-    border: none;
+	margin-top: 10px;
+    width: 100px;
+    height: 55px;
+    border: 1px solid #ff4b4b;
     border-radius: 10px;
     background: #ff4b4b;
     color: #fff;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+	}
+
+.section_wrap {
+	margin-top: 30px;
+	margin:auto;
+	}
+
+:root {
+	--swiper-navigation-size: 44px;
+	}
+	
+:root {
+	--swiper-theme-color: #007aff;
+	}
+	
+.checkbox_group {
+    width: 350px;
+    padding: 5px 25px;
+    margin:auto;
+    border: none;
+    border-radius: 10px;
+    background: #f5f5f5;
+    color: #333;
+    text-align: left;
+    line-height: 180%;
+	}
+	
+.btn_submit {
+	width: 250px;
+	height: 55px;
+	border: 1px solid #ff4b4b;
+	border-radius: 20px;
+	background: #ff4b4b;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 600;
+	cursor: pointer;
+	margin-top:20px;
+        }
+        
+.btn_hphone_on {
+    width: 80px;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    background: #ff4b4b;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
 }
-	</style>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+.checkform{
+	font-size: 12px;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
 	<div class="join_wrap">
@@ -142,44 +165,48 @@ background-image: url("${contextPath}/resources/images/member/user_hphone.png");
     	<img src="${contextPath}/resources/images/logo.png" style="width:150px;">
     </div>
     <form action="${contextPath}/member/addMember.do" method="post">
-	<div id="detail_table">
+	<div>
 	<input type="hidden" name="type" value="U"/>
-		<table>
+		<table class="formtable">
 			<tbody>
 				<tr>
                    <td> 
-                        <input type="text" name="_mem_id" id="_mem_id" placeholder="아이디" size="20" class="dot_line icon_id"/>
+                        <input type="text" name="_mem_id" id="_mem_id" placeholder="아이디" size="20" class="dot_line1 icon_id"/>
                         <input type="hidden" name="mem_id" id="mem_id"/>
                         <input type="button" value="중복검사" class="btn_hphone_on" id="btnOverlapped" onClick="fn_overlapped()"/>  
                    </td>
                 </tr>
                 <tr>
 					<td>
-                        <input type="password" name="pwd" id="passwordConfirm" placeholder="비밀번호" size="20" class="dot_line icon_pass"/>
+                        <input type="password" name="pwd" id="password" placeholder="비밀번호" size="20" class="dot_line icon_pass"/>
                         <br>
-                        <span id="passwordFormatHint" style="color: gray; font-size: 8px;">(영문 대소문자, 숫자, 특수문자를 포함한 8자 이상)</span>
+                        <span id="passwordFormatHint" style="color: gray; font-size: 12px;">(영문, 숫자, 특수문자를 포함한 8자 이상)</span>
                         <br>
-                        <span id="passwordError" style="color: red; font-size: 8px;"></span> <!-- 비밀번호 형식 에러 메시지 표시 요소 -->
+                        <span id="passwordError" style="color: red; font-size: 12px;"></span> <!-- 비밀번호 형식 에러 메시지 표시 요소 -->
                     </td>
 				</tr>
 				<tr>
-					<td><input type="password" name="pwd2" id="password" placeholder="비밀번호확인" size="20" class="dot_line icon_pass2"/></td>
+					<td><input type="password" name="pwd2" id="passwordConfirm" placeholder="비밀번호확인" size="20" class="dot_line icon_pass2"/></td>
+				</tr>
+				<tr>
 					<td><span id="confirmMsg"></span></td>
 				</tr>
 				<tr>
-					<td><input name="mem_name" type="text" placeholder="이름" size="20" class="dot_line icon_name"/></td>
+					<td><input name="mem_name" type="text" placeholder="이름" class="dot_line icon_name"/></td>
 				</tr>
 				<tr>
-					<td><input name="email" id="email" type="text" placeholder="이메일" size="20" class="dot_line icon_email"/></td>
-                        <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
+					<td><input name="email" id="email" type="text" placeholder="이메일"  class="dot_line icon_email"/></td>
+     			</tr>
+				<tr>
+				    <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
 				</tr>
 				<tr>
 					<td><input size="10px"  type="text" placeholder="핸드폰번호" name="phone2"class="dot_line icon_phone"></td> 
 				</tr>
 				<tr>
 					<td>
-						<input name="post" id="post" placeholder="우편번호" readonly="readonly" class="dot_line">
-                        <button type="button" style="width: 20%; display: inline;" class="btn_hphone_on" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+						<input name="post" id="post" placeholder="우편번호" readonly="readonly" class="dot_line1">
+                        <input type="button" class="btn_hphone_on" onclick="execPostCode();" value="우편번호">
                     </td>
                 </tr>
                 <tr>
@@ -192,26 +219,26 @@ background-image: url("${contextPath}/resources/images/member/user_hphone.png");
 		</table>
 	</div>
 </table>
-	<section class="section_wrap" style="margin-top:30px;">
-            <div>이용약관 동의</div>
+	<section class="section_wrap">
+            <div style="margin-top: 30px; margin-bottom: 10px; font-size: 12px;">이용약관 동의</div>
             <div class="checkbox_group" style="margin-top:0;">
                 <div class="check_all">
                     <input type="checkbox" name="checkbox" id="checkAll" class="checkbox">
-                    <label for="checkAll">전체 동의</label>
+                    <label class="checkform" for="checkAll">전체 동의</label>
                 </div>
                 <div class="checkbox_line">
                     <input type="checkbox" id="check_1" class="checkbox">
-                    <label for="check_1">만 14세 이상입니다<span class="check_req">(필수)</span></label>
+                    <label class="checkform" for="check_1">만 14세 이상입니다<span class="check_req">(필수)</span></label>
                 </div>
                 <div class="detail_seperate" style="border:none;">
                     <div>
                         <input type="checkbox" id="check_2" class="checkbox">
-                        <label for="check_2">이용약관 동의<span class="check_req">(필수)</span></label>
+                        <label class="checkform" for="check_2">이용약관 동의<span class="check_req">(필수)</span></label>
                     </div>
                     <div class="detail_seperate" style="border:none;">
                         <div>
                             <input type="checkbox" id="check_3" class="checkbox">
-                            <label for="check_3">개인정보 수집·이용 동의<span class="check_req">(필수)</span></label>
+                            <label class="checkform" for="check_3">개인정보 수집·이용 동의<span class="check_req">(필수)</span></label>
                         </div>
                     </div>
                 </div>
@@ -279,21 +306,45 @@ document.addEventListener('DOMContentLoaded', function() {
         var passwordConfirm = passwordConfirmInput.value;
 
         var passwordIsValid = isPasswordValid(passwordValue);
-        var color = passwordIsValid ? "#00ff00" : "#ff0000";
+        var color = passwordIsValid ? "#0099ff" : "#ff0000";
         passwordError.style.color = color;
         passwordError.innerHTML = passwordIsValid ? "" : "비밀번호 조건을 만족하지 않습니다.";
 
         if (passwordValue !== passwordConfirm) {
             confirmMsg.style.color = "#ff0000";
-            confirmMsg.innerHTML = "비밀번호 불일치";
+            confirmMsg.style.fontSize = "12px";
+            confirmMsg.innerHTML = "비밀번호가 불일치합니다.";
         } else {
             confirmMsg.style.color = color;
-            confirmMsg.innerHTML = passwordValue ? "비밀번호 일치" : "";
+            confirmMsg.style.fontSize = "12px";
+            confirmMsg.innerHTML = passwordValue ? "비밀번호가 일치합니다." : "";
+        }
+    });
+    
+    passwordConfirmInput.addEventListener('input', function() {
+        var passwordValue = passwordInput.value;
+        var passwordConfirm = passwordConfirmInput.value;
+
+        // 대소문자, 특수문자 판단
+        var passwordIsValid = isPasswordValid(passwordValue);
+        
+        var color = passwordIsValid ? "#0099ff" : "#ff0000";
+        passwordError.style.color = color;
+        passwordError.innerHTML = passwordIsValid ? "" : "비밀번호 조건을 만족하지 않습니다.";
+
+        if (passwordValue !== passwordConfirm) {
+            confirmMsg.style.color = "#ff0000";
+            confirmMsg.style.fontSize = "12px";
+            confirmMsg.innerHTML = "비밀번호가 불일치합니다.";
+        } else {
+            confirmMsg.style.color = color;
+            confirmMsg.style.fontSize = "12px";
+            confirmMsg.innerHTML = passwordValue ? "비밀번호가 일치합니다." : "";
         }
     });
 
     function isPasswordValid(password) {
-        var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
+        var pattern = /^(?=.*\d)(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
         return pattern.test(password);
     }
 });
@@ -307,6 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isEmailValid(emailValue)) {
             emailError.textContent = "";
         } else {
+        	emailError.style.fontSize = "12px";
             emailError.textContent = "올바른 이메일 형식이 아닙니다.";
         }
     });

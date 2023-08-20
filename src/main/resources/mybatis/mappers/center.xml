@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.forTicket.center.dao.CenterDAO">
+	<resultMap id="centerResult" type="CenterVO">
+		<result property="center_No" column="center_No" />
+		<result property="type_No" column="type_No" />
+		<result property="mem_id" column="mem_id" />
+		<result property="center_Type" column="center_Type" />
+		<result property="center_Title" column="center_Title" />
+		<result property="center_Detail" column="center_Detail" />
+		<result property="center_creDate" column="center_creDate" />
+		<result property="center_update" column="center_update" />
+	</resultMap>
+	
+	<resultMap id="questionResult" type="QuestionVO">
+		<result property="q_No" column="q_No" />
+		<result property="q_Mem_Num" column="q_Mem_Num" />
+		<result property="mem_id" column="mem_id" />
+		<result property="q_Status" column="q_Status" />
+		<result property="q_Title" column="q_Title" />
+		<result property="q_content" column="q_content" />
+		<result property="q_creDate" column="q_creDate" />
+		<result property="a_id" column="a_id" />
+		<result property="a_reply" column="a_reply" />
+		<result property="a_creDate" column="a_creDate" />
+	</resultMap>		
+	
+	<!-- 타입별 글번호 업데이트 -->
+	<select id="updateNum" parameterType="CenterVO" resultType="CenterVO">
+		SELECT 
+		center_No
+		, mem_id
+		, center_Type
+		, center_Title
+		, center_Detail
+		, center_creDate
+		, center_update
+		, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate DESC) AS type_No 
+		FROM CENTER
+	</select>
+	
+	<!-- 글 작성 -->
+	<insert id="addWrite"  parameterType="CenterVO">
+		<![CDATA[
+			insert into
+				center(mem_id, center_Type, center_Title, center_Detail)
+			values(#{mem_id}, #{center_Type}, #{center_Title}, #{center_Detail})
+		]]>      
+	</insert>
+		
+	<!-- 고객센터 상세화면 -->
+	<select id="view" resultType="CenterVO" parameterType="int">
+		<![CDATA[
+			select * from center where center_No = #{center_No}
+		]]>  
+	</select>
+	
+	<!-- 상세화면 수정 -->
+	<update id="edit" parameterType="java.util.Map">
+		update center set center_Type=#{center_Type}, center_Title=#{center_Title}, center_Detail=#{center_Detail}
+		where center_No=#{center_No}
+	</update>
+	
+	<!-- 고객센터 글 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+		delete from center where center_No = #{center_No} 
+		]]>  
+	</delete>
+	
+	<!-- 공지 목록 -->
+	<select id="list" resultMap="centerResult">
+		<![CDATA[
+		SELECT 
+		center_No
+		, mem_id
+		, center_Type
+		, center_Title
+		, center_Detail
+		, center_creDate
+		, center_update
+		, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate DESC) AS type_No 
+		FROM CENTER
+		order by center_creDate desc
+		]]>      
+	</select>
+	
+	<!--1:1문의 이동시 id가져오기 -->
+	<select id="selectById" resultMap="questionResult" parameterType="java.util.HashMap">
+		<![CDATA[
+			select *  from question
+			where
+			mem_id=#{mem_id}
+		]]>	
+	</select>
+	
+</mapper>
+	
+	
+	
+	
+
+
+
+	
+	
+	
+	
+	
+	
+	

@@ -13,7 +13,77 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>예매내역 페이지</title>
+	<title>관리자 회원 관리</title>
+	<style>
+	.search{
+		width: 100%;
+		border: 1px solid #FF6251;
+		border-collapse: collapse;
+		border-style: hidden;
+        box-shadow: 0 0 0 2px #FF6251;
+        border-spacing: 0;
+        border-radius: 15px;
+	}
+	
+	tr,td{
+		border-bottom: 2px solid #FF6251;
+		font-size: 15px;
+	}
+	
+	.inputSize{
+		border: 1px solid #696969;
+        height: 20px;
+        border-radius: 10px;
+	}
+	
+	.inputSize1{
+		width:180px;
+		border: 1px solid #696969;
+        height: 20px;
+        border-radius: 10px;
+	}
+	
+	.clear {
+		clear: both;
+		height: 50px;
+	}
+	
+	.result{
+		width: 100%;
+		border: 1px solid #FF6251;
+		border-collapse: collapse;
+		border-style: hidden;
+        box-shadow: 0 0 0 2px #FF6251;
+        border-spacing: 0;
+        border-radius: 15px;
+	}
+	
+	.reply{
+		text-decoration: none;
+		color: #FF6251;
+	}
+	
+	.mypage4{
+		border:3px solid #d2d2d2;
+		border-radius: 15px;
+		padding:10px 15px;
+		font-size:15px;
+		line-height:280%;
+		border-color: #FF6251;
+		padding-bottom: 50px;
+	}
+	
+	.alink{
+		text-decoration: none;
+	}
+	
+	.optionsize{
+		border: 1px solid #696969;
+        height: 20px;
+        border-radius: 10px;   
+        text-align: center;     
+	}
+	</style>
 	<script>
 		//버튼으로 조회하기
 		function search_member(fixedSearchPeriod){	
@@ -25,7 +95,7 @@
 		    document.body.appendChild(formObj); 
 			
 		    formObj.method="get";
-		    formObj.action="${contextPath}/member/adminBus.do";
+		    formObj.action="${contextPath}/member/a_Profile.do";
 		    formObj.submit();
 		}
 						
@@ -69,119 +139,51 @@
 		    formObj.appendChild(i_search_word);
 		    document.body.appendChild(formObj); 
 		    formObj.method="get";
-		    formObj.action="${contextPath}/member/adminBus.do";
+		    formObj.action="${contextPath}/member/a_Profile.do";
 		    formObj.submit();
 		}
 		</script>
-	<style>
-	.search{
-		width: 100%;
-		border: 1px solid #FF6251;
-		border-collapse: collapse;
-		border-style: hidden;
-        box-shadow: 0 0 0 2px #FF6251;
-        border-spacing: 0;
-        border-radius: 15px;
-	}
-	
-	tr,td{
-		border-bottom: 2px solid #FF6251;
-		font-size: 15px;
-	}
-	
-	.inputSize{
-		border: 1px solid #696969;
-        height: 20px;
-        border-radius: 10px;
-	}
-	
-	.inputSize1{
-		width:80px;
-		border: 1px solid #696969;
-        height: 20px;
-        border-radius: 10px;
-	}
-	
-	.clear {
-		clear: both;
-		height: 50px;
-	}
-	
-	.result{
-		width: 100%;
-		border: 1px solid #FF6251;
-		border-collapse: collapse;
-		border-style: hidden;
-        box-shadow: 0 0 0 2px #FF6251;
-        border-spacing: 0;
-        border-radius: 15px;
-	}
-	
-	.reply{
-		text-decoration: none;
-		color: #FF6251;
-	}
-	
-	.mypage4{
-		border:3px solid #d2d2d2;
-		border-radius: 15px;
-		padding:10px 15px;
-		font-size:15px;
-		line-height:280%;
-		border-color: #FF6251;
-		padding-bottom: 50px;
-	}
-	
-	.alink{
-		text-decoration: none;
-	}
-	
-	.optionsize{
-		border: 1px solid #696969;
-        height: 20px;
-        border-radius: 10px;        
-	}
-	</style>
 </head>
 
 <body>
-<form method="post">
 <div class="mypage4">
+<form method="post" name="frm_list">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left;">사업자 정보</h2>
+    	<h2 style="text-align:left;">회원 정보</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>
 	<table class="search">
 		<tr>
-			<td align=right colspan=3>
-				<a class="alink" href="javascript:search_goods_list('today')">
+			<td colspan=4 align=right>
+				<a class="alink" href="javascript:search_member('today')">
 				   <img   src="${contextPath}/resources/images/button/btn_search_one_day.jpg">
 				</a>
-				<a class="alink" href="javascript:search_goods_list('one_week')">
+				<a class="alink" href="javascript:search_member('one_week')">
 				   <img   src="${contextPath}/resources/images/button/btn_search_1_week.jpg">
 				</a>
-				<a class="alink" href="javascript:search_goods_list('two_week')">
+				<a class="alink" href="javascript:search_member('two_week')">
 				   <img   src="${contextPath}/resources/images/button/btn_search_2_week.jpg">
 				</a>
-				<a class="alink" href="javascript:search_goods_list('one_month')">
+				<a class="alink" href="javascript:search_member('one_month')">
 				   <img   src="${contextPath}/resources/images/button/btn_search_1_month.jpg">
 				</a>
-				<a class="alink" href="javascript:search_goods_list('two_month')">
+				<a class="alink" href="javascript:search_member('two_month')">
 				   <img   src="${contextPath}/resources/images/button/btn_search_2_month.jpg">
 				</a>
-				<a class="alink" href="javascript:search_goods_list('three_month')">
+				<a class="alink" href="javascript:search_member('three_month')">
 				   <img   src="${contextPath}/resources/images/button/btn_search_3_month.jpg">
 				</a>
-				<a class="alink" href="javascript:search_goods_list('four_month')">
+				<a class="alink" href="javascript:search_member('four_month')">
 				   <img   src="${contextPath}/resources/images/button/btn_search_4_month.jpg">
 				</a>
 				&nbsp;까지 조회
 			</td>
 		</tr>
-		<tr>
-		  	<td>조회 기간</td>
-			<td colspan=2 align=left>
+
+		<tr>			
+			<td>조회기간</td>
+			<td colspan=3 align=left>
 				<select name="beginYear" class="optionsize" >
 					<c:forEach   var="i" begin="0" end="5">
 						<c:choose>
@@ -236,10 +238,10 @@
 					<c:forEach   var="i" begin="0" end="5">
 						<c:choose>
 					    	<c:when test="${endYear==endYear-i }">
-					        	<option value="${2023-i }" selected>${2023-i  }</option>
+					        	<option value="${endYear-i }" selected>${endYear-i  }</option>
 					        </c:when>
 					        <c:otherwise>
-					        	<option value="${2023-i }">${2023-i }</option>
+					        	<option value="${endYear-i }">${endYear-i }</option>
 					        </c:otherwise>
 					    </c:choose>
 					 </c:forEach>
@@ -283,41 +285,39 @@
 				    </c:forEach>	
 				</select>
 			</td>
-			</tr>
-			<tr>
-				<td>
-					<select class="optionsize" name="s_search_type">
-						<option value="all" checked>전체</option>
-						<option value="bus_name">사업자명</option>
-						<option value="bus_id">아이디</option>
-						<option value="bus_num">사업자 번호</option>
-						<option value="bus_phone">사업장 번호</option>
-					</select>
-				</td>
-				<td align="left"><input class="inputSize1" type="text" name="t_search_word"></td>
-				<td align="right">
-				<input type="button" name="btn_search" onClick="fn_detail_search()" value="검색">
-				<input type="submit" value="초기화">
-				</td>
-			</tr>
+		</tr>
+		<tr>
+			<td>
+				<select class="optionsize" name="s_search_type">
+					<option value="all" checked>전체</option>
+					<option value="mem_name">회원명</option>
+					<option value="mem_id">아이디</option>
+					<option value="mem_phone">휴대폰번호</option>
+				</select>
+			</td>
+			<td align="left"><input class="inputSize1" type="text" name="t_search_word"></td>
+			<td align="right">
+			<input type="button" name="btn_search" onClick="fn_detail_search()" value="검색">
+			<input type="submit" value="초기화">
+		</td>
+		</tr>
 	</table>
-</form>
 
 <div class="clear"></div>
 
-<table class="result">
-	<tr>
-		<td>사업자명</td>
-		<td>사업자번호</td>
-		<td>아이디</td>
-		<td>비밀번호</td>
-		<td>사업장번호</td>
-		<td>주소</td>
-		<td>가입일자</td>
-		<td>수정</td>
-		<td>삭제</td>
-	</tr>
-	<c:choose>
+	<table class="result">
+		<tr>
+			<td>회원명</td>
+			<td>아이디</td>
+			<td>비밀번호</td>
+			<td>핸드폰번호</td>
+			<td>이메일</td>
+			<td>주소</td>
+			<td>가입일자</td>
+			<td>수정</td>
+			<td>삭제</td>
+		</tr>
+		<c:choose>
 			<c:when test="${empty member_list}">
 				<tr>
 					<td colspan="9">
@@ -327,18 +327,18 @@
 			<c:otherwise>
 				<c:forEach var="list" items="${member_list}">
 					<tr>
-						<td>${list.b_name }</td>
-						<td>${list.b_number }</td>
+						<td>${list.mem_name }</td>
 						<td>${list.mem_id }</td>
 						<td>${list.pwd }</td>
-						<td>${list.b_phone1 }-${list.b_phone2 }-${list.b_phone3 }</td>
+						<td>${list.phone1 }-${list.phone2 }</td>
+						<td>${list.email }</td>
 						<td>${list.addr1 }&nbsp;${list.addr2 }</td>
 						<td>
 							<c:set var="join_date" value="${list.joinDate}" />
 						    <c:set var="arr" value="${fn:split(join_date,' ')}" />
 						    <c:out value="${arr[0]}" />
-						<td><a href="${contextPath}/member/adminModBus.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
-						<td><a href="${contextPath }/admin/adminRemoveBus.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
+						<td><a href="${contextPath}/member/a_Edit.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
+						<td><a href="${contextPath }/admin/deleteMember.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
@@ -347,16 +347,17 @@
              <td colspan=8 class="fixed">
                  <c:forEach   var="page" begin="1" end="10" step="1" >
 		         <c:if test="${section >1 && page==1 }">
-		          <a href="${contextPath}/member/adminBus.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+		          <a href="${contextPath}/member/a_Edit.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
 		         </c:if>
-		          <a href="${contextPath}/member/adminBus.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+		          <a href="${contextPath}/member/a_Edit.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
 		         <c:if test="${page ==10 }">
-		          <a href="${contextPath}/member/adminBus.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+		          <a href="${contextPath}/member/a_Edit.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 		         </c:if> 
 	      		</c:forEach> 
            </td>
         </tr>
 	</table>
+</form>
 </div>
 </body>
 </html>

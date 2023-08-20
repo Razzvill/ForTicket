@@ -75,6 +75,7 @@ public class MemberControllerImpl implements MemberController{
 		
 		return mav;
 	}
+	
 	//마이페이지 예매내역 이동
 	@RequestMapping(value= "/member/myPage4.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView mypage4(HttpServletRequest request, HttpServletResponse response) {
@@ -106,28 +107,29 @@ public class MemberControllerImpl implements MemberController{
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
 				              RedirectAttributes rAttr,
 		                       HttpServletRequest request, HttpServletResponse response) throws Exception {
-	ModelAndView mav = new ModelAndView();
-	memberVO = memberService.login(member);
-	if(memberVO != null) {
-	    HttpSession session = request.getSession();
-	    session.setAttribute("member", memberVO);
-	    session.setAttribute("isLogOn", true);
-	    session.setAttribute("type", member.getType());
-	    
-	    String action = (String)session.getAttribute("action");
-	    session.removeAttribute("action");
-	    if(action!= null) {
-	       mav.setViewName("redirect:"+action);
-	    }else {
-	       mav.setViewName("redirect:/main.do");	
-	    }
-
-	}else {
-	   rAttr.addAttribute("result","loginFailed");
-	   mav.setViewName("redirect:/member/loginForm.do");
+		ModelAndView mav = new ModelAndView();
+		memberVO = memberService.login(member);
+		
+		if(memberVO != null) {
+		    HttpSession session = request.getSession();
+		    session.setAttribute("member", memberVO);
+		    session.setAttribute("isLogOn", true);
+		    session.setAttribute("type", memberVO.getType());
+		   		    
+		    String action = (String)session.getAttribute("action");
+		    session.removeAttribute("action");
+		    if(action!= null) {
+		       mav.setViewName("redirect:"+action);
+		    }else {
+		       mav.setViewName("redirect:/main.do");	
+		    }
+		}else {
+		   rAttr.addAttribute("result","loginFailed");
+		   mav.setViewName("redirect:/member/loginForm.do");
+		}
+		return mav;
 	}
-	return mav;
-	}
+	
 	//중복검사
 	@Override
 	@RequestMapping(value="/member/overlapped.do" ,method = RequestMethod.POST)
