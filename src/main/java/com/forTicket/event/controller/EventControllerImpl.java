@@ -301,12 +301,24 @@ public class EventControllerImpl implements EventController {
 
 	//이벤트 수정
 	@Override
-	
+	@RequestMapping(value = "/event/modEvent.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity modEvent(MultipartHttpServletRequest multipartReq, HttpServletResponse resp)
+	public ResponseEntity modEvent(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute,
+            @RequestParam("value") String value, MultipartHttpServletRequest multipartReq, HttpServletResponse resp)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		multipartReq.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		Map eventMap=new HashMap();
+		eventMap.put("event_no", event_no);
+		eventMap.put(attribute, value);
+		eventService.modEvent(eventMap);
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		message  = "mod_success";
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 	
 	//이벤트 등록상태 수정

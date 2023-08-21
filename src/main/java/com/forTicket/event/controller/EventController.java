@@ -18,7 +18,7 @@ public interface EventController {
 	public ResponseEntity addEvent(MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
 	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public ModelAndView modForm(@RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp) throws Exception;
-	public ResponseEntity modEvent(MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
+	public ResponseEntity modEvent(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute, @RequestParam("value") String value, MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
 	public ResponseEntity modEventStatus(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute, @RequestParam("value") String value, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity removeEvent(@RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
