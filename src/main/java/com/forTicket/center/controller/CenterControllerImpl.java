@@ -291,7 +291,6 @@ public class CenterControllerImpl implements CenterController {
 
 		condMap.put("mem_id", mem_id);
 
-		que_list = centerService.question(condMap);
 
 		mav.addObject("que_list", que_list);
 		mav.setViewName(viewName);
