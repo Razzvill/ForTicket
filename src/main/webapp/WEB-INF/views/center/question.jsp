@@ -116,24 +116,24 @@
 			<td class="boardtd">등록일</td>
 		</tr>
 		<c:choose>
-		    <c:when test="${not empty que_list}">
-	            <c:if test="${que_list.mem_id eq member.mem_id}">
+		    <c:when test="${not empty que_List}">
+	            <c:if test="${que_List.mem_id eq member.mem_id}">
 					<tr align="center">
-	                    <td>${que_list.q_No }</td>
-	                	<td>${que_list.q_Status }</td>
+	                    <td>${que_List.q_No }</td>
+	                	<td>${que_List.q_Status }</td>
 	                    <td class="td1"><div class="text-wrapper">
-	                    	<span class="more-text"> ${que_list.q_Title }</span>
-	                    	<span class="text">Q. ${que_list.q_content }</span>
-	                    	<span class="text1">A. ${que_list.a_reply }</span>
+	                    	<span class="more-text"> ${que_List.q_Title }</span>
+	                    	<span class="text">Q. ${que_List.q_content }</span>
+	                    	<span class="text1">A. ${que_List.a_reply }</span>
 	                    </div></td>
-	                    <td><fmt:formatDate value="${que_list.q_creDate }" /></td>
+	                    <td><fmt:formatDate value="${que_List.q_creDate }" /></td>
 	                </tr>
 	            </c:if>
 		    </c:when>
 		    <c:otherwise>
 		        <tr>
 		            <td colspan="4">
-		                <p><b><span style="font-size:9pt;">등록된 글이 없습니다.${que_list.mem_id}, ${member.mem_id}</span></b></p>
+		                <p><b><span style="font-size:9pt;">등록된 글이 없습니다.${que_List.mem_id}, ${member.mem_id}</span></b></p>
 		            </td>
 		        </tr>
 		    </c:otherwise>

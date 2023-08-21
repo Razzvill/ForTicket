@@ -80,13 +80,14 @@
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10		
 		]]>      
 	</select>
-	
-	<!--1:1문의 이동 -->
-	<select id="quelist" resultMap="questionResult" parameterType="java.util.HashMap">
+
+	<!--1:1문의페이지 회원 -->
+	<select id="questionList" resultMap="questionResult" parameterType="String">
 		<![CDATA[
 			select *  from question
 			where
 			mem_id=#{mem_id}
+			order by q_creDate DESC
 		]]>	
 	</select>
 	
@@ -100,17 +101,3 @@
 	</insert>
 	
 </mapper>
-	
-	
-	
-	
-
-
-
-	
-	
-	
-	
-	
-	
-	
