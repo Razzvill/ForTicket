@@ -34,6 +34,12 @@
 			SELECT theater_id FROM theater WHERE theater_name=#{theater_name} AND theater_address=#{theater_address}
 		]]>
 	</select>
+	
+	<select id="selectIdFromName" resultType="int" parameterType="String">
+		<![CDATA[
+			SELECT theater_id FROM theater WHERE theater_name=#{theater_name}
+		]]>
+	</select>
 
 	<insert id="insertTheater" parameterType="java.util.Map">
 		<![CDATA[

@@ -1,11 +1,11 @@
-package com.forTicket.event.vo;
+package com.forTicket.goods.vo;
 
 import org.springframework.stereotype.Component;
 
-@Component("e_imageFileVO")
+@Component("g_imageFileVO")
 public class ImageFileVO {
 	private int image_id;
-	private int event_no;
+	private int goods_id;
 	private String fileName;
 	private String fileType;
 	private String reg_id;
@@ -16,11 +16,11 @@ public class ImageFileVO {
 	public void setImage_id(int image_id) {
 		this.image_id = image_id;
 	}
-	public int getEvent_no() {
-		return event_no;
+	public int getGoods_id() {
+		return goods_id;
 	}
-	public void setEvent_no(int event_no) {
-		this.event_no = event_no;
+	public void setGoods_id(int goods_id) {
+		this.goods_id = goods_id;
 	}
 	public String getFileName() {
 		return fileName;
@@ -40,6 +40,5 @@ public class ImageFileVO {
 	public void setReg_id(String reg_id) {
 		this.reg_id = reg_id;
 	}
-	
 	
 }
