@@ -119,62 +119,62 @@
 		}); //end ajax	
 	}	
 	//버튼으로 조회하기
-		function search_member(fixedSearchPeriod){	
-			var formObj=document.createElement("form");
-			var i_fixedSearch_period = document.createElement("input");
-			i_fixedSearch_period.name="fixedSearchPeriod";
-			i_fixedSearch_period.value=fixedSearchPeriod;
-		    formObj.appendChild(i_fixedSearch_period);
-		    document.body.appendChild(formObj); 
-			
-		    formObj.method="get";
-		    formObj.action="${contextPath}/admin/member/adminMember.do";
-		    formObj.submit();
-		}
-						
-		//상세 조회
-		function fn_detail_search(){
-			var frm_list = document.frm_list;
-			
-			beginYear = frm_list.beginYear.value; 
-			beginMonth = frm_list.beginMonth.value;
-			beginDay = frm_list.beginDay.value;
-			endYear = frm_list.endYear.value;
-			endMonth = frm_list.endMonth.value;
-			endDay = frm_list.endDay.value;
-			search_type = frm_list.s_search_type.value;
-			search_word = frm_list.t_search_word.value;
+	function search_member(fixedSearchPeriod){	
+		var formObj=document.createElement("form");
+		var i_fixedSearch_period = document.createElement("input");
+		i_fixedSearch_period.name="fixedSearchPeriod";
+		i_fixedSearch_period.value=fixedSearchPeriod;
+	    formObj.appendChild(i_fixedSearch_period);
+	    document.body.appendChild(formObj); 
 		
-			var formObj = document.createElement("form");
-			var i_command = document.createElement("input");
-			var i_beginDate = document.createElement("input"); 
-			var i_endDate = document.createElement("input");
-			var i_search_type = document.createElement("input");
-			var i_search_word = document.createElement("input");
-		    
-			
-		    i_command.name = "command";
-		    i_beginDate.name = "beginDate";
-		    i_endDate.name = "endDate";
-		    i_search_type.name = "search_type";
-		    i_search_word.name = "search_word";
-		    
-		    i_command.value = "fn_detail_search";
-			i_beginDate.value=beginYear+"-"+beginMonth+"-"+beginDay;
-		    i_endDate.value=endYear+"-"+endMonth+"-"+endDay;
-		    i_search_type.value=search_type;
-		    i_search_word.value=search_word;
-			
-		    formObj.appendChild(i_command);
-		    formObj.appendChild(i_beginDate);
-		    formObj.appendChild(i_endDate);
-		    formObj.appendChild(i_search_type);
-		    formObj.appendChild(i_search_word);
-		    document.body.appendChild(formObj); 
-		    formObj.method="get";
-		    formObj.action="${contextPath}/admin/member/adminMember.do";
-		    formObj.submit();
-		}
+	    formObj.method="get";
+	    formObj.action="${contextPath}/event/A_listEvent.do";
+	    formObj.submit();
+	}
+					
+	//상세 조회
+	function fn_detail_search(){
+		var frm_list = document.frm_list;
+		
+		beginYear = frm_list.beginYear.value; 
+		beginMonth = frm_list.beginMonth.value;
+		beginDay = frm_list.beginDay.value;
+		endYear = frm_list.endYear.value;
+		endMonth = frm_list.endMonth.value;
+		endDay = frm_list.endDay.value;
+		search_type = frm_list.s_search_type.value;
+		search_word = frm_list.t_search_word.value;
+	
+		var formObj = document.createElement("form");
+		var i_command = document.createElement("input");
+		var i_beginDate = document.createElement("input"); 
+		var i_endDate = document.createElement("input");
+		var i_search_type = document.createElement("input");
+		var i_search_word = document.createElement("input");
+	    
+		
+	    i_command.name = "command";
+	    i_beginDate.name = "beginDate";
+	    i_endDate.name = "endDate";
+	    i_search_type.name = "search_type";
+	    i_search_word.name = "search_word";
+	    
+	    i_command.value = "fn_detail_search";
+		i_beginDate.value=beginYear+"-"+beginMonth+"-"+beginDay;
+	    i_endDate.value=endYear+"-"+endMonth+"-"+endDay;
+	    i_search_type.value=search_type;
+	    i_search_word.value=search_word;
+		
+	    formObj.appendChild(i_command);
+	    formObj.appendChild(i_beginDate);
+	    formObj.appendChild(i_endDate);
+	    formObj.appendChild(i_search_type);
+	    formObj.appendChild(i_search_word);
+	    document.body.appendChild(formObj); 
+	    formObj.method="get";
+	    formObj.action="${contextPath}/event/A_listEvent.do";
+	    formObj.submit();
+	}
 		</script>
 </head>
 
@@ -323,9 +323,9 @@
 			<td>
 				<select class="optionsize" name="s_search_type">
 					<option value="all" checked>전체</option>
-					<option value="mem_name">회원명</option>
-					<option value="mem_id">아이디</option>
-					<option value="mem_phone">휴대폰번호</option>
+					<option value="goods_name">상품명</option>
+					<option value="event_name">이벤트 제목</option>
+					<option value="event_type">이벤트 유형</option>
 				</select>
 			</td>
 			<td align="left"><input class="inputSize1" type="text" name="t_search_word"></td>

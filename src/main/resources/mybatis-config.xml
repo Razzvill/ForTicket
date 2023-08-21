@@ -10,5 +10,6 @@
 		<mapper resource="mybatis/mappers/admin.xml"/>
 		<mapper resource="mybatis/mappers/event.xml"/>
 		<mapper resource="mybatis/mappers/center.xml"/>
+		<mapper resource="mybatis/mappers/goods.xml"/>
 	</mappers>
 </configuration>

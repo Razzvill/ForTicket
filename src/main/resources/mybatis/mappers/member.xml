@@ -4,7 +4,6 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.forTicket.member.dao.MemberDAO">	
-<<<<<<< HEAD
 	<resultMap id="memResult" type="MemberVO">
 		<result property="mem_id" column="mem_id" />
 		<result property="pwd" column="pwd" />
@@ -18,28 +17,11 @@
 		<result property="b_name" column="b_name" />
 		<result property="b_phone" column="b_phone" />
 		<result property="checkbox" column="checkbox" />
-		<result property="memberCheck" column="memberCheck" />
+		<result property="type" column="type" />
 		<result property="joinDate" column="joinDate" />
+
 	</resultMap>
-=======
-   <resultMap id="memResult" type="memberVO">
-      <result property="mem_id" column="mem_id" />
-      <result property="pwd" column="pwd" />
-      <result property="mem_name" column="mem_name" />
-      <result property="email" column="email" />
-      <result property="phone" column="phone" />
-      <result property="post" column="post" />
-      <result property="addr1" column="addr1" />
-      <result property="addr2" column="addr2" />
-      <result property="b_number" column="b_number" />
-      <result property="b_name" column="b_name" />
-      <result property="b_phone" column="b_phone" />
-      <result property="checkbox" column="checkbox" />
-      <result property="memberCheck" column="memberCheck" />
-      <result property="joinDate" column="joinDate" />
-      
-   </resultMap> 
->>>>>>> refs/remotes/origin/master
+
  
  
    <select id="selectAllMemberList" resultMap="memResult"   >
@@ -110,9 +92,13 @@
         SELECT mem_id
         FROM member
         WHERE mem_name = #{mem_name}
+<<<<<<< HEAD
+        AND phone = #{phone}
+=======
         AND phone = #{phone}
 <<<<<<< HEAD
 =======
+>>>>>>> refs/remotes/origin/master
     ]]>
 </select>
 
@@ -121,7 +107,11 @@
         SELECT pwd
         FROM member
         WHERE mem_id = #{mem_id}
+<<<<<<< HEAD
         AND email = #{email}
+=======
+        AND email = #{email}
+>>>>>>> refs/remotes/origin/master
 >>>>>>> refs/remotes/origin/master
     ]]>
 </select>

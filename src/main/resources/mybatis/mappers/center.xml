@@ -82,7 +82,7 @@
 	</select>
 	
 	<!--1:1문의 이동 -->
-	<select id="quelist" resultMap="QuestionVO" parameterType="java.util.HashMap">
+	<select id="quelist" resultMap="questionResult" parameterType="java.util.HashMap">
 		<![CDATA[
 			select *  from question
 			where

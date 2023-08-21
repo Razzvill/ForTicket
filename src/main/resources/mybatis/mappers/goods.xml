@@ -24,7 +24,7 @@
 		<result property="goods_fileName" column="fileName" />
 	</resultMap>
 
-	<resultMap id="imageResult" type="g_imageFileVO">
+	<resultMap id="imageResult" type="G_imageFileVO">
 		<result property="image_id" column="image_id" />
 		<result property="goods_id" column="goods_id" />
 		<result property="fileName" column="fileName" />
@@ -43,12 +43,19 @@
 	    <![CDATA[
 			select * from (
 			   select  ROW_NUMBER() OVER (ORDER BY goods_creDate DESC) as recNum,*
-			       from (
-			             select * from goods 
-			                where  date_format(goods_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
-			               order by goods_creDate desc
+			       from (select * from goods where  date_format(goods_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}]]>
+			       <if test="search_type=='goods_id' and  search_type != null">
+			       		AND goods_id=#{search_word}
+			       </if>
+			       <if test="search_type=='goods_name' and  search_type != null">
+			       		AND goods_name=#{search_word}
+			       </if>
+			       <if test="search_type=='goods_genre' and  search_type != null">
+			       		AND goods_genre=#{search_word}
+			       </if>
+			       <![CDATA[order by goods_creDate desc
 					    ) as ttt
-				) as tttt		
+				) as tttt
 			where				
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
     	]]>
@@ -101,7 +108,7 @@
     	]]>
 	</select>
 	
-	<insert id="insertGoodsImageFile" parameterType="g_imageFileVO">
+	<insert id="insertGoodsImageFile" parameterType="G_imageFileVO">
 	    <![CDATA[
 		   insert into goods_detail_image (goods_id, fileName, fileType, reg_id)
 			values(#{goods_id}, #{fileName}, #{fileType}, #{reg_id} )
