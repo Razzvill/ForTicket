@@ -44,7 +44,7 @@ public interface CenterController {
 	public ModelAndView faq(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 	//고객센터 1:1목록 - member회원 페이지 이동, memberVO값 가져오기
-	public ModelAndView question(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
+//	public ModelAndView question(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	//고객센터 1:1 글쓰기
 	public ModelAndView q_write(HttpServletRequest req,HttpServletResponse resp) throws Exception;
