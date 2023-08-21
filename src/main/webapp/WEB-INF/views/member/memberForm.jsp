@@ -201,7 +201,12 @@
 				    <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
 				</tr>
 				<tr>
+
+
+
+
 					<td><input name="phone" type="text" id="phone" placeholder="핸드폰번호"  class="dot_line icon_phone"></td> 
+
 				</tr>
 				<tr>
 					<td>

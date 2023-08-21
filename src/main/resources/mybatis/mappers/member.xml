@@ -19,7 +19,9 @@
 		<result property="checkbox" column="checkbox" />
 		<result property="type" column="type" />
 		<result property="joinDate" column="joinDate" />
+
 	</resultMap>
+
  
  
    <select id="selectAllMemberList" resultMap="memResult"   >
@@ -90,7 +92,13 @@
         SELECT mem_id
         FROM member
         WHERE mem_name = #{mem_name}
+<<<<<<< HEAD
         AND phone = #{phone}
+=======
+        AND phone = #{phone}
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/master
     ]]>
 </select>
 
@@ -99,7 +107,12 @@
         SELECT pwd
         FROM member
         WHERE mem_id = #{mem_id}
+<<<<<<< HEAD
         AND email = #{email}
+=======
+        AND email = #{email}
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
     ]]>
 </select>
    
