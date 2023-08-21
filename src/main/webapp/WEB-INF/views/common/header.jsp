@@ -85,6 +85,12 @@
 	   	font-size: 12px;
 	   	text-decoration: none;
 	}
+	
+	.top1{
+		margin-top: 4px;
+	   	font-size: 12px;
+	   	text-decoration: none;
+	}
 	</style>
 	<script>
        var previousButton = null;
@@ -107,11 +113,11 @@
 <div style="width:100%;">
 	<!-- header 상단 -->
 	<c:choose>
-	<c:when test="${isLogOn == true && member != null && member.mem_id !='admin' && member.b_name == null }">
+	<c:when test="${isLogOn == true && type=='U' }">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
-			<li><a class="top">${member.mem_id }님<br></a></li>
+			<li class="top1">${member.mem_name} 회원님<br></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="#">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
@@ -120,11 +126,11 @@
 		</div>
 	</div>
 	</c:when>
-	<c:when test="${isLogOn == true && member.b_name != null  }">
+	<c:when test="${isLogOn == true && type=='B'}">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
-			<li><a class="top" href="#">사업자님<br></a></li>
+			<li class="top1">${member.mem_name} 사업자님<br></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="#">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
@@ -133,11 +139,11 @@
 		</div>
 	</div>
 	</c:when>
-	<c:when test="${isLogOn == true and member.mem_id == 'admin' }">
+	<c:when test="${isLogOn == true && type=='admin'}">
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
-			<li><a class="top" href="#">관리자님<br></a></li>
+			<li class="top1">${member.mem_name} 관리자님<br></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
@@ -176,20 +182,20 @@
 	
 	<!-- header 하단 -->
 	<c:choose>
-	<c:when test="${isLogOn == true and member.mem_id == 'admin' }">
+	<c:when test="${isLogOn == true && type=='admin'}">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">공연장관리</a></li>
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
-				<li style="padding-right:80px;"><a href="${contextPath}/admin/member/adminMember.do" class="button" onclick="changeStyle(this)">회원관리</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/member/a_Profile.do" class="button" onclick="changeStyle(this)">회원관리</a></li>
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
-				<li><a href="#" class="button" onclick="changeStyle(this)">고객센터</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/community/a_Comm.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
 	</div>
 	</c:when>
-	<c:when test="${isLogOn == true && member.b_name != null  }">
+	<c:when test="${isLogOn == true && type=='B'}">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
@@ -198,11 +204,11 @@
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">예매관리</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
-				<li><a href="#" class="button" onclick="changeStyle(this)">고객센터</a></li>
+				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
 	</div>
 	</c:when>
-	<c:otherwise>
+	<c:when test="${isLogOn == true && type=='U'}">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 			<ul class="gnb_nav">
 				<li style="padding-right:105px;"><a href="${contextPath}/goods/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
@@ -213,11 +219,27 @@
 				
 				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
 				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
-				<li><a href="#" class="button" onclick="changeStyle(this)">고객센터</a></li>
+				<li><a href="${contextPath}/center/notice.doㄴ" class="button" onclick="changeStyle(this)">고객센터</a></li>
+			</ul>
+		</div>
+	</c:when>
+	<c:otherwise >
+		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
+			<ul class="gnb_nav">
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연</a></li>
+				
+				<li style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
+				
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 			</ul>
 		</div>
 	</c:otherwise>
 	</c:choose>
+	
 </div>
 </body>
 </html>

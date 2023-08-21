@@ -33,8 +33,8 @@
 
    <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
-		 insert into member(mem_id,pwd, mem_name, email, phone1, addr1, addr2)
-		 values(#{mem_id}, #{pwd}, #{mem_name}, #{email},#{phone1},#{addr1},#{addr2})
+		 insert into member(type,mem_id,pwd,mem_name, email, phone2, post, addr1, addr2, checkbox)
+		 values(#{type},#{mem_id}, #{pwd},#{mem_name}, #{email},#{phone2},#{post},#{addr1},#{addr2},#{checkbox})
 		]]>      
 	</insert>
 	
@@ -81,10 +81,20 @@
 	</select>
 	
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
-      select if(count(*)=1, 'true', 'false')
+     <![CDATA[ 
+     	select if(count(*)=1, 'true', 'false')
 	   from member
 	   where mem_id = #{id}
+	   ]]>
    </select>
-	
+   
+   <select id="findId" parameterType="map" resultType="string">
+    <![CDATA[
+        SELECT mem_id
+        FROM member
+        WHERE mem_name = #{mem_name}
+        AND phone2 = #{phone2}
+    ]]>
+</select>
    
 </mapper>

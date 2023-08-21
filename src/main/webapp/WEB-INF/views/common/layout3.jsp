@@ -13,11 +13,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 사이드 없는 layout -->
+<!-- 사이드 있는 layout(고객센터) -->
 	<meta charset="UTF-8">
 	<style>
 		#container{
-			width: 100%;
+			width: 1100px;
 			margin: 0px auto;
 			text-align: center;
 			border: 0px solid #bcbcbc;
@@ -28,11 +28,25 @@
 			height: 180px;
 			border-bottom: 1px solid #eee;
 		}
-				
+		
+		#sidebar-left{
+			width: 15%;
+			height: 500px;
+			padding: 5px;
+			margin-top: 50px;
+			margin-bottom: 50px;
+			float: left;
+			border: 3px solid #bcbcbc;
+			font-size: 10px;
+			border-radius : 30px;
+		}
+		
 		#content{
+			width: 82%;
 			padding: 0px;
-			margin: 0px auto;
-			float: center;
+			margin-top: 50px;
+			margin-left: 15px;
+			float: left;
 			border: 0px solid #bcbcbc;
 		}
 		
@@ -48,6 +62,11 @@
 		<div id="header">
 			<tiles:insertAttribute name="header" />
 		</div>
+		
+		<div id="sidebar-left">
+			<tiles:insertAttribute name="side" />
+		</div>
+		
 		<div id="content">
 			<tiles:insertAttribute name="body" />
 		</div>

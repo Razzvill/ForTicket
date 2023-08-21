@@ -76,58 +76,59 @@
         text-align: center;     
 	}
 	</style>
-
-	<script type="text/javascript">
-		function fn_sub(obj){
-			document.getElementById("i_id").disabled=false;
-			obj.submit();
-		}
-	</script>
 </head>
 
 <body>
 <div class="mypage4">
-<form method="post"   action="${contextPath}/admin/member/adminUpdateMember.do">
+<form method="post"   action="${contextPath}/admin/a_UpdateBus.do">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left;">회원 정보</h2>
+    	<h2 style="text-align:left;">사업자 정보</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>
 	<table class="search">
 		<tr>
-			<td  width="150px;">이름</td>
-			<td><input type="text" class="inputSize1" name="mem_name" value="${member.mem_name}"></td>
+			<td  width="150px;">사업자명</td>
+			<td><input type="text" class="inputSize1" name="b_name" value="${taget.b_name}"></td>
 		</tr>
 		<tr>
 			<td>아이디</td>
-			<td><input type="text" class="inputSize1" name="mem_id" id="i_id" value="${member.mem_id}" readonly></td>
+			<td><input type="text" class="inputSize1" name="mem_id" id="i_id" value="${taget.mem_id}" readonly></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="text" class="inputSize1" name="pwd" value="${member.pwd}" ></td>
+			<td><input type="text" class="inputSize1" name="pwd" value="${taget.pwd}" ></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인</td>
 			<td><input type="text" class="inputSize1"></td>
 		</tr>
 		<tr>
+			<td>사업자 번호</td>
+			<td><input type="text" class="inputSize1" name="b_number" value="${taget.b_number}" readonly></td>
+		</tr>
+		<tr>
+			<td>전화번호</td>
+			<td><input type="text" class="inputSize1" name="b_phone2" value="${taget.b_phone2}"></td>
+		</tr>
+		<tr>
 			<td>핸드폰확인</td>
-			<td><input type="text" class="inputSize1" name="phone2" value="${member.phone2}"></td>
+			<td><input type="text" class="inputSize1" name="b_phone3" value="${taget.b_phone3}"></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" class="inputSize1" name="email" value="${member.email}"></td>
+			<td><input type="text" class="inputSize1" name="email" value="${taget.email}"></td>
 		</tr>
 		<tr>
 			<td>주소</td>
 			<td>
-				<input type="text" class="inputSize" name="post" value="${member.post}" disabled> <a href="javascript:execDaumPostcode()" class="post1">우편번호찾기</a><br>
-				<input type="text" class="inputSize1" name="addr1" value="${member.addr1}"><br>
-			  	<input type="text" class="inputSize1" name="addr2" value="${member.addr2}"><br>
+				<input type="text" class="inputSize" name="post" value="${taget.post}" disabled> <a href="javascript:execDaumPostcode()" class="post1">우편번호찾기</a><br>
+				<input type="text" class="inputSize1" name="addr1" value="${taget.addr1}"><br>
+			  	<input type="text" class="inputSize1" name="addr2" value="${taget.addr2}"><br>
 			</td>
 		</tr>
 	</table>
-	<input type="button" onclick="fn_sub(this.form)" value="수정하기">
+	<input type="submit" onclick="fn_sub(this.form)" value="수정하기">
 </form>
 </div>
 </body>
