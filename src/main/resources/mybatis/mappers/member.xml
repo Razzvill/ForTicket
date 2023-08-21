@@ -19,101 +19,88 @@
 		<result property="checkbox" column="checkbox" />
 		<result property="type" column="type" />
 		<result property="joinDate" column="joinDate" />
-
 	</resultMap>
 
- 
- 
-   <select id="selectAllMemberList" resultMap="memResult"   >
-      <![CDATA[
-        select * from member order by joinDate desc			
-      ]]>
-   </select>
-
-   <insert id="insertMember"  parameterType="memberVO">
-		<![CDATA[
-		 insert into member(type,mem_id,pwd,mem_name, email, phone, post, addr1, addr2, checkbox)
-		 values(#{type},#{mem_id}, #{pwd},#{mem_name}, #{email},#{phone},#{post},#{addr1},#{addr2},#{checkbox})
-		]]>      
-	</insert>
-	
-   
-   <update id="updateMember"  parameterType="memberVO">
-     <![CDATA[
-	     update member
-	     set pwd=#{pwd}, name=#{mem_name}, email=#{email}
-	     where
-	     mem_id = #{mem_id}
-      ]]>      
-   </update> 
-     
-   <delete id="deleteMember"  parameterType="String">
+	<select id="selectAllMemberList" resultMap="memResult"   >
 	<![CDATA[
-	   delete from  member
-	   where
-	   mem_id = #{mem_id}
+		select * from member order by joinDate desc			
+	]]>
+	</select>
+	
+	<insert id="insertMember"  parameterType="memberVO">
+	<![CDATA[
+		insert into member(type,mem_id,pwd,mem_name, email, phone, post, addr1, addr2, checkbox)
+		values(#{type},#{mem_id}, #{pwd},#{mem_name}, #{email},#{phone},#{post},#{addr1},#{addr2},#{checkbox})
 	]]>      
-  </delete>
-  <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+	</insert>
+	  
+	<update id="updateMember"  parameterType="memberVO">
+	<![CDATA[
+		update member
+		set pwd=#{pwd}, name=#{mem_name}, email=#{email}
+		where
+		mem_id = #{mem_id}
+	]]>      
+	  </update> 
+	    
+	<delete id="deleteMember"  parameterType="String">
+	<![CDATA[
+		delete from  member
+		where
+		mem_id = #{mem_id}
+	]]>      
+	</delete>
+	 
+	<select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
 	<![CDATA[
 		select * from member	
 		where mem_id = #{mem_id} and pwd=#{pwd}		
 	]]>
-  </select>
-  <select id="selectMemberById" resultType="memberVO" parameterType="String">
-		<![CDATA[
-			select * from member where mem_id = #{mem_id}
-		]]>
+	 </select>
+	 
+	 <select id="selectMemberById" resultType="memberVO" parameterType="String">
+	<![CDATA[
+		select * from member where mem_id = #{mem_id}
+	]]>
 	</select>
 	
 	<select id="selectMemberByPwd" resultMap="memResult" parameterType="int">
-		<![CDATA[
-			select * from member where pwd = #{pwd}
-		]]>
+	<![CDATA[
+		select * from member where pwd = #{pwd}
+	]]>
 	</select>
 	
 	<select id="selectLike" resultMap="memResult" parameterType="String">
-		<![CDATA[
-			select * from member
-			where name like CONCAT('%', #{mem_name}, '%')
-		]]>
+	<![CDATA[
+		select * from member
+		where name like CONCAT('%', #{mem_name}, '%')
+	]]>
 	</select>
 	
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
-     <![CDATA[ 
-     	select if(count(*)=1, 'true', 'false')
-	   from member
-	   where mem_id = #{id}
-	   ]]>
-   </select>
-   
-   <select id="findId" parameterType="map" resultType="string">
-    <![CDATA[
-        SELECT mem_id
-        FROM member
-        WHERE mem_name = #{mem_name}
-<<<<<<< HEAD
-        AND phone = #{phone}
-=======
-        AND phone = #{phone}
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/master
-    ]]>
-</select>
-
-   <select id="findPwd" parameterType="map" resultType="string">
-    <![CDATA[
-        SELECT pwd
-        FROM member
-        WHERE mem_id = #{mem_id}
-<<<<<<< HEAD
-        AND email = #{email}
-=======
-        AND email = #{email}
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/master
-    ]]>
-</select>
-   
+	<![CDATA[ 
+		select if(count(*)=1, 'true', 'false')
+		from member
+		where mem_id = #{id}
+	]]>
+	</select>
+	
+	<select id="findId" parameterType="map" resultType="string">
+	 <![CDATA[
+		SELECT mem_id
+		FROM member
+		WHERE mem_name = #{mem_name}
+		AND phone = #{phone}
+	]]>
+	</select>
+	
+	<select id="findPwd" parameterType="map" resultType="string">
+	<![CDATA[
+		SELECT pwd
+		FROM member
+		WHERE mem_id = #{mem_id}
+		AND email = #{email}
+	]]>
+	</select>
+	   
 </mapper>

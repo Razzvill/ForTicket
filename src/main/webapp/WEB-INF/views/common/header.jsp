@@ -219,7 +219,7 @@
 				
 				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
 				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
-				<li><a href="${contextPath}/center/notice.doㄴ" class="button" onclick="changeStyle(this)">고객센터</a></li>
+				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 			</ul>
 		</div>
 	</c:when>

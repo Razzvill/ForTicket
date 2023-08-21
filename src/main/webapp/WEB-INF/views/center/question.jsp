@@ -116,27 +116,31 @@
 			<td class="boardtd">등록일</td>
 		</tr>
 		<c:choose>
-		    <c:when test="${not empty que_list}">
-	            <c:if test="${que_list.mem_id eq member.mem_id}">
-					<tr align="center">
-	                    <td>${que_list.q_No }</td>
-	                	<td>${que_list.q_Status }</td>
-	                    <td class="td1"><div class="text-wrapper">
-	                    	<span class="more-text"> ${que_list.q_Title }</span>
-	                    	<span class="text">Q. ${que_list.q_content }</span>
-	                    	<span class="text1">A. ${que_list.a_reply }</span>
-	                    </div></td>
-	                    <td><fmt:formatDate value="${que_list.q_creDate }" /></td>
-	                </tr>
-	            </c:if>
-		    </c:when>
-		    <c:otherwise>
-		        <tr>
+		    <c:when test="${empty que_List}">
+	              <tr>
 		            <td colspan="4">
-		                <p><b><span style="font-size:9pt;">등록된 글이 없습니다.${que_list.mem_id}, ${member.mem_id}</span></b></p>
+		                <p><b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b></p>
 		            </td>
 		        </tr>
-		    </c:otherwise>
+		    </c:when>
+		    <c:when test="${!empty que_List}">
+		        <c:forEach var="que" items="${que_List }">
+					<tr align="center">
+	                    <td>${que.q_mem_No }</td>
+	                	<td>${que.q_Status }</td>
+	                    <td class="td1"><div class="text-wrapper">
+	                    	<div>
+	                    		<div class="more-text">
+	                    			${que.q_Title }
+	                    			<span class="text">Q. ${que.q_content }</span>
+	                    			<span class="text1">A. ${que.a_reply }</span>
+	                    		</div>
+	                    	</div>
+	                    </div></td>
+	                    <td><fmt:formatDate value="${que.q_creDate }" /></td>
+	                </tr>
+	            </c:forEach>
+		    </c:when>
 		</c:choose>
 		</table>
 	</div>
@@ -146,16 +150,29 @@
 </div>
 <script>
 	//코드에 필요한 요소들 변수에 할당 (전체 ui를 감싸는 div, 내용 텍스트, 더보기/줄이기 텍스트)
-	const textWrapper = document.querySelector('.text-wrapper');
-	const text = document.querySelector('.text');
-	const text1 = document.querySelector('.text1');
-	const moreText = document.querySelector('.more-text');
+	//debugger;
+	var arrMoreText = document.getElementsByClassName("more-text");
+	var arrMoreTextLen = arrMoreText.length;
 	
-	// 더보기 텍스트 클릭시 이벤트
-	moreText.addEventListener('click', () => {
-	text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
-	text1.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
-    });
+	for(var i=0; i<arrMoreTextLen; i++){
+		let moreTextObj = arrMoreText[i];
+		
+		moreTextObj.addEventListener('click', () => {
+			
+			moreTextObj.childNodes.forEach(function(v){//v = nodeList
+				if(v.nodeName === "SPAN"){
+					if(v.style.display === "inline-block"){
+						v.style.display = "";
+					}else{
+						v.style.display = 'inline-block';
+					}
+				}
+			});
+			
+			//text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
+			//text1.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
+	    });
+	}
 </script>
 </body>
 </html>
