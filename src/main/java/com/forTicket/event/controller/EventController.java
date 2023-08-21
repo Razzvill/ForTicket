@@ -15,4 +15,5 @@ public interface EventController {
 	public ResponseEntity removeEvent(@RequestParam("id") int id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public ModelAndView modForm(@RequestParam("id") int id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public ResponseEntity modEvent(MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
+	public ResponseEntity modEventStatus(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute, @RequestParam("value") String value, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

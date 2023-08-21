@@ -87,7 +87,8 @@
 
 <body>
 <div class="mypage4">
-<form method="post"   action="${contextPath}/member/adminUpdateMember.do">
+
+<form method="post"   action="${contextPath}/admin/a_Update.do">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left;">회원 정보</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
@@ -96,15 +97,15 @@
 	<table class="search">
 		<tr>
 			<td  width="150px;">이름</td>
-			<td><input type="text" class="inputSize1" name="mem_name" value="${member.mem_name}"></td>
+			<td><input type="text" class="inputSize1" name="mem_name" value="${taget.mem_name}"></td>
 		</tr>
 		<tr>
 			<td>아이디</td>
-			<td><input type="text" class="inputSize1" name="mem_id" id="i_id" value="${member.mem_id}" readonly></td>
+			<td><input type="text" class="inputSize1" name="mem_id" id="i_id" value="${taget.mem_id}" readonly></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="text" class="inputSize1" name="pwd" value="${member.pwd}" ></td>
+			<td><input type="text" class="inputSize1" name="pwd" value="${taget.pwd}" ></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인</td>
@@ -112,22 +113,22 @@
 		</tr>
 		<tr>
 			<td>핸드폰확인</td>
-			<td><input type="text" class="inputSize1" name="phone2" value="${member.phone2}"></td>
+			<td><input type="text" class="inputSize1" name="phone2" value="${taget.phone2}"></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" class="inputSize1" name="email" value="${member.email}"></td>
+			<td><input type="text" class="inputSize1" name="email" value="${taget.email}"></td>
 		</tr>
 		<tr>
 			<td>주소</td>
 			<td>
-				<input type="text" class="inputSize" name="post" value="${member.post}" disabled> <a href="javascript:execDaumPostcode()" class="post1">우편번호찾기</a><br>
-				<input type="text" class="inputSize1" name="addr1" value="${member.addr1}"><br>
-			  	<input type="text" class="inputSize1" name="addr2" value="${member.addr2}"><br>
+				<input type="text" class="inputSize" name="post" value="${taget.post}" disabled> <a href="javascript:execDaumPostcode()" class="post1">우편번호찾기</a><br>
+				<input type="text" class="inputSize1" name="addr1" value="${taget.addr1}"><br>
+			  	<input type="text" class="inputSize1" name="addr2" value="${taget.addr2}"><br>
 			</td>
 		</tr>
 	</table>
-	<input type="button" onclick="fn_sub(this.form)" value="수정하기">
+	<input type="submit" onclick="fn_sub(this.form)" value="수정하기">
 </form>
 </div>
 </body>

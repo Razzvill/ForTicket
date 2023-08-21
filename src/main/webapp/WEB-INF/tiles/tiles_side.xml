@@ -13,6 +13,14 @@
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 	</definition>
 	
+	<definition name="baseLayout2" template="/WEB-INF/views/common/layout3.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp"/>
+		<put-attribute name="body" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
+	</definition>
+	
 	<!-- 예매 내역 조회 -->
 	<definition name="/member/myPage4" extends="baseLayout1">
 		<put-attribute name="title" value="로그인" />
@@ -32,48 +40,86 @@
 	</definition>
 	
 	<!-- 관리자 회원 수정 화면-->
-	<definition name="/admin/member/adminModMember" extends="baseLayout1">
-		<put-attribute name="title" value="환불 신청" />
-		<put-attribute name="body" value="/WEB-INF/views/admin/member/adminModMember.jsp" />
+	<definition name="/member/a_Edit" extends="baseLayout1">
+		<put-attribute name="title" value="관리자 회원 수정" />
+		<put-attribute name="body" value="/WEB-INF/views/member/a_Edit.jsp" />
 	</definition>
 	
-	
-	
-	
-	
-	
-	
+	<!-- 관리자 회원 수정 화면-->
+	<definition name="/member/a_EditBus" extends="baseLayout1">
+		<put-attribute name="title" value="관리자 회원 수정" />
+		<put-attribute name="body" value="/WEB-INF/views/member/a_EditBus.jsp" />
+	</definition>
 	
 	<!-- 관리자 회원관리 화면-->
-	<definition name="/admin/member/adminMember" extends="baseLayout1">
+	<definition name="/member/a_Profile" extends="baseLayout1">
 		<put-attribute name="title" value="관리자 회원관리" />
-		<put-attribute name="body" value="/WEB-INF/views/admin/member/adminMember.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/a_Profile.jsp" />
 	</definition>
 	
 	<!-- 관리자 사업자관리 화면-->
-	<definition name="/admin/member/adminBus" extends="baseLayout1">
+	<definition name="/member/a_ProfileBus" extends="baseLayout1">
 		<put-attribute name="title" value="관리자 사업자관리" />
-		<put-attribute name="body" value="/WEB-INF/views/admin/member/adminBus.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/a_ProfileBus.jsp" />
 	</definition>
 	
 	
 	
 	
 	
-	<definition name="/member/loginForm" extends="baseLayout">
-		<put-attribute name="title" value="로그인창" />
-		<put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 고객센터 환불정보refund 화면-->
+	<definition name="/center/refund" extends="baseLayout2">
+		<put-attribute name="title" value="환불정보" />
+		<put-attribute name="body" value="/WEB-INF/views/center/refund.jsp" />
+	</definition>
+	
+	<!-- 고객센터 작성 화면-->
+	<definition name="/center/write" extends="baseLayout2">
+		<put-attribute name="title" value="고객센터 작성" />
+		<put-attribute name="body" value="/WEB-INF/views/center/write.jsp" />
+	</definition>
+	
+	<!-- 고객센터 상세 화면-->
+	<definition name="/center/view" extends="baseLayout2">
+		<put-attribute name="title" value="고객센터 상세화면" />
+		<put-attribute name="body" value="/WEB-INF/views/center/view.jsp" />
+	</definition>
+	
+	<!-- 고객센터 공지사항notice 화면-->
+	<definition name="/center/notice" extends="baseLayout2">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="body" value="/WEB-INF/views/center/notice.jsp" />
+	</definition>
+	
+	<!-- 고객센터 faq 화면-->
+	<definition name="/center/faq" extends="baseLayout2">
+		<put-attribute name="title" value="FAQ" />
+		<put-attribute name="body" value="/WEB-INF/views/center/faq.jsp" />
+	</definition>
+	
+	<!-- 고객센터 1:1 화면-->
+	<definition name="/center/question" extends="baseLayout2">
+		<put-attribute name="title" value="1:1문의" />
+		<put-attribute name="body" value="/WEB-INF/views/center/question.jsp" />
 	</definition>
 
-	<definition name="/member/memberForm" extends="baseLayout">
-		<put-attribute name="title" value="회원등록" />
-		<put-attribute name="body" value="/WEB-INF/views/member/memberForm.jsp" />
-	</definition>
-	
-	<definition name="/member/modMember" extends="baseLayout">
-		<put-attribute name="title" value="회원수정" />
-		<put-attribute name="body" value="/WEB-INF/views/member/modMember.jsp" />
-	</definition>
 </tiles-definitions>
 
 
