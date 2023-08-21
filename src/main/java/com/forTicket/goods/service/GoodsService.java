@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
-import com.forTicket.goods.vo.ImageFileVO;
+import com.forTicket.goods.vo.G_imageFileVO;
 
 public interface GoodsService {
 	public List listGoods() throws DataAccessException;
