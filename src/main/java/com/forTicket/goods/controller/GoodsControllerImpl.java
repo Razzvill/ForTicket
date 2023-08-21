@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.forTicket.goods.service.GoodsService;
-import com.forTicket.goods.vo.ImageFileVO;
+import com.forTicket.goods.vo.G_imageFileVO;
 import com.forTicket.member.vo.MemberVO;
 import com.forTicket.theater.dao.TheaterDAO;
 import com.forTicket.theater.service.TheaterService;
@@ -65,8 +65,11 @@ public class GoodsControllerImpl implements GoodsController{
 		ModelAndView mav = new ModelAndView();
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
+		
 		String section = dateMap.get("section");
 		String pageNum = dateMap.get("pageNum");
+		String search_type = dateMap.get("search_type");
+		String search_word = dateMap.get("search_word");
 		String beginDate=null,endDate=null;
 		
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
@@ -75,7 +78,7 @@ public class GoodsControllerImpl implements GoodsController{
 		dateMap.put("beginDate", beginDate);
 		dateMap.put("endDate", endDate);
 		
-		Map<String,Object> condMap=new HashMap<String,Object>();
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
 		if(section== null) {
 			section = "1";
 		}
@@ -86,7 +89,10 @@ public class GoodsControllerImpl implements GoodsController{
 		condMap.put("pageNum",pageNum);
 		condMap.put("beginDate",beginDate);
 		condMap.put("endDate", endDate);
-		List goodsList = goodsService.a_listGoods(condMap);
+		condMap.put("search_type",search_type);
+		condMap.put("search_word", search_word);
+		
+		ArrayList goodsList = (ArrayList) goodsService.a_listGoods(condMap);
 		mav.addObject("goodsList", goodsList);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -97,6 +103,9 @@ public class GoodsControllerImpl implements GoodsController{
 		mav.addObject("endYear",endDate2[0]);
 		mav.addObject("endMonth",endDate2[1]);
 		mav.addObject("endDay",endDate2[2]);
+		
+		mav.addObject("search_type",search_type);
+		mav.addObject("search_word",search_word);
 		
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
@@ -122,6 +131,7 @@ public class GoodsControllerImpl implements GoodsController{
 	//상품 등록
 	@Override
 	@RequestMapping(value= "/goods/addGoods.do", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
 	public ResponseEntity addGoods(MultipartHttpServletRequest multipartRequest,
 			HttpServletResponse response) throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
@@ -141,9 +151,9 @@ public class GoodsControllerImpl implements GoodsController{
 		String reg_id = memberVO.getMem_id();
 		
 		
-		List<ImageFileVO> imageFileList = upload(multipartRequest);
+		List<G_imageFileVO> imageFileList = upload(multipartRequest);
 		if(imageFileList!= null && imageFileList.size()!=0) {
-			for(ImageFileVO imageFileVO : imageFileList) {
+			for(G_imageFileVO imageFileVO : imageFileList) {
 				imageFileVO.setReg_id(reg_id);
 			}
 			goodsMap.put("imageFileList", imageFileList);
@@ -156,7 +166,7 @@ public class GoodsControllerImpl implements GoodsController{
 		try {
 			int goods_id = goodsService.addGoods(goodsMap);
 			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(ImageFileVO  imageFileVO:imageFileList) {
+				for(G_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
@@ -169,7 +179,7 @@ public class GoodsControllerImpl implements GoodsController{
 			message +=("</script>");
 		}catch(Exception e) {
 			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(ImageFileVO  imageFileVO:imageFileList) {
+				for(G_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					srcFile.delete();
@@ -199,6 +209,7 @@ public class GoodsControllerImpl implements GoodsController{
 	//상품 수정
 	@Override
 	@RequestMapping(value= "/goods/modGoods.do", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
 	public ResponseEntity modGoods(@RequestParam("goods_id") int goods_id, @RequestParam("attribute") String attribute,
             @RequestParam("value") String value,MultipartHttpServletRequest multipartRequest,
 			HttpServletResponse response) throws Exception {
@@ -285,19 +296,19 @@ public class GoodsControllerImpl implements GoodsController{
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
 		String reg_id = memberVO.getMem_id();
 		
-		List<ImageFileVO> imageFileList=null;
+		List<G_imageFileVO> imageFileList=null;
 		int goods_id=0;
 		try {
 			imageFileList =upload(multipartRequest);
 			if(imageFileList!= null && imageFileList.size()!=0) {
-				for(ImageFileVO imageFileVO : imageFileList) {
+				for(G_imageFileVO imageFileVO : imageFileList) {
 					goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
 					imageFileVO.setGoods_id(goods_id);
 					imageFileVO.setReg_id(reg_id);
 				}
 				
 			    goodsService.addGoodsImage(imageFileList);
-				for(ImageFileVO  imageFileVO:imageFileList) {
+				for(G_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
@@ -306,7 +317,7 @@ public class GoodsControllerImpl implements GoodsController{
 			}
 		}catch(Exception e) {
 			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(ImageFileVO  imageFileVO:imageFileList) {
+				for(G_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					srcFile.delete();
@@ -338,13 +349,13 @@ public class GoodsControllerImpl implements GoodsController{
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
 		String reg_id = memberVO.getMem_id();
 		
-		List<ImageFileVO> imageFileList=null;
+		List<G_imageFileVO> imageFileList=null;
 		int goods_id=0;
 		int image_id=0;
 		try {
 			imageFileList =upload(multipartRequest);
 			if(imageFileList!= null && imageFileList.size()!=0) {
-				for(ImageFileVO imageFileVO : imageFileList) {
+				for(G_imageFileVO imageFileVO : imageFileList) {
 					goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
 					image_id = Integer.parseInt((String)goodsMap.get("image_id"));
 					String originalFileName = (String)goodsMap.get("originalFileName");
@@ -356,7 +367,7 @@ public class GoodsControllerImpl implements GoodsController{
 				}
 				
 			    goodsService.modGoodsImage(imageFileList);
-				for(ImageFileVO  imageFileVO:imageFileList) {
+				for(G_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
@@ -365,7 +376,7 @@ public class GoodsControllerImpl implements GoodsController{
 			}
 		}catch(Exception e) {
 			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(ImageFileVO  imageFileVO:imageFileList) {
+				for(G_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					srcFile.delete();
@@ -441,11 +452,11 @@ public class GoodsControllerImpl implements GoodsController{
 		return beginDate+","+endDate;
 	}
 	
-	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
-		List<ImageFileVO> fileList= new ArrayList<ImageFileVO>();
+	protected List<G_imageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
+		List<G_imageFileVO> fileList= new ArrayList<G_imageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while(fileNames.hasNext()){
-			ImageFileVO imageFileVO =new ImageFileVO();
+			G_imageFileVO imageFileVO =new G_imageFileVO();
 			String fileName = fileNames.next();
 			imageFileVO.setFileType(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);

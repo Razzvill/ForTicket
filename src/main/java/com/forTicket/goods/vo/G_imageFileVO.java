@@ -2,8 +2,8 @@ package com.forTicket.goods.vo;
 
 import org.springframework.stereotype.Component;
 
-@Component("g_imageFileVO")
-public class ImageFileVO {
+@Component("G_imageFileVO")
+public class G_imageFileVO {
 	private int image_id;
 	private int goods_id;
 	private String fileName;

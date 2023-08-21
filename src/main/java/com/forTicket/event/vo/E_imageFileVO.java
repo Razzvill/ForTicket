@@ -2,8 +2,8 @@ package com.forTicket.event.vo;
 
 import org.springframework.stereotype.Component;
 
-@Component("e_imageFileVO")
-public class ImageFileVO {
+@Component("E_imageFileVO")
+public class E_imageFileVO {
 	private int image_id;
 	private int event_no;
 	private String fileName;

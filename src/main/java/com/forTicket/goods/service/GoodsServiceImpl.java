@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.forTicket.goods.dao.GoodsDAO;
 import com.forTicket.goods.vo.GoodsVO;
-import com.forTicket.goods.vo.ImageFileVO;
+import com.forTicket.goods.vo.G_imageFileVO;
 
 @Service("goodsService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -48,8 +48,8 @@ public class GoodsServiceImpl implements GoodsService {
 	public int addGoods(Map goodsMap) throws DataAccessException {
 		goodsDAO.insertGoods(goodsMap);
 		int goods_id = goodsDAO.selectGoodsNo(goodsMap);
-		ArrayList<ImageFileVO> imageFileList = (ArrayList) goodsMap.get("imageFileList");
-		for(ImageFileVO imageFileVO : imageFileList) {
+		ArrayList<G_imageFileVO> imageFileList = (ArrayList) goodsMap.get("imageFileList");
+		for(G_imageFileVO imageFileVO : imageFileList) {
 			imageFileVO.setGoods_id(goods_id);
 		}
 		return goods_id;
@@ -68,7 +68,7 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void addGoodsImage(List imageFileList) throws DataAccessException {
 		for(int i=0; i<imageFileList.size();i++) {
-			ImageFileVO imageFileVO = (ImageFileVO) imageFileList.get(i);
+			G_imageFileVO imageFileVO = (G_imageFileVO) imageFileList.get(i);
 			goodsDAO.insertGoodsImageFile(imageFileVO);
 		}
 	}
@@ -76,7 +76,7 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void modGoodsImage(List imageFileList) throws DataAccessException {
 		for(int i=0; i<imageFileList.size();i++) {
-			ImageFileVO imageFileVO = (ImageFileVO) imageFileList.get(i);
+			G_imageFileVO imageFileVO = (G_imageFileVO) imageFileList.get(i);
 			goodsDAO.updateGoodsImage(imageFileVO);
 		}
 	}

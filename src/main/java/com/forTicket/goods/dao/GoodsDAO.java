@@ -8,7 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.forTicket.goods.vo.GoodsVO;
-import com.forTicket.goods.vo.ImageFileVO;
+import com.forTicket.goods.vo.G_imageFileVO;
 
 @Mapper
 @Repository("goodsDAO")
@@ -21,8 +21,8 @@ public interface GoodsDAO {
 	public void updateGoods(Map goodsMap) throws DataAccessException;
 	public void deleteGoods(int event_no) throws DataAccessException;
 	public List selectGoodsImageFileList(int goods_id) throws DataAccessException;
-	public void insertGoodsImageFile(ImageFileVO imageFileVO) throws DataAccessException;
-	public void updateGoodsImage(ImageFileVO imageFileVO) throws DataAccessException;
+	public void insertGoodsImageFile(G_imageFileVO imageFileVO) throws DataAccessException;
+	public void updateGoodsImage(G_imageFileVO imageFileVO) throws DataAccessException;
 	public void deleteGoodsImage(int image_id) throws DataAccessException;
 	public void deleteAllGoodsImage(int image_id) throws DataAccessException;
 }
