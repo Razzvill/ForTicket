@@ -19,7 +19,7 @@
 		<result property="goods_id" column="goods_id" />
 	</resultMap>
 	
-	<resultMap id="imageResult" type="imageFileVO">
+	<resultMap id="imageResult" type="e_imageFileVO">
 	   <result property="image_id" column="image_id" />
 	   <result property="event_no" column="event_no" />
 	   <result property="fileName" column="fileName" />
@@ -47,7 +47,8 @@
 
 	<insert id="insertEvent" parameterType="java.util.Map">
 		<![CDATA[
-			INSERT INTO event(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image, event_finalDate, goods_id) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image}, #{event_finalDate}, #{goods_id})
+			INSERT INTO event(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image, event_finalDate, goods_id) 
+			VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image}, #{event_finalDate}, #{goods_id})
 		]]>
 	</insert>
 

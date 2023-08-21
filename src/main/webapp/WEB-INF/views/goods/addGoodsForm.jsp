@@ -116,9 +116,9 @@
 				 <tr>
 					<td>공연장</td>
 					<td>
-						<select name="goods_place">
+						<select name="goods_place" onchange="displayTheaterLocation(selectElement)">
 							<c:forEach var="theater" items="theaterList" varStatus="theaterNum">
-								<option value="${theater.theater_address}">${theater.theater_name}</option>
+								<option value="${theater.theater_name}">${theater.theater_name}</option>
 							</c:forEach>
 						</select>
 					</td>

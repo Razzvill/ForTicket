@@ -185,7 +185,7 @@
 	<c:when test="${isLogOn == true && type=='admin'}">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
-				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/goods/a_listGoods.do" class="button" onclick="changeStyle(this)">상품관리</a></li>
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">공연장관리</a></li>
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/member/a_Profile.do" class="button" onclick="changeStyle(this)">회원관리</a></li>
@@ -198,7 +198,7 @@
 	<c:when test="${isLogOn == true && type=='B'}">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
-				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">상품관리</a></li>
+				<li style="padding-right:85px;"><a href="${contextPath}/goods/a_listGoods.do" class="button" onclick="changeStyle(this)">상품관리</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">스케쥴관리</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">공연장</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">예매관리</a></li>
@@ -211,9 +211,9 @@
 	<c:when test="${isLogOn == true && type=='U'}">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 			<ul class="gnb_nav">
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
-				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
-				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?type=drama" class="button" onclick="changeStyle(this)">연극</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?type=musical" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?type=concert" class="button" onclick="changeStyle(this)">공연</a></li>
 				
 				<li style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				
@@ -223,12 +223,12 @@
 			</ul>
 		</div>
 	</c:when>
-	<c:otherwise >
+	<c:otherwise>
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 			<ul class="gnb_nav">
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listDrama.do" class="button" onclick="changeStyle(this)">연극</a></li>
-				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
-				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">공연</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?type=drama" class="button" onclick="changeStyle(this)">연극</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?type=musical" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?type=concert" class="button" onclick="changeStyle(this)">공연</a></li>
 				
 				<li style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				

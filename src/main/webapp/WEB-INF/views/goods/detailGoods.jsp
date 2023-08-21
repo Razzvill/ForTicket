@@ -199,12 +199,12 @@ request.setCharacterEncoding("utf-8");
 <body>
 	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
 		<div class="now_engine" style="margin-right: 680px;">
-			🗂️ <a href="#">공연 &gt; </a><a href="#">연극 </a>
+			🗂️ <a href="#">공연 &gt; </a><a href="#">{goods.goods_type} </a>
 		</div>
 
 		<div
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
-			<img src="${contextPath}/resources/images/act1.jpg"
+			<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}"
 				style="width: 482px; border-radius: 10px;">
 			<div class="info_bg_gradient"></div>
 		</div>
@@ -213,15 +213,16 @@ request.setCharacterEncoding("utf-8");
 		<section style="float: right; width: 307px;">
 			<div class="theater_list">
 				<div class="theater_info">
-					<p class="title">죽여주는 이야기</p>
-					<p class="detail">분류 : 연극</p>
-					<p class="detail">장르 : 코믹</p>
-					<p class="detail">공연기간 : 2023.08.01 ~ 2023.08.31</p>
-					<p class="detail">러닝타임 : 약 90분</p>
-					<p class="detail">이용등급 : 전체이용가</p>
-					<p class="detail">정가 : 16,800원</p>
-					<p class="detail">할인율 :</p>
-
+					<p class="title">${goods.goods_name}</p>
+					<p class="detail">분류 : ${goods.goods_type}</p>
+					<p class="detail">장르 : ${goods.goods_genre}</p>
+					<p class="detail">공연기간 : ${goods.goods_startDate} ~ ${goods.goods_endDate}</p>
+					<p class="detail">러닝타임 : ${goods.goods_runningTime}</p>
+					<p class="detail">이용등급 : ${goods.goods_age}</p>
+					<p class="detail">정가 : ${goods.goods_price}원</p>
+					<c:if test="${goods.goods_discount != 0}">
+						<p class="detail">할인율 : ${goods.goods_discount}%</p>
+					</c:if>
 				</div>
 			</div>
 			<div class="submit_btn">
@@ -236,100 +237,6 @@ request.setCharacterEncoding("utf-8");
 				<button href="#" class="">관심 ☆</button>
 			</div>
 		</section>
-		<%--
-		<section style="float: right; width: 307px;">
-			<div id="calendar_popup" class="calendar_popup_02 choice_day"
-				style="">
-				<div id="datepicker"></div>
-				<form method="post" id="regiform" name="regiform" action="#">
-					<div class="time_select selectBox" style="display: block;">
-						<p class="selectbox_title" style="display: block;">
-							시간선택
-							<button type="button" class="time_btn" value="14:30">
-								<span class="option_title">14:30</span>
-							</button>
-							<button type="button" class="time_btn active" value="16:45">
-								<span class="option_title">16:45</span>
-							</button>
-							<button type="button" class="time_btn" value="19:00">
-								<span class="option_title">19:00</span>
-							</button>
-						</p>
-					</div>
-					<div class="title1_select selectBox" style="display: none;">
-						<p class="selectbox_title">옵션선택</p>
-					</div>
-					<div class="title2_select selectBox" style="display: block;">
-						<p class="selectbox_title" style="display: block;">
-							권종선택
-							<button type="button" class="title2_btn btn_number_264681 active"
-								name="264681"
-								value="{&quot;number&quot;:&quot;264681&quot;,&quot;product_number&quot;:&quot;4343&quot;,&quot;run_date&quot;:&quot;2023-08-24 16:45:00&quot;,&quot;title1&quot;:&quot;★타임세일★&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;timesale&quot;,&quot;full_price&quot;:&quot;50000&quot;,&quot;sale_price&quot;:&quot;16800&quot;,&quot;jaego&quot;:&quot;2&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2023-08-24 16:35:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-								<span style="color: #ff4b4b;" class="option_title">★타임세일★</span><span
-									class="title2_left">남은티켓 2매</span><span style="color: #ff4b4b;"
-									class="title2_price">16,800원</span>
-							</button>
-							<button type="button" class="title2_btn btn_number_257975"
-								name="257975"
-								value="{&quot;number&quot;:&quot;257975&quot;,&quot;product_number&quot;:&quot;4343&quot;,&quot;run_date&quot;:&quot;2023-08-24 16:45:00&quot;,&quot;title1&quot;:&quot;일반&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;50000&quot;,&quot;sale_price&quot;:&quot;18900&quot;,&quot;jaego&quot;:&quot;30&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2023-08-24 16:35:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-								<span class="option_title">일반</span><span class="title2_left">남은티켓
-									30매</span><span class="title2_price">18,900원</span>
-							</button>
-						</p>
-					</div>
-					<div class="choice_select" style="display: block;">
-						<p class="title">수량선택</p>
-						<div class="select_list">
-							<div class="select_item" id="264681">
-								<input type="hidden" name="cate_title[]" class="cate_title"
-									value="8.24[목] 16:45 ★타임세일★">
-								<div class="select_name" style="float: left;">8.24[목]
-									16:45&nbsp;★타임세일★&nbsp;</div>
-								<div style="float: right; display: inline-block;">
-									<a href="#item_close" class="close" data-store="264681"><span
-										class="remove_ticket"
-										style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;"
-										value="16800">X</span></a>
-								</div>
-								<div style="clear: both;"></div>
-								<div class="price_warp">
-									<div class="quantity">
-										<button type="button" class="remove_ticket" value="16800">
-											<img
-												src="${contextPath}/resources/images/btn_minus_square.png"
-												style="width: 18px; vertical-align: -3px;">
-										</button>
-										<span class="selected_quantity">1</span>
-										<button type="button" class="add_ticket" value="16800">
-											<img
-												src="${contextPath}/resources/images/btn_plus_square.png"
-												style="width: 18px; vertical-align: -3px;">
-										</button>
-									</div>
-									<p class="price">
-										<span id="costs">0</span>
-									</p>
-									<input type="hidden" name="product_cate[]" value="264681"><input
-										type="hidden" name="product_cate_price[]" class="item_price"
-										value="16800"><input type="hidden" name="item_jaego"
-										class="item_jaego" value="2"><input type="hidden"
-										name="cate_date[]" class="cate_date" value="2023-08-24"><input
-										type="hidden" name="want_quantity[]" class="item_ticket"
-										value="1">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="total_warp" style="display: flex;">
-						<p class="title">총 결제금액</p>
-						<p class="total_price">16,800원</p>
-					</div>
-					<div class="submit_btn">
-						<button href="#" class="">결제하기</button>
-					</div>
-				</form>
-			</div>
-		</section> --%>
 
 		<div style="clear: both;"></div>
 
@@ -411,44 +318,14 @@ request.setCharacterEncoding("utf-8");
 			style="width: 820px; margin: 0 auto; padding-top: 20px; border-radius: 10px; border: 1px solid #eee;">
 			<div id="ajaxcontentarea" class="contentstyle1">
 				<div class="main_tab_wrap">
-					<!-- 클래스 안내 배너 -->
-					<div
-						style="display: none;; width: 700px; height: 95px; margin-bottom: 20px;">
-						<img src="img/bnr_class_noti.png"
-							style="width: 700px; border-radius: 10px;" alt="예매전 주의사항 - 클래스">
-					</div>
-
-					<!-- 예매정보 -->
-					<div style="margin-top: 10px;">
-						<div class="viewpage_noti">예매정보</div>
-						<div class="viewpage_text radius_box">
-							<p>· 진행기간: OPEN RUN</p>
-							<p>· 이용등급: 만 11세 이상</p>
-							<p>· 이용시간: 약 90분</p>
-						</div>
-					</div>
-
-					<!-- 공지사항 -->
-					<div style="margin-top: 25px;">
-						<div class="viewpage_noti">기획사 공지사항</div>
-						<div class="viewpage_text radius_box">
-							<p>· 공연사 전화문의는 마지막 회차 공연 시작 전까지 가능합니다.</p>
-						</div>
-					</div>
-
+				
 					<!-- 이용정보 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">이용정보</div>
 						<div class="viewpage_text radius_box">
-							<p>· 예매가능시간: 공연 시작 10분 전까지</p>
-							<p>· 티켓배부: 공연 시작 40분 전부터 공연장 매표소에서 배부</p>
-							<p>· 티켓수령: 예매내역 제시 후 현장 수령(신분증/증빙자료 지참)</p>
-							<p>· 입장시간: 공연 시작 15분 전부터 입장 가능</p>
-							<p>· 좌석배정: 비지정석(타예매처 지정석 제외 후 매표소 선착순 배정)</p>
-							<p class="txt_red">※ 각각 예매하더라도 함께 발권하면 연석 배정 가능합니다.</p>
+							<p>${goods.goods_info}</p>
 						</div>
 					</div>
-
 
 					<!-- 상세이미지 -->
 					<div class="info_detail_poster" alt="상세">
@@ -480,11 +357,7 @@ request.setCharacterEncoding("utf-8");
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">유의사항</div>
 						<div class="viewpage_text radius_box">
-							<p>· 공연 시작 후 발권 또는 입장 불가(지연입장 불가)</p>
-							<p>· 지각으로 인해 관람하지 못할 시 환불/변경 불가</p>
-							<p>· 지역착오, 연령 미숙지로 관람하지 못할 시 환불/변경 불가</p>
-							<p>· 음식물 반입 금지. 공연 중 사진/동영상 촬영 금지</p>
-							<p class="txt_red">· 관람 당일은 결제 후 환불/변경 불가하니 신중히 예매하세요.</p>
+							<p>${goods.goods_notice}</p>
 						</div>
 					</div>
 
@@ -493,9 +366,7 @@ request.setCharacterEncoding("utf-8");
 						<div class="viewpage_noti">장소안내</div>
 						<div class="viewpage_text radius_box"
 							style="border-radius: 10px 10px 0 0;">
-							<p>· 장소: 해피씨어터&nbsp;/&nbsp;총 200석</p>
-							<p>· 주소: 서울 종로구 대학로10길 5 , 지하1층</p>
-							<p>· 주차: 주차불가(인근 유료주차장 이용 권장)</p>
+							<p>${theater.theater_detail}</p>
 						</div>
 						<div align="center" style="margin-top: 10px;">
 							<div style="z-index: -1;" id="daum_map">
