@@ -88,7 +88,7 @@ background-image: url("${contextPath}/resources/images/member/user_hphone.png");
     <div class="section_wrap">
       <form action="${contextPath}/member/findIdResult.do" method="post">
         <input type="text" name="mem_name" placeholder="이름" maxlength="13" class="input_box icon_phone" required="">
-        <input type="text" name="phone2" placeholder="휴대폰 번호" class="input_box icon_email" style="margin-top:15px;" required="">
+        <input type="text" name="phone" placeholder="휴대폰 번호" class="input_box icon_email" style="margin-top:15px;" required="">
         <button class="btn_submit">아이디 찾기</button>
       </form>
     </div>

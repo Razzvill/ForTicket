@@ -29,7 +29,7 @@
 	}
 	
 	.tb1{
-		margin-left: 50px;
+		margin-left: 100px;
 	}
 	
 	.td1{

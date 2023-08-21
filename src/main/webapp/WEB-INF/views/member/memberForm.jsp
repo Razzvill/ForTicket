@@ -201,7 +201,7 @@
 				    <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
 				</tr>
 				<tr>
-					<td><input size="10px"  type="text" placeholder="핸드폰번호" name="phone2"class="dot_line icon_phone"></td> 
+					<td><input size="10px"  type="text" placeholder="핸드폰번호" name="phone"class="dot_line icon_phone"></td> 
 				</tr>
 				<tr>
 					<td>
@@ -417,6 +417,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-</div>
+
 </body>
 </html>

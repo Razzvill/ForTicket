@@ -9,18 +9,15 @@
 		<result property="pwd" column="pwd" />
 		<result property="mem_name" column="mem_name" />
 		<result property="email" column="email" />
-		<result property="phone1" column="phone1" />
-		<result property="phone2" column="phone2" />
+		<result property="phone" column="phone" />
 		<result property="post" column="post" />
 		<result property="addr1" column="addr1" />
 		<result property="addr2" column="addr2" />
 		<result property="b_number" column="b_number" />
 		<result property="b_name" column="b_name" />
-		<result property="b_phone1" column="b_phone1" />
-		<result property="b_phone2" column="b_phone2" />
-		<result property="b_phone3" column="b_phone3" />
+		<result property="b_phone" column="b_phone" />
 		<result property="checkbox" column="checkbox" />
-		<result property="memberCheck" column="memberCheck" />
+		<result property="type" column="type" />
 		<result property="joinDate" column="joinDate" />
 	</resultMap>
 	
@@ -28,14 +25,14 @@
 	<select id="a_Profile" resultMap="memResult"   parameterType="java.util.HashMap">
 		select * from (
 			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
-			 from (
+			from (
 				select * 
 				from member 
-				where b_name IS NULL 
+				where b_number IS NULL 
 				and date_format(joinDate,'%Y-%m-%d') between #{beginDate} and #{endDate} 
-				<!-- <if test="search_type=='all' and  search_type != null" >
-		        	and (phone1=#{search_word} OR mem_name=#{search_word} OR mem_id=#{search_word})
-				</if> -->
+				<if test="search_type=='all' and  search_type != null" >
+		        	and (phone=#{search_word} OR mem_name=#{search_word} OR mem_id=#{search_word})
+				</if>
 				<if test="search_type=='mem_name' and  search_type != null" >
 		        	and mem_name=#{search_word}
 				</if>
@@ -43,7 +40,7 @@
 		        	and mem_id=#{search_word}
 				</if>
 				<if test="search_type=='mem_phone' and search_type != null">
-					and concat(phone1)=concat(#{search_word})
+					and phone=#{search_word}
 				</if>
 					order by joinDate desc
 					 ) as table1
@@ -54,36 +51,44 @@
 	
 	<!-- 사업자 목록 -->
 	<select id="a_ProfileBus" resultMap="memResult"   parameterType="java.util.HashMap">
-		<![CDATA[select * from (
+		select * from (
 			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
 			 from (		
-		    	SELECT * FROM member WHERE b_name IS NOT NULL AND DATE_FORMAT(joinDate, '%Y-%m-%d') BETWEEN #{beginDate} AND #{endDate}
+		    	SELECT *
+		    	FROM member
+		    	WHERE b_number IS NOT NULL
+		    	AND DATE_FORMAT(joinDate, '%Y-%m-%d') BETWEEN #{beginDate} AND #{endDate}
+		    	<if test="search_type=='all' and  search_type != null" >
+		        	and (b_name=#{search_word} OR mem_id=#{search_word} OR b_number=#{search_word} OR b_phone=#{search_word})
+				</if>
+				<if test="search_type=='b_name' and  search_type != null" >
+		        	and b_name=#{search_word}
+				</if>
+				<if test="search_type=='mem_id' and search_type != null">
+		        	and mem_id=#{search_word}
+				</if>
+				<if test="search_type=='b_number' and search_type != null">
+		        	and b_number=#{search_word}
+				</if>
+				<if test="search_type=='b_phone' and search_type != null">
+					and b_phone=#{search_word}
+				</if>
 					ORDER BY joinDate DESC
 					) as table1
 				) as table2				
 			where				
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
-		]]>  			
-	</select>
+	</select>		
+	
 	
 	<!-- 관리자 회원 삭제 -->
 	<delete id="deleteMember" parameterType="String">
 		<![CDATA[
 	  		delete from member
-	   			where
+	   		where
 	   		mem_id=#{mem_id}
 			]]>      
 	</delete>
-	
-	<!-- 관리자 사업자 삭제 -->
-	<delete id="deleteBus" parameterType="String">
-		<![CDATA[
-	  		delete from member
-	   			where
-	   		b_name=#{b_name}
-			]]>      
-	</delete>
-	
 	
 	<!--수정창 이동시 id가져오기 -->
 	<select id="selectById" resultMap="memResult" parameterType="java.util.HashMap">
@@ -98,7 +103,7 @@
 	<update id="a_Update"  parameterType="memberVO">
      <![CDATA[
 	     update member
-	     	set mem_name=#{mem_name}, pwd=#{pwd}, phone2=#{phone2}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
+	     	set mem_name=#{mem_name}, pwd=#{pwd}, phone=#{phone}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
 	     	where
 			mem_id=#{mem_id}
       ]]>      
@@ -108,7 +113,7 @@
 	<update id="a_UpdateBus"  parameterType="memberVO">
      <![CDATA[
 	     update member
-	     	set b_name=#{b_name}, pwd=#{pwd}, b_phone2=#{b_phone2}, b_phone3=#{b_phone3}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
+	     	set b_name=#{b_name}, pwd=#{pwd}, b_phone=#{b_phone}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
 	     	where
 			mem_id=#{mem_id}
       ]]>      

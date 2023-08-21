@@ -16,6 +16,6 @@ public interface MemberDAO {
 	 public MemberVO selectMemberById(String mem_id) throws DataAccessException;
 	 public int updateMember(MemberVO memberVO) throws DataAccessException;
 	 public String selectOverlappedID(String id) throws DataAccessException;
-	 public String findId(@Param("mem_name") String mem_name, @Param("phone2") String phone2) throws DataAccessException;
+	 public String findId(@Param("mem_name") String mem_name, @Param("phone") String phone) throws DataAccessException;
 
 }

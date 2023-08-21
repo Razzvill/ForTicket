@@ -11,6 +11,6 @@ public interface MemberService {
 	public MemberVO login(MemberVO memberVO) throws Exception;
 	public int updateMember(MemberVO memberVO) throws DataAccessException;
 	public String overlapped(String id) throws Exception;
-	public String findId(String mem_name, String phone2) throws Exception;
+	public String findId(String mem_name, String phone) throws Exception;
 
 }

@@ -1,7 +1,7 @@
 package com.forTicket.center.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
@@ -10,9 +10,6 @@ import com.forTicket.center.vo.CenterVO;
 import com.forTicket.center.vo.QuestionVO;
 
 public interface CenterService {
-	//타입별 글 번호 저장 updateNum
-	public int updateNum(CenterVO centerVO) throws DataAccessException;
-	
 	//글 저장
 	public int addWrite(CenterVO centerVO) throws DataAccessException;
 	
@@ -26,8 +23,11 @@ public interface CenterService {
 	public void delete(int center_No) throws Exception;
 	
 	//고객센터 목록
-	public List<CenterVO> list() throws Exception;
+	public ArrayList<CenterVO> list(HashMap condMap) throws Exception;
 	
 	//고객센터 1:1시 id가져오기
 	public QuestionVO question(HashMap condMap) throws DataAccessException;
+	
+	//글 저장
+	public int addQue(QuestionVO questionVO) throws DataAccessException;
 }

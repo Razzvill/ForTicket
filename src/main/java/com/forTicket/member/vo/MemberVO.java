@@ -10,16 +10,13 @@ public class MemberVO {
 	private String pwd;
 	private String mem_name;
 	private String email;
-	private String phone1;
-	private String phone2;
+	private String phone;
 	private String post;
 	private String addr1;
 	private String addr2;
 	private String b_number;
 	private String b_name;
-	private String b_phone1;
-	private String b_phone2;
-	private String b_phone3;
+	private String b_phone;
 	private String checkbox;
 	private String type;
 	private Date joinDate;
@@ -50,18 +47,13 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPhone1() {
-		return phone1;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public String getPhone2() {
-		return phone2;
-	}
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
-	}
+
 	public String getPost() {
 		return post;
 	}
@@ -93,24 +85,13 @@ public class MemberVO {
 	public void setB_name(String b_name) {
 		this.b_name = b_name;
 	}
-	public String getB_phone1() {
-		return b_phone1;
+	public String getB_phone() {
+		return b_phone;
 	}
-	public void setB_phone1(String b_phone1) {
-		this.b_phone1 = b_phone1;
+	public void setB_phone(String b_phone) {
+		this.b_phone = b_phone;
 	}
-	public String getB_phone2() {
-		return b_phone2;
-	}
-	public void setB_phone2(String b_phone2) {
-		this.b_phone2 = b_phone2;
-	}
-	public String getB_phone3() {
-		return b_phone3;
-	}
-	public void setB_phone3(String b_phone3) {
-		this.b_phone3 = b_phone3;
-	}
+
 	public String getCheckbox() {
 		return checkbox;
 	}
@@ -130,15 +111,5 @@ public class MemberVO {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	@Override
-	public String toString() {
-		return "MemberVO [mem_id=" + mem_id + ", pwd=" + pwd + ", mem_name=" + mem_name + ", email=" + email
-				+ ", phone1=" + phone1 + ", phone2=" + phone2 + ", post=" + post + ", addr1=" + addr1 + ", addr2="
-				+ addr2 + ", b_number=" + b_number + ", b_name=" + b_name + ", b_phone1=" + b_phone1 + ", b_phone2="
-				+ b_phone2 + ", b_phone3=" + b_phone3 + ", checkbox=" + checkbox + ", type=" + type + ", joinDate="
-				+ joinDate + "]";
-	}
-	
-	
 	
 }

@@ -1,5 +1,6 @@
 package com.forTicket.center.controller;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.forTicket.center.service.CenterService;
 import com.forTicket.center.vo.CenterVO;
 import com.forTicket.center.vo.QuestionVO;
+import com.forTicket.member.service.MemberService;
+import com.forTicket.member.vo.MemberVO;
 
 @Controller("centerController")
 public class CenterControllerImpl implements CenterController {
@@ -34,16 +37,11 @@ public class CenterControllerImpl implements CenterController {
 	
 	@Autowired
 	private QuestionVO questionVO;
-	
+
 	//고객센터 작성페이지
 	@Override
 	@RequestMapping(value="/center/write.do", method={RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView write(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		
-		HttpSession session = req.getSession();
-		session = req.getSession();
-				
-		session.setAttribute("side_menu", "center");
 		
 		String viewName = (String)req.getAttribute("viewName");
 		 
@@ -71,7 +69,7 @@ public class CenterControllerImpl implements CenterController {
 			
 			message = "<script>";
 			message += " alert('글을 작성했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/center/refund.do';";
+			message += " location.href='" + request.getContextPath() + "/center/notice.do';";
 			message += "</script>";
 			
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -79,7 +77,7 @@ public class CenterControllerImpl implements CenterController {
 		}catch(Exception e) {
 						message = "<script>";
 			message += " alert('오류가 생겼습니다.');";
-			message += " location.href='" + request.getContextPath() + "/center/refund.do';";
+			message += " location.href='" + request.getContextPath() + "/center/notice.do';";
 			message += "</script>";
 			
 			e.printStackTrace();
@@ -183,19 +181,30 @@ public class CenterControllerImpl implements CenterController {
 	//고객센터 환불페이지
 	@Override
 	@RequestMapping(value="/center/refund.do", method={RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView refund(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		
-		HttpSession session = req.getSession();
-		session = req.getSession();
-				
-		session.setAttribute("side_menu", "center");
-				
-		String viewName = (String)req.getAttribute("viewName");
-		List refund_list = centerService.list();
-		
+	public ModelAndView refund(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+						
+		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		
+		String section = dateMap.get("section");
+		String pageNum = dateMap.get("pageNum");
+		
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
+		if(section== null) {
+			section = "1";
+		}
+		condMap.put("section",section);
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		
+		condMap.put("pageNum",pageNum);
+		
+		ArrayList<CenterVO> refund_list = centerService.list(condMap);
 		 
 		mav.addObject("refund_list", refund_list);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
 		
 		return mav;
 	}
@@ -203,18 +212,35 @@ public class CenterControllerImpl implements CenterController {
 	//고객센터 공지사항
 	@Override
 	@RequestMapping(value="/center/notice.do", method={RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView notice(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		HttpSession session = req.getSession();
-		session = req.getSession();
+	public ModelAndView notice(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		
+		HttpSession session = request.getSession();
+		session = request.getSession();
 				
 		session.setAttribute("side_menu", "center");
 		
-		String viewName = (String)req.getAttribute("viewName");
-		List notice_list = centerService.list();
-		
+		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		
+		String section = dateMap.get("section");
+		String pageNum = dateMap.get("pageNum");
+		
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
+		if(section== null) {
+			section = "1";
+		}
+		condMap.put("section",section);
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		
+		condMap.put("pageNum",pageNum);
+		
+		ArrayList<CenterVO> notice_list = centerService.list(condMap);
 		 
 		mav.addObject("notice_list", notice_list);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
 		
 		return mav;
 	}
@@ -222,14 +248,29 @@ public class CenterControllerImpl implements CenterController {
 	//고객센터 FAQ
 	@Override
 	@RequestMapping(value="/center/faq.do", method={RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView faq(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		String viewName = (String)req.getAttribute("viewName");
+	public ModelAndView faq(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
-		List faq_list = centerService.list();
-		
+		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		 
+		
+		String section = dateMap.get("section");
+		String pageNum = dateMap.get("pageNum");
+		
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
+		if(section== null) {
+			section = "1";
+		}
+		condMap.put("section",section);
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		
+		condMap.put("pageNum",pageNum);
+		
+		ArrayList<CenterVO> faq_list = centerService.list(condMap); 
 		mav.addObject("faq_list", faq_list);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
 		
 		return mav;
 	}
@@ -238,27 +279,71 @@ public class CenterControllerImpl implements CenterController {
 	@Override
 	@RequestMapping(value="/center/question.do", method={RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView question(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
+
 		QuestionVO que_list = new QuestionVO();
-		
+
 		request.setCharacterEncoding("utf-8");
 		String viewName = (String)request.getAttribute("viewName");
-		
+
 		HashMap<String,String> condMap=new HashMap<String,String>();
-		
+
 		ModelAndView mav = new ModelAndView();
-		
+
 		condMap.put("mem_id", mem_id);
-		
+
 		que_list = centerService.question(condMap);
-		
+
 		mav.addObject("que_list", que_list);
 		mav.setViewName(viewName);
-	
+
 		return mav;
 	}
+	
+	//고객센터 1:1 글쓰기
+	@Override
+	@RequestMapping(value="/center/q_write.do", method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView q_write(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		
+		String viewName = (String)req.getAttribute("viewName");
+		 
+		ModelAndView mav = new ModelAndView();
+		 
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
+	
+	//고객센터 1:1 글 추가 /center/addQue.do
+	@RequestMapping(value="/center/addQue.do", method={RequestMethod.GET,RequestMethod.POST})
+	public ResponseEntity addQue(@ModelAttribute("question") QuestionVO question, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("html/text;charset=utf-8");
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
+		try {
+			int result =  centerService.addQue(question);
+			
+			message = "<script>";
+			message += " alert('글을 작성했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/center/question.do';";
+			message += "</script>";
+			
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			
+		}catch(Exception e) {
+						message = "<script>";
+			message += " alert('오류가 생겼습니다.');";
+			message += " location.href='" + request.getContextPath() + "/center/question.do';";
+			message += "</script>";
+			
+			e.printStackTrace();
+		}
+
+		return resEnt;
 	}
 
-	
-	
-
+}

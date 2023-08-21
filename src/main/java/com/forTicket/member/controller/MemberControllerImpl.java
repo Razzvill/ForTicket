@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.forTicket.center.vo.QuestionVO;
 import com.forTicket.member.service.MemberService;
 import com.forTicket.member.vo.MemberVO;
 
@@ -24,6 +25,8 @@ public class MemberControllerImpl implements MemberController{
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO ;
+	@Autowired
+	private QuestionVO questionVO;
 
 	//로그인 페이지 이동
 	@RequestMapping(value= "/member/loginForm.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -44,6 +47,8 @@ public class MemberControllerImpl implements MemberController{
 		HttpSession session = request.getSession();
 		session.removeAttribute("member");
 		session.removeAttribute("isLogOn");
+		session.removeAttribute("type");
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/main.do");
 		return mav;
@@ -155,7 +160,7 @@ public class MemberControllerImpl implements MemberController{
     @Override
     @RequestMapping(value = "/member/findIdResult.do", method = RequestMethod.POST)
     public ResponseEntity findId(@RequestParam("mem_name") String name,
-                                       @RequestParam("phone2") String phone,
+                                       @RequestParam("phone") String phone,
                                        HttpServletRequest request, HttpServletResponse response) throws Exception {
         ResponseEntity resEntity = null;
         String result = memberService.findId(name, phone);

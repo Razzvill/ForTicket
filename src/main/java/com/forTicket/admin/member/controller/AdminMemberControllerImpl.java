@@ -195,7 +195,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	//사업자 삭제
 	@Override
 	@RequestMapping(value="/admin/deleteBus.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ResponseEntity deleteBus(String name, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ResponseEntity deleteBus(String mem_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -205,10 +205,10 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		
 		try{
-			adminMemberService.deleteBus(name);
+			adminMemberService.deleteMember(mem_id);
 			message = "<script>";
 			message += " alert('삭제했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/b_Profile.do?b_name=" + name
+			message += " location.href='" + request.getContextPath() + "/member/a_ProfileBus.do?mem_id=" + mem_id
 					+ "';";
 			message += "</script>";
 			
@@ -216,7 +216,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		} catch(Exception e) {
 			message = "<script>";
 			message += " alert('오류가 생겼습니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/b_Profile.do?b_name=" + name
+			message += " location.href='" + request.getContextPath() + "/member/a_ProfileBus.do?mem_id=" + mem_id
 					+ "';";
 			message += "</script>";
 			
@@ -380,12 +380,5 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		
 		return beginDate+","+endDate;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

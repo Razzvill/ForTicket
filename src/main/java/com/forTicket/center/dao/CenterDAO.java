@@ -1,5 +1,6 @@
 package com.forTicket.center.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +19,6 @@ import com.forTicket.center.vo.QuestionVO;
 @Mapper
 @Repository("centerDAO")
 public interface CenterDAO {
-	//타입별 글 번호 저장
-	public int updateNum(CenterVO centerVO) throws DataAccessException;
-	
 	//글 저장
 	public int addWrite(CenterVO centerVO) throws DataAccessException;
 	
@@ -37,9 +35,12 @@ public interface CenterDAO {
 	public ModelAndView refund(HttpServletRequest req,HttpServletResponse resp) throws Exception;
 	
 	//고객센터 작성 목록
-	public List list() throws DataAccessException;
+	public ArrayList<CenterVO> list(HashMap condMap) throws DataAccessException;
 
 	//고객센터 1:1시 id가져오기
-	public QuestionVO selectById(HashMap condMap)  throws DataAccessException;
+	public List quelist(QuestionVO questionVO)  throws DataAccessException;
+	
+	//1:1 글 저장
+	public int addQue(QuestionVO questionVO) throws DataAccessException;
 	
 }
