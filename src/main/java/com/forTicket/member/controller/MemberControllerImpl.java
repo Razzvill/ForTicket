@@ -206,7 +206,7 @@ public class MemberControllerImpl implements MemberController{
             password.append(characters.charAt(index));
         }
 
-        return password.toString();
+        return password.toString() ;
     }
 
 }
