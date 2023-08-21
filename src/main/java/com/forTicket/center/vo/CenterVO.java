@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component("centerVO")
 public class CenterVO {
 	private int center_No;
-	private int type_No;	
+	private int type_No;
 	private String mem_id;
 	private String center_Type;
 	private String center_Title;

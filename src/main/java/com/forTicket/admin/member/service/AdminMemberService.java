@@ -17,9 +17,6 @@ public interface AdminMemberService {
 	//회원 삭제
 	public int deleteMember(String id) throws DataAccessException;
 	
-	//사업자 삭제
-	public int deleteBus(String name) throws DataAccessException;
-		
 	//회원 수정창 이동, memberVO값 가져오기
 	public MemberVO a_Edit(HashMap condMap) throws DataAccessException;
 	

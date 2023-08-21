@@ -47,7 +47,6 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPost() {
 		return post;
 	}
@@ -111,6 +110,7 @@ public class MemberVO {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
+
 	@Override
 	public String toString() {
 		return "MemberVO [mem_id=" + mem_id + ", pwd=" + pwd + ", mem_name=" + mem_name + ", email=" + email
@@ -119,6 +119,6 @@ public class MemberVO {
 				+ joinDate + "]";
 	}
 	
-	
+
 	
 }

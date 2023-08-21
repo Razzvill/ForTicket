@@ -47,6 +47,8 @@ public class MemberControllerImpl implements MemberController{
 		HttpSession session = request.getSession();
 		session.removeAttribute("member");
 		session.removeAttribute("isLogOn");
+		session.removeAttribute("type");
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/main.do");
 		return mav;
@@ -210,6 +212,7 @@ public class MemberControllerImpl implements MemberController{
         }
 
         return password.toString() ;
+
     }
 
 }

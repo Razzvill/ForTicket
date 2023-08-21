@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.forTicket.center.vo.CenterVO;
+import com.forTicket.center.vo.QuestionVO;
 import com.forTicket.member.vo.MemberVO;
 
 public interface CenterController {
@@ -34,22 +35,22 @@ public interface CenterController {
 	public ResponseEntity delete(@RequestParam("center_No") int center_No, HttpServletRequest request, HttpServletResponse response) throws Exception; 
 
 	//고객센터 환불안내
-	public ModelAndView refund(HttpServletRequest req,HttpServletResponse resp) throws Exception;
+	public ModelAndView refund(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 	//고객센터 공지사항
-	public ModelAndView notice(HttpServletRequest req,HttpServletResponse resp) throws Exception;
+	public ModelAndView notice(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 	//고객센터 FAQ
-	public ModelAndView faq(HttpServletRequest req,HttpServletResponse resp) throws Exception;
+	public ModelAndView faq(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 	//고객센터 1:1목록 - member회원 페이지 이동, memberVO값 가져오기
 	public ModelAndView question(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+	//고객센터 1:1 글쓰기
+	public ModelAndView q_write(HttpServletRequest req,HttpServletResponse resp) throws Exception;
 	
-	
-	
-
-	
+	//고객센터 1:1 글 추가 /center/addQue.do
+	public ResponseEntity addQue(@ModelAttribute("question") QuestionVO question, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	
 }

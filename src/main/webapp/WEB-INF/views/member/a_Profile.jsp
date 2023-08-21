@@ -83,6 +83,10 @@
         border-radius: 10px;   
         text-align: center;     
 	}
+	
+	.font1{
+		font-size: 12px;
+	}
 	</style>
 	<script>
 		//버튼으로 조회하기
@@ -118,7 +122,6 @@
 			var i_endDate = document.createElement("input");
 			var i_search_type = document.createElement("input");
 			var i_search_word = document.createElement("input");
-		    
 			
 		    i_command.name = "command";
 		    i_beginDate.name = "beginDate";
@@ -327,35 +330,35 @@
 			<c:otherwise>
 				<c:forEach var="list" items="${member_list}">
 					<tr>
-						<td>${list.mem_name }</td>
-						<td>${list.mem_id }</td>
-						<td>${list.pwd }</td>
-						<td>${list.phone1 }-${list.phone2 }</td>
-						<td>${list.email }</td>
-						<td>${list.addr1 }&nbsp;${list.addr2 }</td>
-						<td>
+						<td class="font1">${list.mem_name }</td>
+						<td class="font1">${list.mem_id }</td>
+						<td class="font1">${list.pwd }</td>
+						<td class="font1">${list.phone }</td>
+						<td class="font1">${list.email }</td>
+						<td class="font1">${list.addr1 }&nbsp;${list.addr2 }</td>
+						<td class="font1">
 							<c:set var="join_date" value="${list.joinDate}" />
 						    <c:set var="arr" value="${fn:split(join_date,' ')}" />
 						    <c:out value="${arr[0]}" />
-						<td><a href="${contextPath}/member/a_Edit.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
-						<td><a href="${contextPath }/admin/deleteMember.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
+						<td class="font1"><a href="${contextPath}/member/a_Edit.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
+						<td class="font1"><a href="${contextPath }/admin/deleteMember.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-		         <tr>
-             <td colspan=8 class="fixed">
-                 <c:forEach   var="page" begin="1" end="10" step="1" >
-		         <c:if test="${section >1 && page==1 }">
-		          <a href="${contextPath}/member/a_Edit.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
-		         </c:if>
-		          <a href="${contextPath}/member/a_Edit.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
-		         <c:if test="${page ==10 }">
-		          <a href="${contextPath}/member/a_Edit.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-		         </c:if> 
-	      		</c:forEach> 
-           </td>
-        </tr>
+		<tr>
+			<td colspan=8 class="fixed">
+				<c:forEach   var="page" begin="1" end="10" step="1" >
+					<c:if test="${section >1 && page==1 }">
+						<a href="${contextPath}/member/a_Profile.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+					</c:if>
+						<a href="${contextPath}/member/a_Profile.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+					<c:if test="${page ==10 }">
+						<a href="${contextPath}/member/a_Profile.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+					</c:if> 
+				</c:forEach> 
+			</td>
+		</tr>
 	</table>
 </form>
 </div>
