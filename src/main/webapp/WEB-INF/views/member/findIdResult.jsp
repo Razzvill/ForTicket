@@ -1,16 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="contextPath" value = "${pageContext.request.contextPath}"/>
+
 <%
-   request.setCharacterEncoding("UTF-8");
-%> 
+	request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>아이디찾기결과창</title>
-<style>
+    <meta charset="UTF-8">
+    <title>아이디찾기결과창</title>
+    <style>
+
   .wrap_tab {
     display: flex;
   }
@@ -51,38 +56,46 @@
 
   .noti { margin-top: 30px; margin-left:35px; width: 388px; padding: 20px; border:none; border-radius:10px; background: #f5f5f5; color:#333; font-size: 14px; text-align: justify; line-height: 180%; }
   .noti a { color: #0057FF; text-decoration: underline; }
-</style>
+
+
+    </style>
 </head>
 <body>
 <div style="width:500px; margin:0 auto; margin-bottom:40px; border:1px solid #ccc; border-radius: 20px;">
 
-  <div class="wrap_tab">
-    <div class="tab_find_id">아이디</div>
-    <div class="tab_find_pass"><a href="happy_member.php?mode=find_pass">비밀번호</a></div>
-  </div>
-
-
-  <div class="show_find_id">
-    <section class="wrap_title">
-      가입한 회원 정보로<br><span class="title_bold">아이디</span>를 확인하세요.
-    </section>
-
-    <div class="section_wrap">
-
-      <section class="section_hphone" style="background:#FFFCB0">
-        'LJM'님의 아이디는<br><span style="font-weight:700;"><img src="/mobile_img/member/circle_kakao.png">카카오 계정으로 연동</span>되어 있습니다.<br>'간편 로그인&gt;카카오' 아이콘으로 로그인하세요.
-      </section>
-
-      <a href="${contextPath}/member/loginForm.do">
-        <button class="btn_submit">로그인</button>
-      </a>
-
-      <section class="noti">
-        · <span style="font-weight:600">간편 로그인으로 가입한 경우</span> 아이디/비밀번호 정보를 별도로 보관하지 않으며, 해당 간편 로그인 아이콘을 클릭해서 로그인 할 수 있습니다.<br>· 간편 로그인을 통해 가입한 적이 없거나 연동 계정을 찾을 수 없는 경우 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsvkJ_Xix9dCjpX2vv0BWKd_u9jq-DA48lGihulRomPlroxQ/viewform?usp=sf_link" target="_blank">불편사항 접수</a>를 이용해주세요.
-      </section>
+    <div class="wrap_tab">
+        <div class="tab_find_id">아이디</div>
+        <div class="tab_find_pass"><a href="">비밀번호</a></div>
     </div>
-  </div>
 
+    <div class="show_find_id">
+        <section class="wrap_title">
+            가입한 회원 정보로<br><span class="title_bold">아이디</span>를 확인하세요.
+        </section>
+
+        <div class="section_wrap">
+            <c:if test="${idFound}">
+                <section class="section_hphone" style="background:#FFFCB0">
+                    '${param.mem_name}' 님의 아이디는<br>
+                    <span style="font-weight:700;">${foundId}입니다.</span><br>
+                </section>
+            </c:if>
+            <c:if test="${!idFound}">
+                <section class="section_hphone" style="background:#FFFCB0">
+                    해당 정보로 가입한 아이디가 없습니다.
+                </section>
+            </c:if>
+
+            <a href="${contextPath}/member/loginForm.do">
+                <button class="btn_submit">로그인</button>
+            </a>
+
+            <section class="noti">
+                · <span style="font-weight:600">간편 로그인으로 가입한 경우</span> 아이디/비밀번호 정보를 별도로 보관하지 않으며, 해당 간편 로그인 아이콘을 클릭해서 로그인 할 수 있습니다.
+                <br>· 간편 로그인을 통해 가입한 적이 없거나 연동 계정을 찾을 수 없는 경우 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsvkJ_Xix9dCjpX2vv0BWKd_u9jq-DA48lGihulRomPlroxQ/viewform?usp=sf_link" target="_blank">불편사항 접수</a>를 이용해주세요.
+            </section>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -71,81 +71,77 @@
 		cursor: pointer;
 	}
 	</style>
-	<c:choose>
-	<c:when test="${result=='loginFailed' }">
-	  <script>
-	    window.onload=function(){
-	      alert("아이디나 비밀번호가 틀립니다.다시 로그인 하세요!");
-	    }
-	  </script>
-	</c:when>
-</c:choose>
 </head>
 <body style="max-height:650px;">
-	<div>
-    	<div style="margin-top:50px;">
-     		<img src="${contextPath}/resources/images/logo.png" style="width:150px;">
-    	</div>
-    	<form name="frmLogin" method="post" action="${contextPath}/member/login.do" >
-      		<input type="hidden" name="r" value="/">
-		    	<div style="margin-top: 30px;">
-        			<input type="text" name="mem_id" placeholder="아이디" class="input_box icon_id">
-        		</div>
-			    <div style="margin-top: 30px;">
-			        <input type="password" name="pwd" placeholder="비밀번호" class="input_box icon_pass">
-			    </div>
-			    <div style="margin-top: 30px;">
-			        <input type="submit" class="login_btn" value="로그인">
-			    </div>
-			    <div class="login_submenu">
-        			<a href="${contextPath}/member/findId.do" class="find">아이디 찾기</a>
-        			<span>|</span>
-        			<a href="#" class="find">비밀번호 찾기</a>
-        			<span>|</span>
-        			<a href="${contextPath}/member/join.do" class="find">회원가입</a>
-      			</div>
-    	</form>
-	    <div class="social_wrap">
- 	    	<div>
-        		<img src="${contextPath}/resources/images/member/kakao.png" class="kakao" alt="카카오로그인">
-      		</div>
-    	</div>
-	</div>
+  <div>
+    <div style="margin-top:50px;">
+      <img src="${contextPath}/resources/images/logo.png" style="width:150px;">
+    </div>
+    <form name="frmLogin" method="post" action="${contextPath}/member/login.do" >
+      <input type="hidden" name="r" value="/">
+      <div style="margin-top: 30px;">
+        <input type="text" name="mem_id" placeholder="아이디" class="input_box icon_id">
+      </div>
+      <div style="margin-top: 30px;">
+        <input type="password" name="pwd" placeholder="비밀번호" class="input_box icon_pass">
+      </div>
+      <div style="margin-top: 30px;">
+        <input type="submit" class="login_btn" value="로그인">
+      </div>
+<!-- 로그인 실패 메시지 -->
+<c:if test="${param.result == 'loginFailed'}">
+    <div style="color: red; margin-top: 10px;">
+        아이디나 비밀번호가 잘못되었습니다. 다시 시도해주세요.
+    </div>
+</c:if>
+      <div class="login_submenu">
+        <a href="${contextPath}/member/findId.do" class="find">아이디 찾기</a>
+        <span>|</span>
+        <a href="${contextPath}/member/findId.do" class="find">비밀번호 찾기</a>
+        <span>|</span>
+        <a href="${contextPath}/member/join.do" class="find">회원가입</a>
+      </div>
+    </form>
+    <div class="social_wrap">
+      <div>
+        <a id="login_kakao" class="kakao" 
+        href="https://kauth.kakao.com/oauth/authorize?client_id=bef73bba323cabf247befa4488582672&redirect_uri=REDIRECT_URI&response_type=code">
+          <img src="${contextPath}/resources/images/member/kakao.png" alt="카카오로그인">
+        </a>
+      </div>
+    </div>
+  </div>
 
 <script>
-	// 로그인P or 회원가입 대문P : SNS로그인 처리
-    // SNS 아이디로 로그인/가입, app 스킴 예외처리
-    var sns_login = function (site, r, scheme = null) {
-      r = r || '';
-      let url;
-      let cid = '';
-      if (scheme === 'y') {
+var sns_login = function (site, r, scheme = null) {
+    r = r || '';
+    let url;
+    let cid = '';
+    if (scheme === 'y') {
         authorizeUrl = encodeURIComponent(`https://timeticket.co.kr/login/app${site}.php/?r=${r}`);
         url = `timeticket://sns_login?url=${authorizeUrl}&provider=${site}`;
-      } else {
+    } else {
         url = `/login/authorize?t=${site}&r=${r}`;
-      }
-      window.location.href = url;
     }
+    window.location.href = url;
+}
 
-    // app 스킴 예외처리
-    const appScheme = '';
+// app 스킴 예외처리
+const appScheme = '';
 
-    // 간편 로그인 : 회원가입 일때는 join과 cid 함께 전달
-    if (window.location.href.includes('join')) {
-      r = encodeURI('&from=join&mem_id=');
-    } else if (window.location.href.includes('login')) {
-      r = '';
-    }
-    $('#login_kakao').click(function (e) {
-      sns_login('kakao', r, appScheme);
-    });
+// 간편 로그인 : 회원가입 일때는 join과 cid 함께 전달
+if (window.location.href.includes('join')) {
+    r = encodeURI('&from=join&mem_id=');
+} else if (window.location.href.includes('login')) {
+    r = '';
+}
 
-  
-  function removeSpace(input) {
-    var value = input.value.replace(/\s/g, ''); // 공백 제거
-    input.value = value; // 수정된 값을 다시 입력란에 설정
-  }
+// 카카오톡 간편 로그인 버튼 클릭 시 실행되는 함수
+var loginKakaoButton = document.getElementById('login_kakao');
+loginKakaoButton.addEventListener('click', function (e) {
+    e.preventDefault(); // 기본 클릭 동작 방지
+    sns_login('kakao', r, appScheme); // sns_login 함수 호출
+});
 </script>
 </body>
 </html>

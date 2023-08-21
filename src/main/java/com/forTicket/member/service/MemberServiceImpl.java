@@ -48,10 +48,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	 @Override
-	 public String findId(String mem_name, String phone2) {
-	     String findId = memberDAO.findId(mem_name, phone2);
+	 public String findId(String mem_name, String phone) {
+	     String findId = memberDAO.findId(mem_name, phone);
 	     return findId;
 	    }
+
+	@Override
+	public String findPwd(String mem_id, String email) throws Exception {
+		String findPwd = memberDAO.findPwd(mem_id, email);
+		return findPwd;
+	}
+	
+	
 
 
 }
