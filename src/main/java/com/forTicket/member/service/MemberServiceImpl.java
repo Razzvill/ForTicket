@@ -53,5 +53,10 @@ public class MemberServiceImpl implements MemberService {
 	     return findId;
 	    }
 
+	@Override
+	public String findPwd(String mem_id, String email) throws Exception {
+		String findPwd = memberDAO.findPwd(mem_id, email);
+		return findPwd;
+	}
 
 }

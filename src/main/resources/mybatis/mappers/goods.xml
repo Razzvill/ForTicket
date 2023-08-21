@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.forTicket.event.dao.GoodsDAO">
+	<resultMap id="goodsResult" type="goodsVO">
+		<result property="goods_id" column="goods_id" />
+		<result property="goods_type" column="goods_type" />
+		<result property="goods_genre" column="goods_genre" />
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_startDate" column="goods_startDate" />
+		<result property="goods_endDate" column="goods_endDate" />
+		<result property="goods_runningTime" column="goods_runningTime" />
+		<result property="goods_age" column="goods_age" />
+		<result property="goods_price" column="goods_price" />
+		<result property="goods_discount" column="goods_discount" />
+		<result property="goods_info" column="goods_info" />
+		<result property="goods_notice" column="goods_notice" />
+		<result property="goods_place" column="goods_place" />
+		<result property="goods_creDate" column="goods_creDate" />
+		<result property="mem_id" column="mem_id" />
+		<result property="goods_seats" column="goods_seats" />
+		<result property="goods_fileName" column="fileName" />
+	</resultMap>
+
+	<resultMap id="imageResult" type="g_imageFileVO">
+		<result property="image_id" column="image_id" />
+		<result property="goods_id" column="goods_id" />
+		<result property="fileName" column="fileName" />
+		<result property="fileType" column="fileType" />
+		<result property="reg_id" column="reg_id" />
+	</resultMap>
+	
+	<select id="selectGoodsList" resultMap="goodsResult">
+	    <![CDATA[
+		    select * from goods order by goods_creDate desc
+    	]]>
+	</select>
+	
+	<select id="selectAdminGoodsList" resultMap="goodsResult"
+		parameterType="java.util.Map">
+	    <![CDATA[
+			select * from (
+			   select  ROW_NUMBER() OVER (ORDER BY goods_creDate DESC) as recNum,*
+			       from (
+			             select * from goods 
+			                where  date_format(goods_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
+			               order by goods_creDate desc
+					    ) as ttt
+				) as tttt		
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
+    	]]>
+	</select>
+
+	<select id="selectGoodsDetail" resultMap="goodsResult"
+		parameterType="int">
+	    <![CDATA[
+		    select g.*, d.fileName from goods g, goods_detail_image d
+	        where g.goods_id=d.goods_id
+	        and d.filetype='main_image'
+	        and g.goods_id=#{goods_id}
+	        order by g.goods_id
+    	]]>
+	</select>
+	
+	<select id="selectGoodsNo" resultType="int" parameterType="java.util.Map">
+		<![CDATA[
+			SELECT goods_id FROM event WHERE mem_id=#{mem_id} AND goods_name=#{goods_name}
+		]]>
+	</select>
+
+	<insert id="insertGoods" parameterType="java.util.Map">
+	    <![CDATA[
+		   insert into goods (goods_type, goods_genre, goods_name, goods_startDate, goods_endDate, goods_runningTime, goods_age, goods_price, goods_discount, goods_info, goods_notice, goods_place, goods_creDate, mem_id, goods_seats)
+		   		values (#{goods_type}, #{goods_genre}, #{goods_name}, #{goods_startDate}, #{goods_endDate}, #{goods_runningTime}, #{goods_age}, #{goods_price}, #{goods_discount}, #{goods_info}, #{goods_notice}, #{goods_place}, #{goods_creDate}, #{mem_id}, #{goods_seats})
+		]]>
+	</insert>
+	
+	<update id="updateGoods" parameterType="goodsVO">
+		<![CDATA[
+			update goods set goods_type=#{goods_type}, goods_genre=#{goods_genre}, goods_name=#{goods_name}, goods_startDate=#{goods_startDate}, goods_endDate=#{goods_endDate}, goods_runningTime=#{goods_runningTime}, goods_age=#{goods_age}, goods_price=#{goods_price}, goods_discount=#{goods_discount}, goods_info=#{goods_info}, goods_notice=#{goods_notice}, goods_place=#{goods_place}, goods_seats=#{goods_seats}
+			where goods_id=#{goods_id}
+		]]>
+	</update>
+	
+	<delete id="deleteGoods" parameterType="int">
+		  <![CDATA[
+		  delete from goods where goods_id=#{goods_id}
+		  ]]>
+	</delete>
+
+	<select id="selectGoodsImageFileList" resultMap="imageResult"
+		parameterType="int">
+	    <![CDATA[
+		    	select * from  goods_detail_image 
+		    	where  
+			    goods_id=#{goods_id}
+			    order by image_id asc
+    	]]>
+	</select>
+	
+	<insert id="insertGoodsImageFile" parameterType="g_imageFileVO">
+	    <![CDATA[
+		   insert into goods_detail_image (goods_id, fileName, fileType, reg_id)
+			values(#{goods_id}, #{fileName}, #{fileType}, #{reg_id} )
+		]]>
+	</insert>
+
+	<update id="updateGoodsImage" parameterType="g_imageFileVO">
+		<![CDATA[
+			update goods_detail_image
+			set fileName=#{fileName}
+			where	 
+			goods_id=#{goods_id} and image_id=#{image_id}
+		]]>
+	</update>
+	
+	<delete id="deleteGoodsImage" parameterType="int">
+		  <![CDATA[
+		  delete from goods_detail_image
+		  where image_id=#{image_id}
+		  ]]>
+	</delete>
+	
+	<delete id="deleteAllGoodsImage" parameterType="int">
+		  <![CDATA[
+		  delete from goods_detail_image
+		  where goods_id=#{goods_id}
+		  ]]>
+	</delete>
+</mapper>

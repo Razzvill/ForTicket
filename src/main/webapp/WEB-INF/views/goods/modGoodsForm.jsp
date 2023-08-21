@@ -36,17 +36,17 @@
 		  cnt++;
 	  }
 	  
-	  function modifyImageFile(fileId,event_no, image_id,fileType){
+	  function modifyImageFile(fileId,goods_id, image_id,fileType){
 	    // alert(fileId);
 		  var form = $('#FILE_FORM')[0];
 	      var formData = new FormData(form);
 	      formData.append("fileName", $('#'+fileId)[0].files[0]);
-	      formData.append("event_no", event_no);
+	      formData.append("goods_id", goods_id);
 	      formData.append("image_id", image_id);
 	      formData.append("fileType", fileType);
 	      
 	      $.ajax({
-	        url: '${contextPath}/event/modGoodsImageInfo.do',
+	        url: '${contextPath}/event/modGoodsImage.do',
 	        processData: false,
 	        contentType: false,
 	        data: formData,
@@ -57,16 +57,16 @@
 	      });
 	  }
 	  
-	  function addNewImageFile(fileId,event_no, fileType){
+	  function addNewImageFile(fileId,goods_id, fileType){
 		   //  alert(fileId);
 			  var form = $('#FILE_FORM')[0];
 		      var formData = new FormData(form);
 		      formData.append("uploadFile", $('#'+fileId)[0].files[0]);
-		      formData.append("event_no", event_no);
+		      formData.append("goods_id", goods_id);
 		      formData.append("fileType", fileType);
 		      
 		      $.ajax({
-		          url: '${contextPath}/event/addNewGoodsImage.do',
+		          url: '${contextPath}/event/addGoodsImage.do',
 		                  processData: false,
 		                  contentType: false,
 		                  data: formData,
@@ -77,14 +77,14 @@
 		          });
 		  }
 	  
-	  function deleteImageFile(event_no,image_id,imageFileName,trId){
+	  function deleteImageFile(goods_id,image_id,imageFileName,trId){
 		var tr = document.getElementById(trId);
 
 	      	$.ajax({
 	    		type : "post",
 	    		async : true, //false인 경우 동기식으로 처리한다.
 	    		url : "${contextPath}/event/removeGoodsImage.do",
-	    		data: {event_no:event_no,
+	    		data: {goods_id:goods_id,
 	     	         image_id:image_id,
 	     	         imageFileName:imageFileName},
 	    		success : function(data, textStatus) {
@@ -226,7 +226,7 @@
 					<td>
 						<select name="goods_place">
 							<c:forEach var="theater" items="theaterList" varStatus="theaterNum">
-								<option value="${theater.address}">${theater.theater_name}</option>
+								<option value="${theater.theater_name}">${theater.theater_name}</option>
 							</c:forEach>
 						</select>
 					</td>
@@ -295,11 +295,11 @@
 														value="${item.image_id}" /> <br></td>
 													<td><img id="preview${itemNum.count }" width=200
 														height=200
-														src="${contextPath}/event/download.do?event_no=${item.event_no}&fileName=${item.fileName}" />
+														src="${contextPath}/event/download.do?goods_id=${item.goods_id}&fileName=${item.fileName}" />
 													</td>
 													<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 													<td><input type="button" value="수정"
-														onClick="modifyImageFile('main_image','${item.event_no}','${item.image_id}','${item.fileType}')" />
+														onClick="modifyImageFile('main_image','${item.goods_id}','${item.image_id}','${item.fileType}')" />
 													</td>
 												</tr>
 												<tr>
@@ -316,13 +316,13 @@
 														value="${item.image_id }" /> <br></td>
 													<td><img id="preview${itemNum.count }" width=200
 														height=200
-														src="${contextPath}/event/download.do?event_no=${item.event_no}&fileName=${item.fileName}">
+														src="${contextPath}/event/download.do?goods_id=${item.goods_id}&fileName=${item.fileName}">
 													</td>
 													<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 													<td><input type="button" value="수정"
-														onClick="modifyImageFile('detail_image','${item.event_no}','${item.image_id}','${item.fileType}')" />
+														onClick="modifyImageFile('detail_image','${item.goods_id}','${item.image_id}','${item.fileType}')" />
 														<input type="button" value="삭제"
-														onClick="deleteImageFile('${item.event_no}','${item.image_id}','${item.fileName}','${itemNum.count-1}')" />
+														onClick="deleteImageFile('${item.goods_id}','${item.image_id}','${item.fileName}','${itemNum.count-1}')" />
 													</td>
 												</tr>
 												<tr>

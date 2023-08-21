@@ -16,6 +16,7 @@ public interface TheaterDAO {
 	public TheaterVO selectTheaterInfo(int theater_id) throws DataAccessException;
 	public int insertTheater(Map theaterMap) throws DataAccessException;
 	public int selectIdFromData(Map theaterMap) throws DataAccessException;
+	public int selectIdFromName(String theater_name) throws DataAccessException;
 	public int updateTheater(Map theaterMap) throws DataAccessException;
 	public int deleteTheater(int theater_id) throws DataAccessException;
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.forTicket.member.service.EmailService;
 import com.forTicket.member.service.MemberService;
 import com.forTicket.member.vo.MemberVO;
 
@@ -24,6 +25,8 @@ public class MemberControllerImpl implements MemberController{
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO ;
+	@Autowired
+	private EmailService emailService;
 
 	//로그인 페이지 이동
 	@RequestMapping(value= "/member/loginForm.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -156,6 +159,7 @@ public class MemberControllerImpl implements MemberController{
     // 아이디 찾기 처리 (이름과 핸드폰번호로)
     @Override
     @RequestMapping(value = "/member/findIdResult.do", method = RequestMethod.POST)
+<<<<<<< HEAD
     public ResponseEntity findId(@RequestParam("mem_name") String name,
                                        @RequestParam("phone") String phone,
                                        HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -163,6 +167,61 @@ public class MemberControllerImpl implements MemberController{
         String result = memberService.findId(name, phone);
         resEntity = new ResponseEntity(result, HttpStatus.OK);
         return resEntity;
+=======
+    public ModelAndView findIdResult(@RequestParam("mem_name") String mem_name,
+            @RequestParam("phone") String phone, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        ModelAndView mav = new ModelAndView();
+        String foundId = memberService.findId(mem_name, phone);
+        boolean idFound = (foundId != null && !foundId.isEmpty());
+
+        mav.addObject("idFound", idFound);
+        mav.addObject("foundId", foundId);
+        mav.addObject("mem_name", mem_name);
+        mav.setViewName("/member/findIdResult"); // 결과를 표시할 JSP 페이지의 경로
+
+        return mav;
+    }
+    
+ // 임시 비밀번호 발급
+    @Override
+    @RequestMapping(value = "/member/findPwd.do", method = RequestMethod.POST)
+    public ModelAndView findPwd(@RequestParam("mem_id") String mem_id,
+            @RequestParam("email") String email, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        ModelAndView mav = new ModelAndView();
+        
+        // 임시 비밀번호 생성 (간단한 랜덤 문자열로 생성)
+        String temporaryPwd = randomPwd();
+        
+        // 임시 비밀번호를 DB에 업데이트하는 로직 (memberService 내부에서 구현)
+        memberService.findPwd(mem_id, temporaryPwd);
+        
+        // 이메일 서비스를 사용하여 임시 비밀번호 이메일 발송
+        try {
+            MemberService.sendTemporaryPwdEmail(email, temporaryPwd);
+            mav.addObject("emailSent", true);
+        } catch (MessagingException e) {
+            mav.addObject("emailSent", false);
+        }
+        
+        mav.setViewName("/member/findPwdResult");
+        return mav;
+    }
+
+    // 임시 비밀번호 생성
+    private String randomPwd() {
+        int length = 5; // 임시 비밀번호 길이
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int index = (int) (Math.random() * characters.length());
+            password.append(characters.charAt(index));
+        }
+
+        return password.toString() ;
+>>>>>>> refs/remotes/origin/master
     }
 
 }

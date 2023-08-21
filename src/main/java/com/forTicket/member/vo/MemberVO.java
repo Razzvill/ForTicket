@@ -47,12 +47,15 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+<<<<<<< HEAD
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+=======
+>>>>>>> refs/remotes/origin/master
 
 	public String getPost() {
 		return post;
@@ -85,12 +88,15 @@ public class MemberVO {
 	public void setB_name(String b_name) {
 		this.b_name = b_name;
 	}
+<<<<<<< HEAD
 	public String getB_phone() {
 		return b_phone;
 	}
 	public void setB_phone(String b_phone) {
 		this.b_phone = b_phone;
 	}
+=======
+>>>>>>> refs/remotes/origin/master
 
 	public String getCheckbox() {
 		return checkbox;
@@ -102,6 +108,18 @@ public class MemberVO {
 	public String getType() {
 		return type;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getB_phone() {
+		return b_phone;
+	}
+	public void setB_phone(String b_phone) {
+		this.b_phone = b_phone;
+	}
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -111,5 +129,17 @@ public class MemberVO {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
+<<<<<<< HEAD
+=======
+	@Override
+	public String toString() {
+		return "MemberVO [mem_id=" + mem_id + ", pwd=" + pwd + ", mem_name=" + mem_name + ", email=" + email
+				+ ", phone=" + phone + ", post=" + post + ", addr1=" + addr1 + ", addr2="
+				+ addr2 + ", b_number=" + b_number + ", b_name=" + b_name + ", b_phone=" + b_phone + ", checkbox=" + checkbox + ", type=" + type + ", joinDate="
+				+ joinDate + "]";
+	}
+	
+	
+>>>>>>> refs/remotes/origin/master
 	
 }

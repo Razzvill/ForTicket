@@ -12,5 +12,9 @@ public interface MemberService {
 	public int updateMember(MemberVO memberVO) throws DataAccessException;
 	public String overlapped(String id) throws Exception;
 	public String findId(String mem_name, String phone) throws Exception;
+<<<<<<< HEAD
+=======
+	public String findPwd(String mem_id, String email) throws Exception;
+>>>>>>> refs/remotes/origin/master
 
 }

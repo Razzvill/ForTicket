@@ -62,12 +62,20 @@
   .noti { margin-top: 30px; margin-left:35px; width: 388px; padding: 20px; border:none; border-radius:10px; background: #f5f5f5; color:#333; font-size: 14px; text-align: justify; line-height: 180%; }
     .noti a { color: #0057FF; text-decoration: underline; }
     
-    .icon_email {
-background-image: url("${contextPath}/resources/images/member/user_email.png");
+.icon_name {
+	background-image: url("${contextPath}/resources/images/member/user_name.png");
 }
 	
 .icon_phone{
 background-image: url("${contextPath}/resources/images/member/user_hphone.png");
+}
+
+.icon_id{
+background-image: url("${contextPath}/resources/images/member/user_id.png");
+}
+
+.icon_email{
+background-image: url("${contextPath}/resources/images/member/user_email.png");
 }
 </style>
 </head>
@@ -87,8 +95,13 @@ background-image: url("${contextPath}/resources/images/member/user_hphone.png");
 
     <div class="section_wrap">
       <form action="${contextPath}/member/findIdResult.do" method="post">
+<<<<<<< HEAD
         <input type="text" name="mem_name" placeholder="이름" maxlength="13" class="input_box icon_phone" required="">
         <input type="text" name="phone" placeholder="휴대폰 번호" class="input_box icon_email" style="margin-top:15px;" required="">
+=======
+        <input type="text" name="mem_name" placeholder="이름" maxlength="13" class="input_box icon_name" required="">
+        <input type="text" name="phone" placeholder="휴대폰 번호" class="input_box icon_phone" style="margin-top:15px;" required="">
+>>>>>>> refs/remotes/origin/master
         <button class="btn_submit">아이디 찾기</button>
       </form>
     </div>
@@ -101,9 +114,9 @@ background-image: url("${contextPath}/resources/images/member/user_hphone.png");
     </section>
 
     <div class="section_wrap">
-      <form action="happy_member.php?mode=find_pass_result" method="post">
-        <input type="text" name="member_id" placeholder="아이디" class="input_box icon_id" required="">
-        <input type="text" name="member_email" placeholder="이메일" class="input_box icon_email" style="margin-top:15px;" required="">
+      <form action="${contextPath}/member/findPwd.do" method="post">
+        <input type="text" name="mem_id" placeholder="아이디" class="input_box icon_id" required="">
+        <input type="text" name="email" placeholder="이메일" class="input_box icon_email" style="margin-top:15px;" required="">
         <button class="btn_submit">임시 비밀번호 발급</button>
       </form>
     </div>
@@ -111,4 +124,27 @@ background-image: url("${contextPath}/resources/images/member/user_hphone.png");
 
 </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tabFindId = document.querySelector(".tab_find_id");
+        const tabFindPass = document.querySelector(".tab_find_pass");
+        const showFindId = document.querySelector(".show_find_id");
+        const showFindPass = document.querySelector(".show_find_pass");
+
+        tabFindId.addEventListener("click", function() {
+            tabFindId.classList.add("active");
+            tabFindPass.classList.remove("active");
+            showFindId.style.display = "block";
+            showFindPass.style.display = "none";
+        });
+
+        tabFindPass.addEventListener("click", function() {
+            tabFindPass.classList.add("active");
+            tabFindId.classList.remove("active");
+            showFindPass.style.display = "block";
+            showFindId.style.display = "none";
+        });
+    });
+    
+</script>
 </html>
