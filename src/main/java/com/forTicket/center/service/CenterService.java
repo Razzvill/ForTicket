@@ -26,7 +26,7 @@ public interface CenterService {
 	public ArrayList<CenterVO> list(HashMap condMap) throws Exception;
 	
 	//고객센터 1:1시 id가져오기
-	public QuestionVO question(HashMap condMap) throws DataAccessException;
+//	public QuestionVO question(HashMap condMap) throws DataAccessException;
 	
 	//글 저장
 	public int addQue(QuestionVO questionVO) throws DataAccessException;

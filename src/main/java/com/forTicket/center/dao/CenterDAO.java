@@ -38,7 +38,7 @@ public interface CenterDAO {
 	public ArrayList<CenterVO> list(HashMap condMap) throws DataAccessException;
 
 	//고객센터 1:1시 id가져오기
-	public List quelist(QuestionVO questionVO)  throws DataAccessException;
+//	public List quelist(QuestionVO questionVO)  throws DataAccessException;
 	
 	//1:1 글 저장
 	public int addQue(QuestionVO questionVO) throws DataAccessException;

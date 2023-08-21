@@ -201,11 +201,12 @@
 				    <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
 				</tr>
 				<tr>
-<<<<<<< HEAD
-					<td><input size="10px"  type="text" placeholder="핸드폰번호" name="phone"class="dot_line icon_phone"></td> 
-=======
+
+
+
+
 					<td><input name="phone" type="text" id="phone" placeholder="핸드폰번호"  class="dot_line icon_phone"></td> 
->>>>>>> refs/remotes/origin/master
+
 				</tr>
 				<tr>
 					<td>

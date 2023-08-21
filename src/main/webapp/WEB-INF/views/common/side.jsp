@@ -85,7 +85,7 @@
 			<ul class="side_ul">
 				<li class="side_li"><a href="${contextPath}/admin/listMembers.do" class="side2">사업자 정보 수정</a></li>
 				<li class="side_li"><a href="${contextPath}/admin/listGrade.do" class="side2">예매관리</a></li>
-				<li class="side_li"><a href="${contextPath}/center/question.do" class="side2">1:1 문의</a></li>
+				<li class="side_li"><a href="${contextPath}/center/question.do?mem_id=${member.mem_id}" class="side2">1:1 문의</a></li>
 			</ul>
 		</c:when>		
 		<c:when test="${side_menu=='center' }">
@@ -98,7 +98,7 @@
 				<li class="side_li"><a href="${contextPath}/center/notice.do" class="side2">공지사항</a></li>
 				<li class="side_li"><a href="${contextPath}/center/faq.do" class="side2">FAQ</a></li>
 				<c:if test="${member.mem_id != null}">
-					<li class="side_li"><a href="${contextPath}/center/question.do" class="side2">1:1 문의</a></li>
+					<li class="side_li"><a href="${contextPath}/center/question.do?mem_id=${member.mem_id}" class="side2">1:1 문의</a></li>
 				</c:if>
 			</ul>
 		</c:when>
@@ -111,7 +111,7 @@
 				<li class="side_li"><a href="javascript:fn_login('${isLogOn }', '${contextPath }/admin/getUserInfo.do','${contextPath }/member/loginForm.do')" class="side2" onclick="changeStyle(this)">회원 정보 수정</a></li>
 				<li class="side_li"><a href="javascript:fn_login1('${isLogOn }', '${contextPath }/admin/getUserGrade.do','${contextPath }/member/loginForm.do')" class="side2" onclick="changeStyle(this)">관심 공연</a></li>
 				<li class="side_li"><a href="javascript:fn_login1('${isLogOn }', '${contextPath }/admin/getUserGrade.do','${contextPath }/member/loginForm.do')" class="side2" onclick="changeStyle(this)">예매 내역</a></li>
-				<li class="side_li"><a href="${contextPath}/center/question.do" class="side2" onclick="changeStyle(this)">1:1 문의</a></li>
+				<li class="side_li"><a href="${contextPath}/center/question.do?mem_id=${member.mem_id}" class="side2" onclick="changeStyle(this)">1:1 문의</a></li>
 			</ul>
 		</c:when>
 		<c:otherwise>

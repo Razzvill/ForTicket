@@ -275,30 +275,32 @@ public class CenterControllerImpl implements CenterController {
 		return mav;
 	}
 	
-	//1:1 문의 목록 - member
-	@Override
-	@RequestMapping(value="/center/question.do", method={RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView question(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
-
-		QuestionVO que_list = new QuestionVO();
-
-		request.setCharacterEncoding("utf-8");
-		String viewName = (String)request.getAttribute("viewName");
-
-		HashMap<String,String> condMap=new HashMap<String,String>();
-
-		ModelAndView mav = new ModelAndView();
-
-		condMap.put("mem_id", mem_id);
-
-		que_list = centerService.question(condMap);
-
-		mav.addObject("que_list", que_list);
-		mav.setViewName(viewName);
-
-		return mav;
-	}
-	
+	/*
+	 * //1:1 문의 목록 - member
+	 * 
+	 * @Override
+	 * 
+	 * @RequestMapping(value="/center/question.do",
+	 * method={RequestMethod.GET,RequestMethod.POST}) public ModelAndView
+	 * question(@RequestParam("mem_id") String mem_id,HttpServletRequest request,
+	 * HttpServletResponse response) throws Exception{
+	 * 
+	 * QuestionVO que_list = new QuestionVO();
+	 * 
+	 * request.setCharacterEncoding("utf-8"); String viewName =
+	 * (String)request.getAttribute("viewName");
+	 * 
+	 * HashMap<String,String> condMap=new HashMap<String,String>();
+	 * 
+	 * ModelAndView mav = new ModelAndView();
+	 * 
+	 * condMap.put("mem_id", mem_id);
+	 * 
+	 * 
+	 * mav.addObject("que_list", que_list); mav.setViewName(viewName);
+	 * 
+	 * return mav; }
+	 */
 	//고객센터 1:1 글쓰기
 	@Override
 	@RequestMapping(value="/center/q_write.do", method={RequestMethod.GET,RequestMethod.POST})

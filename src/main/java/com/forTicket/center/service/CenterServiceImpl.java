@@ -56,10 +56,10 @@ public class CenterServiceImpl implements CenterService{
 	}
 
 	//1:1이동시 id가져오기
-	@Override
-	public QuestionVO question(HashMap condMap) throws DataAccessException {
-		return centerDAO.quelist(condMap);
-	}
+//	@Override
+//	public QuestionVO question(HashMap condMap) throws DataAccessException {
+//		return centerDAO.quelist(condMap);
+//	}
 
 	//1:1 글 추가
 	@Override

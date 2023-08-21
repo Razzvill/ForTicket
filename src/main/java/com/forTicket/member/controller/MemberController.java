@@ -17,7 +17,10 @@ public interface MemberController {
            HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView findIdResult(String mem_name, String phone, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView findPwd(String mem_id, String email, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	/*
+	 * public ModelAndView findPwd(String mem_id, String email, HttpServletRequest
+	 * request, HttpServletResponse response) throws Exception;
+	 */
 	
 
 }
