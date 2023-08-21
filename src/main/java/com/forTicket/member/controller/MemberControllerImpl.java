@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.forTicket.center.vo.QuestionVO;
 import com.forTicket.member.service.MemberService;
 import com.forTicket.member.vo.MemberVO;
 
@@ -25,8 +24,6 @@ public class MemberControllerImpl implements MemberController{
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO ;
-	@Autowired
-	private QuestionVO questionVO;
 
 	//로그인 페이지 이동
 	@RequestMapping(value= "/member/loginForm.do", method = {RequestMethod.GET,RequestMethod.POST})
