@@ -32,8 +32,6 @@ import com.forTicket.theater.vo.TheaterVO;
 public class TheaterControllerImpl implements TheaterController {
 	private static String THEATER_IMAGE_REPO = "C:\\forTicket\\theater";
 	@Autowired
-	private TheaterVO theaterVO;
-	@Autowired
 	private TheaterService theaterService;
 
 	// 공연장 목록

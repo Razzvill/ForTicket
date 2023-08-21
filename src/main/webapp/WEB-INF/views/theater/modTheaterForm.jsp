@@ -228,6 +228,7 @@ hr {
 							<div class="theater_list">
 								<div class="thumb">
 									<label for="inputImage">사진</label>
+									<input type="hidden" name="originalFileName" value="${theater.theater_image}"/>
 									<input type="file" name="theater_image" id="inputImage" onchange="readURL(this);" />
 									<img id="preview" src="#" width="200" height="200" />
 								</div>
