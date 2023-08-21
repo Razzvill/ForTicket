@@ -38,13 +38,13 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/goods/download.do")
-	protected void g_download(@RequestParam("goods_image") String goods_image, @RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
+	protected void g_download(@RequestParam("goods_image") String goods_fileName, @RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
 			throws Exception {
 		OutputStream out = resp.getOutputStream();
-		String downFile = GOODS_IMAGE_REPO + "\\" + goods_id+"\\"+goods_image;
+		String downFile = GOODS_IMAGE_REPO + "\\" + goods_id+"\\"+goods_fileName;
 		File file = new File(downFile);
 		resp.setHeader("Cache-Control", "no-cache");
-		resp.addHeader("Content-disposition", "attachment: fileName="+goods_image);
+		resp.addHeader("Content-disposition", "attachment: fileName="+goods_fileName);
 		FileInputStream in = new FileInputStream(file);
 		byte[] buffer = new byte[1024*8];
 		while(true) {
