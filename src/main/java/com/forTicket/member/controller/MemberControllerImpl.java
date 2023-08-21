@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.forTicket.member.service.EmailService;
 import com.forTicket.member.service.MemberService;
 import com.forTicket.member.vo.MemberVO;
 
@@ -24,6 +25,8 @@ public class MemberControllerImpl implements MemberController{
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO ;
+	@Autowired
+	private EmailService emailService;
 
 	//로그인 페이지 이동
 	@RequestMapping(value= "/member/loginForm.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -185,7 +188,7 @@ public class MemberControllerImpl implements MemberController{
         
         // 이메일 서비스를 사용하여 임시 비밀번호 이메일 발송
         try {
-            emailService.sendTemporaryPasswordEmail(email, temporaryPwd);
+            MemberService.sendTemporaryPwdEmail(email, temporaryPwd);
             mav.addObject("emailSent", true);
         } catch (MessagingException e) {
             mav.addObject("emailSent", false);

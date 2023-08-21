@@ -13,6 +13,5 @@ public interface MemberService {
 	public String overlapped(String id) throws Exception;
 	public String findId(String mem_name, String phone) throws Exception;
 	public String findPwd(String mem_id, String email) throws Exception;
-	
 
 }

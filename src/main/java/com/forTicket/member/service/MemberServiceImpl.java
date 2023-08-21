@@ -58,8 +58,5 @@ public class MemberServiceImpl implements MemberService {
 		String findPwd = memberDAO.findPwd(mem_id, email);
 		return findPwd;
 	}
-	
-	
-
 
 }

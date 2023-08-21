@@ -141,6 +141,5 @@ background-image: url("${contextPath}/resources/images/member/user_email.png");
         });
     });
     
-    
 </script>
 </html>
