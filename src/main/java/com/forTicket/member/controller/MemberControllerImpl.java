@@ -159,15 +159,6 @@ public class MemberControllerImpl implements MemberController{
     // 아이디 찾기 처리 (이름과 핸드폰번호로)
     @Override
     @RequestMapping(value = "/member/findIdResult.do", method = RequestMethod.POST)
-<<<<<<< HEAD
-    public ResponseEntity findId(@RequestParam("mem_name") String name,
-                                       @RequestParam("phone") String phone,
-                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ResponseEntity resEntity = null;
-        String result = memberService.findId(name, phone);
-        resEntity = new ResponseEntity(result, HttpStatus.OK);
-        return resEntity;
-=======
     public ModelAndView findIdResult(@RequestParam("mem_name") String mem_name,
             @RequestParam("phone") String phone, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -221,7 +212,7 @@ public class MemberControllerImpl implements MemberController{
         }
 
         return password.toString() ;
->>>>>>> refs/remotes/origin/master
+
     }
 
 }
