@@ -164,7 +164,7 @@
 	<div>
     	<img src="${contextPath}/resources/images/logo.png" style="width:150px;">
     </div>
-    <form action="${contextPath}/member/addMember.do" method="post">
+    <form action="${contextPath}/member/addMember.do" method="post" onsubmit="return validateForm()">
 	<div>
 	<input type="hidden" name="type" value="U"/>
 		<table class="formtable">
@@ -201,7 +201,7 @@
 				    <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
 				</tr>
 				<tr>
-					<td><input size="10px"  type="text" placeholder="핸드폰번호" name="phone2"class="dot_line icon_phone"></td> 
+					<td><input name="phone" type="text" id="phone" placeholder="핸드폰번호"  class="dot_line icon_phone"></td> 
 				</tr>
 				<tr>
 					<td>
@@ -210,7 +210,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input placeholder="세부주소1" name="addr1" id="addr1" type="text" readonly="readonly" class="dot_line" />
+                    <td><input placeholder="세부주소1" name="addr1" id="addr1" type="text"  class="dot_line" />
                 </tr>
                 <tr>
 					<td><input placeholder="세부주소2" name="addr2" id="addr2" type="text" class="dot_line"  />
@@ -246,7 +246,7 @@
 			<div class="input_title" disabled="" id="recaptcha-container"><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LcMZR0UAAAAALgPMcgHwga7gY5p8QMg1Hj-bmUv&amp;co=aHR0cHM6Ly90aW1ldGlja2V0LmNvLmtyOjQ0Mw..&amp;hl=ko&amp;v=3kTz7WGoZLQTivI-amNftGZO&amp;size=invisible&amp;cb=sqgb2miiatpc" width="256" height="60" role="presentation" name="a-9xajmtra3vir" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
 		</div>
 	</div>
-			<input type="submit" id="submitComplete" class="btn_submit" value="가입완료" alt="가입완료">
+			 <input type="submit" id="submitComplete" class="btn_submit" value="가입완료" alt="가입완료">
 	</section>	
     </form>
 	</div>
@@ -368,8 +368,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return pattern.test(email);
     }
 });
-//우편번호찾기
+//핸드폰번호유형
+document.addEventListener('DOMContentLoaded', function() {
+    var phoneInput = document.getElementById('phone');
+    
+    phoneInput.addEventListener('input', function() {
+        var phoneNumber = phoneInput.value;
+        var cleanedPhoneNumber = phoneNumber.replace(/\D/g, ''); // 숫자 이외의 문자 제거
+        var formattedPhoneNumber = formatPhoneNumber(cleanedPhoneNumber);
+        phoneInput.value = formattedPhoneNumber;
+    });
 
+    function formatPhoneNumber(phoneNumber) {
+        if (phoneNumber.length > 10) {
+            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7, 11);
+        } else if (phoneNumber.length > 6) {
+            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7);
+        } else if (phoneNumber.length > 3) {
+            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3);
+        } else {
+            return phoneNumber;
+        }
+    }
+});
+//우편번호찾기
 function execPostCode() {
     new daum.Postcode({
         oncomplete: function(data) { 
@@ -415,6 +437,52 @@ document.addEventListener('DOMContentLoaded', function() {
         check_2.checked = isChecked;
         check_3.checked = isChecked;
     });
+});
+
+//정보 미입력 시 오류
+function validateForm() {
+    var memId = document.getElementById("_mem_id").value;
+    var password = document.getElementById("password").value;
+    var passwordConfirm = document.getElementById("passwordConfirm").value;
+    var email = document.getElementById("email").value;
+    var phone = document.getElementById("phone").value;
+    var addr1 = document.getElementById("addr1").value;
+    var addr2 = document.getElementById("addr2").value;
+    
+    var check_1 = document.getElementById("check_1").checked;
+    var check_2 = document.getElementById("check_2").checked;
+    var check_3 = document.getElementById("check_3").checked;
+    
+    if (memId === "" || password === "" || passwordConfirm === "" ||
+        email === "" || phone === "" || addr1 === "" || addr2 === "") {
+        alert("모든 항목을 입력해주세요.");
+        return false; // 폼 제출 방지
+    }
+    
+    if (!check_1 || !check_2 || !check_3) {
+        alert("이용약관에 동의해주세요.");
+        return false; // 폼 제출 방지
+    }
+    
+    if (password !== passwordConfirm) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return false; // 폼 제출 방지
+    }
+    
+    return true; // 폼 제출 허용
+}
+//회원가입 폼 제출
+var submitButton = document.getElementById('submitComplete');
+var joinForm = document.getElementById('joinForm');
+
+submitButton.addEventListener('click', function() {
+    if (validateForm()) {
+        var confirmation = confirm("회원 가입을 완료하시겠습니까?");
+        if (confirmation) {
+            alert("가입하신 정보로 로그인 해주세요");
+            joinForm.submit();
+        }
+    }
 });
 </script>
 </div>
