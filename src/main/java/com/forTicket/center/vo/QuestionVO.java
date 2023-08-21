@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component("questionVO")
 public class QuestionVO {
 	private int q_No;
-	private int q_Mem_Num;
+	private int q_mem_No;
 	private String mem_id;
 	private String q_Status;
 	private String q_Title;
@@ -17,11 +17,11 @@ public class QuestionVO {
 	private String a_reply;
 	private Date a_creDate;
 	
-	public int getQ_Mem_Num() {
-		return q_Mem_Num;
+	public int getQ_mem_No() {
+		return q_mem_No;
 	}
-	public void setQ_Mem_Num(int q_Mem_Num) {
-		this.q_Mem_Num = q_Mem_Num;
+	public void setQ_mem_No(int q_mem_No) {
+		this.q_mem_No = q_mem_No;
 	}
 	public int getQ_No() {
 		return q_No;

@@ -150,14 +150,12 @@
 	const text = document.querySelector('.text');
 	const text1 = document.querySelector('.text1');
 	const moreText = document.querySelector('.more-text');
-
 	
 	// 더보기 텍스트 클릭시 이벤트
 	moreText.addEventListener('click', () => {
 	text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
 	text1.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
     });
-
 </script>
 </body>
 </html>

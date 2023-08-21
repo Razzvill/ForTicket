@@ -290,9 +290,9 @@
 			<td>
 				<select class="optionsize" name="s_search_type">
 					<option value="all" checked>전체</option>
-					<option value="mem_name">회원명</option>
-					<option value="mem_id">아이디</option>
-					<option value="mem_phone">휴대폰번호</option>
+					<option value="goods_id">상품번호</option>
+					<option value="goods_name">상품명</option>
+					<option value="goods_genre">장르</option>
 				</select>
 			</td>
 			<td align="left"><input class="inputSize1" type="text" name="t_search_word"></td>

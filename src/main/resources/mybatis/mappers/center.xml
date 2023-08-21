@@ -28,20 +28,6 @@
 		<result property="a_creDate" column="a_creDate" />
 	</resultMap>		
 	
-	<!-- 타입별 글번호 업데이트 -->
-	<select id="updateNum" parameterType="CenterVO" resultType="CenterVO">
-		SELECT 
-		center_No
-		, mem_id
-		, center_Type
-		, center_Title
-		, center_Detail
-		, center_creDate
-		, center_update
-		, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate DESC) AS type_No 
-		FROM CENTER
-	</select>
-	
 	<!-- 글 작성 -->
 	<insert id="addWrite"  parameterType="CenterVO">
 		<![CDATA[
@@ -72,30 +58,46 @@
 	</delete>
 	
 	<!-- 공지 목록 -->
-	<select id="list" resultMap="centerResult">
+	<select id="list" resultMap="centerResult"  parameterType="java.util.HashMap">
 		<![CDATA[
-		SELECT 
-		center_No
-		, mem_id
-		, center_Type
-		, center_Title
-		, center_Detail
-		, center_creDate
-		, center_update
-		, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate DESC) AS type_No 
-		FROM CENTER
-		order by center_creDate desc
+		select * from (
+			select ROW_NUMBER() OVER (ORDER BY center_creDate DESC) as recNum, table1.*
+			from (
+				SELECT 
+					center_No
+					, mem_id
+					, center_Type
+					, center_Title
+					, center_Detail
+					, center_creDate
+					, center_update
+					, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate DESC) AS type_No 
+				FROM CENTER
+				order by center_creDate desc
+			 	) as table1
+				) as table2				
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10		
 		]]>      
 	</select>
 	
-	<!--1:1문의 이동시 id가져오기 -->
-	<select id="selectById" resultMap="questionResult" parameterType="java.util.HashMap">
+	<!--1:1문의 이동 -->
+	<select id="quelist" resultMap="QuestionVO" parameterType="java.util.HashMap">
 		<![CDATA[
 			select *  from question
 			where
 			mem_id=#{mem_id}
 		]]>	
 	</select>
+	
+	<!-- 1:1 작성 -->
+	<insert id="addQue"  parameterType="CenterVO">
+		<![CDATA[
+			insert into
+				question(mem_id, q_Title, q_content)
+			values(#{mem_id}, #{q_Title}, #{q_content})
+		]]>      
+	</insert>
 	
 </mapper>
 	

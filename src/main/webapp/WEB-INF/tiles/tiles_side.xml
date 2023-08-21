@@ -119,6 +119,14 @@
 		<put-attribute name="title" value="1:1문의" />
 		<put-attribute name="body" value="/WEB-INF/views/center/question.jsp" />
 	</definition>
+	
+	<!-- 고객센터 1:1 작성(회원) -->
+	<definition name="/center/q_write" extends="baseLayout2">
+		<put-attribute name="title" value="1:1문의 작성" />
+		<put-attribute name="body" value="/WEB-INF/views/center/q_write.jsp" />
+	</definition>
+	
+
 
 </tiles-definitions>
 

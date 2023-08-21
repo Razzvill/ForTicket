@@ -1,7 +1,7 @@
 package com.forTicket.center.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +19,16 @@ import com.forTicket.center.vo.QuestionVO;
 public class CenterServiceImpl implements CenterService{
 	@Autowired
 	private CenterDAO centerDAO;
+	
+	@Autowired
+	private QuestionVO questionDAO;
 		
-	//타입별 글번호 저장
-	@Override
-	public int updateNum(CenterVO centerVO) throws DataAccessException {
-		return centerDAO.updateNum(centerVO);
-	}
-
 	//글 저장
 	@Override
 	public int addWrite(CenterVO centerVO) throws DataAccessException {
 		return centerDAO.addWrite(centerVO);
 	}
-	
-	
+		
 	//고객센터 상세화면
 	@Override
 	public CenterVO view(int center_No) throws Exception {
@@ -54,19 +50,21 @@ public class CenterServiceImpl implements CenterService{
 	
 	//고객센터 목록
 	@Override
-	public List<CenterVO> list() throws Exception{
-		List<CenterVO> refund_list = centerDAO.list();
+	public ArrayList<CenterVO> list(HashMap condMap) throws Exception{
+		ArrayList<CenterVO> refund_list = centerDAO.list(condMap);
 		return refund_list;
 	}
 
 	//1:1이동시 id가져오기
 	@Override
 	public QuestionVO question(HashMap condMap) throws DataAccessException {
-		return centerDAO.selectById(condMap);
+		return centerDAO.quelist(condMap);
 	}
 
-	
-	
-	
+	//1:1 글 추가
+	@Override
+	public int addQue(QuestionVO questionVO) throws DataAccessException {
+		return centerDAO.addQue(questionVO);
+	}
 	
 }

@@ -24,7 +24,7 @@ public interface AdminMemberController {
 	public ResponseEntity deleteMember(@RequestParam("mem_id") String mem_id, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//사업자 삭제
-	public ResponseEntity deleteBus(@RequestParam("name") String b_name, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity deleteBus(@RequestParam("mem_id") String b_name, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
 		
 	//회원 수정이동 페이지 이동, memberVO값 가져오기
 	public ModelAndView a_Edit(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
