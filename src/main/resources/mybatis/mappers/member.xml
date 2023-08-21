@@ -95,7 +95,7 @@
 	</select>
 	
 	<select id="findPwd" parameterType="map" resultType="string">
-	 <![CDATA[
+	<![CDATA[
 		SELECT pwd
 		FROM member
 		WHERE mem_id = #{mem_id}

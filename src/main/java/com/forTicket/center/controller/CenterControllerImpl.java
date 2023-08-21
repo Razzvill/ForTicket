@@ -325,13 +325,14 @@ public class CenterControllerImpl implements CenterController {
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-
+		
+		String mem_id = question.getMem_id();
 		try {
 			int result = centerService.addQue(question);
 
 			message = "<script>";
 			message += " alert('글을 작성했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/center/question.do';";
+			message += " location.href='" + request.getContextPath() + "/center/question.do?mem_id="+ mem_id + "';";
 			message += "</script>";
 
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -339,7 +340,7 @@ public class CenterControllerImpl implements CenterController {
 		} catch (Exception e) {
 			message = "<script>";
 			message += " alert('오류가 생겼습니다.');";
-			message += " location.href='" + request.getContextPath() + "/center/question.do';";
+			message += " location.href='" + request.getContextPath() + "/center/question.do?mem_id="+ mem_id + "';";
 			message += "</script>";
 
 			e.printStackTrace();
