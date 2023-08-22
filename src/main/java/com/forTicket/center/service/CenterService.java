@@ -2,6 +2,7 @@ package com.forTicket.center.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
@@ -26,7 +27,7 @@ public interface CenterService {
 	public ArrayList<CenterVO> list(HashMap condMap) throws Exception;
 	
 	//고객센터 1:1시 id가져오기
-	public QuestionVO question(HashMap condMap) throws DataAccessException;
+	public List<QuestionVO> questionList(String mem_id) throws Exception;
 	
 	//글 저장
 	public int addQue(QuestionVO questionVO) throws DataAccessException;

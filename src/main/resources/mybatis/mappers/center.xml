@@ -16,7 +16,7 @@
 	</resultMap>
 	
 	<resultMap id="questionResult" type="QuestionVO">
-		<result property="q_No" column="q_No" />
+		<result property="q_Num" column="q_Num" />
 		<result property="q_Mem_Num" column="q_Mem_Num" />
 		<result property="mem_id" column="mem_id" />
 		<result property="q_Status" column="q_Status" />
@@ -32,7 +32,7 @@
 	<insert id="addWrite"  parameterType="CenterVO">
 		<![CDATA[
 			insert into
-				center(mem_id, center_Type, center_Title, center_Detail)
+			center(mem_id, center_Type, center_Title, center_Detail)
 			values(#{mem_id}, #{center_Type}, #{center_Title}, #{center_Detail})
 		]]>      
 	</insert>
@@ -71,7 +71,7 @@
 					, center_Detail
 					, center_creDate
 					, center_update
-					, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate DESC) AS type_No 
+					, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate ASC) AS type_No 
 				FROM CENTER
 				order by center_creDate desc
 			 	) as table1
@@ -80,13 +80,24 @@
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10		
 		]]>      
 	</select>
-	
-	<!--1:1문의 이동 -->
-	<select id="quelist" resultMap="QuestionVO" parameterType="java.util.HashMap">
+
+	<!--1:1문의페이지 회원 -->
+	<select id="questionList" resultMap="questionResult" parameterType="String">
 		<![CDATA[
-			select *  from question
+			select
+				q_Num
+				, mem_id
+				, q_Status
+				, q_Title
+				, q_content
+				, q_creDate
+				, a_reply
+				, a_creDate
+				, ROW_NUMBER() OVER (PARTITION BY mem_id ORDER BY q_creDate ASC) AS q_mem_No
+				from question
 			where
 			mem_id=#{mem_id}
+			order by q_creDate DESC
 		]]>	
 	</select>
 	
@@ -100,17 +111,3 @@
 	</insert>
 	
 </mapper>
-	
-	
-	
-	
-
-
-
-	
-	
-	
-	
-	
-	
-	

@@ -2,6 +2,7 @@ package com.forTicket.center.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,8 @@ public class CenterServiceImpl implements CenterService{
 
 	//1:1이동시 id가져오기
 	@Override
-	public QuestionVO question(HashMap condMap) throws DataAccessException {
-		return centerDAO.quelist(condMap);
+	public List<QuestionVO> questionList(String mem_id) throws DataAccessException {
+		return centerDAO.questionList(mem_id);
 	}
 
 	//1:1 글 추가
