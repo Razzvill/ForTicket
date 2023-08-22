@@ -14,7 +14,7 @@ request.setCharacterEncoding("utf-8");
 
 <head>
 <meta charset="UTF-8">
-<title>연극 페이지</title>
+<title>상품 페이지</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
 	.wrap_1100 {
@@ -98,10 +98,10 @@ request.setCharacterEncoding("utf-8");
 	<!-- 상단 -->
 	<div class="main_title">
 	<c:choose>
-		<c:when test="${type == drama}">
+		<c:when test="${goodsType == drama}">
 			연극
 		</c:when>
-		<c:when test="${type == musical}">
+		<c:when test="${goodsType == musical}">
 			뮤지컬
 		</c:when>
 		<c:otherwise>
@@ -130,28 +130,28 @@ request.setCharacterEncoding("utf-8");
 	<table style="width: 100%; border: 0; cellpadding: 0; cellspacing: 0;">
 	<tbody>
 	<tr>
-		<c:forEach var="goods" items="goodsList">
-			<c:if test="${goods.goods_type == type}">
-			<td valign="top" align="left">
-				<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
-					<div class="drama_list">
-						<div class="thumb">
-							<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
-							<div></div>
-						</div>
-						<div class="text">
-							<p style="color:#666666;">🗂️ ${goods.goods_type} &gt; ${goods.goods_genre}</p>
-							<p style="font-size: 20px;">${goods.goods_name}</p>
-						<div>
-							<div class="price">
-							<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-							<span style="padding-right:30px;">${goods.goods_price}</span>
+		<c:forEach var="goods" items="${goodsList}">
+			<c:if test="${goods.goods_type == goodsType}">
+				<td valign="top" align="left">
+					<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
+						<div class="drama_list">
+							<div class="thumb">
+								<img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
+								<div></div>
+							</div>
+							<div class="text">
+								<p style="color:#666666;">🗂️ ${goods.goods_type} &gt; ${goods.goods_genre}</p>
+								<p style="font-size: 20px;">${goods.goods_name}</p>
+							<div>
+								<div class="price">
+								<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
+								<span style="padding-right:30px;">${goods.goods_price}</span>
+								</div>
+							</div>
 							</div>
 						</div>
-						</div>
-					</div>
-				</a>
-			</td>
+					</a>
+				</td>
 			</c:if>
 		</c:forEach>
 	</tr>

@@ -34,7 +34,9 @@
 	
 	<select id="selectGoodsList" resultMap="goodsResult">
 	    <![CDATA[
-		    select * from goods order by goods_creDate desc
+			select t.* from( select g.*,d.fileName from goods g, goods_detail_images d
+			where g.goods_id=d.goods_id and d.filetype='main_image'
+			order by g.goods_creDate desc) t
     	]]>
 	</select>
 	
@@ -56,8 +58,7 @@
 			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
 	</select>
 
-	<select id="selectGoodsDetail" resultMap="goodsResult"
-		parameterType="int">
+	<select id="selectGoodsDetail" resultType="goodsVO"	parameterType="int">
 	    <![CDATA[
 		    select g.*, d.fileName from goods g, goods_detail_images d
 	        where g.goods_id=d.goods_id

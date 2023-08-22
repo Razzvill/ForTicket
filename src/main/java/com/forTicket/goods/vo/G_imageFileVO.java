@@ -41,4 +41,10 @@ public class G_imageFileVO {
 		this.reg_id = reg_id;
 	}
 	
+	@Override
+	public String toString() {
+		return "G_imageFileVO [image_id=" + image_id + ", goods_id=" + goods_id + ", fileName=" + fileName
+				+ ", fileType=" + fileType + ", reg_id=" + reg_id + "]";
+	}
+	
 }

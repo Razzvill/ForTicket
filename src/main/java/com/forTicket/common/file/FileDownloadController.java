@@ -7,10 +7,11 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller("fileDownloadController")
 public class FileDownloadController {
@@ -72,6 +73,22 @@ public class FileDownloadController {
 			out.write(buffer, 0, count);
 		}
 		in.close();
+		out.close();
+	}
+	
+	@RequestMapping("/thumbnails.do")
+	protected void thumbnails(@RequestParam("goods_fileName") String goods_fileName,
+                            	@RequestParam("goods_id") String goods_id,
+			                 HttpServletResponse response) throws Exception {
+		OutputStream out = response.getOutputStream();
+		String filePath=GOODS_IMAGE_REPO+"\\"+goods_id+"\\"+goods_fileName;
+		File image=new File(filePath);
+		
+		if (image.exists()) { 
+			Thumbnails.of(image).size(121,154).outputFormat("png").toOutputStream(out);
+		}
+		byte[] buffer = new byte[1024 * 8];
+		out.write(buffer);
 		out.close();
 	}
 }
