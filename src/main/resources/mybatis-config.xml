@@ -11,5 +11,6 @@
 		<mapper resource="mybatis/mappers/event.xml"/>
 		<mapper resource="mybatis/mappers/center.xml"/>
 		<mapper resource="mybatis/mappers/goods.xml"/>
+		<mapper resource="mybatis/mappers/community.xml"/>
 	</mappers>
 </configuration>

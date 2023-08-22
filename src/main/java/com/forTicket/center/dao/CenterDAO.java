@@ -31,9 +31,6 @@ public interface CenterDAO {
 	//고객센터 상세 삭제하기
 	public void delete(int center_No) throws Exception; 
 	
-	//고객센터 환불안내
-	public ModelAndView refund(HttpServletRequest req,HttpServletResponse resp) throws Exception;
-	
 	//고객센터 환불 목록
 	public ArrayList<CenterVO> re_list(HashMap condMap) throws DataAccessException;
 	
