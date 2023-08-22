@@ -13,8 +13,13 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>사업자 이벤트 관리</title>
+	<title>관리자 이벤트 관리</title>
 	<style>
+	body {
+		width: 1100px;
+		margin: auto;
+		
+	}
 	.search{
 		width: 100%;
 		border: 1px solid #FF6251;
@@ -182,7 +187,7 @@
 <div>
 <form method="post" name="frm_list">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left;">회원 정보</h2>
+    	<h2 style="text-align:left;">이벤트 관리</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>

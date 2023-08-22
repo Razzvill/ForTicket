@@ -10,6 +10,7 @@ import com.forTicket.goods.vo.G_imageFileVO;
 public interface GoodsService {
 	public List listGoods() throws DataAccessException;
 	public List a_listGoods(Map condMap) throws DataAccessException;
+	public List findGoodsById(String mem_id) throws DataAccessException;
 	public Map goodsInfo(int goods_id) throws DataAccessException;
 	public int addGoods(Map goodsMap) throws DataAccessException;
 	public void modGoods(Map goodsMap) throws DataAccessException;

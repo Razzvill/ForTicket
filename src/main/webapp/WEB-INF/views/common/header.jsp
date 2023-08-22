@@ -84,12 +84,51 @@
 	.top{
 	   	font-size: 12px;
 	   	text-decoration: none;
+		margin-top: 4px;
 	}
 	
 	.top1{
-		margin-top: 4px;
 	   	font-size: 12px;
 	   	text-decoration: none;
+	}
+	span#admin {
+	    display: inline-block;
+	    min-width: 67px;
+	    height: 28px;
+	    line-height: 28px;
+	    text-align: center;
+	    padding: 0 8px;
+	    font-size: 12px;
+	    font-weight: 700;
+	    color: #ec7d2c;
+	    border: 1px solid #ec7d2c;
+	    border-radius: 15px;
+	}
+	span#user {
+	    display: inline-block;
+	    min-width: 67px;
+	    height: 28px;
+	    line-height: 28px;
+	    text-align: center;
+	    padding: 0 8px;
+	    font-size: 12px;
+	    font-weight: 700;
+	    color: #3E90FF;
+	    border: 1px solid #3E90FF;
+	    border-radius: 15px;
+	}
+	span#business {
+	    display: inline-block;
+	    min-width: 67px;
+	    height: 28px;
+	    line-height: 28px;
+	    text-align: center;
+	    padding: 0 8px;
+	    font-size: 12px;
+	    font-weight: 700;
+	    color: #00b300;
+	    border: 1px solid #00b300;
+	    border-radius: 15px;
 	}
 	</style>
 	<script>
@@ -117,7 +156,8 @@
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
-			<li class="top1">${member.mem_name} 회원님<br></li>
+			<li class="top1"><span id="user">일반회원</span>&nbsp;</li>
+			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="#">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
@@ -130,7 +170,8 @@
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
-			<li class="top1">${member.mem_name} 사업자님<br></li>
+			<li class="top1"><span id="business">사업자</span>&nbsp;</li>
+			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="#">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
@@ -143,7 +184,8 @@
 	<div class="gnb_wrap" style="height:30px;">
 		<div style="position:absolute; right:0;">
 		<ul id="top_gnb">
-			<li class="top1">${member.mem_name} 관리자님<br></li>
+			<li class="top1"><span id="admin">관리자</span>&nbsp;</li>
+			<li class="top">관리자님<br></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
@@ -186,10 +228,10 @@
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
 				<li style="padding-right:80px;"><a href="${contextPath}/goods/a_listGoods.do" class="button" onclick="changeStyle(this)">상품관리</a></li>
-				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">공연장관리</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장관리</a></li>
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/member/a_Profile.do" class="button" onclick="changeStyle(this)">회원관리</a></li>
-				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/event/A_listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/community/a_Comm.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
@@ -200,9 +242,9 @@
 		    <ul class="gnb_nav">
 				<li style="padding-right:85px;"><a href="${contextPath}/goods/a_listGoods.do" class="button" onclick="changeStyle(this)">상품관리</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">스케쥴관리</a></li>
-				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">공연장</a></li>
+				<li style="padding-right:85px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">예매관리</a></li>
-				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:85px;"><a href="${contextPath}/event/B_listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
@@ -217,7 +259,7 @@
 				
 				<li style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				
-				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:105px;"><a href="${contextPath}/event/listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
 				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 			</ul>

@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.forTicket.event.dao.GoodsDAO">
+<mapper namespace="com.forTicket.goods.dao.GoodsDAO">
 	<resultMap id="goodsResult" type="goodsVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_type" column="goods_type" />
@@ -40,31 +40,26 @@
 	
 	<select id="selectAdminGoodsList" resultMap="goodsResult"
 		parameterType="java.util.Map">
-	    <![CDATA[
 			select * from (
-			   select  ROW_NUMBER() OVER (ORDER BY goods_creDate DESC) as recNum,*
-			       from (select * from goods where  date_format(goods_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}]]>
-			       <if test="search_type=='goods_id' and  search_type != null">
-			       		AND goods_id=#{search_word}
-			       </if>
-			       <if test="search_type=='goods_name' and  search_type != null">
-			       		AND goods_name=#{search_word}
-			       </if>
-			       <if test="search_type=='goods_genre' and  search_type != null">
-			       		AND goods_genre=#{search_word}
-			       </if>
-			       <![CDATA[order by goods_creDate desc
-					    ) as ttt
-				) as tttt
-			where				
-		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
-    	]]>
+			select  ROW_NUMBER() OVER (ORDER BY goods_creDate DESC) as recNum, ttt.*
+			from (select * from goods where  date_format(goods_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
+				<if test="search_type=='goods_id' and  search_type != null">
+					AND goods_id=#{search_word}
+				</if>
+				<if test="search_type=='goods_name' and  search_type != null">
+					AND goods_name=#{search_word}
+				</if>
+				<if test="search_type=='goods_genre' and  search_type != null">
+					AND goods_genre=#{search_word}
+				</if>
+			order by goods_creDate desc ) as ttt ) as tttt where
+			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
 	</select>
 
 	<select id="selectGoodsDetail" resultMap="goodsResult"
 		parameterType="int">
 	    <![CDATA[
-		    select g.*, d.fileName from goods g, goods_detail_image d
+		    select g.*, d.fileName from goods g, goods_detail_images d
 	        where g.goods_id=d.goods_id
 	        and d.filetype='main_image'
 	        and g.goods_id=#{goods_id}
@@ -74,14 +69,20 @@
 	
 	<select id="selectGoodsNo" resultType="int" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT goods_id FROM event WHERE mem_id=#{mem_id} AND goods_name=#{goods_name}
+			SELECT goods_id FROM goods WHERE mem_id=#{mem_id} AND goods_name=#{goods_name}
+		]]>
+	</select>
+	
+	<select id="selectGoodsById" resultMap="goodsResult" parameterType="String">
+		<![CDATA[
+			SELECT * FROM goods WHERE mem_id=#{mem_id}
 		]]>
 	</select>
 
 	<insert id="insertGoods" parameterType="java.util.Map">
 	    <![CDATA[
-		   insert into goods (goods_type, goods_genre, goods_name, goods_startDate, goods_endDate, goods_runningTime, goods_age, goods_price, goods_discount, goods_info, goods_notice, goods_place, goods_creDate, mem_id, goods_seats)
-		   		values (#{goods_type}, #{goods_genre}, #{goods_name}, #{goods_startDate}, #{goods_endDate}, #{goods_runningTime}, #{goods_age}, #{goods_price}, #{goods_discount}, #{goods_info}, #{goods_notice}, #{goods_place}, #{goods_creDate}, #{mem_id}, #{goods_seats})
+		   insert into goods (goods_type, goods_genre, goods_name, goods_startDate, goods_endDate, goods_runningTime, goods_age, goods_price, goods_discount, goods_info, goods_notice, goods_place, mem_id, goods_seats)
+		   		values (#{goods_type}, #{goods_genre}, #{goods_name}, #{goods_startDate}, #{goods_endDate}, #{goods_runningTime}, #{goods_age}, #{goods_price}, #{goods_discount}, #{goods_info}, #{goods_notice}, #{goods_place}, #{mem_id}, #{goods_seats})
 		]]>
 	</insert>
 	
@@ -101,7 +102,7 @@
 	<select id="selectGoodsImageFileList" resultMap="imageResult"
 		parameterType="int">
 	    <![CDATA[
-		    	select * from  goods_detail_image 
+		    	select * from  goods_detail_images 
 		    	where  
 			    goods_id=#{goods_id}
 			    order by image_id asc
@@ -110,14 +111,14 @@
 	
 	<insert id="insertGoodsImageFile" parameterType="G_imageFileVO">
 	    <![CDATA[
-		   insert into goods_detail_image (goods_id, fileName, fileType, reg_id)
+		   insert into goods_detail_images (goods_id, fileName, fileType, reg_id)
 			values(#{goods_id}, #{fileName}, #{fileType}, #{reg_id} )
 		]]>
 	</insert>
 
 	<update id="updateGoodsImage" parameterType="g_imageFileVO">
 		<![CDATA[
-			update goods_detail_image
+			update goods_detail_images
 			set fileName=#{fileName}
 			where	 
 			goods_id=#{goods_id} and image_id=#{image_id}
@@ -126,14 +127,14 @@
 	
 	<delete id="deleteGoodsImage" parameterType="int">
 		  <![CDATA[
-		  delete from goods_detail_image
+		  delete from goods_detail_images
 		  where image_id=#{image_id}
 		  ]]>
 	</delete>
 	
 	<delete id="deleteAllGoodsImage" parameterType="int">
 		  <![CDATA[
-		  delete from goods_detail_image
+		  delete from goods_detail_images
 		  where goods_id=#{goods_id}
 		  ]]>
 	</delete>

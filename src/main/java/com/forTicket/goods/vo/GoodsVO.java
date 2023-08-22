@@ -20,7 +20,7 @@ public class GoodsVO {
 	private String goods_notice;
 	private String goods_place;
 	private Date goods_creDate;
-	private String goods_mem_id;
+	private String mem_id;
 	private String goods_seats;
 	private String goods_fileName;
 	
@@ -108,11 +108,12 @@ public class GoodsVO {
 	public void setGoods_creDate(Date goods_creDate) {
 		this.goods_creDate = goods_creDate;
 	}
-	public String getGoods_mem_id() {
-		return goods_mem_id;
+	
+	public String getMem_id() {
+		return mem_id;
 	}
-	public void setGoods_mem_id(String goods_mem_id) {
-		this.goods_mem_id = goods_mem_id;
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
 	public String getGoods_seats() {
 		return goods_seats;

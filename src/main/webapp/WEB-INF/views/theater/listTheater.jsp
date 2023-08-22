@@ -126,32 +126,39 @@
 <body>
 <div class="wrap_1100">
 <div class="main_title">공연장 목록
-<c:if test="${isLogOn == true && member.id == 'admin' }">
+<c:if test="${isLogOn == true && member.mem_id == 'admin' }">
 <input type="button" value="등록하기" class="btn1" onclick="location.href='${contextPath}/theater/theaterForm.do'" />
 </c:if>
 </div><hr>
 <div style="margin-top: 25px;">
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-	<tbody>
-		<tr>
-			<c:forEach var="theater" items="${theatersList}">
-			<td valign="top" align="left">
-				<a href="${contextPath}/theater/detailTheater.do?theater_id=${theater.theater_id}">
-					<div class="theater_list">
-						<div class="thumb">
-							<img src="${contextPath}/theater/download.do?theater_id=${theater.theater_id}&theater_image=${theater.theater_image}" alt="${theater.theater_name}">
-						</div>
-						<div class="theater_info">
-							<p class="category">${theater.theater_cat}</p>
-							<p class="title">${theater.theater_name}</p>
-						</div>
-					</div>
-				</a>
-			</td>
-			</c:forEach>
-		</tr>
-	</tbody>
-</table>
+<c:choose>
+	<c:when test="${empty theatersList}">
+		<strong>등록된 공연장이 없습니다.</strong>
+	</c:when>
+	<c:otherwise>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tbody>
+				<tr>
+					<c:forEach var="theater" items="${theatersList}">
+					<td valign="top" align="left">
+						<a href="${contextPath}/theater/detailTheater.do?theater_id=${theater.theater_id}">
+							<div class="theater_list">
+								<div class="thumb">
+									<img src="${contextPath}/theater/download.do?theater_id=${theater.theater_id}&theater_image=${theater.theater_image}" alt="${theater.theater_name}">
+								</div>
+								<div class="theater_info">
+									<p class="category">${theater.theater_cat}</p>
+									<p class="title">${theater.theater_name}</p>
+								</div>
+							</div>
+						</a>
+					</td>
+					</c:forEach>
+				</tr>
+			</tbody>
+		</table>
+	</c:otherwise>
+</c:choose>
 </div>
 </div>
 </body>

@@ -21,7 +21,7 @@ public interface EventController {
 	public ResponseEntity modEvent(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute, @RequestParam("value") String value, MultipartHttpServletRequest multipartReq, HttpServletResponse resp) throws Exception;
 	public ResponseEntity modEventStatus(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute, @RequestParam("value") String value, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity removeEvent(@RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp) throws Exception;
-	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
-	public void modGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
-	public void removeGoodsImage(@RequestParam("goods_id") int goods_id, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public void addNewEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
+	public void modEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
+	public void removeEventImage(@RequestParam("event_no") int event_no, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }
