@@ -161,13 +161,22 @@
 	</definition>
 	
 	
-
-	<!-- 관리자 커뮤니티 -->
-	<definition name="/community/a_Comm" extends="baseLayout">
-		<put-attribute name="title" value="관리자 커뮤니티" />
-		<put-attribute name="body" value="/WEB-INF/views/community/a_Comm.jsp" />
-	</definition>
-	
+	<!-- 커뮤니티 -->
+		<!-- 관리자 커뮤니티화면 -->
+		<definition name="/community/a_Commu" extends="baseLayout">
+			<put-attribute name="title" value="관리자 커뮤니티" />
+			<put-attribute name="body" value="/WEB-INF/views/community/a_Commu.jsp" />
+		</definition>
+		<!-- 회원 커뮤니티화면 -->
+		<definition name="/community/u_Commu" extends="baseLayout">
+			<put-attribute name="title" value="관리자 커뮤니티" />
+			<put-attribute name="body" value="/WEB-INF/views/community/u_Commu.jsp" />
+		</definition>
+		<!-- 사업자 커뮤니티화면 -->
+		<definition name="/community/b_Commu" extends="baseLayout">
+			<put-attribute name="title" value="관리자 커뮤니티" />
+			<put-attribute name="body" value="/WEB-INF/views/community/b_Commu.jsp" />
+		</definition>
 	
 </tiles-definitions>
 

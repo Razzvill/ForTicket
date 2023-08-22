@@ -161,7 +161,15 @@
 		<span class="less-text">줄이기</span> 
 	</div>
 </div>
-
+<c:forEach   var="page" begin="1" end="10" step="1" >
+	<c:if test="${section >1 && page==1 }">
+		<a class="section" href="${contextPath}/center/refund.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+	</c:if>
+		<a class="section" href="${contextPath}/center/refund.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+	<c:if test="${page ==10 }">
+		<a class="section" href="${contextPath}/center/refund.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+	</c:if> 
+</c:forEach> 
 <script>
 	//코드에 필요한 요소들 변수에 할당 (전체 ui를 감싸는 div, 내용 텍스트, 더보기/줄이기 텍스트)
 	const textWrapper = document.querySelector('.text-wrapper');

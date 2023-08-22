@@ -12,7 +12,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>1:1문의</title>
+	<title>1:1문의 - 관리자</title>
 	<style>
 	.center{
 		border:3px solid #bcbcbc;
@@ -46,7 +46,7 @@
 	.boardtd1{
 		font-size: 15px;
 		font-weight: 600;
-		width:550px;
+		width:350px;
 	}
 	
 	.cls1{
@@ -55,6 +55,16 @@
 	    margin-left: 750px;
 	    font-size: 15px;
 	    font-weight: 600;
+	}
+	
+	.alink{
+		text-decoration: none;
+	    color: #FF6251;;
+		border: 1px solid #bcbcbc;
+		font-size: 12px;
+	    font-weight: 600;
+	    border-radius: 5px;
+	    padding: 2px;
 	}
 	
 	.text-wrapper {
@@ -99,12 +109,6 @@
 		font-weight: bold;
 	}
 	
-	.alink{
-		cursor: pointer;
-		color: #FF6251;
-		text-decoration: none;
-	}
-	
 	</style>
 </head>
 <body>
@@ -119,21 +123,22 @@
 			<td class="boardtd">번호</td>
 			<td class="boardtd">답변상태</td>
 			<td class="boardtd1">제목</td>
+			<td class="boardtd">작성자</td>
 			<td class="boardtd">등록일</td>
-			<td class="boardtd">삭제</td>
+			<td class="boardtd">답변관리</td>
 		</tr>
 		<c:choose>
-		    <c:when test="${empty que_List}">
+		    <c:when test="${empty a_question}">
 		    	<tr>
-		            <td colspan="4">
+		            <td colspan="6">
 		                <p><b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b></p>
 		            </td>
 		        </tr>
 		    </c:when>
-		    <c:when test="${!empty que_List}">
-		        <c:forEach var="que" items="${que_List }">
+		    <c:when test="${!empty a_question}">
+		        <c:forEach var="que" items="${a_question }">
 					<tr align="center">
-	                    <td>${que.q_mem_No }</td>
+	                    <td>${que.q_Num }</td>
 	                	<td>${que.q_Status }</td>
 	                    <td class="td1"><div class="text-wrapper">
 	                    	<div>
@@ -144,17 +149,18 @@
 	                    		</div>
 	                    	</div>
 	                    </div></td>
+	                    <td>${que.mem_id }</td>
 	                    <td><fmt:formatDate value="${que.q_creDate }" /></td>
-	                    <td><a class="alink" href="${contextPath}/center/q_delete.do?q_Num=${que.q_Num}">삭제</a></td>
+	                    <td>
+	                    	<a class="alink" href="${contextPath}/center/a_write.do?q_Num=${que.q_Num}">답변/수정하기</a>
+	                    	<a class="alink" href="${contextPath}/center/a_delete.do?q_Num=${que.q_Num}">삭제</a>
+	                    </td>
 	                </tr>
 	            </c:forEach>
 		    </c:when>
 		</c:choose>
 		</table>
 	</div>
-	<c:if test="${isLogOn == true && type !='admin'}">
-		<a class="cls1" href="${contextPath}/center/q_write.do">글쓰기</a>
-	</c:if>
 	<input type="hidden" name="q_Num" value="${que.q_Num }">
 </div>
 <script>

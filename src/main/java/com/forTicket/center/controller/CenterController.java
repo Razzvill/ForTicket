@@ -49,8 +49,21 @@ public interface CenterController {
 	//고객센터 1:1 글쓰기
 	public ModelAndView q_write(HttpServletRequest req,HttpServletResponse resp) throws Exception;
 	
-	//고객센터 1:1 글 추가 /center/addQue.do
+	//고객센터 1:1 글 추가
 	public ResponseEntity addQue(@ModelAttribute("question") QuestionVO question, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 	
+	//고객센터 1:1 글 삭제 - 회원
+	public ResponseEntity q_delete(@RequestParam("q_Num") int q_Num, HttpServletRequest request, HttpServletResponse response) throws Exception; 
+	
+	//고객센터 1:1 목록 - 관리자
+	public ModelAndView a_question(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
+	//고객센터 1:1 답변페이지
+	public ModelAndView a_write(@RequestParam("q_Num") int q_Num, HttpServletRequest req,HttpServletResponse resp) throws Exception;
+	
+	//고객센터 1:1 문의 답변 추가
+	public ResponseEntity update_reply(@ModelAttribute("info") QuestionVO quesitonVO, HttpServletRequest request, HttpServletResponse response) throws Exception; 
+			
+	//고객센터 1:1 문의 삭제 - 관리자
+	public ResponseEntity a_delete(@RequestParam("q_Num") int q_Num, HttpServletRequest request, HttpServletResponse response) throws Exception; 
 }
