@@ -114,10 +114,11 @@
 			<td class="boardtd">답변상태</td>
 			<td class="boardtd1">제목</td>
 			<td class="boardtd">등록일</td>
+			<td class="boardtd">삭제</td>
 		</tr>
 		<c:choose>
 		    <c:when test="${empty que_List}">
-	              <tr>
+		    	<tr>
 		            <td colspan="4">
 		                <p><b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b></p>
 		            </td>
@@ -138,10 +139,24 @@
 	                    	</div>
 	                    </div></td>
 	                    <td><fmt:formatDate value="${que.q_creDate }" /></td>
+	                    <td><a href="${contextPath}/center/q_delete.do?q_Num=${que.q_Num}"></a></td>
 	                </tr>
 	            </c:forEach>
 		    </c:when>
 		</c:choose>
+		<tr>
+			<td colspan=8 class="fixed">
+				<c:forEach   var="page" begin="1" end="10" step="1" >
+					<c:if test="${section >1 && page==1 }">
+						<a href="${contextPath}/center/question.do?mem_id=${que.mem_id }&section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+					</c:if>
+						<a href="${contextPath}/center/question.do?mem_id=${que.mem_id }&section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+					<c:if test="${page ==10 }">
+						<a href="${contextPath}/center/question.do?mem_id=${que.mem_id }&section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+					</c:if> 
+				</c:forEach> 
+			</td>
+		</tr>
 		</table>
 	</div>
 	<c:if test="${isLogOn == true && type !='admin'}">
