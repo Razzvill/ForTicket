@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface GoodsController {
-	public ModelAndView listGoods(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView listGoods(@RequestParam("type") String type, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView a_listGoods(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView detailGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public ResponseEntity addGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;

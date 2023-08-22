@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.forTicket.goods.service.GoodsService;
 import com.forTicket.goods.vo.G_imageFileVO;
+import com.forTicket.goods.vo.GoodsVO;
 import com.forTicket.member.vo.MemberVO;
 import com.forTicket.theater.dao.TheaterDAO;
 import com.forTicket.theater.service.TheaterService;
@@ -48,14 +49,16 @@ public class GoodsControllerImpl implements GoodsController{
 	//상품 목록(사용자)
 	@Override
 	@RequestMapping(value= "/goods/listGoods.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView listGoods(HttpServletRequest req, HttpServletResponse response) throws Exception {
+	public ModelAndView listGoods(@RequestParam("goodsType") String goodsType, HttpServletRequest req, HttpServletResponse response) throws Exception {
+		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
-		List goodsList = goodsService.listGoods();
+		List<GoodsVO> goodsList = goodsService.listGoods();
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		mav.addObject("goodsList", goodsList);
+		mav.addObject("goodsType", goodsType);
 		mav.setViewName(viewName);
 		return mav;
 	}
@@ -132,8 +135,11 @@ public class GoodsControllerImpl implements GoodsController{
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		String theater_name = (String)goodsMap.get("goods_place");
-		int theater_id = theaterDAO.selectIdFromName(theater_name);
+		System.out.println("t_name: "+theater_name);
+		int theater_id = (Integer)theaterDAO.selectIdFromName(theater_name);
+		System.out.println("t_id: "+theater_id);
 		TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
+		mav.addObject("theater", theaterVO);
 		mav.addObject("goods", goodsMap);
 		return mav;
 	}
@@ -217,7 +223,6 @@ public class GoodsControllerImpl implements GoodsController{
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		mav.addObject("theaterList", theaterList);
-		System.out.println(mav);
 		return mav;
 	}
 
