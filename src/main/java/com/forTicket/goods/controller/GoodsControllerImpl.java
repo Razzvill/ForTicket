@@ -129,15 +129,22 @@ public class GoodsControllerImpl implements GoodsController{
 	@RequestMapping(value={"/goods/detailGoods.do"}, method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView detailGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName=(String)req.getAttribute("viewName");
+		
 		Map goodsMap=goodsService.goodsInfo(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
-		String theater_name = (String)goodsMap.get("goods_place");
+		
+		Map goodsObject = (Map) goodsMap.get("goods");
+				
+		String theater_name = (String)goodsObject.get("goods_place");
+		
 		System.out.println("t_name: "+theater_name);
+		
 		int theater_id = (Integer)theaterDAO.selectIdFromName(theater_name);
 		System.out.println("t_id: "+theater_id);
+		
 		TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
 		mav.addObject("theater", theaterVO);
 		mav.addObject("goods", goodsMap);

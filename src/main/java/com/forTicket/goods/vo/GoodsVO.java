@@ -128,5 +128,15 @@ public class GoodsVO {
 		this.goods_fileName = goods_fileName;
 	}
 	
+	@Override
+	public String toString() {
+		return "GoodsVO [goods_id=" + goods_id + ", goods_type=" + goods_type + ", goods_genre=" + goods_genre
+				+ ", goods_name=" + goods_name + ", goods_startDate=" + goods_startDate + ", goods_endDate="
+				+ goods_endDate + ", goods_runningTime=" + goods_runningTime + ", goods_age=" + goods_age
+				+ ", goods_price=" + goods_price + ", goods_discount=" + goods_discount + ", goods_info=" + goods_info
+				+ ", goods_notice=" + goods_notice + ", goods_place=" + goods_place + ", goods_creDate=" + goods_creDate
+				+ ", mem_id=" + mem_id + ", goods_seats=" + goods_seats + ", goods_fileName=" + goods_fileName + "]";
+	}
+	
 	
 }
