@@ -57,8 +57,8 @@
 		]]>  
 	</delete>
 	
-	<!-- 공지 목록 -->
-	<select id="list" resultMap="centerResult"  parameterType="java.util.HashMap">
+	<!--환불 공지 목록 -->
+	<select id="re_list" resultMap="centerResult"  parameterType="java.util.HashMap">
 		<![CDATA[
 		select * from (
 			select ROW_NUMBER() OVER (ORDER BY center_creDate DESC) as recNum, table1.*
@@ -73,6 +73,32 @@
 					, center_update
 					, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate ASC) AS type_No 
 				FROM CENTER
+				WHERE center_Type='refund'
+				order by center_creDate desc
+			 	) as table1
+				) as table2				
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10		
+		]]>      
+	</select>
+	
+	<!-- 공지 목록 -->
+	<select id="no_list" resultMap="centerResult"  parameterType="java.util.HashMap">
+		<![CDATA[
+		select * from (
+			select ROW_NUMBER() OVER (ORDER BY center_creDate DESC) as recNum, table1.*
+			from (
+				SELECT 
+					center_No
+					, mem_id
+					, center_Type
+					, center_Title
+					, center_Detail
+					, center_creDate
+					, center_update
+					, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate ASC) AS type_No 
+				FROM CENTER
+				WHERE center_Type='notice'
 				order by center_creDate desc
 			 	) as table1
 				) as table2				
@@ -81,8 +107,33 @@
 		]]>      
 	</select>
 
+	<!--faq 공지 목록 -->
+	<select id="faq_list" resultMap="centerResult"  parameterType="java.util.HashMap">
+		<![CDATA[
+		select * from (
+			select ROW_NUMBER() OVER (ORDER BY center_creDate DESC) as recNum, table1.*
+			from (
+				SELECT 
+					center_No
+					, mem_id
+					, center_Type
+					, center_Title
+					, center_Detail
+					, center_creDate
+					, center_update
+					, ROW_NUMBER() OVER (PARTITION BY CENTER_TYPE ORDER BY center_creDate ASC) AS type_No 
+				FROM CENTER
+				WHERE center_Type='faq'
+				order by center_creDate desc
+			 	) as table1
+				) as table2				
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10		
+		]]>      
+	</select>
+	
 	<!--1:1문의페이지 회원 -->
-	<select id="questionList" resultMap="questionResult" parameterType="String">
+	<select id="questionList" resultMap="questionResult" parameterType="java.util.HashMap">
 		<![CDATA[
 			select
 				q_Num
@@ -102,12 +153,72 @@
 	</select>
 	
 	<!-- 1:1 작성 -->
-	<insert id="addQue"  parameterType="CenterVO">
+	<insert id="addQue"  parameterType="QuestionVO">
 		<![CDATA[
 			insert into
-				question(mem_id, q_Title, q_content)
+			question(mem_id, q_Title, q_content)
 			values(#{mem_id}, #{q_Title}, #{q_content})
 		]]>      
 	</insert>
 	
+	<!-- 1:1 글 삭제 -->
+	<delete id="q_delete" parameterType="int">
+		<![CDATA[
+		delete from question where q_Num = #{q_Num} 
+		]]>  
+	</delete>
+	
+	<!--1:1문의페이지 관리자 -->
+	<select id="a_questionList" resultMap="questionResult" parameterType="java.util.HashMap">
+		<![CDATA[
+		select * from (
+			select ROW_NUMBER() OVER (ORDER BY q_creDate DESC) as recNum, table1.*
+			from (
+				select
+					q_Num
+					, mem_id
+					, q_Status
+					, q_Title
+					, q_content
+					, q_creDate
+					, a_reply
+					, a_creDate
+					from question
+				order by q_creDate DESC
+				) as table1
+				) as table2				
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10		
+		]]>	
+	</select>
+	
+	<!-- 1:1 답변페이지 이동 -->
+	<select id="q_Num" resultType="QuestionVO" parameterType="int">
+		<![CDATA[
+			select * from question
+			where
+			q_Num=#{q_Num}
+		]]>	
+	</select>	
+
+	<!-- 1:1 답변 추가 -->
+	<update id="update_reply" parameterType="QuestionVO">
+		<![CDATA[
+			update 
+			question
+			set
+			a_reply = #{a_reply}
+			, q_Status = #{q_Status}
+			where
+			q_Num = #{q_Num}
+		]]>      
+	</update>
+	
+	<!-- 1:1 글 삭제 -->
+	<delete id="a_delete" parameterType="int">
+		<![CDATA[
+		delete from question where q_Num = #{q_Num} 
+		]]>  
+	</delete>
+
 </mapper>

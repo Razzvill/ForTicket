@@ -39,94 +39,86 @@
 		<put-attribute name="body" value="/WEB-INF/views/order/ticketrefund.jsp" />
 	</definition>
 	
-	<!-- 관리자 회원 수정 화면-->
-	<definition name="/member/a_Edit" extends="baseLayout1">
-		<put-attribute name="title" value="관리자 회원 수정" />
-		<put-attribute name="body" value="/WEB-INF/views/member/a_Edit.jsp" />
-	</definition>
-	
-	<!-- 관리자 회원 수정 화면-->
-	<definition name="/member/a_EditBus" extends="baseLayout1">
-		<put-attribute name="title" value="관리자 회원 수정" />
-		<put-attribute name="body" value="/WEB-INF/views/member/a_EditBus.jsp" />
-	</definition>
-	
-	<!-- 관리자 회원관리 화면-->
-	<definition name="/member/a_Profile" extends="baseLayout1">
-		<put-attribute name="title" value="관리자 회원관리" />
-		<put-attribute name="body" value="/WEB-INF/views/member/a_Profile.jsp" />
-	</definition>
-	
-	<!-- 관리자 사업자관리 화면-->
-	<definition name="/member/a_ProfileBus" extends="baseLayout1">
-		<put-attribute name="title" value="관리자 사업자관리" />
-		<put-attribute name="body" value="/WEB-INF/views/member/a_ProfileBus.jsp" />
-	</definition>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 고객센터 환불정보refund 화면-->
-	<definition name="/center/refund" extends="baseLayout2">
-		<put-attribute name="title" value="환불정보" />
-		<put-attribute name="body" value="/WEB-INF/views/center/refund.jsp" />
-	</definition>
-	
-	<!-- 고객센터 작성 화면-->
-	<definition name="/center/write" extends="baseLayout2">
-		<put-attribute name="title" value="고객센터 작성" />
-		<put-attribute name="body" value="/WEB-INF/views/center/write.jsp" />
-	</definition>
-	
-	<!-- 고객센터 상세 화면-->
-	<definition name="/center/view" extends="baseLayout2">
-		<put-attribute name="title" value="고객센터 상세화면" />
-		<put-attribute name="body" value="/WEB-INF/views/center/view.jsp" />
-	</definition>
-	
-	<!-- 고객센터 공지사항notice 화면-->
-	<definition name="/center/notice" extends="baseLayout2">
-		<put-attribute name="title" value="공지사항" />
-		<put-attribute name="body" value="/WEB-INF/views/center/notice.jsp" />
-	</definition>
-	
-	<!-- 고객센터 faq 화면-->
-	<definition name="/center/faq" extends="baseLayout2">
-		<put-attribute name="title" value="FAQ" />
-		<put-attribute name="body" value="/WEB-INF/views/center/faq.jsp" />
-	</definition>
-	
-	<!-- 고객센터 1:1 화면-->
-	<definition name="/center/question" extends="baseLayout2">
-		<put-attribute name="title" value="1:1문의" />
-		<put-attribute name="body" value="/WEB-INF/views/center/question.jsp" />
-	</definition>
-	
-	<!-- 고객센터 1:1 작성(회원) -->
-	<definition name="/center/q_write" extends="baseLayout2">
-		<put-attribute name="title" value="1:1문의 작성" />
-		<put-attribute name="body" value="/WEB-INF/views/center/q_write.jsp" />
-	</definition>
-	
+	<!-- 관리자 회원 관리 -->
+		<!-- 관리자 회원 수정 화면-->
+		<definition name="/member/a_Edit" extends="baseLayout1">
+			<put-attribute name="title" value="관리자 회원 수정" />
+			<put-attribute name="body" value="/WEB-INF/views/member/a_Edit.jsp" />
+		</definition>
+		
+		<!-- 관리자 회원 수정 화면-->
+		<definition name="/member/a_EditBus" extends="baseLayout1">
+			<put-attribute name="title" value="관리자 회원 수정" />
+			<put-attribute name="body" value="/WEB-INF/views/member/a_EditBus.jsp" />
+		</definition>
+		
+		<!-- 관리자 회원관리 화면-->
+		<definition name="/member/a_Profile" extends="baseLayout1">
+			<put-attribute name="title" value="관리자 회원관리" />
+			<put-attribute name="body" value="/WEB-INF/views/member/a_Profile.jsp" />
+		</definition>
+		
+		<!-- 관리자 사업자관리 화면-->
+		<definition name="/member/a_ProfileBus" extends="baseLayout1">
+			<put-attribute name="title" value="관리자 사업자관리" />
+			<put-attribute name="body" value="/WEB-INF/views/member/a_ProfileBus.jsp" />
+		</definition>
 
+	<!--고객센터 -->	
+		<!-- 고객센터 환불정보refund 화면-->
+		<definition name="/center/refund" extends="baseLayout2">
+			<put-attribute name="title" value="환불정보" />
+			<put-attribute name="body" value="/WEB-INF/views/center/refund.jsp" />
+		</definition>
+		
+		<!-- 고객센터 작성 화면-->
+		<definition name="/center/write" extends="baseLayout2">
+			<put-attribute name="title" value="고객센터 작성" />
+			<put-attribute name="body" value="/WEB-INF/views/center/write.jsp" />
+		</definition>
+		
+		<!-- 고객센터 상세 화면-->
+		<definition name="/center/view" extends="baseLayout2">
+			<put-attribute name="title" value="고객센터 상세화면" />
+			<put-attribute name="body" value="/WEB-INF/views/center/view.jsp" />
+		</definition>
+		
+		<!-- 고객센터 공지사항notice 화면-->
+		<definition name="/center/notice" extends="baseLayout2">
+			<put-attribute name="title" value="공지사항" />
+			<put-attribute name="body" value="/WEB-INF/views/center/notice.jsp" />
+		</definition>
+		
+		<!-- 고객센터 faq 화면-->
+		<definition name="/center/faq" extends="baseLayout2">
+			<put-attribute name="title" value="FAQ" />
+			<put-attribute name="body" value="/WEB-INF/views/center/faq.jsp" />
+		</definition>
+		
+		<!-- 고객센터 1:1 화면(회원)-->
+		<definition name="/center/question" extends="baseLayout2">
+			<put-attribute name="title" value="1:1문의" />
+			<put-attribute name="body" value="/WEB-INF/views/center/question.jsp" />
+		</definition>
+		
+		<!-- 고객센터 1:1 작성(회원) -->
+		<definition name="/center/q_write" extends="baseLayout2">
+			<put-attribute name="title" value="1:1문의 작성" />
+			<put-attribute name="body" value="/WEB-INF/views/center/q_write.jsp" />
+		</definition>
+		
+		<!-- 고객센터 1:1 화면(관리자) -->
+		<definition name="/center/a_question" extends="baseLayout2">
+			<put-attribute name="title" value="1:1문의(관리자)" />
+			<put-attribute name="body" value="/WEB-INF/views/center/a_question.jsp" />
+		</definition>
+	
+		<!-- 고객센터 1:1 작성(관리자) --> 
+		<definition name="/center/a_write" extends="baseLayout2">
+			<put-attribute name="title" value="1:1문의(관리자)" />
+			<put-attribute name="body" value="/WEB-INF/views/center/a_write.jsp" />
+		</definition>
+		
 
 </tiles-definitions>
 
