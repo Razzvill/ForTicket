@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.forTicket.member.vo.MemberVO;
 import com.forTicket.theater.service.TheaterService;
 import com.forTicket.theater.vo.TheaterVO;
 
@@ -42,6 +43,9 @@ public class TheaterControllerImpl implements TheaterController {
 		List theatersList = theaterService.listTheaters();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("theatersList", theatersList);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		mav.setViewName(viewName);
 		return mav;
 	}
@@ -53,9 +57,13 @@ public class TheaterControllerImpl implements TheaterController {
 			HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("html/text;charset=utf-8");
+		List theatersList = theaterService.listTheaters();
 		String viewName = (String) req.getAttribute("viewName");
 		TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
 		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		mav.addObject("theater", theaterVO);
 		return mav;
 	}
@@ -146,6 +154,9 @@ public class TheaterControllerImpl implements TheaterController {
 		System.out.println("viewName: "+viewName);
 		TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
 		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		mav.addObject("theater", theaterVO);
 		return mav;
 	}
@@ -208,6 +219,8 @@ public class TheaterControllerImpl implements TheaterController {
 		HttpSession session = req.getSession();
 		session.setAttribute("action", action);
 		ModelAndView mav = new ModelAndView();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		mav.addObject("result", result);
 		mav.setViewName(viewName);
 		return mav;

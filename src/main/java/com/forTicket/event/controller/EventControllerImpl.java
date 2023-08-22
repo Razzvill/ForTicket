@@ -29,8 +29,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.forTicket.event.service.EventService;
-import com.forTicket.event.vo.EventVO;
-import com.forTicket.goods.vo.G_imageFileVO;
+import com.forTicket.event.vo.E_imageFileVO;
+import com.forTicket.goods.service.GoodsService;
 import com.forTicket.member.vo.MemberVO;
 
 @Controller("eventController")
@@ -38,15 +38,19 @@ public class EventControllerImpl implements EventController {
 	private static String EVENT_IMAGE_REPO = "C:\\forTicket\\event";
 	@Autowired
 	private EventService eventService;
+	@Autowired
+	private GoodsService goodsService;
 	
 	//이벤트 목록
 	@Override
 	@RequestMapping(value = "/event/listEvent.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listEvent(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName = (String) req.getAttribute("viewName");
-		HttpSession session=req.getSession();
 		List eventList = eventService.listEvents();
 		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		mav.addObject("eventList", eventList);
 		mav.setViewName(viewName);
 		return mav;
@@ -58,6 +62,9 @@ public class EventControllerImpl implements EventController {
 	public ModelAndView A_listEvent(@RequestParam Map<String, String> dateMap, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		
@@ -115,6 +122,9 @@ public class EventControllerImpl implements EventController {
 	public ModelAndView B_listEvent(@RequestParam Map<String, String> dateMap, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		
@@ -174,6 +184,9 @@ public class EventControllerImpl implements EventController {
 		String viewName = (String) req.getAttribute("viewName");
 		Map event = eventService.eventInfo(event_no);
 		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		mav.addObject("event", event);
 		return mav;
 	}
@@ -201,9 +214,9 @@ public class EventControllerImpl implements EventController {
 		String reg_id = memberVO.getMem_id();
 		
 		
-		List<G_imageFileVO> imageFileList = upload(multipartReq);
+		List<E_imageFileVO> imageFileList = upload(multipartReq);
 		if(imageFileList!= null && imageFileList.size()!=0) {
-			for(G_imageFileVO imageFileVO : imageFileList) {
+			for(E_imageFileVO imageFileVO : imageFileList) {
 				imageFileVO.setReg_id(reg_id);
 			}
 			goodsMap.put("imageFileList", imageFileList);
@@ -216,7 +229,7 @@ public class EventControllerImpl implements EventController {
 		try {
 			int goods_id = eventService.addEvent(goodsMap);
 			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(G_imageFileVO  imageFileVO:imageFileList) {
+				for(E_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					File destDir = new File(EVENT_IMAGE_REPO+"\\"+goods_id);
@@ -225,11 +238,11 @@ public class EventControllerImpl implements EventController {
 			}
 			message= "<script>";
 			message += " alert('이벤트 등록에 성공했습니다.');";
-			message +=" location.href='"+multipartReq.getContextPath()+"/goods/a_listGoods.do';";
+			message +=" location.href='"+multipartReq.getContextPath()+"/goods/a_listEvent.do';";
 			message +=("</script>");
 		}catch(Exception e) {
 			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(G_imageFileVO  imageFileVO:imageFileList) {
+				for(E_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					srcFile.delete();
@@ -237,7 +250,7 @@ public class EventControllerImpl implements EventController {
 			}
 			message= "<script>";
 			message += " alert('이벤트 등록에 실패했습니다.');";
-			message +=" location.href='"+multipartReq.getContextPath()+"/goods/addGoodsForm.do';";
+			message +=" location.href='"+multipartReq.getContextPath()+"/goods/addEventForm.do';";
 			message +=("</script>");
 			e.printStackTrace();
 		}
@@ -295,18 +308,33 @@ public class EventControllerImpl implements EventController {
 		String viewName = (String)req.getAttribute("viewName");
 		Map eventMap = eventService.eventInfo(event_no);
 		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
 		mav.addObject("eventMap", eventMap);
 		return mav;
 	}
 
 	//이벤트 수정
 	@Override
-	
+	@RequestMapping(value = "/event/modEvent.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity modEvent(MultipartHttpServletRequest multipartReq, HttpServletResponse resp)
+	public ResponseEntity modEvent(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute,
+            @RequestParam("value") String value, MultipartHttpServletRequest multipartReq, HttpServletResponse resp)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		multipartReq.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		Map eventMap=new HashMap();
+		eventMap.put("event_no", event_no);
+		eventMap.put(attribute, value);
+		eventService.modEvent(eventMap);
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		message  = "mod_success";
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 	
 	//이벤트 등록상태 수정
@@ -317,7 +345,7 @@ public class EventControllerImpl implements EventController {
 			                     @RequestParam("attribute") String attribute,
 			                     @RequestParam("value") String value,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		//System.out.println("modifyGoodsInfo");
+		//System.out.println("modifyEventInfo");
 		
 		Map goodsMap=new HashMap();
 		goodsMap.put("event_no", event_no);
@@ -332,31 +360,156 @@ public class EventControllerImpl implements EventController {
 		return resEntity;
 	}
 	
+	//이벤트 등록 페이지
 	@Override
+	@RequestMapping(value = "/event/addEventForm.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		req.setCharacterEncoding("utf-8");
+		String viewName = (String)req.getAttribute("viewName");
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		String mem_id = member.getMem_id();
+		List goodsList = goodsService.findGoodsById(mem_id);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("member", member);
+		mav.addObject("goodsList", goodsList);
+		return mav;
 	}
 
+	//이벤트 이미지 추가
 	@Override
-	public void addNewGoodsImage(MultipartHttpServletRequest multipartReq, HttpServletResponse response)
+	@RequestMapping(value="/addEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	public void addNewEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
-		// TODO Auto-generated method stub
+		multipartRequest.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		String imageFileName=null;
 		
+		Map goodsMap = new HashMap();
+		Enumeration enu=multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()){
+			String name=(String)enu.nextElement();
+			String value=multipartRequest.getParameter(name);
+			goodsMap.put(name,value);
+		}
+		
+		HttpSession session = multipartRequest.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String reg_id = memberVO.getMem_id();
+		
+		List<E_imageFileVO> imageFileList=null;
+		int event_no=0;
+		try {
+			imageFileList =upload(multipartRequest);
+			if(imageFileList!= null && imageFileList.size()!=0) {
+				for(E_imageFileVO imageFileVO : imageFileList) {
+					event_no = Integer.parseInt((String)goodsMap.get("event_no"));
+					imageFileVO.setEvent_no(event_no);
+					imageFileVO.setReg_id(reg_id);
+				}
+			    eventService.addEventImage(imageFileList);
+				for(E_imageFileVO  imageFileVO:imageFileList) {
+					imageFileName = imageFileVO.getFileName();
+					File srcFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+					File destDir = new File(EVENT_IMAGE_REPO+"\\"+event_no);
+					FileUtils.moveFileToDirectory(srcFile, destDir,true);
+				}
+			}
+		}catch(Exception e) {
+			if(imageFileList!=null && imageFileList.size()!=0) {
+				for(E_imageFileVO  imageFileVO:imageFileList) {
+					imageFileName = imageFileVO.getFileName();
+					File srcFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+					srcFile.delete();
+				}
+			}
+			e.printStackTrace();
+		}
 	}
-
+	
+	//이벤트 이미지 수정
 	@Override
-	public void modGoodsImage(MultipartHttpServletRequest multipartReq, HttpServletResponse response)
+	@RequestMapping(value="/modEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	public void modEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
-		// TODO Auto-generated method stub
+		multipartRequest.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		String imageFileName=null;
 		
+		Map goodsMap = new HashMap();
+		Enumeration enu=multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()){
+			String name=(String)enu.nextElement();
+			String value=multipartRequest.getParameter(name);
+			goodsMap.put(name,value);
+		}
+		
+		HttpSession session = multipartRequest.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String reg_id = memberVO.getMem_id();
+		
+		List<E_imageFileVO> imageFileList=null;
+		int event_no=0;
+		int image_id=0;
+		try {
+			imageFileList =upload(multipartRequest);
+			if(imageFileList!= null && imageFileList.size()!=0) {
+				for(E_imageFileVO imageFileVO : imageFileList) {
+					event_no = Integer.parseInt((String)goodsMap.get("event_no"));
+					image_id = Integer.parseInt((String)goodsMap.get("image_id"));
+					String originalFileName = (String)goodsMap.get("originalFileName");
+					File oldFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+originalFileName);
+					oldFile.delete();
+					imageFileVO.setEvent_no(event_no);
+					imageFileVO.setImage_id(image_id);
+					imageFileVO.setReg_id(reg_id);
+				}
+				eventService.modEventImage(imageFileList);
+				for(E_imageFileVO  imageFileVO:imageFileList) {
+					imageFileName = imageFileVO.getFileName();
+					File srcFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+					File destDir = new File(EVENT_IMAGE_REPO+"\\"+event_no);
+					FileUtils.moveFileToDirectory(srcFile, destDir,true);
+				}
+			}
+		}catch(Exception e) {
+			if(imageFileList!=null && imageFileList.size()!=0) {
+				for(E_imageFileVO  imageFileVO:imageFileList) {
+					imageFileName = imageFileVO.getFileName();
+					File srcFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+					srcFile.delete();
+				}
+			}
+			e.printStackTrace();
+		}		
 	}
 
+	//이벤트 이미지 삭제
 	@Override
-	public void removeGoodsImage(int event_no, int image_id, String imageFileName, HttpServletRequest request,
+	@RequestMapping(value="/removeEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	public void removeEventImage(@RequestParam("event_no") int event_no, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		
+		eventService.removeEventImage(image_id);
+		try{
+			File srcFile = new File(EVENT_IMAGE_REPO+"\\"+event_no+"\\"+imageFileName);
+			srcFile.delete();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping(value="/event/*Form.do", method={RequestMethod.GET, RequestMethod.POST})
+	private ModelAndView form(@RequestParam(value="result", required=false) String result, @RequestParam(value="action", required=false) String action, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String viewName = (String) req.getAttribute("viewName");
+		HttpSession session = req.getSession();
+		session.setAttribute("action", action);
+		ModelAndView mav = new ModelAndView();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		mav.addObject("member", member);
+		mav.addObject("result", result);
+		mav.setViewName(viewName);
+		return mav;
 	}
 
 	protected String calcSearchPeriod(String fixedSearchPeriod){
@@ -399,11 +552,11 @@ public class EventControllerImpl implements EventController {
 		
 		return beginDate+","+endDate;
 	}
-	protected List<G_imageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
-		List<G_imageFileVO> fileList= new ArrayList<G_imageFileVO>();
+	protected List<E_imageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
+		List<E_imageFileVO> fileList= new ArrayList<E_imageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while(fileNames.hasNext()){
-			G_imageFileVO imageFileVO =new G_imageFileVO();
+			E_imageFileVO imageFileVO =new E_imageFileVO();
 			String fileName = fileNames.next();
 			imageFileVO.setFileType(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);

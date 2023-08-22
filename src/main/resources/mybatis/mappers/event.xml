@@ -35,25 +35,20 @@
 	
 	<select id="selectAdminEventList" resultMap="eventResult"
 		parameterType="java.util.Map">
-	    <![CDATA[
 			select * from (
-			   select  ROW_NUMBER() OVER (ORDER BY goods_creDate DESC) as recNum,*
-			       from (select * from event where  date_format(event_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}]]>
-			       <if test="search_type=='goods_name' and  search_type != null">
-			       		AND goods_name=#{search_word}
-			       </if>
-			       <if test="search_type=='event_name' and  search_type != null">
-			       		AND event_name=#{search_word}
-			       </if>
-			       <if test="search_type=='event_type' and  search_type != null">
-			       		AND event_type=#{search_word}
-			       </if>
-			       <![CDATA[ order by event_creDate desc
-					    ) as ttt
-				) as tttt
-			where				
-		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
-    	]]>
+			select  ROW_NUMBER() OVER (ORDER BY event_creDate DESC) as recNum, ttt.*
+			from (select * from event where  date_format(event_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
+				<if test="search_type=='goods_name' and  search_type != null">
+					AND goods_name=#{search_word}
+				</if>
+				<if test="search_type=='event_name' and  search_type != null">
+					AND event_name=#{search_word}
+				</if>
+				<if test="search_type=='event_type' and  search_type != null">
+					AND event_type=#{search_word}
+				</if>
+			order by event_creDate desc ) as ttt ) as tttt where 
+			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
 	</select>
 	
 	<select id="selectEventInfo" resultType="eventVO" parameterType="int">

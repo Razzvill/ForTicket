@@ -15,6 +15,10 @@
 	<meta charset="UTF-8">
 	<title>상품 관리</title>
 	<style>
+	body {
+		width: 1100px;
+		margin: auto;
+	}
 	.search{
 		width: 100%;
 		border: 1px solid #FF6251;
@@ -95,7 +99,7 @@
 		    document.body.appendChild(formObj); 
 			
 		    formObj.method="get";
-		    formObj.action="${contextPath}/member/a_Profile.do";
+		    formObj.action="${contextPath}/goods/a_listGoods.do";
 		    formObj.submit();
 		}
 						
@@ -139,17 +143,17 @@
 		    formObj.appendChild(i_search_word);
 		    document.body.appendChild(formObj); 
 		    formObj.method="get";
-		    formObj.action="${contextPath}/member/a_Profile.do";
+		    formObj.action="${contextPath}/goods/a_listGoods.do";
 		    formObj.submit();
 		}
 		</script>
 </head>
 
 <body>
-<div class="mypage4">
+<div>
 <form method="post" name="frm_list">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left;">회원 정보</h2>
+    	<h2 style="text-align:left;">상품 관리</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>
@@ -302,8 +306,8 @@
 		</td>
 		</tr>
 	</table>
-
 <div class="clear"></div>
+<input type="button" value="등록하기" style="float: right;" onclick="location.href='${contextPath}/goods/addGoodsForm.do'"/>
 
 	<table class="result">
 		<tr>
@@ -318,7 +322,7 @@
 			<td>삭제</td>
 		</tr>
 		<c:choose>
-			<c:when test="${empty goodslist}">
+			<c:when test="${empty goodsList}">
 				<tr>
 					<td colspan="9">
 					<strong>조회된 상품이 없습니다.</strong>

@@ -37,7 +37,7 @@ import com.forTicket.theater.vo.TheaterVO;
 
 @Controller("goodsController")
 public class GoodsControllerImpl implements GoodsController{
-	private static String GOODS_IMAGE_REPO = "C:\\forTicket\\goods";
+	private static final String GOODS_IMAGE_REPO = "C:\\forTicket\\goods";
 	@Autowired
 	private GoodsService goodsService;
 	@Autowired
@@ -48,10 +48,13 @@ public class GoodsControllerImpl implements GoodsController{
 	//상품 목록(사용자)
 	@Override
 	@RequestMapping(value= "/goods/listGoods.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView listGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
+	public ModelAndView listGoods(HttpServletRequest req, HttpServletResponse response) throws Exception {
+		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		List goodsList = goodsService.listGoods();
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		mav.addObject("member", member);
 		mav.addObject("goodsList", goodsList);
 		mav.setViewName(viewName);
 		return mav;
@@ -60,9 +63,13 @@ public class GoodsControllerImpl implements GoodsController{
 	//상품 목록(사업자, 관리자)
 	@Override
 	@RequestMapping(value= "/goods/a_listGoods.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView a_listGoods(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
+	public ModelAndView a_listGoods(@RequestParam Map<String, String> dateMap, HttpServletRequest req, HttpServletResponse response) throws Exception {
+		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
+
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		mav.addObject("member", member);
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		
@@ -121,6 +128,9 @@ public class GoodsControllerImpl implements GoodsController{
 		String viewName=(String)req.getAttribute("viewName");
 		Map goodsMap=goodsService.goodsInfo(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		mav.addObject("member", member);
 		String theater_name = (String)goodsMap.get("goods_place");
 		int theater_id = theaterDAO.selectIdFromName(theater_name);
 		TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
@@ -145,11 +155,10 @@ public class GoodsControllerImpl implements GoodsController{
 			String value=multipartRequest.getParameter(name);
 			goodsMap.put(name,value);
 		}
-		
 		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String reg_id = memberVO.getMem_id();
-		
+		goodsMap.put("mem_id", reg_id);
 		
 		List<G_imageFileVO> imageFileList = upload(multipartRequest);
 		if(imageFileList!= null && imageFileList.size()!=0) {
@@ -168,6 +177,7 @@ public class GoodsControllerImpl implements GoodsController{
 			if(imageFileList!=null && imageFileList.size()!=0) {
 				for(G_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
+					
 					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 					File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
 					FileUtils.moveFileToDirectory(srcFile, destDir,true);
@@ -201,8 +211,13 @@ public class GoodsControllerImpl implements GoodsController{
 	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
-		List theaterList = theaterService.listTheaters();
+		List<TheaterVO> theaterList = theaterService.listTheaters();
 		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		mav.addObject("member", member);
+		mav.addObject("theaterList", theaterList);
+		System.out.println(mav);
 		return mav;
 	}
 
@@ -237,6 +252,9 @@ public class GoodsControllerImpl implements GoodsController{
 		String viewName = (String)req.getAttribute("viewName");
 		Map goodsMap = goodsService.goodsInfo(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		mav.addObject("member", member);
 		mav.addObject("goodsMap", goodsMap);
 		return mav;
 	}
@@ -293,7 +311,7 @@ public class GoodsControllerImpl implements GoodsController{
 		}
 		
 		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String reg_id = memberVO.getMem_id();
 		
 		List<G_imageFileVO> imageFileList=null;
@@ -346,7 +364,7 @@ public class GoodsControllerImpl implements GoodsController{
 		}
 		
 		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String reg_id = memberVO.getMem_id();
 		
 		List<G_imageFileVO> imageFileList=null;
@@ -390,11 +408,12 @@ public class GoodsControllerImpl implements GoodsController{
 	//상품 이미지 삭제
 	@Override
 	@RequestMapping(value="/removeGoodsImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
-	public void removeGoodsImage(@RequestParam("goods_id") int goods_id, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest request,
+	public void removeGoodsImage(@RequestParam("goods_id") int goods_id, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest req,
 			HttpServletResponse response) throws Exception {
 		goodsService.removeGoodsImage(image_id);
 		try{
-			
+			File srcFile = new File(GOODS_IMAGE_REPO+"\\"+goods_id+"\\"+imageFileName);
+			srcFile.delete();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -406,6 +425,8 @@ public class GoodsControllerImpl implements GoodsController{
 		HttpSession session = req.getSession();
 		session.setAttribute("action", action);
 		ModelAndView mav = new ModelAndView();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		mav.addObject("member", member);
 		mav.addObject("result", result);
 		mav.setViewName(viewName);
 		return mav;
@@ -465,13 +486,13 @@ public class GoodsControllerImpl implements GoodsController{
 			fileList.add(imageFileVO);
 			
 			File file = new File(GOODS_IMAGE_REPO +"\\"+ fileName);
-			if(mFile.getSize()!=0){ //File Null Check
-				if(! file.exists()){ //��λ� ������ �������� ���� ���
-					if(file.getParentFile().mkdirs()){ //��ο� �ش��ϴ� ���丮���� ����
-							file.createNewFile(); //���� ���� ����
+			if(mFile.getSize()!=0){
+				if(! file.exists()){
+					if(file.getParentFile().mkdirs()){
+							file.createNewFile();
 					}
 				}
-				mFile.transferTo(new File(GOODS_IMAGE_REPO +"\\"+"temp"+ "\\"+originalFileName)); //�ӽ÷� ����� multipartFile�� ���� ���Ϸ� ����
+				mFile.transferTo(new File(GOODS_IMAGE_REPO +"\\"+"temp"+ "\\"+originalFileName));
 			}
 		}
 		return fileList;

@@ -122,10 +122,16 @@ request.setCharacterEncoding("utf-8");
 		</div><hr>
 	<!-- 중단 상품 나열 -->
 	<div style="padding-top: 50px;">
+	<c:choose>
+	<c:when test="${empty goodsList}">
+		<strong>등록된 상품이 없습니다.</strong>
+	</c:when>
+	<c:otherwise>
 	<table style="width: 100%; border: 0; cellpadding: 0; cellspacing: 0;">
 	<tbody>
 	<tr>
 		<c:forEach var="goods" items="goodsList">
+			<c:if test="${goods.goods_type == type}">
 			<td valign="top" align="left">
 				<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
 					<div class="drama_list">
@@ -146,10 +152,13 @@ request.setCharacterEncoding("utf-8");
 					</div>
 				</a>
 			</td>
+			</c:if>
 		</c:forEach>
 	</tr>
 	</tbody>
 	</table>
+	</c:otherwise>
+	</c:choose>
 </div>	
 </section>
 </body>

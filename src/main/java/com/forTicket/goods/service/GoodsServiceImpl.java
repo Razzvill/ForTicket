@@ -1,6 +1,5 @@
 package com.forTicket.goods.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +12,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.forTicket.goods.dao.GoodsDAO;
-import com.forTicket.goods.vo.GoodsVO;
 import com.forTicket.goods.vo.G_imageFileVO;
+import com.forTicket.goods.vo.GoodsVO;
 
 @Service("goodsService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -30,7 +29,13 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List a_listGoods(Map condMap) throws DataAccessException {
-		List<GoodsVO> goodsList = goodsDAO.selectAdminGoodsList(condMap);
+		List goodsList = goodsDAO.selectAdminGoodsList(condMap);
+		return goodsList;
+	}
+
+	@Override
+	public List findGoodsById(String mem_id) throws DataAccessException {
+		List goodsList = goodsDAO.selectGoodsById(mem_id);
 		return goodsList;
 	}
 
@@ -51,6 +56,7 @@ public class GoodsServiceImpl implements GoodsService {
 		ArrayList<G_imageFileVO> imageFileList = (ArrayList) goodsMap.get("imageFileList");
 		for(G_imageFileVO imageFileVO : imageFileList) {
 			imageFileVO.setGoods_id(goods_id);
+			goodsDAO.insertGoodsImageFile(imageFileVO);
 		}
 		return goods_id;
 	}
