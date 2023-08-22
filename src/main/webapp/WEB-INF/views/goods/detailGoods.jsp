@@ -199,7 +199,7 @@ request.setCharacterEncoding("utf-8");
 <body>
 	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
 		<div class="now_engine" style="margin-right: 680px;">
-			🗂️ <a href="#">공연 &gt; </a><a href="#">{goods.goods_type} </a>
+			🗂️ <a href="#">공연 &gt; </a><a href="#">${goods.goods_type} </a>
 		</div>
 
 		<div
@@ -228,10 +228,10 @@ request.setCharacterEncoding("utf-8");
 			<div class="submit_btn">
 				<c:choose>
 					<c:when test="${goods.goods_seats == 'Y'}">
-						<button onClick="location.href='${contextPath}/member/order_seat.do'" class="">예매하기</button>
+						<button onClick="location.href='${contextPath}/order/order_seat.do'" class="">예매하기</button>
 					</c:when>
 					<c:otherwise>
-						<button onClick="location.href='${contextPath}/member/order_seatNone.do'" class="">예매하기</button>
+						<button onClick="location.href='${contextPath}/order/order_seatNone.do'" class="">예매하기</button>
 					</c:otherwise>
 				</c:choose>
 				<button href="#" class="">관심 ☆</button>

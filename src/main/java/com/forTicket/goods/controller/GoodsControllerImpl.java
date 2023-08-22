@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.forTicket.common.util.ValidUtil;
 import com.forTicket.goods.service.GoodsService;
 import com.forTicket.goods.vo.G_imageFileVO;
 import com.forTicket.goods.vo.GoodsVO;
@@ -129,25 +130,32 @@ public class GoodsControllerImpl implements GoodsController{
 	@RequestMapping(value={"/goods/detailGoods.do"}, method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView detailGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName=(String)req.getAttribute("viewName");
-		
-		Map goodsMap=goodsService.goodsInfo(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
+		
+		G_imageFileVO imageObj = null;
+		GoodsVO goodsObj = null;
+		
+		// 연극 정보 조회
+		Map goodsMap = goodsService.goodsInfo(goods_id);
+		
+		// 이미지
+		if(!ValidUtil.isMapEmpty(goodsMap, "goodsImage")) {
+			imageObj = (G_imageFileVO) goodsMap.get("goodsImage");
+		}
+		
+		// 연극 상세 설정
+		if(!ValidUtil.isMapEmpty(goodsMap, "goods")) {
+			goodsObj = (GoodsVO) goodsMap.get("goods");
+			
+			int theater_id = (Integer)theaterDAO.selectIdFromName(goodsObj.getGoods_place());
+			TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
+			mav.addObject("theater", theaterVO);
+		}
+		
 		mav.addObject("member", member);
-		
-		Map goodsObject = (Map) goodsMap.get("goods");
-				
-		String theater_name = (String)goodsObject.get("goods_place");
-		
-		System.out.println("t_name: "+theater_name);
-		
-		int theater_id = (Integer)theaterDAO.selectIdFromName(theater_name);
-		System.out.println("t_id: "+theater_id);
-		
-		TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
-		mav.addObject("theater", theaterVO);
-		mav.addObject("goods", goodsMap);
+		mav.addObject("goods", goodsObj);
 		return mav;
 	}
 	
