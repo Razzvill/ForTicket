@@ -34,13 +34,34 @@ public interface CenterDAO {
 	//고객센터 환불안내
 	public ModelAndView refund(HttpServletRequest req,HttpServletResponse resp) throws Exception;
 	
-	//고객센터 작성 목록
-	public ArrayList<CenterVO> list(HashMap condMap) throws DataAccessException;
+	//고객센터 환불 목록
+	public ArrayList<CenterVO> re_list(HashMap condMap) throws DataAccessException;
+	
+	//고객센터 공지 목록
+	public ArrayList<CenterVO> no_list(HashMap condMap) throws DataAccessException;
+	
+	//고객센터 faq 목록
+	public ArrayList<CenterVO> faq_list(HashMap condMap) throws DataAccessException;
 
-	//고객센터 1:1시 id가져오기
-	public List<QuestionVO> questionList(String mem_id)  throws DataAccessException;
+	//고객센터 1:1 회원
+	public List<QuestionVO> questionList(String id)  throws DataAccessException;
 	
 	//1:1 글 저장
 	public int addQue(QuestionVO questionVO) throws DataAccessException;
 	
+	//고객센터 1:1 삭제하기 - 회원 
+	public void q_delete(int q_Num) throws Exception; 
+	
+	//고객센터 1:1 관리자
+	public ArrayList<QuestionVO> a_questionList(HashMap condMap)  throws DataAccessException;
+	
+	//1:1 답변페이지 이동 
+	public QuestionVO q_Num(int q_Num) throws DataAccessException;
+	
+	//1:1 답변업데이트
+	public int update_reply(QuestionVO quesitonVO) throws Exception; 
+	
+	//1:1 삭제 - 관리자
+	public void a_delete(int q_Num) throws Exception; 
+
 }

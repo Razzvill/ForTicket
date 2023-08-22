@@ -97,8 +97,11 @@
 				<li class="side_li"><a href="${contextPath}/center/refund.do" class="side2">환불안내</a></li>
 				<li class="side_li"><a href="${contextPath}/center/notice.do" class="side2">공지사항</a></li>
 				<li class="side_li"><a href="${contextPath}/center/faq.do" class="side2">FAQ</a></li>
-				<c:if test="${member.mem_id != null}">
+				<c:if test="${member.mem_id != null && member.type !='admin'}">
 					<li class="side_li"><a href="${contextPath}/center/question.do?mem_id=${member.mem_id }" class="side2">1:1 문의</a></li>
+				</c:if>
+				<c:if test="${member.type =='admin' }">
+					<li class="side_li"><a href="${contextPath}/center/a_question.do" class="side2">1:1 문의</a></li>
 				</c:if>
 			</ul>
 		</c:when>
