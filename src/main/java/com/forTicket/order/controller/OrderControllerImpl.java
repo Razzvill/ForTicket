@@ -47,32 +47,9 @@ public class OrderControllerImpl {
 
 	//예매 페이지-좌석 미선택(날짜선택 등)
 		@RequestMapping(value={"/order/order_seatNone.do"}, method={RequestMethod.GET, RequestMethod.POST})
-		private ModelAndView order_seatNone(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		private ModelAndView order_seatNone(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 			String viewName = (String)req.getAttribute("viewName");
 			ModelAndView mav = new ModelAndView();
-			
-			G_imageFileVO imageObj = null;
-			GoodsVO goodsObj = null;
-			
-			// 연극 정보 조회
-			Map goodsMap = goodsService.goodsInfo(goods_id);
-			
-			// 이미지
-			if(!ValidUtil.isMapEmpty(goodsMap, "goodsImage")) {
-				imageObj = (G_imageFileVO) goodsMap.get("goodsImage");
-			}
-			
-			// 연극 상세 설정
-			if(!ValidUtil.isMapEmpty(goodsMap, "goods")) {
-				goodsObj = (GoodsVO) goodsMap.get("goods");
-				
-				int theater_id = (Integer)theaterDAO.selectIdFromName(goodsObj.getGoods_place());
-				TheaterVO theaterVO = theaterService.theaterInfo(theater_id);
-				mav.addObject("theater", theaterVO);
-			}
-			
-
-			mav.addObject("goods", goodsObj);
 			mav.setViewName(viewName);
 			return mav;
 		}

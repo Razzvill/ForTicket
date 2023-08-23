@@ -78,17 +78,13 @@
 		/* 요소의 내용이 영역을 벗어날 경우 그 부분은 숨겨지게 처리 */ 
 		overflow: hidden;
 		/* 요소의 표시 방법을 -webkit-box로 표시 */
-		display: -webkit-box;
+		display: none;
 		/* webkit-box로 표시된 자식 요소들의 배치 방법 결정 (여기서는 수직) */ 
 		-webkit-box-orient: vertical;
 		/* 요소 내 텍스트를 지정한 라인수까지만 표시 */
 		-webkit-line-clamp: 0;
-		/* 텍스트 양쪽정렬 */ 
-		text-align :justify;
-	   	width: 99%;
-		position: relative;
+		width: 99%;
 		font-size: 15px;
-		padding-top: 7px;
 	}
 	
 	.more-text{
@@ -98,6 +94,12 @@
 		cursor: pointer;
 		font-weight: bold;
 		color: #000;
+		text-align: left;
+	}
+	.section{
+		cursor: pointer;
+		color: black;
+		text-decoration: none;
 	}
 
 </style>
@@ -105,8 +107,8 @@
 <body>
 <div class="wrap_1100">
 	<div class="comm_title">
-    	<div style="text-align:left;">커뮤니티 관리</div>
-    	<div class="comm_title_more"><a href="${contextPath}/community/adminCommunity.do" align="left"> 리뷰조회</a> | 리뷰삭제</div>
+    	<div style="text-align:left;">커뮤니티</div>
+    	<div class="comm_title_more"><a href="${contextPath}/community/u_Commu.do" align="left"> 리뷰조회</a> | <a href="${contextPath}/member/my_reservation.do?mem_id=${member.mem_id }">리뷰작성</a></div>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 30px; margin-bottom:10px;"></div>
     </div>
     <c:choose>
@@ -130,10 +132,11 @@
 				${u_list.c_date }
 				</div>
 			</div>
-	
+		<div>
 		<div class="more-text">
 			${u_list.c_title }
 			<span class="text"> ${u_list.c_content }</span>
+		</div>
 		</div>
 		</c:forEach>
 		</c:otherwise>
@@ -170,7 +173,6 @@
 			});
 		});
 	}
-	
 /* 	// 더보기 텍스트 클릭시 이벤트
 	moreText.addEventListener('click', () => {
 		

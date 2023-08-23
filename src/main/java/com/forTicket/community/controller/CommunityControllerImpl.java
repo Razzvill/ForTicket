@@ -2,6 +2,7 @@ package com.forTicket.community.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.forTicket.center.vo.CenterVO;
+import com.forTicket.center.vo.QuestionVO;
 import com.forTicket.community.service.CommunityService;
 import com.forTicket.community.vo.CommunityVO;
 
@@ -22,6 +23,9 @@ import com.forTicket.community.vo.CommunityVO;
 public class CommunityControllerImpl implements CommunityController{
 	@Autowired
 	private CommunityService communutyService;
+	
+	@Autowired
+	private CommunityVO communityVO;
 	
 	//관리자 커뮤페이지 이동
 	@Override
@@ -117,4 +121,17 @@ public class CommunityControllerImpl implements CommunityController{
 		return mav;
 	}
 
+	//회원 리뷰 작성
+	@Override
+	@RequestMapping(value="/community/commu_wirte.do", method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView commu_wirte(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		return mav;
+	}
+	
+	
 }
