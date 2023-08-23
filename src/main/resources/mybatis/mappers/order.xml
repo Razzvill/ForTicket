@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.forTicket.order.dao.OrderDAO">
+	<resultMap id="orderResult" type="OrderVO">
+		<result property="order_No" column="order_No" />
+		<result property="goods_id" column="goods_id" />
+		<result property="mem_id" column="mem_id" />
+		<result property="s_no" column="s_no" />
+		<result property="orderNum" column="orderNum" />
+		<result property="ordersit" column="ordersit" />
+		<result property="orderName" column="orderName" />
+		<result property="orderPhone1" column="orderPhone1" />
+		<result property="orderPhone2" column="orderPhone2" />
+		<result property="orderEmail" column="orderEmail" />
+		<result property="orderPay" column="orderPay" />
+		<result property="orderCheck" column="orderCheck" />
+		<result property="orderStatus" column="orderStatus" />
+		<result property="orderTicketing" column="orderTicketing" />
+		<result property="orderDate" column="orderDate" />
+		<result property="order_price" column="order_price" />
+	</resultMap>
+
+	
+</mapper>
