@@ -1,5 +1,11 @@
 package com.forTicket.member.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,20 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.forTicket.member.service.MemberService;
+import com.forTicket.member.vo.MailDTO;
 import com.forTicket.member.vo.MemberVO;
 
 @Controller("MemberController")
 public class MemberControllerImpl implements MemberController{
 	@Autowired
 	private MemberService memberService;
-	@Autowired
 	private MemberVO memberVO ;
 	
 
@@ -75,18 +84,6 @@ public class MemberControllerImpl implements MemberController{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		
-		return mav;
-	}
-	
-	//마이페이지 예매내역 이동
-	@RequestMapping(value= "/member/myPage4.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView mypage4(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String)request.getAttribute("viewName");
-
-		HttpSession session=request.getSession();
-				
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
 		return mav;
 	}
     
@@ -171,43 +168,14 @@ public class MemberControllerImpl implements MemberController{
         return mav;
     }
     
-	/*
-	 * // 임시 비밀번호 발급
-	 * 
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/member/findPwd.do", method = RequestMethod.POST)
-	 * public ModelAndView findPwd(@RequestParam("mem_id") String mem_id,
-	 * 
-	 * @RequestParam("email") String email, HttpServletRequest request,
-	 * HttpServletResponse response) throws Exception { ModelAndView mav = new
-	 * ModelAndView();
-	 * 
-	 * // 임시 비밀번호 생성 (간단한 랜덤 문자열로 생성) String temporaryPwd = randomPwd();
-	 * 
-	 * // 임시 비밀번호를 DB에 업데이트하는 로직 (memberService 내부에서 구현)
-	 * memberService.findPwd(mem_id, temporaryPwd);
-	 * 
-	 * // 이메일 서비스를 사용하여 임시 비밀번호 이메일 발송 try {
-	 * MemberService.sendTemporaryPwdEmail(email, temporaryPwd);
-	 * mav.addObject("emailSent", true); } catch (MessagingException e) {
-	 * mav.addObject("emailSent", false); }
-	 * 
-	 * mav.setViewName("/member/findPwdResult"); return mav; }
-	 */
-    // 임시 비밀번호 생성
-    private String randomPwd() {
-        int length = 5; // 임시 비밀번호 길이
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        StringBuilder password = new StringBuilder();
+    // 이메일 보내기
+    @Transactional
+    @PostMapping("/member/sendEmail.do")
+    public String sendEmail(@RequestParam("email") String email) {
+        MailDTO dto = memberService.createMailAndChangePassword(email);
+        memberService.mailSend(dto);
 
-        for (int i = 0; i < length; i++) {
-            int index = (int) (Math.random() * characters.length());
-            password.append(characters.charAt(index));
-        }
-
-        return password.toString() ;
-
+        return "redirect:/member/loginForm.do"; // 수정된 부분
     }
-
+   
 }

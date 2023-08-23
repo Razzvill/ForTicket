@@ -94,14 +94,9 @@ background-image: url("${contextPath}/resources/images/member/user_email.png");
     </section>
 
     <div class="section_wrap">
-      <form action="${contextPath}/member/findIdResult.do" method="post">
-<<<<<<< HEAD
-        <input type="text" name="mem_name" placeholder="이름" maxlength="13" class="input_box icon_phone" required="">
-        <input type="text" name="phone" placeholder="휴대폰 번호" class="input_box icon_email" style="margin-top:15px;" required="">
-=======
+      <form action="${contextPath}/member/sendEmail" name="sendEmail" method="post">
         <input type="text" name="mem_name" placeholder="이름" maxlength="13" class="input_box icon_name" required="">
-        <input type="text" name="phone" placeholder="휴대폰 번호" class="input_box icon_phone" style="margin-top:15px;" required="">
->>>>>>> refs/remotes/origin/master
+        <input type="text" name="phone" id="phone" placeholder="휴대폰 번호" class="input_box icon_phone" style="margin-top:15px;" required="">
         <button class="btn_submit">아이디 찾기</button>
       </form>
     </div>
@@ -113,18 +108,19 @@ background-image: url("${contextPath}/resources/images/member/user_email.png");
       가입한 이메일 주소로<br><span class="title_bold">임시 비밀번호</span>를 보내드려요.
     </section>
 
-    <div class="section_wrap">
-      <form action="${contextPath}/member/findPwd.do" method="post">
-        <input type="text" name="mem_id" placeholder="아이디" class="input_box icon_id" required="">
-        <input type="text" name="email" placeholder="이메일" class="input_box icon_email" style="margin-top:15px;" required="">
-        <button class="btn_submit">임시 비밀번호 발급</button>
-      </form>
+   <div class="section_wrap">
+       <form action="${contextPath}/member/sendEmail.do" method="post">
+          <input type="text" id="mem_id" name="mem_id" placeholder="아이디" class="input_box icon_id" required="">
+          <input type="text" id="email" name="email" placeholder="이메일" class="input_box icon_email" style="margin-top:15px;" required="">
+          <button id="checkEmailButton" class="btn_submit">임시 비밀번호 발급</button>
+       </form>
     </div>
   </div>
 
 </div>
 </body>
 <script>
+//탭설정
     document.addEventListener("DOMContentLoaded", function() {
         const tabFindId = document.querySelector(".tab_find_id");
         const tabFindPass = document.querySelector(".tab_find_pass");
@@ -145,6 +141,58 @@ background-image: url("${contextPath}/resources/images/member/user_email.png");
             showFindId.style.display = "none";
         });
     });
-    
+    //핸드폰유형
+    document.addEventListener('DOMContentLoaded', function() {
+        var phoneInput = document.getElementById('phone');
+        
+        phoneInput.addEventListener('input', function() {
+            var phoneNumber = phoneInput.value;
+            var cleanedPhoneNumber = phoneNumber.replace(/\D/g, ''); // 숫자 이외의 문자 제거
+            var formattedPhoneNumber = formatPhoneNumber(cleanedPhoneNumber);
+            phoneInput.value = formattedPhoneNumber;
+        });
+    function formatPhoneNumber(phoneNumber) {
+        if (phoneNumber.length > 10) {
+            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7, 11);
+        } else if (phoneNumber.length > 6) {
+            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7);
+        } else if (phoneNumber.length > 3) {
+            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3);
+        } else {
+            return phoneNumber;
+        }
+    }
+});
+    //비밀번호 이메일발송
+$("#checkEmailButton").click(function () {
+    const email = $("#email").val();
+    const sendEmailForm = document.forms["/member/sendEmail.do"];  // 수정: 실제 폼의 이름으로 수정
+
+    $.ajax({
+        type: 'post',
+        url: 'emailDuplication',
+        data: {
+            'email': email
+        },
+        dataType: "text",
+        success: function (result) {
+            if (result === "no") {
+                // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
+                passwordMessage.innerText = "임시 비밀번호를 전송 했습니다. 로그인 후 패스워드를 변경 해주세요";
+                passwordMessage.style.display = "block";
+                idMessage.style.display = "none";
+                sendEmailForm.submit();  // 수정: 폼 이름을 변수로 사용
+            } else {
+                idMessage.innerText = "가입되지 않은 이메일입니다.";
+                idMessage.style.display = "block";
+                passwordMessage.style.display = "none";
+            }
+        },
+        error: function () {
+            console.log('에러 체크!!');
+        }
+    });
+});
+	
 </script>
 </html>
