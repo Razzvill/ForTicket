@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.forTicket.mypage.dao.MypageDAO">	
+	<resultMap id="memResult" type="MemberVO">
+		<result property="mem_id" column="mem_id" />
+		<result property="pwd" column="pwd" />
+		<result property="mem_name" column="mem_name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="post" column="post" />
+		<result property="addr1" column="addr1" />
+		<result property="addr2" column="addr2" />
+		<result property="b_number" column="b_number" />
+		<result property="b_name" column="b_name" />
+		<result property="b_phone" column="b_phone" />
+		<result property="checkbox" column="checkbox" />
+		<result property="type" column="type" />
+		<result property="joinDate" column="joinDate" />
+	</resultMap>		
+	
+	<!-- 예매 내역 -->
+	<select id="myReservation" resultMap="memResult"   parameterType="java.util.HashMap">
+		select * from (
+			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
+			from (
+				select * 
+				from member 
+				where b_number IS NULL 
+				and date_format(joinDate,'%Y-%m-%d') between #{beginDate} and #{endDate} 
+				<if test="search_type=='all' and  search_type != null" >
+		        	and (phone=#{search_word} OR mem_name=#{search_word} OR mem_id=#{search_word})
+				</if>
+				<if test="search_type=='mem_name' and  search_type != null" >
+		        	and mem_name=#{search_word}
+				</if>
+				<if test="search_type=='mem_id' and search_type != null">
+		        	and mem_id=#{search_word}
+				</if>
+				<if test="search_type=='mem_phone' and search_type != null">
+					and phone=#{search_word}
+				</if>
+					order by joinDate desc
+					 ) as table1
+				) as table2				
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				      		    
+	</select>
+	
+</mapper>
+	

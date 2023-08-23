@@ -1,5 +1,8 @@
 package com.forTicket.member.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
@@ -19,5 +22,4 @@ public interface MemberDAO {
     public String findId(@Param("mem_name") String mem_name, @Param("phone") String phone) throws DataAccessException;
     public String findByMemberEmail(String email) throws DataAccessException; // 이 부분을 추가해야 합니다.
     public void updatePassword(@Param("mem_id") String mem_id, @Param("pwd") String pwd) throws DataAccessException; // 이 부분도 추가해야 합니다
-
 }

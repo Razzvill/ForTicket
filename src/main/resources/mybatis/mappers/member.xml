@@ -112,5 +112,5 @@
         WHERE mem_id = #{mem_id}
     ]]>
     </update>
-
+	
 </mapper>
