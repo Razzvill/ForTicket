@@ -25,7 +25,7 @@ public class YourApplicationClass {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.ssl.trust", "smtp.naver.com"); // Trust the SMTP server's certificate
         props.put("mail.debug", "true"); // Enable debug output
-        
+          
         return mailSender;
     }
 }
