@@ -19,4 +19,7 @@ public interface CommunityController {
 	//회원 커뮤니티페이지
 	public ModelAndView u_Commu(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
+	//회원 리뷰 작성 페이지
+	public ModelAndView commu_wirte(HttpServletRequest req,HttpServletResponse resp) throws Exception;
+
 }

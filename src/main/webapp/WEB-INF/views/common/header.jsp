@@ -159,7 +159,7 @@
 			<li class="top1"><span id="user">일반회원</span>&nbsp;</li>
 			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="#">마이페이지<br></a></li>
+			<li><a class="top" href="${contextPath }/member/my_reservation.do">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
@@ -173,7 +173,7 @@
 			<li class="top1"><span id="business">사업자</span>&nbsp;</li>
 			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="#">마이페이지<br></a></li>
+			<li><a class="top" href="${contextPath }/member/my_reservation.do">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
@@ -253,12 +253,12 @@
 	<c:when test="${isLogOn == true && type=='U'}">
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 			<ul class="gnb_nav">
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?goodsType=drama" class="button" onclick="changeStyle(this)">연극</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?goodsType=musical" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?goodsType=concert" class="button" onclick="changeStyle(this)">공연</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/event/listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/community/u_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/goods/listGoods.do?goodsType=drama" class="button" onclick="changeStyle(this)">연극</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/goods/listGoods.do?goodsType=musical" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/goods/listGoods.do?goodsType=concert" class="button" onclick="changeStyle(this)">공연</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/event/listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/community/u_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 			</ul>
 		</div>
@@ -266,14 +266,14 @@
 	<c:otherwise>
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 			<ul class="gnb_nav">
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?goodsType=drama" class="button" onclick="changeStyle(this)">연극</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?goodsType=musical" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/goods/listGoods.do?goodsType=concert" class="button" onclick="changeStyle(this)">공연</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/goods/listGoods.do?goodsType=drama" class="button" onclick="changeStyle(this)">연극</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/goods/listGoods.do?goodsType=musical" class="button" onclick="changeStyle(this)">뮤지컬</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/goods/listGoods.do?goodsType=concert" class="button" onclick="changeStyle(this)">공연</a></li>
 				
-				<li style="padding-right:105px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				
-				<li style="padding-right:105px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li style="padding-right:105px;"><a href="${contextPath}/community/u_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li style="padding-right:100px;"><a href="#" class="button" onclick="changeStyle(this)">이벤트</a></li>
+				<li style="padding-right:100px;"><a href="${contextPath}/community/u_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 			</ul>
 		</div>
