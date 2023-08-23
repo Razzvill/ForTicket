@@ -92,28 +92,26 @@
         SELECT mem_id
         FROM member
         WHERE mem_name = #{mem_name}
-<<<<<<< HEAD
         AND phone = #{phone}
-=======
-        AND phone = #{phone}
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/master
     ]]>
-</select>
-
-   <select id="findPwd" parameterType="map" resultType="string">
+    </select>
+    <!-- 이메일로 회원 아이디 조회 -->
+    <select id="findByMemberEmail" parameterType="String" resultType="String">
     <![CDATA[
-        SELECT pwd
+        SELECT mem_id
         FROM member
-        WHERE mem_id = #{mem_id}
-<<<<<<< HEAD
-        AND email = #{email}
-=======
-        AND email = #{email}
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/master
+        WHERE email = #{email}
     ]]>
-</select>
+    </select>
+
+    <!-- 회원 비밀번호 업데이트 -->
+    <update id="updatePassword" parameterType="map">
+    <![CDATA[
+        UPDATE member
+        SET pwd = #{pwd}
+        WHERE mem_id = #{mem_id}
+    ]]>
+    </update>
+
    
 </mapper>
