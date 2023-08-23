@@ -44,15 +44,14 @@ public class GoodsServiceImpl implements GoodsService {
 		Map goodsMap = new HashMap();
 		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(goods_id);
 		List imageFileList = goodsDAO.selectGoodsImageFileList(goods_id);
-		G_imageFileVO imageObj = null;
+		System.out.println("fileName: "+goodsVO.getGoods_fileName());
+		/*
+		 * G_imageFileVO imageObj = null; if(!imageFileList.isEmpty()) { imageObj =
+		 * (G_imageFileVO) imageFileList.get(0); } goodsMap.put("goodsImage", imageObj);
+		 */
 		
-		if(!imageFileList.isEmpty()) {
-			imageObj = (G_imageFileVO) imageFileList.get(0);
-		}
-		
-		goodsMap.put("goods", goodsVO);
-		goodsMap.put("goodsImage", imageObj);
-		goodsMap.put("imageFileList", imageFileList);
+		goodsMap.put("goodsVO", goodsVO);
+		goodsMap.put("imageList", imageFileList);
 		return goodsMap;
 	}
 
