@@ -37,6 +37,8 @@ dependencies {
     implementation 'net.coobird:thumbnailator:0.4.8'
     
     implementation group: 'org.glassfish', name: 'javax.annotation', version: '10.0-b28'
+    //¿Ã∏ﬁ¿œ
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {

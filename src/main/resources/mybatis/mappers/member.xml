@@ -78,6 +78,7 @@
 	</select>
 	
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
+<<<<<<< HEAD
 	<![CDATA[ 
 		select if(count(*)=1, 'true', 'false')
 		from member
@@ -103,4 +104,40 @@
 	]]>
 	</select>
 	   
+=======
+     <![CDATA[ 
+     	select if(count(*)=1, 'true', 'false')
+	   from member
+	   where mem_id = #{id}
+	   ]]>
+   </select>
+   
+   <select id="findId" parameterType="map" resultType="string">
+    <![CDATA[
+        SELECT mem_id
+        FROM member
+        WHERE mem_name = #{mem_name}
+        AND phone = #{phone}
+    ]]>
+    </select>
+    <!-- 이메일로 회원 아이디 조회 -->
+    <select id="findByMemberEmail" parameterType="String" resultType="String">
+    <![CDATA[
+        SELECT mem_id
+        FROM member
+        WHERE email = #{email}
+    ]]>
+    </select>
+
+    <!-- 회원 비밀번호 업데이트 -->
+    <update id="updatePassword" parameterType="map">
+    <![CDATA[
+        UPDATE member
+        SET pwd = #{pwd}
+        WHERE mem_id = #{mem_id}
+    ]]>
+    </update>
+
+   
+>>>>>>> refs/remotes/origin/jjmm
 </mapper>
