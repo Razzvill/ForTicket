@@ -108,6 +108,7 @@ request.setCharacterEncoding("utf-8");
 			공연
 		</c:otherwise>
 	</c:choose>
+		</div><hr>
 	<div class="main_title_more">
 			<ul class="category_sort">
 				<li><a href="#"> 인기순 </a></li>
@@ -119,7 +120,6 @@ request.setCharacterEncoding("utf-8");
 				<li><a href="#"> 최고가순 </a></li>
 			</ul>
 		</div>
-		</div><hr>
 	<!-- 중단 상품 나열 -->
 	<div style="padding-top: 50px;">
 	<c:choose>
@@ -145,7 +145,7 @@ request.setCharacterEncoding("utf-8");
 							<div>
 								<div class="price">
 								<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-								<span style="padding-right:30px;">${goods.goods_price}</span>
+								<span style="padding-right:30px;">${goods.goods_price} 원</span>
 								</div>
 							</div>
 							</div>

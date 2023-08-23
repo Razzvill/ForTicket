@@ -144,49 +144,6 @@ request.setCharacterEncoding("utf-8");
 				style="width: 482px; border-radius: 10px;">
 			<div class="info_bg_gradient"></div>
 
-			<%-- <!-- 포스터 아래 좌석 정보영역 -->
-			<div style="position: absolute; top: 500px; left: 150px;">
-
-				<c:set var="seatCnt" value="1"></c:set>
-				<c:set var="isSeat" value="false"></c:set>
-				<!-- true : 예약완료, false : 예약 전 -->
-
-				<div class="div2">
-					<table class="table2">
-						<c:forEach var="i" begin="1" end="5" step="1">
-							<tr align="center">
-								<c:forEach var="j" begin="1" end="5" step="1">
-									<td class="c2"><c:choose>
-											<c:when test="${empty findByMovie}">
-												<a class="a1"
-													href="${contextPath}/movie001/save.do?moviename=${movieTitle}&id=${movieId}&seat=${seatCnt}">${seatCnt}</a>
-											</c:when>
-											<c:otherwise>
-												<c:forEach var="n" items="${findByMovie }">
-													<c:choose>
-														<c:when test="${n.seat == seatCnt}">
-															<c:set var="isSeat" value="true" />
-														</c:when>
-													</c:choose>
-												</c:forEach>
-												<c:choose>
-													<c:when test="${isSeat}">
-														<div id="c1">X</div>
-													</c:when>
-													<c:otherwise>
-														<a class="a1"
-															href="${contextPath}/movie001/save.do?moviename=${movieTitle}&id=${movieId}&seat=${seatCnt}">${seatCnt}</a>
-													</c:otherwise>
-												</c:choose>
-												<c:set var="isSeat" value="false" />
-											</c:otherwise>
-										</c:choose> <c:set var="seatCnt" value="${seatCnt + 1}" /></td>
-								</c:forEach>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div> --%>
 		</div>
 
 

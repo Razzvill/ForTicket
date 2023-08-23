@@ -39,7 +39,7 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/goods/download.do")
-	protected void g_download(@RequestParam("goods_image") String goods_fileName, @RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
+	protected void g_download(@RequestParam("goods_fileName") String goods_fileName, @RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
 			throws Exception {
 		OutputStream out = resp.getOutputStream();
 		String downFile = GOODS_IMAGE_REPO + "\\" + goods_id+"\\"+goods_fileName;
