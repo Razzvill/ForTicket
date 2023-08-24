@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:set var="goods" value="${goodsMap.goodsVO}" />
+<c:set var="imageList" value="${goodsMap.imageList }" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
@@ -206,7 +208,6 @@ request.setCharacterEncoding("utf-8");
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
 			<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}"
 				style="width: 482px; border-radius: 10px;">
-			<div class="info_bg_gradient"></div>
 		</div>
 		
 		<!-- 오른쪽  -->
@@ -326,8 +327,13 @@ request.setCharacterEncoding("utf-8");
 							<p>${goods.goods_info}</p>
 						</div>
 					</div>
-
+					
 					<!-- 상세이미지 -->
+					<c:forEach var="image" items="${imageList }">
+						<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${image.fileName}">
+					</c:forEach>
+
+					<%-- <!-- 상세이미지 -->
 					<div class="info_detail_poster" alt="상세">
 						<div class="info_detail_gradient"></div>
 						<div class="info_detail_btn" onclick="showMoreDetailImage()">
@@ -350,7 +356,7 @@ request.setCharacterEncoding("utf-8");
                 }
               }
           </script>
-					</div>
+					</div> --%>
 					<div class="main_img"></div>
 
 					<!-- 유의사항 -->

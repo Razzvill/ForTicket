@@ -1,5 +1,11 @@
 package com.forTicket.member.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -78,18 +84,6 @@ public class MemberControllerImpl implements MemberController{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		
-		return mav;
-	}
-	
-	//마이페이지 예매내역 이동
-	@RequestMapping(value= "/member/myPage4.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView mypage4(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String)request.getAttribute("viewName");
-
-		HttpSession session=request.getSession();
-				
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
 		return mav;
 	}
     
@@ -183,5 +177,5 @@ public class MemberControllerImpl implements MemberController{
 
         return "redirect:/member/loginForm.do"; // 수정된 부분
     }
-
+   
 }

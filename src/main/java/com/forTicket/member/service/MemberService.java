@@ -1,5 +1,8 @@
 package com.forTicket.member.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.springframework.dao.DataAccessException;
 
 import com.forTicket.member.vo.MailDTO;
@@ -18,4 +21,5 @@ public interface MemberService {
     public String getTempPassword() throws DataAccessException;
     public void mailSend(MailDTO mailDTO) throws DataAccessException;
     public void updatePassWord(String mem_id, String pwd) throws DataAccessException;
+    
 }

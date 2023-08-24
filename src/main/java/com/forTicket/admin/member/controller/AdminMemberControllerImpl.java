@@ -339,8 +339,8 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		}
 		return resEnt;
 	}
-
-	protected String calcSearchPeriod(String fixedSearchPeriod){
+	
+	public String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
 		String endDate=null;
 		String endYear=null;

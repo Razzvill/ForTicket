@@ -159,7 +159,7 @@
 			<li class="top1"><span id="user">일반회원</span>&nbsp;</li>
 			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="${contextPath }/member/my_reservation.do">마이페이지<br></a></li>
+			<li><a class="top" href="${contextPath }/member/myreservation.do">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
@@ -173,7 +173,7 @@
 			<li class="top1"><span id="business">사업자</span>&nbsp;</li>
 			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="${contextPath }/member/my_reservation.do">마이페이지<br></a></li>
+			<li><a class="top" href="${contextPath }/member/myreservation.do">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
