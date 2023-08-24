@@ -21,23 +21,24 @@
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 	</definition>
 	
-	<!-- 예매 내역 조회 -->
-	<definition name="/member/myPage4" extends="baseLayout1">
-		<put-attribute name="title" value="로그인" />
-		<put-attribute name="body" value="/WEB-INF/views/member/myPage4.jsp" />
-	</definition>
-	
-	<!-- 예매 상세 내역 조회 -->
-	<definition name="/order/ticketDetail" extends="baseLayout1">
-		<put-attribute name="title" value="예매 상세" />
-		<put-attribute name="body" value="/WEB-INF/views/order/ticketDetail.jsp" />
-	</definition>
-	
-	<!-- 환불 신청 화면-->
-	<definition name="/order/ticketrefund" extends="baseLayout1">
-		<put-attribute name="title" value="환불 신청" />
-		<put-attribute name="body" value="/WEB-INF/views/order/ticketrefund.jsp" />
-	</definition>
+	<!-- 회원 마이페이지 -->
+		<!-- 예매 내역 조회 -->
+		<definition name="/member/my_reservation" extends="baseLayout1">
+			<put-attribute name="title" value="로그인" />
+			<put-attribute name="body" value="/WEB-INF/views/member/my_reservation.jsp" />
+		</definition>
+		
+		<!-- 예매 상세 내역 조회 -->
+		<definition name="/order/ticketDetail" extends="baseLayout1">
+			<put-attribute name="title" value="예매 상세" />
+			<put-attribute name="body" value="/WEB-INF/views/order/ticketDetail.jsp" />
+		</definition>
+		
+		<!-- 환불 신청 화면-->
+		<definition name="/order/ticketrefund" extends="baseLayout1">
+			<put-attribute name="title" value="환불 신청" />
+			<put-attribute name="body" value="/WEB-INF/views/order/ticketrefund.jsp" />
+		</definition>
 	
 	<!-- 관리자 회원 관리 -->
 		<!-- 관리자 회원 수정 화면-->
@@ -119,6 +120,12 @@
 			<put-attribute name="body" value="/WEB-INF/views/center/a_write.jsp" />
 		</definition>
 		
+	<!-- 마이페이지 -->
+		<!-- 예매 마이페이지(회원) --> 
+		<definition name="/member/myreservation" extends="baseLayout2">
+			<put-attribute name="title" value="마이페이지" />
+			<put-attribute name="body" value="/WEB-INF/views/member/myreservation.jsp" />
+		</definition>
 
 </tiles-definitions>
 

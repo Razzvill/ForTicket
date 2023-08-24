@@ -13,14 +13,8 @@ import com.forTicket.member.vo.MemberVO;
 
 public interface MemberController {
 	public ModelAndView insertMember(@ModelAttribute("info") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
-           HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView findIdResult(String mem_name, String phone, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	/*
-	 * public ModelAndView findPwd(String mem_id, String email, HttpServletRequest
-	 * request, HttpServletResponse response) throws Exception;
-	 */
 	
-
 }

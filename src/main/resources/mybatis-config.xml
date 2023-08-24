@@ -14,5 +14,6 @@
 		<mapper resource="mybatis/mappers/community.xml"/>
 		<mapper resource="mybatis/mappers/order.xml"/>
 		<mapper resource="mybatis/mappers/schedule.xml"/>
+		<mapper resource="mybatis/mappers/mypage.xml"/>
 	</mappers>
 </configuration>
