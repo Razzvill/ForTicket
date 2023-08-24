@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<c:set var="selectedDate" value="${requestScope.selectScheduleDate}" />
 <%
 request.setCharacterEncoding("utf-8");
 %>
@@ -20,24 +20,28 @@ request.setCharacterEncoding("utf-8");
 <script type="text/javascript"
 	src="${contextPath}/resources/js/ajaxtabs.js"></script>
 
-<script>
-	$(function() {
-		$("#datepicker").datepicker();
-	});
-
-	$("#datepicker").datepicker(
-			{
-				dateFormat : 'yy-mm-dd',
-				yearSuffix : '년',
-				showMonthAfterYear : true,
-				changeMonth : true,
-				dayNames : [ '월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일' ],
-				dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-				monthNamesShort : [ '1', '2', '3', '4', '5', '6', '7', '8',
-						'9', '10', '11', '12' ],
-				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-						'9월', '10월', '11월', '12월' ]
-			});
+<script type="text/javascript">
+var goods_id
+var selectScheduleDate = "";
+/* 상영관 출력 */
+function getScRoomTime(){
+		var output = "";
+		
+		$.ajax({
+			type : "get",
+			url : "${contextPath}/schedule/getSelectedSchedule.do",
+			data : {"goods_id" : goods_id, "s_date" : selectScheduleDate},
+			dataType : "json",
+			async : false,
+			success : function(result){
+					for(var i=0; i<result.length; i++){
+						output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+result[i]+"\" onclick=\"ScRoomTime(this)\" >"+result[i]+"</label>";
+						output += "<input class=\"btn-check\" id=\""+result[i]+"\" type=\"checkbox\" name=\"s_time\" value=\""+result[i]+"\"><br>";
+					}
+			}
+			$("#scRoomAndTime").html(output);
+		});
+}
 </script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -135,12 +139,12 @@ request.setCharacterEncoding("utf-8");
 <body>
 	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
 		<div class="now_engine" style="margin-right: 680px;">
-			🗂️ <a href="#">공연 &gt; </a><a href="#">연극 &gt; </a>
+			🗂️ <a href="#">${goods.goods_type } &gt; </a><a href="#">${goods.goods_genre } &gt; </a>
 		</div>
 
 		<div
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
-			<img src="${contextPath}/resources/images/act1.jpg"
+			<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}"
 				style="width: 482px; border-radius: 10px;">
 			<div class="info_bg_gradient"></div>
 
@@ -151,50 +155,45 @@ request.setCharacterEncoding("utf-8");
 			<div id="calendar_popup" class="calendar_popup_02 choice_day"
 				style="">
 				<div id="datepicker"></div>
+				<script type="text/javascript">
+						$(function() {
+							$("#datepicker").datepicker();
+						});
+						$("#datepicker").datepicker({
+							dateFormat : 'yy-mm-dd',
+							yearSuffix : '년',
+							showMonthAfterYear : true,
+							changeMonth : true,
+							dayNames : [ '월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일' ],
+							dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+							monthNamesShort : [ '1', '2', '3', '4', '5', '6', '7', '8',
+									'9', '10', '11', '12' ],
+							monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+									'9월', '10월', '11월', '12월' ],
+							onSelect:function(selDate){
+								console.log(selDate);
+								var formattedDate = $.datepicker.formatDate('MM.dd', new Date(selDate));
+			                    $(".select_name").text(formattedDate);
+								$("#scDate").val(selDate);
+								selectScheduleDate = selDate;
+								getScRoomTime();
+							}
+						})
+					</script>
 				<form method="post" id="regiform" name="regiform" action="#">
+					<input type="hidden" name="s_date" id="scDate" value="">
 					<div class="time_select selectBox" style="display: block;">
 						<p class="selectbox_title" style="display: block;">
 							시간선택
-							<button type="button" class="time_btn" value="14:30">
-								<span class="option_title">14:30</span>
-							</button>
-							<button type="button" class="time_btn active" value="16:45">
-								<span class="option_title">16:45</span>
-							</button>
-							<button type="button" class="time_btn" value="19:00">
-								<span class="option_title">19:00</span>
-							</button>
-						</p>
-					</div>
-					<div class="title1_select selectBox" style="display: none;">
-						<p class="selectbox_title">옵션선택</p>
-					</div>
-					<div class="title2_select selectBox" style="display: block;">
-						<p class="selectbox_title" style="display: block;">
-							권종선택
-							<button type="button" class="title2_btn btn_number_264681 active"
-								name="264681"
-								value="{&quot;number&quot;:&quot;264681&quot;,&quot;product_number&quot;:&quot;4343&quot;,&quot;run_date&quot;:&quot;2023-08-24 16:45:00&quot;,&quot;title1&quot;:&quot;★타임세일★&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;timesale&quot;,&quot;full_price&quot;:&quot;50000&quot;,&quot;sale_price&quot;:&quot;16800&quot;,&quot;jaego&quot;:&quot;2&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2023-08-24 16:35:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-								<span style="color: #ff4b4b;" class="option_title">★타임세일★</span><span
-									class="title2_left">남은티켓 2매</span><span style="color: #ff4b4b;"
-									class="title2_price">16,800원</span>
-							</button>
-							<button type="button" class="title2_btn btn_number_257975"
-								name="257975"
-								value="{&quot;number&quot;:&quot;257975&quot;,&quot;product_number&quot;:&quot;4343&quot;,&quot;run_date&quot;:&quot;2023-08-24 16:45:00&quot;,&quot;title1&quot;:&quot;일반&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;50000&quot;,&quot;sale_price&quot;:&quot;18900&quot;,&quot;jaego&quot;:&quot;30&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2023-08-24 16:35:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-								<span class="option_title">일반</span><span class="title2_left">남은티켓
-									30매</span><span class="title2_price">18,900원</span>
-							</button>
+							<div id="scRoomAndTime"></div>
 						</p>
 					</div>
 					<div class="choice_select" style="display: block;">
 						<p class="title">수량선택</p>
 						<div class="select_list">
 							<div class="select_item" id="264681">
-								<input type="hidden" name="cate_title[]" class="cate_title"
-									value="8.24[목] 16:45 ★타임세일★">
-								<div class="select_name" style="float: left;">8.24[목]
-									16:45&nbsp;★타임세일★&nbsp;</div>
+								<div class="select_name" style="float: left;">
+									
 								<div style="float: right; display: inline-block;">
 									<a href="#item_close" class="close" data-store="264681"><span
 										class="remove_ticket"

@@ -9,7 +9,7 @@ public class ScheduleVO {
 	private int s_no;
 	private int goods_id;
 	private int theater_id;
-	private Date s_date;
+	private String s_date;
 	private String goods_name;
 	
 	public int getS_no() {
@@ -30,10 +30,10 @@ public class ScheduleVO {
 	public void setTheater_id(int theater_id) {
 		this.theater_id = theater_id;
 	}
-	public Date getS_date() {
+	public String getS_date() {
 		return s_date;
 	}
-	public void setS_date(Date s_date) {
+	public void setS_date(String s_date) {
 		this.s_date = s_date;
 	}
 	public String getGoods_name() {

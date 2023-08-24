@@ -307,8 +307,9 @@
 		</tr>
 	</table>
 <div class="clear"></div>
+<c:if test="${type == 'B' }">
 <input type="button" value="등록하기" style="float: right;" onclick="location.href='${contextPath}/goods/addGoodsForm.do'"/>
-
+</c:if>
 	<table class="result">
 		<tr>
 			<td>상품번호</td>
