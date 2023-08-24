@@ -10,6 +10,7 @@ public class ScheduleVO {
 	private int goods_id;
 	private int theater_id;
 	private Date s_date;
+	private String goods_name;
 	
 	public int getS_no() {
 		return s_no;
@@ -34,6 +35,12 @@ public class ScheduleVO {
 	}
 	public void setS_date(Date s_date) {
 		this.s_date = s_date;
+	}
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
 	}
 	
 }

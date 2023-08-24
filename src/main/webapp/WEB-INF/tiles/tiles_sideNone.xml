@@ -182,6 +182,13 @@
 			<put-attribute name="title" value="리뷰 작성" />
 			<put-attribute name="body" value="/WEB-INF/views/community/commu_wirte.jsp" />
 		</definition>
+		
+	<!-- 스케줄 관련 -->
+		<!-- 스케줄 등록(사업자, 관리자)-->
+		<definition name="/schedule/addScheduleForm" extends="baseLayout">
+			<put-attribute name="title" value="스케줄 등록" />
+			<put-attribute name="body" value="/WEB-INF/views/schedule/addScheduleForm.jsp" />
+		</definition>
 </tiles-definitions>
 
 
