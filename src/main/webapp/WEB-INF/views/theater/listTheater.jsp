@@ -126,7 +126,7 @@
 <body>
 <div class="wrap_1100">
 <div class="main_title">공연장 목록
-<c:if test="${isLogOn == true && member.mem_id == 'admin' }">
+<c:if test="${isLogOn == true && type == 'admin' }">
 <input type="button" value="등록하기" class="btn1" onclick="location.href='${contextPath}/theater/theaterForm.do'" />
 </c:if>
 </div><hr>

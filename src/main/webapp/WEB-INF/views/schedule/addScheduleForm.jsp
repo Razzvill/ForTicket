@@ -18,9 +18,41 @@ request.setCharacterEncoding("utf-8");
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/calendar_theme.css">
 <style>
-	div #row1 {
-		display: inline-block;
-	}
+ .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1100px;
+    margin: auto;
+    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 10px;
+  }
+  #frm1 {
+  	justify-content: center;
+  }
+  .item {
+    box-sizing: border-box;
+    padding: 10px;
+    border: 0px solid #ccc;
+  }
+
+  .item-28 {
+    width: 28%;
+  }
+
+  .item-38 {
+    width: 38%;
+  }
+
+  .item-58 {
+    width: 58%;
+  }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -93,7 +125,6 @@ request.setCharacterEncoding("utf-8");
 				data : {"theater_id" : selectTheaterCode, "s_date" : selectScheduleDate},
 				dataType : "json",
 				success : function(result){
-					for(var thTime=0; thTime<thTimeList.length; thTime++){
 						var registTime = [];
 						var registGoodsName = [];
 						for(var i=0; i<result.length; i++){
@@ -103,13 +134,12 @@ request.setCharacterEncoding("utf-8");
 						for(var thTime=0; thTime<thTimeList.length; thTime++){
 							if(registTime.includes(thTimeList[thTime])){
 								var mvNameIdx = registTime.indexOf(thTimeList[thTime]);
-								output += "<button disabled title=\""+registGoodsName[mvNameIdx]+"\" class=\"btn btn-sm btn-danger font-weight-bold mx-1 my-2\" for=\""+thTimeList[thTime]+"\">"+thTimeList[thTime]+"</button>";
+								output += "<button disabled class=\"btn btn-sm btn-danger font-weight-bold mx-1 my-2\" for=\"" + thTimeList[thTime] + "\">" + thTimeList[thTime] + "</button>";
 							} else {
-								output += "<input class=\"btn_dNone\" id=\""+thTimeList[thTime]+"\" type=\"checkbox\" name=\"s_date\" value=\""+thTimeList[thTime]+"\">";
-								output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+thTimeList[thTime]+"\" onclick=\"ScRoomTime(this)\">"+thTimeList[thTime]+"</label>"; 
+								output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+thTimeList[thTime]+"\" onclick=\"ScRoomTime(this)\" >"+thTimeList[thTime]+"</label>";
+								output += "<input class=\"btn-check\" id=\""+thTimeList[thTime]+"\" type=\"checkbox\" name=\"s_time\" value=\""+thTimeList[thTime]+"\">";
 							}
 						}
-					}
 					$("#scRoomAndTime").html(output);
 				}
 			});
@@ -137,7 +167,7 @@ request.setCharacterEncoding("utf-8");
 			alert("날짜가 선택되지 않았습니다.");
 			return false;
 		}
-		var check = $("input[name=s_date]").is(":checked");
+		var check = $("input[name=s_time]").is(":checked");
 		console.log(check);
 		if(!check){
 			alert("공연 시간이 선택되지 않았습니다.");
@@ -147,9 +177,10 @@ request.setCharacterEncoding("utf-8");
 </script>
 </head>
 <body>
-<form action="${contextPath}/schedule/addSchedule.do" method="get" onsubmit="return scFormCheck()">
-	<div id="row1">
-		<div class="col-xl-4 col-lg-4">
+<div class="container">
+<form id="frm1" action="${contextPath}/schedule/addSchedule.do" method="get" onsubmit="return scFormCheck()">
+	<div class="row">
+		<div class="item item-28">
 			<div class="card shadow mb-2">
 				<div class="card-header py-3" style="text-align: center">
 					<h6 class="m-0 font-weight-bold text-primary">상품 선택</h6>
@@ -161,7 +192,7 @@ request.setCharacterEncoding("utf-8");
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-4 col-lg-4">
+		<div class="item item-28">
 			<div class="card shadow mb-2">
 				<div class="card-header py-3" style="text-align: center">
 					<h6 class="m-0 font-weight-bold text-primary">공연장 선택</h6>
@@ -173,7 +204,7 @@ request.setCharacterEncoding("utf-8");
 				</div>
 			</div>
 		</div>
-		<div id="calendar_popup" class="col-xl-4 col-lg-4 calendar_popup_02 choice_day">
+		<div id="calendar_popup" class="item item-38 calendar_popup_02 choice_day">
 			<div class="card shadow mb-2">
 				<div class="card-header py-3" style="text-align: center">
 					<h6 class="m-0 font-weight-bold text-primary">날짜 선택</h6>
@@ -208,25 +239,25 @@ request.setCharacterEncoding("utf-8");
 			</div>
 		</div>
 	</div>
-	<div id="row1">
-		<div class="col-xl-8 col-lg-4">
-			<div class="card shadow mb-2">
+	<div class="row">
+		<div class="item item-58">
+			<div class="card shadow mb-2" style="display=inline;">
 				<div class="card-header py-3" style="text-align: center">
 					<h6 class="m-0 font-weight-bold text-primary">공연 시간</h6>
 				</div>
-			</div>
-			<div class="card-body text-center" id="scRoomAndTime">
+				<div class="card-body text-center" id="scRoomAndTime">
+				</div>
 			</div>
 		</div>
-		<div class="col-xl-4 col-lg-4">
+		<div class="item item-38">
 			<div class="card shadow mb-2">
 				<div class="card-header py-3" style="text-align: center">
 					<h6 class="m-0 font-weight-bold text-primary">스케줄 등록</h6>
 				</div>
 				<div class="card-body text-center" id="goodsList">
-					<input type="text" name="scGoodsCode" id="scGoodsCode" placeholder="상품코드">
-					<input type="text" name="scThCode" id="scThCode" placeholder="공연장코드">
-					<input type="text" name="scDate" id="scDate" placeholder="날짜">
+					<input type="text" name="goods_id" id="scGoodsCode" placeholder="상품코드">
+					<input type="text" name="theater_id" id="scThCode" placeholder="공연장코드">
+					<input type="text" name="s_date" id="scDate" placeholder="날짜">
 					<input type="text" name="seats" id="seats" placeholder="좌석수">
 				</div>
 				<button class="btn Secondary btn-user" type="submit">스케줄 등록</button>
@@ -234,5 +265,6 @@ request.setCharacterEncoding("utf-8");
 		</div>
 	</div>
 </form>
+</div>
 </body>
 </html>

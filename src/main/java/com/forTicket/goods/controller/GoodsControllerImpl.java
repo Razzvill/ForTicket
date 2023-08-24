@@ -129,34 +129,16 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value={"/goods/detailGoods.do"}, method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView detailGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		/*
-		 * String viewName=(String)req.getAttribute("viewName"); ModelAndView mav = new
-		 * ModelAndView(viewName); HttpSession session = req.getSession(); MemberVO
-		 * member = (MemberVO) session.getAttribute("member");
-		 * 
-		 * G_imageFileVO imageObj = null; GoodsVO goodsObj = null;
-		 * 
-		 * // 연극 정보 조회 Map goodsMap = goodsService.goodsInfo(goods_id);
-		 * 
-		 * // 이미지 if(!ValidUtil.isMapEmpty(goodsMap, "goodsImage")) { imageObj =
-		 * (G_imageFileVO) goodsMap.get("goodsImage"); }
-		 * 
-		 * // 연극 상세 설정 if(!ValidUtil.isMapEmpty(goodsMap, "goods")) { goodsObj =
-		 * (GoodsVO) goodsMap.get("goods");
-		 * 
-		 * int theater_id =
-		 * (Integer)theaterDAO.selectIdFromName(goodsObj.getGoods_place()); TheaterVO
-		 * theaterVO = theaterService.theaterInfo(theater_id); mav.addObject("theater",
-		 * theaterVO); }
-		 * 
-		 * mav.addObject("member", member); mav.addObject("goods", goodsObj); return
-		 * mav;
-		 */
 		String viewName=(String)req.getAttribute("viewName");
 		HttpSession session=req.getSession();
 		Map goodsMap=goodsService.goodsInfo(goods_id);
+		GoodsVO goodsVO = (GoodsVO) goodsMap.get("goodsVO");
+		String theater_name = goodsVO.getGoods_place();
+		int theater_id = theaterDAO.selectIdFromName(theater_name);
+		TheaterVO theaterVO = theaterDAO.selectTheaterInfo(theater_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsMap", goodsMap);
+		mav.addObject("theater", theaterVO);
 		return mav;
 	}
 	
@@ -275,6 +257,8 @@ public class GoodsControllerImpl implements GoodsController{
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
+		List<TheaterVO> theaterList = theaterService.listTheaters();
+		mav.addObject("theaterList", theaterList);
 		mav.addObject("member", member);
 		mav.addObject("goodsMap", goodsMap);
 		return mav;
