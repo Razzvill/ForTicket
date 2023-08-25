@@ -36,8 +36,8 @@ public class OrderControllerImpl {
 
 	//예매 페이지-좌석선택(날짜선택 등)
 	@RequestMapping(value={"/order/order_seat.do"}, method={RequestMethod.GET, RequestMethod.POST})
-	private ModelAndView order_seat(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-
+	private ModelAndView order_seat(@RequestParam("goods_id")int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		HttpSession session=req.getSession();
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
@@ -47,7 +47,8 @@ public class OrderControllerImpl {
 
 	//예매 페이지-좌석 미선택(날짜선택 등)
 		@RequestMapping(value={"/order/order_seatNone.do"}, method={RequestMethod.GET, RequestMethod.POST})
-		private ModelAndView order_seatNone(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		private ModelAndView order_seatNone(@RequestParam("goods_id")int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+			HttpSession session=req.getSession();
 			String viewName = (String)req.getAttribute("viewName");
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName(viewName);

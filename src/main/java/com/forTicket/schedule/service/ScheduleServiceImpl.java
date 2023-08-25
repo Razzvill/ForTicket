@@ -29,8 +29,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public void addSchedule(Map scMap) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		scheduleDAO.insertSchedule(scMap);
 	}
 
 	@Override

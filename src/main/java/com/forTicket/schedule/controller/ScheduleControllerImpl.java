@@ -60,6 +60,14 @@ public class ScheduleControllerImpl implements ScheduleController {
 			String value=req.getParameter(name);
 			scMap.put(name,value);
 		}
+		String s_dates = (String)scMap.get("s_date");
+		String s_time = (String)scMap.get("s_time");
+		String s_date = s_dates+" "+s_time;
+		System.out.println(s_date);
+		scMap.remove("s_time");
+		scMap.remove("s_date");
+		scMap.put("s_date", s_date);
+		
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -89,6 +97,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		condMap.put("theater_id", theater_id);
 		condMap.put("s_date", s_date);
 		String selectThAndDate = scheduleService.getSelectedSchedule(condMap);
+		System.out.println(selectThAndDate);
 		return selectThAndDate;
 	}
 	

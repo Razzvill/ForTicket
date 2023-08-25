@@ -31,12 +31,13 @@ request.setCharacterEncoding("utf-8");
 	}
 	
 	.main_title_more {
-		position: absolute;
 		right: 0;
 		font-size: 15px;	
 		text-decoration: none;
 	}
-	
+	.main_title_more ul {
+		float: right;
+	}
 	.category_sort{
 		font-size: 16px;
 	}
@@ -86,7 +87,7 @@ request.setCharacterEncoding("utf-8");
 		width: 20px;
 	}
 	hr {
-		width: 90%;
+		width: 100%;
 		float: left;
 	}
 </style>
@@ -140,7 +141,17 @@ request.setCharacterEncoding("utf-8");
 								<div></div>
 							</div>
 							<div class="text">
-								<p style="color:#666666;">🗂️ ${goods.goods_type} &gt; ${goods.goods_genre}</p>
+								<p style="color:#666666;">🗂️ <c:choose>
+						<c:when test="${goods.goods_type == 'drama'}">
+							연극
+						</c:when>
+						<c:when test="${goods.goods_type=='musical'}">
+							뮤지컬
+						</c:when>
+						<c:otherwise>
+							공연
+						</c:otherwise>
+					</c:choose> &gt; ${goods.goods_genre}</p>
 								<p style="font-size: 20px;">${goods.goods_name}</p>
 							<div>
 								<div class="price">

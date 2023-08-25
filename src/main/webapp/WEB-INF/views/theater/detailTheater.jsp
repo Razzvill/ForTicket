@@ -295,12 +295,12 @@ hr {
 										});
 									</script>
 									<input type="button" value="돌아가기" class="btn3" onclick="backToList()" />
-									<%-- <c:if test="${isLogOn == true && member.id == 'admin' }"> --%>
+									<c:if test="${isLogOn == true && type == 'admin' }">
 										<input type="button" value="삭제하기" class="btn2"
 											onclick="location.href='${contextPath}/theater/removeTheater.do?theater_id=${theater.theater_id}'" />
 											<input type="button" value="수정하기" class="btn1"
 											onclick="location.href='${contextPath}/theater/modTheaterForm.do?theater_id=${theater.theater_id}'" />
-									<%-- </c:if> --%>
+									</c:if>
 								</div>
 							</div>
 						</td>
