@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,11 +21,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.forTicket.member.vo.MemberVO;
 import com.forTicket.mypage.service.MypageService;
+import com.forTicket.order.vo.OrderVO;
 
 @Controller("mypageController")
 public class MypageControllerImpl implements MypageController{
 	@Autowired
 	private MypageService mypageService;
+	
+	@Autowired
+	private OrderVO orderVO;
 	
 	//마이페이지 예매내역 이동
 	@RequestMapping(value= "/member/myreservation.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -66,7 +72,7 @@ public class MypageControllerImpl implements MypageController{
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		
-		ArrayList<MemberVO> reservation_list=mypageService.myReservation(condMap);
+		ArrayList<OrderVO> reservation_list=mypageService.myReservation(condMap);
 		
 		mav.addObject("reservation_list", reservation_list);
 		
@@ -90,7 +96,24 @@ public class MypageControllerImpl implements MypageController{
 		return mav;
 	}
 	
-    protected String calcSearchPeriod(String fixedSearchPeriod){
+	//리뷰쓰기화면 이동	
+    @Override
+    @RequestMapping(value= "/member/review.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView review(@ModelAttribute("order_No") int order_No, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String viewName = (String) request.getAttribute("viewName");
+    	
+    	orderVO = mypageService.review(order_No);
+    	
+    	ModelAndView mav = new ModelAndView();
+    	mav.setViewName(viewName);
+		mav.addObject("review", orderVO);
+		
+		return mav;
+	}
+
+
+
+	protected String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
 		String endDate=null;
 		String endYear=null;

@@ -12,7 +12,14 @@ public class CommunityVO {
 	private String c_title;
 	private String c_content;
 	private Date c_date;
+	private String star;
 	
+	public String getStar() {
+		return star;
+	}
+	public void setStar(String star) {
+		this.star = star;
+	}
 	public int getC_No() {
 		return c_No;
 	}

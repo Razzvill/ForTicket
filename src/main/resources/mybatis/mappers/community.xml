@@ -76,5 +76,14 @@
 		]]>      
 	</select>
 	
+	<!-- 1:1 작성 -->
+	<insert id="add_review"  parameterType="CommunityVO">
+		<![CDATA[
+			insert into
+			community(mem_id, c_title, c_content, star, order_No)
+			values(#{mem_id}, #{c_title}, #{c_content},#{star}, #{order_No})
+		]]>      
+	</insert>
+	
 
 </mapper>

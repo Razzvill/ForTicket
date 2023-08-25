@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.forTicket.center.vo.CenterVO;
 import com.forTicket.community.vo.CommunityVO;
 
 @Mapper
@@ -21,4 +22,8 @@ public interface CommunityDAO {
 	
 	//회원 커뮤니티 페이지
 	public ArrayList<CommunityVO> u_commulist(HashMap condMap) throws DataAccessException;
+	
+	//리뷰 글 추가 add_review
+	public int add_review(CommunityVO communityVO) throws DataAccessException;
+	
 }

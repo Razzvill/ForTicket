@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,17 +125,40 @@ public class CommunityControllerImpl implements CommunityController{
 		return mav;
 	}
 
-	//회원 리뷰 작성
-	@Override
-	@RequestMapping(value="/community/commu_wirte.do", method={RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView commu_wirte(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+	//리뷰추가
+	@RequestMapping(value="/community/add_review.do", method={RequestMethod.GET,RequestMethod.POST})
+	public ResponseEntity addQue(@ModelAttribute("community") CommunityVO communityVO , HttpServletRequest request, HttpServletResponse response) throws Exception{
+
 		request.setCharacterEncoding("utf-8");
-		
-		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		
-		return mav;
+		response.setContentType("html/text;charset=utf-8");
+
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+
+		try {
+			int result = communutyService.add_review(communityVO);
+
+			message = "<script>";
+			message += " alert('글을 작성했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/community/u_Commu.do';";
+			message += "</script>";
+
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			message = "<script>";
+			message += " alert('오류가 생겼습니다.');";
+			message += " location.href='" + request.getContextPath() + "/community/u_Commu.do';";
+			message += "</script>";
+
+			e.printStackTrace();
+		}
+
+		return resEnt;
 	}
+	
 	
 	
 }

@@ -42,14 +42,13 @@
 	
 	
 	<!-- 예매 내역 -->
-	<select id="myReservation" resultMap="memResult"   parameterType="java.util.HashMap">
+	<select id="myReservation" resultMap="orderResult"   parameterType="java.util.HashMap">
 		select * from (
-			select ROW_NUMBER() OVER (ORDER BY joinDate DESC) as recNum, table1.*
+			select ROW_NUMBER() OVER (ORDER BY orderTicketing DESC) as recNum, table1.*
 			from (
 				select * 
-				from member 
-				where b_number IS NULL 
-				and date_format(joinDate,'%Y-%m-%d') between #{beginDate} and #{endDate} 
+				from `order` 
+				where date_format(orderTicketing,'%Y-%m-%d') between #{beginDate} and #{endDate} 
 				<if test="search_type=='all' and  search_type != null" >
 		        	and (phone=#{search_word} OR mem_name=#{search_word} OR mem_id=#{search_word})
 				</if>
@@ -62,11 +61,18 @@
 				<if test="search_type=='mem_phone' and search_type != null">
 					and phone=#{search_word}
 				</if>
-					order by joinDate desc
+					order by orderTicketing desc
 					 ) as table1
 				) as table2				
 			where				
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				      		    
+	</select>
+	
+	<!-- 고객센터 상세화면 -->
+	<select id="review" resultType="OrderVO" parameterType="int">
+		<![CDATA[
+			select * from `order` where order_No = #{order_No}
+ 		]]>  
 	</select>
 	
 </mapper>
