@@ -4,47 +4,147 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="selectedDate" value="${requestScope.selectScheduleDate}" />
+<c:set var="goods" value="${goodsMap.goodsVO}"/>
 <%
 request.setCharacterEncoding("utf-8");
 %>
-
+<% int goods_id = Integer.parseInt(request.getParameter("goods_id")); %>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/ajaxtabs.js"></script>
-
+<script>
+    var goodsPrice = ${goods.goods_price};
+    console.log(goodsPrice);
+</script>
 <script type="text/javascript">
-var goods_id
-var selectScheduleDate = "";
-/* 상영관 출력 */
 function getScRoomTime(){
-		var output = "";
-		
+	var output = "";
+	var goods_id = <%= goods_id %>;
+	var date;
+	var hours;
+	var minutes;
+	var formattedTime;
+	if(selectScheduleDate.length>0){
 		$.ajax({
 			type : "get",
-			url : "${contextPath}/schedule/getSelectedSchedule.do",
+			url : "/order/getSelectedSchedule.do",
 			data : {"goods_id" : goods_id, "s_date" : selectScheduleDate},
 			dataType : "json",
 			async : false,
 			success : function(result){
 					for(var i=0; i<result.length; i++){
-						output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+result[i]+"\" onclick=\"ScRoomTime(this)\" >"+result[i]+"</label>";
-						output += "<input class=\"btn-check\" id=\""+result[i]+"\" type=\"checkbox\" name=\"s_time\" value=\""+result[i]+"\"><br>";
+						date = new Date(result[i].s_date);
+						hours = date.getHours();
+						minutes = date.getMinutes();
+						formattedTime = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+						output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+result[i].s_date+"\" onclick=\"ScRoomTime(this)\" >"+formattedTime+"</label>";
+						output += "<input class=\"btn-check\" id=\""+result[i].s_date+"\" type=\"radio\" name=\"s_time\" value=\""+formattedTime+"\">";
 					}
+					$("#scRoomAndTime").html(output);
 			}
-			$("#scRoomAndTime").html(output);
 		});
+	}
+}
+
+function ScRoomTime(selObj){
+    var selectedTime = $("input[name=s_time]:checked").val();
+    var output = "";
+
+    // 이전에 선택한 시간의 스타일 초기화
+    $("#scRoomAndTime label").removeClass("bg-secondary").css("color","");
+    
+    if($(selObj).hasClass("bg-secondary")){
+        // 이미 선택된 시간을 클릭한 경우, 선택 해제
+        $(selObj).removeClass("bg-secondary").css("color","");
+        selectedTime = undefined;
+        output = "";
+    } else {
+        // 새로운 시간 선택한 경우
+        $(selObj).addClass("bg-secondary").css("color","white");
+        var formattedTime = selectedTime;
+
+        // 선택한 시간에 맞는 HTML 요소 생성
+        output += '<div class="select_item" id="264681">';
+        output += '<div class="select_name" style="float: left;">' + formattedTime + '</div>';
+        output += '<div style="float: right; display: inline-block;">';
+        output += '<a href="#item_close" class="close" data-store="264681">';
+        output += '<span class="remove_ticket" style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;" value="16800">X</span></a></div>';
+        output += '<div style="clear: both;"></div>';
+        output += '<div class="price_warp">';
+        output += '<div class="quantity">';
+        output += '<button type="button" class="remove_ticket" value="16800">';
+        output += '<img src="${contextPath}/resources/images/btn_minus_square.png" style="width: 18px; vertical-align: -3px;"></button>';
+        output += '<span class="selected_quantity">1</span>';
+        output += '<button type="button" class="add_ticket" value="16800">';
+        output += '<img src="${contextPath}/resources/images/btn_plus_square.png" style="width: 18px; vertical-align: -3px;"></button>';
+        output += '</div>';
+        output += '<p class="price">${goods.goods_price}</p>'; 
+        output += '</div></div>';
+    }
+    
+    // 선택한 시간의 HTML 요소 업데이트
+    $(".select_item").remove(); // 기존 요소 삭제
+    $(".select_list").append(output); // 새로운 요소 추가
+ 	// 총 결제금액 업데이트
+    updateTotalPrice();
+}
+//수량조절
+$(document).ready(function() {
+    // "X" 버튼 클릭 시 해당 select_item 제거
+    $(document).on("click", ".close .remove_ticket", function() {
+        var selectItem = $(this).closest(".select_item"); // 가장 가까운 .select_item 찾기
+        selectItem.remove(); // 해당 .select_item 제거
+
+     	// 총 결제금액 업데이트
+        updateTotalPrice();
+    });
+
+    // 빼기 버튼 클릭 시 수량 감소
+    $(document).on("click", ".remove_ticket", function() {
+        var quantitySpan = $(this).siblings(".selected_quantity"); // 해당 버튼 옆의 수량 표시
+        var currentQuantity = parseInt(quantitySpan.text()); // 현재 수량 가져오기
+        if (currentQuantity > 1) { // 최소 수량 제한
+            currentQuantity--;
+            quantitySpan.text(currentQuantity); // 수량 감소 후 업데이트
+        }
+
+     	// 총 결제금액 업데이트
+        updateTotalPrice();
+    });
+
+    // 더하기 버튼 클릭 시 수량 증가
+    $(document).on("click", ".add_ticket", function() {
+        var quantitySpan = $(this).siblings(".selected_quantity"); // 해당 버튼 옆의 수량 표시
+        var currentQuantity = parseInt(quantitySpan.text()); // 현재 수량 가져오기
+        currentQuantity++;
+        quantitySpan.text(currentQuantity); // 수량 증가 후 업데이트
+
+     	// 총 결제금액 업데이트
+        updateTotalPrice();
+    });
+});
+function updateTotalPrice() {
+    var totalQuantity = 0;
+    var totalPrice;
+    
+    $(".select_item").each(function() {
+        var quantity = parseInt($(this).find(".selected_quantity").text());
+        totalQuantity = quantity;
+    });
+
+    totalPrice = totalQuantity * parseInt(goodsPrice);
+    $(".total_price").text(totalPrice.toLocaleString() + '원');
 }
 </script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/calendar_theme.css">
 <link rel="stylesheet" type="text/css"
@@ -138,10 +238,22 @@ function getScRoomTime(){
 
 <body>
 	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
-		<div class="now_engine" style="margin-right: 680px;">
-			🗂️ <a href="#">${goods.goods_type } &gt; </a><a href="#">${goods.goods_genre } &gt; </a>
+		<div class="now_engine" style="float: left;">
+			🗂️ <a href="#">
+			<c:choose>
+				<c:when test="${goods.goods_type == 'drama'}">
+					연극
+				</c:when>
+				<c:when test="${goods.goods_type == 'musical'}">
+					뮤지컬
+				</c:when>
+				<c:otherwise>
+					공연
+				</c:otherwise>
+			</c:choose>
+			 &gt; </a><a href="#">${goods.goods_genre} &gt; </a>
 		</div>
-
+		<div style="clear: both;"></div>
 		<div
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
 			<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}"
@@ -150,12 +262,15 @@ function getScRoomTime(){
 
 		</div>
 
-
+		<!-- 주문정보 입력 -->
 		<section style="float: right; width: 307px;">
+			<!-- 달력 날짜선택 -->
 			<div id="calendar_popup" class="calendar_popup_02 choice_day"
 				style="">
 				<div id="datepicker"></div>
 				<script type="text/javascript">
+						/* 상영관 출력 */
+						var selectScheduleDate = "";
 						$(function() {
 							$("#datepicker").datepicker();
 						});
@@ -172,67 +287,59 @@ function getScRoomTime(){
 									'9월', '10월', '11월', '12월' ],
 							onSelect:function(selDate){
 								console.log(selDate);
-								var formattedDate = $.datepicker.formatDate('MM.dd', new Date(selDate));
-			                    $(".select_name").text(formattedDate);
 								$("#scDate").val(selDate);
 								selectScheduleDate = selDate;
 								getScRoomTime();
 							}
 						})
-					</script>
+				</script>
+				<input type="hidden" id="goods_id" value="${goods.goods_id}">
+				<!-- 시간,수량선택 -->
 				<form method="post" id="regiform" name="regiform" action="#">
-					<input type="hidden" name="s_date" id="scDate" value="">
+					<input type="hidden" name="s_date" id="scDate" value=""/>
 					<div class="time_select selectBox" style="display: block;">
 						<p class="selectbox_title" style="display: block;">
 							시간선택
-							<div id="scRoomAndTime"></div>
 						</p>
+							<div id="scRoomAndTime"></div>
 					</div>
 					<div class="choice_select" style="display: block;">
 						<p class="title">수량선택</p>
 						<div class="select_list">
-							<div class="select_item" id="264681">
-								<div class="select_name" style="float: left;">
-									
+							<%-- <div class="select_item" id="264681">
+								<div class="select_name" style="float: left;"></div>
 								<div style="float: right; display: inline-block;">
-									<a href="#item_close" class="close" data-store="264681"><span
-										class="remove_ticket"
-										style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;"
+									<a href="#item_close" class="close" data-store="264681">
+									<span class="remove_ticket" style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;"
 										value="16800">X</span></a>
 								</div>
 								<div style="clear: both;"></div>
-								<div class="price_warp">
-									<div class="quantity">
-										<button type="button" class="remove_ticket" value="16800">
-											<img
-												src="${contextPath}/resources/images/btn_minus_square.png"
-												style="width: 18px; vertical-align: -3px;">
-										</button>
-										<span class="selected_quantity">1</span>
-										<button type="button" class="add_ticket" value="16800">
-											<img
-												src="${contextPath}/resources/images/btn_plus_square.png"
-												style="width: 18px; vertical-align: -3px;">
-										</button>
+									<div class="price_warp">
+										<div class="quantity">
+											<button type="button" class="remove_ticket" value="16800">
+												<img
+													src="${contextPath}/resources/images/btn_minus_square.png"
+													style="width: 18px; vertical-align: -3px;">
+											</button>
+											<span class="selected_quantity">1</span>
+											<button type="button" class="add_ticket" value="16800">
+												<img
+													src="${contextPath}/resources/images/btn_plus_square.png"
+													style="width: 18px; vertical-align: -3px;">
+											</button>
+										</div>
+										<p class="price">${goods.goods_price}</p>
+										
 									</div>
-									<p class="price">16,800원</p>
-									<input type="hidden" name="product_cate[]" value="264681"><input
-										type="hidden" name="product_cate_price[]" class="item_price"
-										value="16800"><input type="hidden" name="item_jaego"
-										class="item_jaego" value="2"><input type="hidden"
-										name="cate_date[]" class="cate_date" value="2023-08-24"><input
-										type="hidden" name="want_quantity[]" class="item_ticket"
-										value="1">
-								</div>
-							</div>
+							</div> --%>
 						</div>
-					</div>
-					<div class="total_warp" style="display: flex;">
-						<p class="title">총 결제금액</p>
-						<p class="total_price">16,800원</p>
-					</div>
-					<div class="submit_btn">
-						<button href="#" class="">결제하기</button>
+						<div class="total_warp" style="display: flex;">
+							<p class="title">총 결제금액</p>
+							<p class="total_price"></p>
+						</div>
+						<div class="submit_btn">
+							<button href="${contextPath}/order/ticketReservation.do" class="">결제하기</button>
+						</div>
 					</div>
 				</form>
 			</div>

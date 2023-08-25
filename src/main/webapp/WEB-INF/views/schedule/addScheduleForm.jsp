@@ -121,7 +121,7 @@ request.setCharacterEncoding("utf-8");
 			} */
 			$.ajax({
 				type : "get",
-				url : "getSelectedSchedule.do",
+				url : "/schedule/getSelectedSchedule.do",
 				data : {"theater_id" : selectTheaterCode, "s_date" : selectScheduleDate},
 				dataType : "json",
 				success : function(result){
