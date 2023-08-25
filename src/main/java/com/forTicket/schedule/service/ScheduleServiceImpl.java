@@ -26,6 +26,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 		String idAndDate_json = gson.toJson(idAndDate);
 		return idAndDate_json;
 	}
+	
+	@Override
+	public String getSelectedSchedule_order(Map scMap) throws DataAccessException {
+		ArrayList<ScheduleVO> idAndDate = scheduleDAO.selectSchedule_order(scMap);
+		Gson gson = new Gson();
+		String idAndDate_json = gson.toJson(idAndDate);
+		return idAndDate_json;
+	}
 
 	@Override
 	public void addSchedule(Map scMap) throws DataAccessException {
