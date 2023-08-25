@@ -31,6 +31,11 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(MemberVO member) throws DataAccessException {
 		return memberDAO.insertMember(member);
 	}
+	
+	@Override
+	public int insertbusiness(MemberVO member) throws DataAccessException {
+		return memberDAO.insertbusiness(member);
+	}
 
 	@Override
 	public MemberVO modMember(String mem_id) throws DataAccessException {

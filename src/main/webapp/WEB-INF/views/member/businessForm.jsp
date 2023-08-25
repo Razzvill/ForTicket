@@ -164,9 +164,9 @@
 	<div>
     	<img src="${contextPath}/resources/images/logo.png" style="width:150px;">
     </div>
-    <form action="${contextPath}/member/addMember.do" method="post" onsubmit="return validateForm()">
+    <form action="${contextPath}/member/addbusiness.do" method="post" onsubmit="return validateForm()">
 	<div>
-	<input type="hidden" name="type" value="U"/>
+	<input type="hidden" name="type" value="B"/>
 		<table class="formtable">
 			<tbody>
 				<tr>
@@ -176,6 +176,9 @@
                         <input type="button" value="중복검사" class="btn_hphone_on" id="btnOverlapped" onClick="fn_overlapped()"/>  
                    </td>
                 </tr>
+                <tr>
+					<td><input name="b_number" type="text" placeholder="사업자번호" class="dot_line icon_id"/></td>
+				</tr>
                 <tr>
 					<td>
                         <input type="password" name="pwd" id="password" placeholder="비밀번호" size="20" class="dot_line icon_pass"/>
@@ -192,7 +195,10 @@
 					<td><span id="confirmMsg"></span></td>
 				</tr>
 				<tr>
-					<td><input name="mem_name" type="text" placeholder="이름" class="dot_line icon_name"/></td>
+					<td><input name="mem_name" id="mem_name" type="text" placeholder="대표자명" class="dot_line icon_name"/></td>
+				</tr>
+				<tr>
+					<td><input name="b_name" id="b_name" type="text" placeholder="업장이름" class="dot_line icon_name"/></td>
 				</tr>
 				<tr>
 					<td><input name="email" id="email" type="text" placeholder="이메일"  class="dot_line icon_email"/></td>
@@ -201,7 +207,10 @@
 				    <td><span id="emailError" style="color: red;"></span></td> <!-- 이메일 형식 에러 메시지 표시 요소 -->
 				</tr>
 				<tr>
-					<td><input name="phone" type="text" id="phone" placeholder="핸드폰번호"  class="dot_line icon_phone"></td> 
+					<td><input name="phone" type="text" id="phone" placeholder="사업주연락처"  class="dot_line icon_phone"></td> 
+				</tr>
+				<tr>
+					<td><input name="b_phone" type="text" id="phone" placeholder="사업장연락처"  class="dot_line icon_phone"></td> 
 				</tr>
 				<tr>
 					<td>

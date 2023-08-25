@@ -10,6 +10,7 @@ import com.forTicket.member.vo.MemberVO;
 
 public interface MemberService {
     public int insertMember(MemberVO memberVO) throws DataAccessException ;
+    public int insertbusiness(MemberVO memberVO) throws DataAccessException ;
     public MemberVO modMember(String mem_id) throws DataAccessException;
     public MemberVO login(MemberVO memberVO) throws Exception;
     public int updateMember(MemberVO memberVO) throws DataAccessException;

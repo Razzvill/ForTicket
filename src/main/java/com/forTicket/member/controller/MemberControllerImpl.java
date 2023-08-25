@@ -74,7 +74,7 @@ public class MemberControllerImpl implements MemberController{
 	}	
 	
 	
-	//회원가입 페이지
+	//일반 회원가입 페이지
 	@RequestMapping(value= "/member/memberForm.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
@@ -86,8 +86,21 @@ public class MemberControllerImpl implements MemberController{
 		
 		return mav;
 	}
+	
+	//사업주 회원가입 페이지
+		@RequestMapping(value= "/member/businessForm.do", method = {RequestMethod.GET,RequestMethod.POST})
+		public ModelAndView businessForm(HttpServletRequest request, HttpServletResponse response) {
+			String viewName = (String)request.getAttribute("viewName");
+			
+			HttpSession session=request.getSession();
+					
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName(viewName);
+			
+			return mav;
+		}
     
-	//회원가입 정보 주입
+	//일반회원가입 정보 주입
 	@Override
 	@RequestMapping(value="/member/addMember.do" ,method = RequestMethod.POST)
 	public ModelAndView insertMember(@ModelAttribute("member") MemberVO member,
@@ -96,6 +109,19 @@ public class MemberControllerImpl implements MemberController{
 	    response.setContentType("text/html;charset=utf-8"); 
 	    int result = 0;
 	    result = memberService.insertMember(member);
+	    ModelAndView mav = new ModelAndView("redirect:/member/loginForm.do");
+	    return mav;
+	}
+	
+	//사업주회원가입 정보 주입
+	@Override
+	@RequestMapping(value="/member/addbusiness.do" ,method = RequestMethod.POST)
+	public ModelAndView insertbusiness(@ModelAttribute("member") MemberVO member,
+	                              HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    request.setCharacterEncoding("utf-8");
+	    response.setContentType("text/html;charset=utf-8"); 
+	    int result = 0;
+	    result = memberService.insertbusiness(member);
 	    ModelAndView mav = new ModelAndView("redirect:/member/loginForm.do");
 	    return mav;
 	}
