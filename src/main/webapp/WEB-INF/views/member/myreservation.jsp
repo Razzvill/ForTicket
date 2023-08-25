@@ -295,9 +295,9 @@
 			<td>
 				<select class="optionsize" name="s_search_type">
 					<option value="all" checked>전체</option>
-					<option value="mem_name">회원명</option>
-					<option value="mem_id">아이디</option>
-					<option value="mem_phone">휴대폰번호</option>
+					<option value="goods_name">공연명</option>
+					<option value="orderDate">공연일자</option>
+					<option value="order_No">예매번호</option>
 				</select>
 			</td>
 			<td align="left"><input class="inputSize1" type="text" name="t_search_word"></td>
@@ -312,15 +312,14 @@
 
 	<table class="result">
 		<tr>
-			<td>회원명</td>
-			<td>아이디</td>
-			<td>비밀번호</td>
-			<td>핸드폰번호</td>
-			<td>이메일</td>
-			<td>주소</td>
-			<td>가입일자</td>
-			<td>수정</td>
-			<td>삭제</td>
+			<td>예매번호</td>
+			<td>공연명</td>
+			<td>공연일자</td>
+			<td>공연시간</td>
+			<td>공연장소</td>
+			<td>인원</td>
+			<td>좌석번호</td>
+			<td>예매상태</td>
 		</tr>
 		<c:choose>
 			<c:when test="${empty member_list}">
@@ -342,6 +341,7 @@
 							<c:set var="join_date" value="${list.joinDate}" />
 						    <c:set var="arr" value="${fn:split(join_date,' ')}" />
 						    <c:out value="${arr[0]}" />
+						</td>
 						<td class="font1"><a href="${contextPath}/member/a_Edit.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
 						<td class="font1"><a href="${contextPath }/admin/deleteMember.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
 					</tr>
