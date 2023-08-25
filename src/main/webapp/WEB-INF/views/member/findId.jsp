@@ -94,7 +94,7 @@ background-image: url("${contextPath}/resources/images/member/user_email.png");
     </section>
 
     <div class="section_wrap">
-      <form action="${contextPath}/member/sendEmail" name="sendEmail" method="post">
+      <form action="${contextPath}/member/findIdResult.do" name="sendEmail" method="post">
         <input type="text" name="mem_name" placeholder="이름" maxlength="13" class="input_box icon_name" required="">
         <input type="text" name="phone" id="phone" placeholder="휴대폰 번호" class="input_box icon_phone" style="margin-top:15px;" required="">
         <button class="btn_submit">아이디 찾기</button>
