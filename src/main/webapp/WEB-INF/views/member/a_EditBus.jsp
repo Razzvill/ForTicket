@@ -113,7 +113,7 @@
 		</tr>
 		<tr>
 			<td>사업자 번호</td>
-			<td><input type="text" class="inputSize1" name="b_number" value="${taget.b_number}" readonly></td>
+			<td><input type="text" class="inputSize1" name="b_number" value="${taget.b_number}" ></td>
 		</tr>
 		<tr>
 			<td>전화번호</td>

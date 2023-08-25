@@ -6,7 +6,7 @@
 <mapper namespace="com.forTicket.community.dao.CommunityDAO">
 	<resultMap id="communityResult" type="CommunityVO">
 		<result property="c_No" column="c_No" />
-		<result property="goods_id" column="goods_id" />
+		<result property="order_No" column="order_No" />
 		<result property="mem_id" column="mem_id" />
 		<result property="c_title" column="c_title" />
 		<result property="c_content" column="c_content" />
@@ -20,7 +20,7 @@
 			select ROW_NUMBER() OVER (ORDER BY c_date DESC) as recNum, table1.*
 			from (
 				SELECT 
-					goods_id
+					order_No
 					, mem_id
 					, c_title
 					, c_content
@@ -41,7 +41,7 @@
 			select ROW_NUMBER() OVER (ORDER BY c_date DESC) as recNum, table1.*
 			from (
 				SELECT 
-					goods_id
+					order_No
 					, mem_id
 					, c_title
 					, c_content
@@ -62,7 +62,7 @@
 			select ROW_NUMBER() OVER (ORDER BY c_date DESC) as recNum, table1.*
 			from (
 				SELECT 
-					goods_id
+					order_No
 					, mem_id
 					, c_title
 					, c_content

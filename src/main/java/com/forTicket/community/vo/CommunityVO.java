@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component("communityVO")
 public class CommunityVO {
 	private int c_No;
-	private int goods_id;
+	private int order_No;
 	private String mem_id;
 	private String c_title;
 	private String c_content;
@@ -19,11 +19,12 @@ public class CommunityVO {
 	public void setC_No(int c_No) {
 		this.c_No = c_No;
 	}
-	public int getGoods_id() {
-		return goods_id;
+	
+	public int getOrder_No() {
+		return order_No;
 	}
-	public void setGoods_id(int goods_id) {
-		this.goods_id = goods_id;
+	public void setOrder_No(int order_No) {
+		this.order_No = order_No;
 	}
 	public String getMem_id() {
 		return mem_id;
