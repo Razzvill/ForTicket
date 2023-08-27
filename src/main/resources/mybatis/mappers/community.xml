@@ -11,6 +11,7 @@
 		<result property="c_title" column="c_title" />
 		<result property="c_content" column="c_content" />
 		<result property="c_date" column="c_date" />
+		<result property="star" column="star" />
 	</resultMap>
 	
 	<!--회원 커뮤니티 페이지 -->

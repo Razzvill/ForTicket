@@ -117,13 +117,13 @@
 			<tr>
 				<td class="td4">별점</td>
 				<td class="td5">
-					<div name="star" id="myform">
+					<div name="" id="myform">
 			    	<fieldset>
-				        <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
-				        <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
-				        <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
-				        <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
-				        <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+				        <input type="radio" name="star" value="5" id="rate1"><label for="rate1">⭐</label>
+				        <input type="radio" name="star" value="4" id="rate2"><label for="rate2">⭐</label>
+				        <input type="radio" name="star" value="3" id="rate3"><label for="rate3">⭐</label>
+				        <input type="radio" name="star" value="2" id="rate4"><label for="rate4">⭐</label>
+				        <input type="radio" name="star" value="1" id="rate5"><label for="rate5">⭐</label>
 			    	</fieldset>
     				</div>				
 				</td>
@@ -139,7 +139,7 @@
 				</td>
 			</tr>
 		</table>
-		<input type="hidden" name="order_No" value="${review.order_No }" readonly>		
+		<input type="text" name="order_No" value="${review.order_No }" readonly>		
 	</form>
 </div>
 </body>
