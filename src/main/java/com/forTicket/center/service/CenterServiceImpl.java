@@ -108,7 +108,6 @@ public class CenterServiceImpl implements CenterService{
 		return centerDAO.update_reply(quesitonVO);
 	}
 
-
 	//1:1 삭제-관리자
 	@Override
 	public void a_delete(int q_Num) throws Exception {
