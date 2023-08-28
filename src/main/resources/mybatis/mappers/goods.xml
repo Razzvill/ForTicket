@@ -68,6 +68,14 @@
     	]]>
 	</select>
 	
+	<select id="selectGoodsNameById" resultType="String" parameterType="int">
+		select goods_name from goods where goods_id=#{goods_id}
+	</select>
+	
+	<select id="selectGoodsDisc" resultType="int" parameterType="int">
+		select goods_discount from goods where goods_id=#{goods_id}
+	</select>
+	
 	<select id="selectGoodsNo" resultType="int" parameterType="java.util.Map">
 		<![CDATA[
 			SELECT goods_id FROM goods WHERE mem_id=#{mem_id} AND goods_name=#{goods_name}
@@ -90,6 +98,13 @@
 	<update id="updateGoods" parameterType="goodsVO">
 		<![CDATA[
 			update goods set goods_type=#{goods_type}, goods_genre=#{goods_genre}, goods_name=#{goods_name}, goods_startDate=#{goods_startDate}, goods_endDate=#{goods_endDate}, goods_runningTime=#{goods_runningTime}, goods_age=#{goods_age}, goods_price=#{goods_price}, goods_discount=#{goods_discount}, goods_info=#{goods_info}, goods_notice=#{goods_notice}, goods_place=#{goods_place}, goods_seats=#{goods_seats}
+			where goods_id=#{goods_id}
+		]]>
+	</update>
+	
+	<update id="updateDisc" parameterType="java.util.Map">
+		<![CDATA[
+			update goods set goods_discount=#{goods_discount}
 			where goods_id=#{goods_id}
 		]]>
 	</update>

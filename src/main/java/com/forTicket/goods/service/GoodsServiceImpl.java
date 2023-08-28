@@ -73,6 +73,23 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
+	public void modDisc(Map goodsMap) throws DataAccessException {
+		goodsDAO.updateDisc(goodsMap);		
+	}
+
+	@Override
+	public String goodsName(int goods_id) throws DataAccessException {
+		String goods_name = goodsDAO.selectGoodsNameById(goods_id);
+		return goods_name;
+	}
+
+	@Override
+	public int goodsDisc(int goods_id) throws DataAccessException {
+		int goods_discount = goodsDAO.selectGoodsDisc(goods_id);
+		return goods_discount;
+	}
+
+	@Override
 	public void removeGoods(int goods_id) throws DataAccessException {
 		goodsDAO.deleteGoods(goods_id);
 	}

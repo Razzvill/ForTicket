@@ -89,7 +89,8 @@
         text-align: center;     
 	}
 	</style>
-	<script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
 	function fn_modify_event(event_no, attribute){
 		var frm_list=document.frm_list;
 		var value="";
@@ -369,18 +370,18 @@
 						<td><a href="${contextPath}/goods/detailGoods?goods_id=${list.goods_id}">${list.goods_name }</a></td>
 						<td>${list.event_type }</td>
 						<td>${list.event_name }</td>
-						<td>${list.event_startDate}~${list.endDate}</td>
+						<td>${list.event_startDate}~${list.event_endDate}</td>
 						<td>${list.event_creDate}</td>
 						<td>
 							<c:choose>
-								<c:when test="${event_status == '진행중'}">
+								<c:when test="${list.event_status == '진행중'}">
 									<select name="event_status">
 										<option value="등록대기">등록대기</option>
 										<option value="진행중" selected>진행중</option>
 										<option value="종료">종료</option>
 									</select>
 								</c:when>
-								<c:when test="${event_status == '종료'}">
+								<c:when test="${list.event_status == '종료'}">
 									<select name="event_status">
 										<option value="등록대기">등록대기</option>
 										<option value="진행중">진행중</option>
@@ -396,7 +397,7 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td><a onClick="fn_modify_goods('${event.event_no }','event_status')" class="reply">반영</a></td>
+						<td><a href="javascript:void(0);" onClick="fn_modify_event('${list.event_no }','event_status');" class="reply">반영</a></td>
 						<td><a href="${contextPath }/event/removeEvent.do?event_no=${list.event_no }" class="reply">삭제</a></td>
 					</tr>
 				</c:forEach>

@@ -332,8 +332,8 @@
 			<c:otherwise>
 				<c:forEach var="list" items="${goodsList}">
 					<tr>
-						<td>${list.goods_id }</td>
-						<td>${list.goods_name }</td>
+						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
+						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
 						<td>${list.goods_genre }</td>
 						<td>${list.goods_startDate }~${list.goods_endDate }</td>
 						<td>${list.goods_place }</td>
