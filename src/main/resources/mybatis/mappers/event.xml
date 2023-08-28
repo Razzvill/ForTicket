@@ -13,10 +13,10 @@
 		<result property="event_detail" column="event_detail" />
 		<result property="event_status" column="event_status" />
 		<result property="mem_id" column="mem_id" />
-		<result property="event_image" column="event_image" />
 		<result property="event_finalDate" column="event_finalDate" />
 		<result property="event_creDate" column="event_creDate" />
 		<result property="goods_id" column="goods_id" />
+		<result property="event_fileName" column="fileName" />
 	</resultMap>
 	
 	<resultMap id="imageResult" type="E_imageFileVO">
@@ -56,6 +56,16 @@
 			SELECT * FROM event WHERE event_no=#{event_no}
 		]]>
 	</select>
+
+	<select id="selectEventDetail" resultType="goodsVO"	parameterType="int">
+	    <![CDATA[
+		    select g.*, d.fileName from event g, event_detail_images d
+	        where g.event_no=d.event_no
+	        and d.filetype='main_image'
+	        and g.event_no=#{event_no}
+	        order by g.event_no
+    	]]>
+	</select>
 	
 	<select id="selectEventNo" resultType="int" parameterType="java.util.Map">
 		<![CDATA[
@@ -65,8 +75,8 @@
 
 	<insert id="insertEvent" parameterType="java.util.Map">
 		<![CDATA[
-			INSERT INTO event(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image, event_finalDate, goods_id) 
-			VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image}, #{event_finalDate}, #{goods_id})
+			INSERT INTO event(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_finalDate, goods_id) 
+			VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_finalDate}, #{goods_id})
 		]]>
 	</insert>
 
@@ -95,7 +105,7 @@
 
 	<select id="selectEventImageFileList" resultMap="imageResult"   parameterType="int"  >
 	    <![CDATA[
-		    	select * from  event_detail_image 
+		    	select * from  event_detail_images 
 		    	where  
 			    event_no=#{event_no}
 			    order by image_id asc
@@ -104,13 +114,13 @@
 	
 	<insert id="insertEventImage" parameterType="E_imageFileVO">
 		<![CDATA[
-			INSERT INTO event_detail_image(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image})
+			INSERT INTO event_detail_images(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image})
 		]]>
 	</insert>
 	
 	<update id="updateEventImage" parameterType="E_imageFileVO">
 		<![CDATA[
-		update event_detail_image
+		update event_detail_images
 		set fileName=#{fileName}
 		where	 
 		event_no=#{event_no} and image_id=#{image_id}
@@ -119,14 +129,14 @@
 	
 	<delete id="deleteEventImage" parameterType="int">
 		<![CDATA[
-		delete from event_detail_image
+		delete from event_detail_images
 		where image_id=#{image_id}
 		]]>
 	</delete>
 	
 	<delete id="deleteAllEventImage" parameterType="int">
 		  <![CDATA[
-		  delete from event_detail_image
+		  delete from event_detail_images
 		  where event_no=#{event_no}
 		  ]]>
 	</delete>

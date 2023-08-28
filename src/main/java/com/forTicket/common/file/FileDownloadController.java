@@ -77,7 +77,7 @@ public class FileDownloadController {
 		out.close();
 	}
 	
-	@RequestMapping("/thumbnails.do")
+	@RequestMapping("/goods/thumbnails.do")
 	protected void thumbnails(@RequestParam("goods_fileName") String goods_fileName,
                             	@RequestParam("goods_id") String goods_id,
 			                 HttpServletResponse response) throws Exception {
@@ -93,6 +93,7 @@ public class FileDownloadController {
 		out.close();
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/community/download.do")
 	protected void download(@RequestParam("imageFileName") String imageFileName, @RequestParam("c_No") String c_No,	HttpServletResponse response) throws Exception {
 		
@@ -119,4 +120,21 @@ public class FileDownloadController {
 	
 	}//download
 	
+=======
+	@RequestMapping("/event/thumbnails.do")
+	protected void thumbnails(@RequestParam("event_image") String event_image,
+                            	@RequestParam("event_id") int event_id,
+			                 HttpServletResponse response) throws Exception {
+		OutputStream out = response.getOutputStream();
+		String filePath=GOODS_IMAGE_REPO+"\\"+event_id+"\\"+event_image;
+		File image=new File(filePath);
+		
+		if (image.exists()) { 
+			Thumbnails.of(image).size(121,154).outputFormat("png").toOutputStream(out);
+		}
+		byte[] buffer = new byte[1024 * 8];
+		out.write(buffer);
+		out.close();
+	}
+>>>>>>> refs/remotes/origin/sc
 }

@@ -311,7 +311,7 @@ function fn_detail_search(){
 	</table>
 
 			<div class="clear"></div>
-
+<input type="button" value="등록하기" style="float: right;" onclick="location.href='${contextPath}/event/addEventForm.do'"/>
 			<table class="result">
 				<tr>
 					<td>이벤트 번호</td>
@@ -339,7 +339,7 @@ function fn_detail_search(){
 										href="${contextPath}/goods/detailGoods?goods_id=${list.goods_id}">${list.goods_name }</a></td>
 									<td>${list.event_type }</td>
 									<td>${list.event_name }</td>
-									<td>${list.event_startDate}~${list.endDate}</td>
+									<td>${list.event_startDate}~${list.event_endDate}</td>
 									<td>${list.goods_discount}</td>
 									<td>${list.event_creDate}</td>
 									<td><a

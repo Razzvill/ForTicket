@@ -17,9 +17,12 @@ public interface GoodsDAO {
 	public List selectAdminGoodsList(Map condMap) throws DataAccessException;
 	public GoodsVO selectGoodsDetail(int goods_id) throws DataAccessException;
 	public int selectGoodsNo(Map goodsMap) throws DataAccessException;
+	public String selectGoodsNameById(int goods_id) throws DataAccessException;
+	public int selectGoodsDisc(int goods_id) throws DataAccessException;
 	public List selectGoodsById(String mem_id) throws DataAccessException;
 	public void insertGoods(Map goodsMap) throws DataAccessException;
 	public void updateGoods(Map goodsMap) throws DataAccessException;
+	public void updateDisc(Map goodsMap) throws DataAccessException;
 	public void deleteGoods(int event_no) throws DataAccessException;
 	public List selectGoodsImageFileList(int goods_id) throws DataAccessException;
 	public void insertGoodsImageFile(G_imageFileVO imageFileVO) throws DataAccessException;
