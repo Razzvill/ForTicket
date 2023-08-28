@@ -94,9 +94,7 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/community/download.do")
-	protected void download(@RequestParam("imageFileName") String imageFileName,
-							@RequestParam("c_No") String c_No,
-							HttpServletResponse response) throws Exception {
+	protected void download(@RequestParam("imageFileName") String imageFileName, @RequestParam("c_No") String c_No,	HttpServletResponse response) throws Exception {
 		
 		OutputStream out = response.getOutputStream();//웹에서 보내준다
 		
