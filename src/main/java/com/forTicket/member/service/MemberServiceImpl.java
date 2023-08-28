@@ -31,6 +31,11 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(MemberVO member) throws DataAccessException {
 		return memberDAO.insertMember(member);
 	}
+	
+	@Override
+	public int insertbusiness(MemberVO member) throws DataAccessException {
+		return memberDAO.insertbusiness(member);
+	}
 
 	@Override
 	public MemberVO modMember(String mem_id) throws DataAccessException {
@@ -106,8 +111,8 @@ public class MemberServiceImpl implements MemberService {
 	        message.setTo(mailDTO.getAddress());
 	        message.setSubject(mailDTO.getTitle());
 	        message.setText(mailDTO.getMessage());
-	        message.setFrom("");//보내는 사람 이메일 주소
-	        //message.setReplyTo("wndals104@naver.com");
+	        message.setFrom("wndals104@naver.com");//보내는 사람 이메일 주소
+	        message.setReplyTo("wndals104@naver.com");
 	        System.out.println("message"+message);
 	        mailSender.send(message);
 	    }
