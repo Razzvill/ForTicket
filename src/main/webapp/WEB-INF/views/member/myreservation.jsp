@@ -341,9 +341,9 @@
 						    <c:set var="arr" value="${fn:split(orderTicketing,' ')}" />
 						    <c:out value="${arr[0]}" />
 						</td>
-						<td class="font1">${order.orderNum }</td>
+						<td class="font1">goods_id ${order.goods_id }</td>
 						<td class="font1">
-							<a href="${contextPath}/member/review.do?order_No=${order.order_No}" class="reply">리뷰쓰기</a>&nbsp;/&nbsp;
+							<a href="${contextPath}/community/review.do?order_No=${order.order_No}" class="reply">리뷰쓰기</a>&nbsp;/&nbsp;
 							<a href="${contextPath }/admin/deleteMember.do?mem_id=${order.mem_id }" class="reply">${order.orderStatus }</a>
 						</td>
 					</tr>
@@ -354,11 +354,11 @@
 			<td colspan=8 class="fixed">
 				<c:forEach   var="page" begin="1" end="10" step="1" >
 					<c:if test="${section >1 && page==1 }">
-						<a class="alink" href="${contextPath}/member/a_Profile.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
 					</c:if>
-						<a class="alink" href="${contextPath}/member/a_Profile.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
 					<c:if test="${page ==10 }">
-						<a class="alink" href="${contextPath}/member/a_Profile.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 					</c:if> 
 				</c:forEach> 
 			</td>

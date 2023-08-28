@@ -33,7 +33,7 @@ public class MypageControllerImpl implements MypageController{
 	
 	//마이페이지 예매내역 이동
 	@RequestMapping(value= "/member/myreservation.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView myreservation(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+	public ModelAndView myreservation(@RequestParam("mem_id") String mem_id, @RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
 		HttpSession session=request.getSession();
 		session=request.getSession();
@@ -71,7 +71,7 @@ public class MypageControllerImpl implements MypageController{
 		condMap.put("endDate", endDate);
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
-		
+		condMap.put("mem_id", mem_id);
 		ArrayList<OrderVO> reservation_list=mypageService.myReservation(condMap);
 		
 		mav.addObject("reservation_list", reservation_list);
@@ -96,23 +96,6 @@ public class MypageControllerImpl implements MypageController{
 		return mav;
 	}
 	
-	//리뷰쓰기화면 이동	
-    @Override
-    @RequestMapping(value= "/member/review.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView review(@ModelAttribute("order_No") int order_No, HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	String viewName = (String) request.getAttribute("viewName");
-    	
-    	orderVO = mypageService.review(order_No);
-    	
-    	ModelAndView mav = new ModelAndView();
-    	mav.setViewName(viewName);
-		mav.addObject("review", orderVO);
-		
-		return mav;
-	}
-
-
-
 	protected String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
 		String endDate=null;

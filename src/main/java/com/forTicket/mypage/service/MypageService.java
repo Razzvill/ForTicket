@@ -16,6 +16,5 @@ import com.forTicket.order.vo.OrderVO;
 public interface MypageService {
 	//예매내역 페이지
     public ArrayList<OrderVO> myReservation(HashMap condMap) throws Exception;
-    //리뷰 페이지 이동
-    public OrderVO review(int order_No) throws Exception;
+    
 }

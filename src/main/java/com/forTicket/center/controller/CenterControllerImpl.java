@@ -81,6 +81,7 @@ public class CenterControllerImpl implements CenterController {
 			message += "</script>";
 
 			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 
 		return resEnt;
@@ -139,6 +140,7 @@ public class CenterControllerImpl implements CenterController {
 			message += "</script>";
 
 			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 		return resEnt;
 	}
@@ -172,6 +174,7 @@ public class CenterControllerImpl implements CenterController {
 			message += "</script>";
 
 			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 		return resEnt;
 	}
@@ -335,6 +338,7 @@ public class CenterControllerImpl implements CenterController {
 			message += "</script>";
 
 			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 
 		return resEnt;
@@ -371,6 +375,7 @@ public class CenterControllerImpl implements CenterController {
 			message += "</script>";
 
 			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 		return resEnt;
 	}
@@ -456,6 +461,7 @@ public class CenterControllerImpl implements CenterController {
 			message += "</script>";
 
 			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 		return resEnt;
 	}
@@ -489,6 +495,7 @@ public class CenterControllerImpl implements CenterController {
 			message += "</script>";
 
 			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 		return resEnt;
 	}

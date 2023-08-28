@@ -19,15 +19,13 @@
 	</script>
 	<style>
 	.center{
-		border:3px solid #bcbcbc;
+		margin: auto;
+		width: 800px;
+		position: relative;
+		border:3px solid #FF6251;
 		border-radius: 20px;
-		padding:30px;
-		font-size:15px;
-		line-height:280%;
-		border-color: #bcbcbc;
-		padding-bottom: 50px;
-		width: 50%;
-    	margin: auto;
+		padding: 50px;
+		margin-top: 50px;
 	}
 	
 	.tb1{
@@ -56,41 +54,26 @@
 <body>
 <div class="center">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left; margin-bottom:10px;">리뷰 작성</h2>
+    	<h2 style="text-align:left; margin-bottom:10px;">리뷰 답변</h2>
         <div style="width: auto; border: 1px solid; border-color: #bcbcbc; margin-top: 10px; margin-bottom:10px;"></div>
     </div>
-    <form name = "wirte" method="post" action="${contextPath }/center/update_reply.do">
+    <form name = "wirte" method="post" action="${contextPath }/community/update_reply.do">
 		<table class="tb1">
 			<tr>
 				<td class="td1">작성자</td>
-				<td class="td2"><input type="text" name="mem_id" value="${member.mem_id}" /></td>
-			</tr>
-			<tr>
-				<td>
-					<select>
-	    				<c:forEach items="" var = "o">
-	    					<option> </option>
-	    				</c:forEach>
-	    			</select>
-				</td>
+				<td class="td2"><input type="text" name="mem_id" value="${reply.mem_id}" readonly/></td>
 			</tr>
 			<tr>
 				<td class="td1">제목</td>
-				<td class="td2"><input type="text" value="" name="q_Title" /></td>
-				<td> 별점</td>
-				<td>
-					<div class="rate">
-						<span style="width: 50%"></span>
-					</div>    
-    			</td>
+				<td class="td2"><input type="text" value="${reply.c_title }" name="c_title" readonly/></td>
 			</tr>
 			<tr>
 				<td class="td1">내용</td>
-				<td class="td2"><input class="inputsize" type="text" name="q_content" value="" ></td>
+				<td class="td2"><input class="inputsize" type="text" name="c_content" value="${reply.c_content }" readonly ></td>
 			</tr>
 			<tr>
 				<td class="td1">답글</td>
-				<td class="td2"><input class="inputsize" type="text" name="a_reply" value=""></td>
+				<td class="td2"><input class="inputsize" type="text" name="c_reply" value="${reply.c_reply }"></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="td3">
@@ -99,6 +82,8 @@
 				</td>
 			</tr>
 		</table>
+		<input type="text" name="c_No" value="${reply.c_No }" readonly>
+		<input type="text" name="goods_id" value="${reply.goods_id }" readonly>
 	</form>
 </div>
 </body>

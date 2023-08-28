@@ -15,6 +15,5 @@ import com.forTicket.order.vo.OrderVO;
 public interface MypageDAO {
 	//마이예매페이지
     public ArrayList<OrderVO> myReservation(HashMap condMap) throws DataAccessException;
-    //리뷰페이지 이동 review
-    public  OrderVO review(int order_No) throws DataAccessException;
+
 }

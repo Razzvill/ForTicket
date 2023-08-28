@@ -22,13 +22,5 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<OrderVO> myReservation(HashMap condMap) throws Exception {
 		return mypageDAO.myReservation(condMap);
 	}
-
-	//리뷰페이지
-	@Override
-	public OrderVO review(int order_No) throws Exception {
-		OrderVO order = mypageDAO.review(order_No);
-		return order;
-	}
-	
 	
 }

@@ -15,20 +15,24 @@
 <style>
 	.wrap_1100 {
 		margin: auto;
-		width: 1100px;
+		width: 800px;
 		position: relative;
+		border:3px solid #FF6251;
+		border-radius: 20px;
+		padding: 50px;
+		margin-top: 50px;
 	}
 	
 	.comm_title{
 		font-size: 25px;
 		font-weight: 900;
 		text-align: left;
-		padding-top: 50px;
+		padding-top: 10px;
 	}
 	
 	.comm_title_more {
 		position: absolute;
-		right: 750px;
+		right: 50px;
 		font-size: 15px;
 		text-decoration: none;
 	}
@@ -50,7 +54,6 @@
 	}
 
 	.review_title_left_star {
-	    background-image: url(${contextPath}/resources/images/stars.png);
 	    background-repeat: no-repeat;
 	    background-size: 95px;
 	    width: 100%;
@@ -59,7 +62,6 @@
 
 	.review_title_left_star_filled {
 	    position: absolute;
-	    background-image: url(${contextPath}/resources/images/member/stars.png);
 	    background-repeat: no-repeat;
 	    background-size: 95px;
 	    height: 16px;
@@ -86,6 +88,10 @@
 		width: 99%;
 		font-size: 15px;
 	}
+
+	.more{
+		text-align: right;
+	}
 	
 	.more-text{
 		/* 글씨 크기,색상 지정 */ 
@@ -96,19 +102,43 @@
 		color: #000;
 		text-align: left;
 	}
+	
 	.section{
 		cursor: pointer;
 		color: black;
 		text-decoration: none;
 	}
-
+	
+	.reply{
+		cursor: pointer;
+		color: #FF6251;
+		text-decoration: none;
+		font-size: 15px;
+		text-align: right;	
+		padding-left: 730px;	
+	}
+	
+	.star {
+	    unicode-bidi: bidi-override;
+	    color: #FFD700;
+	    font-size: 25px;
+	    height: 35px;
+	    width: 125px;
+	    margin: 0 auto;
+	    position: relative;
+	    text-align: left;
+	}
 </style>
 </head>
 <body>
 <div class="wrap_1100">
 	<div class="comm_title">
     	<div style="text-align:left;">커뮤니티</div>
-    	<div class="comm_title_more"><a href="${contextPath}/community/u_Commu.do" align="left"> 리뷰조회</a> | <a href="${contextPath}/member/my_reservation.do?mem_id=${member.mem_id }">리뷰작성</a></div>
+    	<div class="comm_title_more">
+    		<c:if test="${isLogOn == true && type=='U'}">
+	    		<a href="${contextPath}/member/myreservation.do?mem_id=${member.mem_id }">리뷰작성</a>
+    		</c:if>
+		</div>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 30px; margin-bottom:10px;"></div>
     </div>
     <c:choose>
@@ -119,11 +149,21 @@
     	<c:forEach var="u_list" items="${u_commulist }">
  		   	<div class="review_title">
 				<div class="review_title_left">
-    				<div class="review_title_left_stars">
-        				<div class="review_title_left_star">
-          					<div class="review_title_left_star_filled" style="width: calc(5 * 19px);"></div>
-        				</div>
-        			</div>
+					<c:if test="${u_list.star =='1'}">
+					<span class="star">★</span>
+					</c:if>
+					<c:if test="${u_list.star =='2'}">
+					<span class="star">★★</span>
+					</c:if>
+					<c:if test="${u_list.star =='3'}">
+					<span class="star">★★★</span>
+					</c:if>
+					<c:if test="${u_list.star =='4'}">
+					<span class="star">★★★★</span>
+					</c:if>
+					<c:if test="${u_list.star =='5'}">
+					<span class="star">★★★★★</span>
+					</c:if>
 				<div class="review_title_left_name" style="padding-left: 10px;">
 				${u_list.mem_id }
 				</div>
@@ -135,7 +175,25 @@
 		<div>
 		<div class="more-text">
 			${u_list.c_title }
-			<span class="text"> ${u_list.c_content }</span>
+			<div class="more">더보기</div>
+			<span class="text"> ${u_list.c_content }<br><br>
+				<c:if test="${not empty u_list.imageFileName && u_list.imageFileName !='null' }">
+					<img width="100px" height="100px" src="${contextPath}/community/download.do?c_No=${u_list.c_No}&imageFileName=${u_list.imageFileName}"><br><br>
+				</c:if>
+				<c:if test="${not empty u_list.c_reply && u_list.c_reply !='null' }">
+					 <img width="30px" height="30px" src="${contextPath}/resources/images/reply.png">${u_list.c_reply }<br><br>
+				</c:if>
+				<c:if test="${empty u_list.c_reply && isLogOn == true && type=='B'}">
+					<a class="reply" href="${contextPath}/community/reply.do?c_No=${u_list.c_No}">댓글쓰기</a>
+				</c:if>
+				<c:if test="${isLogOn == true && type=='admin'}">
+					<a class="reply" href="${contextPath}/community/delete.do?c_No=${u_list.c_No}">삭제하기</a>
+				</c:if>
+				<c:if test="${isLogOn == true && type=='U' && u_list.mem_id == member.mem_id}">
+					<a class="reply" href="${contextPath}/community/delete.do?c_No=${u_list.c_No}">삭제하기</a>
+				</c:if>				
+			<input type="hidden" name="c_No" value="${u_list.c_No }">
+			</span>
 		</div>
 		</div>
 		</c:forEach>
@@ -173,7 +231,9 @@
 			});
 		});
 	}
-/* 	// 더보기 텍스트 클릭시 이벤트
+
+	/*
+	// 더보기 텍스트 클릭시 이벤트
 	moreText.addEventListener('click', () => {
 		
 	moreText.style.display = 'none'; // 더보기 텍스트 삭제
@@ -187,7 +247,8 @@
     lessText.style.display = 'none'; // 줄이기 텍스트 삭제
     moreText.style.display = 'inline-block'; // 더보기 텍스트 표시
     text.style.display = '-webkit-box'; // 텍스트의 속성을 다시 -webkit-box로 표시
-    }); */
+    });
+	*/
 </script>
 </body>
 </html>

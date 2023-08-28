@@ -40,8 +40,7 @@
 		<result property="goods_name" column="goods_name" />
 	</resultMap>
 	
-	
-	<!-- 예매 내역 -->
+	<!-- 예매 내역 페이지 -->
 	<select id="myReservation" resultMap="orderResult"   parameterType="java.util.HashMap">
 		select * from (
 			select ROW_NUMBER() OVER (ORDER BY orderTicketing DESC) as recNum, table1.*
@@ -49,30 +48,24 @@
 				select * 
 				from `order` 
 				where date_format(orderTicketing,'%Y-%m-%d') between #{beginDate} and #{endDate} 
-				<if test="search_type=='all' and  search_type != null" >
-		        	and (phone=#{search_word} OR mem_name=#{search_word} OR mem_id=#{search_word})
+				and mem_id=#{mem_id}
+				<if test="search_type=='all' and search_type != null and search_type == null" >
+		        	and (goods_name=#{search_word} OR orderDate=#{search_word} OR order_No=#{search_word})
 				</if>
-				<if test="search_type=='mem_name' and  search_type != null" >
-		        	and mem_name=#{search_word}
+				<if test="search_type=='goods_name' and  search_type != null" >
+		        	and goods_name=#{search_word}
 				</if>
-				<if test="search_type=='mem_id' and search_type != null">
-		        	and mem_id=#{search_word}
+				<if test="search_type=='orderDate' and search_type != null">
+		        	and orderDate=#{search_word}
 				</if>
-				<if test="search_type=='mem_phone' and search_type != null">
-					and phone=#{search_word}
+				<if test="search_type=='order_No' and search_type != null">
+					and order_No=#{search_word}
 				</if>
 					order by orderTicketing desc
 					 ) as table1
 				) as table2				
 			where				
-		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				      		    
-	</select>
-	
-	<!-- 고객센터 상세화면 -->
-	<select id="review" resultType="OrderVO" parameterType="int">
-		<![CDATA[
-			select * from `order` where order_No = #{order_No}
- 		]]>  
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10	      		    
 	</select>
 	
 </mapper>

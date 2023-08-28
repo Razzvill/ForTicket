@@ -13,8 +13,6 @@ import com.forTicket.order.vo.OrderVO;
 
 public interface MypageController {
 	//예매내역페이지
-	public ModelAndView myreservation(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView myreservation(@RequestParam("mem_id") String mem_id, @RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
-	//리뷰쓰기창 이동 
-	public ModelAndView review(@ModelAttribute("order_No") int order_No, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

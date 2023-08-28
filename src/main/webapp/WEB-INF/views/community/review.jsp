@@ -11,10 +11,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>리뷰 작성</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type = "text/javascript">
 		function backToList(obj){
-			obj.action = "${contextPath}/center/question.do";
+			obj.action = "${contextPath}/member/myreservation.do";
 			obj.submit();
+		}
+		
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#preview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
 		}
 	</script>
 	<style>
@@ -68,6 +79,7 @@
 		width: 250px;
 		height: 30px;
 	}
+	
 	#myform fieldset{
     display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
     direction: rtl; /* 이모지 순서 반전 */
@@ -83,13 +95,13 @@
 	    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
 	}
 	#myform label:hover{
-	    text-shadow: 0 0 0 #FF6251; /* 마우스 호버 */
+	    text-shadow: 0 0 0 #FFD700;; /* 마우스 호버 */
 	}
 	#myform label:hover ~ label{
-	    text-shadow: 0 0 0 #FF6251; /* 마우스 호버 뒤에오는 이모지들 */
+	    text-shadow: 0 0 0 #FFD700; /* 마우스 호버 뒤에오는 이모지들 */
 	}
 	#myform input[type=radio]:checked ~ label{
-	    text-shadow: 0 0 0 #FF6251; /* 마우스 클릭 체크 */
+	    text-shadow: 0 0 0 #FFD700; /* 마우스 클릭 체크 */
 	}
 
 	</style>
@@ -100,7 +112,7 @@
     	<h2 style="text-align:left; margin-bottom:10px;">리뷰 작성</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
     </div>
-    <form name = "wirte" method="post" action="${contextPath }/community/add_review.do">
+    <form name = "wirte" method="post" action="${contextPath }/community/add_review.do" enctype = "multipart/form-data">
 		<table class="tb1">
 			<tr>
 				<td class="td1">작성자</td>
@@ -133,13 +145,21 @@
 				<td class="td2"><input class="inputsize" type="text" name="c_content" value=""></td>
 			</tr>
 			<tr>
+				<td class="td1">사진첨부</td>
+				<td class="td2">
+					<input type="file" name="imageFileName" onchange ="readURL(this);" />
+					<img id="preview" src="#" width=200 height=200 />
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" class="td3">
 					<input type="submit" value="등록" />
 					<input type="button" value="돌아가기" onclick="backToList(this.form)" />
 				</td>
 			</tr>
 		</table>
-		<input type="text" name="order_No" value="${review.order_No }" readonly>		
+		<input type="hidden" name="order_No" value="${review.order_No }" readonly>		
+		<input type="text" name="goods_id" value="${review.goods_id }" readonly>		
 	</form>
 </div>
 </body>

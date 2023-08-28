@@ -123,14 +123,14 @@
 	<!-- 마이페이지 -->
 		<!-- 예매 마이페이지(회원) --> 
 		<definition name="/member/myreservation" extends="baseLayout1">
-			<put-attribute name="title" value="마이페이지" />
+			<put-attribute name="title" value="예매내역" />
 			<put-attribute name="body" value="/WEB-INF/views/member/myreservation.jsp" />
 		</definition>
 		
 		<!-- 리뷰페이지(회원) --> 
-		<definition name="/member/review" extends="baseLayout1">
-			<put-attribute name="title" value="마이페이지" />
-			<put-attribute name="body" value="/WEB-INF/views/member/review.jsp" />
+		<definition name="/community/review" extends="baseLayout1">
+			<put-attribute name="title" value="리뷰작성" />
+			<put-attribute name="body" value="/WEB-INF/views/community/review.jsp" />
 		</definition>
 
 </tiles-definitions>

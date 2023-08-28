@@ -162,25 +162,16 @@
 	
 	
 	<!-- 커뮤니티 -->
-		<!-- 관리자 커뮤니티화면 -->
-		<definition name="/community/a_Commu" extends="baseLayout">
-			<put-attribute name="title" value="관리자 커뮤니티" />
-			<put-attribute name="body" value="/WEB-INF/views/community/a_Commu.jsp" />
-		</definition>
 		<!-- 회원 커뮤니티화면 -->
 		<definition name="/community/u_Commu" extends="baseLayout">
 			<put-attribute name="title" value="관리자 커뮤니티" />
 			<put-attribute name="body" value="/WEB-INF/views/community/u_Commu.jsp" />
 		</definition>
-		<!-- 사업자 커뮤니티화면 -->
-		<definition name="/community/b_Commu" extends="baseLayout">
-			<put-attribute name="title" value="관리자 커뮤니티" />
-			<put-attribute name="body" value="/WEB-INF/views/community/b_Commu.jsp" />
-		</definition>
+	
 		<!-- 회원 커뮤니티 작성 화면 -->
-		<definition name="/community/commu_wirte" extends="baseLayout">
+		<definition name="/community/reply" extends="baseLayout">
 			<put-attribute name="title" value="리뷰 작성" />
-			<put-attribute name="body" value="/WEB-INF/views/community/commu_wirte.jsp" />
+			<put-attribute name="body" value="/WEB-INF/views/community/reply.jsp" />
 		</definition>
 		
 	<!-- 스케줄 관련 -->
