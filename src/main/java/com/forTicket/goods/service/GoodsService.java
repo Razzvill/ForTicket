@@ -22,4 +22,6 @@ public interface GoodsService {
 	public void modGoodsImage(List imageFileList) throws DataAccessException;
 	public void removeGoodsImage(int image_id) throws DataAccessException;
 	public void removeAllGoodsImage(int goods_id) throws DataAccessException;
+	//별점평균
+	public double avgStar(int goods_id) throws DataAccessException;
 }

@@ -194,12 +194,21 @@ request.setCharacterEncoding("utf-8");
 	border: 0;
 	cursor: pointer;
 }
+
+.wrap_1100 {
+	margin: auto;
+	width: 1100px;
+	position: relative;
+	padding-top: 20px;
+}
+
+
 </style>
 
 </head>
 
 <body>
-	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
+	<div class="wrap_1100">
 		<div class="now_engine" style="margin-right: 680px;">
 			🗂️ <a href="#">공연 &gt; </a><a href="#">${goods.goods_type} </a>
 		</div>
@@ -441,6 +450,7 @@ request.setCharacterEncoding("utf-8");
 				</div>
 			</div>
 		</section>
+		</div>
 </body>
 
 </html>

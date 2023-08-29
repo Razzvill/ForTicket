@@ -23,7 +23,14 @@ public class GoodsVO {
 	private String mem_id;
 	private String goods_seats;
 	private String goods_fileName;
+	private double arg;
 	
+	public double getArg() {
+		return arg;
+	}
+	public void setArg(double arg) {
+		this.arg = arg;
+	}
 	public int getGoods_id() {
 		return goods_id;
 	}
