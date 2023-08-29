@@ -23,5 +23,9 @@ public interface GoodsService {
 	public void removeGoodsImage(int image_id) throws DataAccessException;
 	public void removeAllGoodsImage(int goods_id) throws DataAccessException;
 	//별점평균
-	public double avgStar(int goods_id) throws DataAccessException;
+	public Double avgStar(int goods_id) throws DataAccessException;
+	//별점 카운트
+	public int countStar(int goods_id) throws DataAccessException;
+	//리뷰 호출
+	public List reviewList(int goods_id) throws DataAccessException;
 }

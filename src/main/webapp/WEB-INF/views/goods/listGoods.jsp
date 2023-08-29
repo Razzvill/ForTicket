@@ -157,8 +157,8 @@ request.setCharacterEncoding("utf-8");
 								<div class="price">
 								<span>
 									<img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">
-									 ${goods.arg}
-								</span>
+									${goods.goods_avg}
+									</span>
 								<span style="padding-right:30px;">${goods.goods_price} 원</span>
 								</div>
 							</div>

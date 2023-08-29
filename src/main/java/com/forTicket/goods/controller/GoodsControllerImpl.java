@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.forTicket.community.vo.CommunityVO;
 import com.forTicket.goods.service.GoodsService;
 import com.forTicket.goods.vo.G_imageFileVO;
 import com.forTicket.goods.vo.GoodsVO;
@@ -68,16 +69,19 @@ public class GoodsControllerImpl implements GoodsController{
 		
 		for (int goods_id : goodsIds) {
 		    double avgStar = calculateAverageStar(goods_id); // 평균 평점 계산
-		    goodsIdToAvgStarMap.put(goods_id, avgStar); // 맵에 값 추가
+		    double roundedAvgStar = Math.round(avgStar * 10) / 10.0; // 반올림하여 소수점 첫째 자리까지 표시
+		    goodsIdToAvgStarMap.put(goods_id, roundedAvgStar); // 맵에 값 추가
 
 		    // goodsList에서 해당 goods_id에 해당하는 GoodsVO 객체를 찾아 avgStar 설정
 		    goodsList.stream()
 		        .filter(goods -> goods.getGoods_id() == goods_id)
 		        .findFirst()
-		        .ifPresent(goods -> goods.setArg(avgStar));
+		        .ifPresent(goods -> goods.setGoods_avg(roundedAvgStar));
 		    
-		    System.out.println("Goods ID: " + goods_id + ", Average Star: " + avgStar);
+		    System.out.println("Goods ID: " + goods_id + ", Average Star: " + roundedAvgStar);
 		}
+		
+		System.out.println("goodsList                                             "+goodsList);
 		
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
@@ -157,14 +161,29 @@ public class GoodsControllerImpl implements GoodsController{
 	public ModelAndView detailGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName=(String)req.getAttribute("viewName");
 		HttpSession session=req.getSession();
+		
 		Map goodsMap=goodsService.goodsInfo(goods_id);
 		GoodsVO goodsVO = (GoodsVO) goodsMap.get("goodsVO");
 		String theater_name = goodsVO.getGoods_place();
 		int theater_id = theaterDAO.selectIdFromName(theater_name);
 		TheaterVO theaterVO = theaterDAO.selectTheaterInfo(theater_id);
+		
+		int countStar = goodsService.countStar(goods_id);
+		double avgStar = calculateAverageStar(goods_id);
+		System.out.println(" count                              "+countStar);
+		System.out.println(" avgstar                              "+avgStar);
+		
+		List<CommunityVO> reviewList = goodsService.reviewList(goods_id);
+		
+		System.out.println(reviewList);
+		
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsMap", goodsMap);
 		mav.addObject("theater", theaterVO);
+		mav.addObject("count",countStar);
+		mav.addObject("avgStar", avgStar);
+		mav.addObject("reviewList", reviewList);
+		
 		return mav;
 	}
 	

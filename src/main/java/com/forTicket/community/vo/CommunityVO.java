@@ -12,16 +12,16 @@ public class CommunityVO {
 	private String c_title;
 	private String c_content;
 	private Date c_date;
-	private String star;
+	private int star;
 	private String imageFileName;
 	private String c_reply;
 	private Date c_replydate;
 	private int goods_id;
 			
-	public String getStar() {
+	public int getStar() {
 		return star;
 	}
-	public void setStar(String star) {
+	public void setStar(int star) {
 		this.star = star;
 	}
 	public int getC_No() {
