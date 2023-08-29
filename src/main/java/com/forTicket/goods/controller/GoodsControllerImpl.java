@@ -268,7 +268,7 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value = "/goods/removeGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity removeGoods(@RequestParam("theater_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
+	public ResponseEntity removeGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
 			throws Exception {
 		req.setCharacterEncoding("utf-8");
 		String message;
