@@ -122,10 +122,25 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	//별점평균
 	@Override
-	public double avgStar(int goods_id) throws DataAccessException {
+	public Double avgStar(int goods_id) throws DataAccessException {
 		
 		System.out.println("service : "+goods_id);
 		return goodsDAO.avgStar(goods_id);
+	}
+	
+	//별점 카운트
+	@Override
+	public int countStar(int goods_id) throws DataAccessException {
+		System.out.println("service : "+goods_id);
+		
+		return goodsDAO.countStar(goods_id);
+	}
+	
+	//리뷰 호출
+	@Override
+	public List reviewList(int goods_id) throws DataAccessException {
+		List reviewList = goodsDAO.reviewList(goods_id);
+		return reviewList;
 	}
 	
 	

@@ -22,7 +22,7 @@
 		<result property="mem_id" column="mem_id" />
 		<result property="goods_seats" column="goods_seats" />
 		<result property="goods_fileName" column="fileName" />
-		<result property="arg" column="arg" />
+		<result property="goods_avg" column="goods_avg" />
 	</resultMap>
 
 	<resultMap id="imageResult" type="G_imageFileVO">
@@ -171,10 +171,24 @@
 	</delete>
 	
 	<!-- 커뮤니티 별점 평균 -->
-	<select id="avgStar" resultType="double" parameterType="int">
+	<select id="avgStar" resultType="Double" parameterType="int">
 	    <![CDATA[
 		    select avg(star) as avg from community where goods_id=#{goods_id};
     	]]>
+	</select>
+	
+	<!-- 커뮤니티 카운트 -->
+		<select id="countStar" resultType="int" parameterType="int">
+	    <![CDATA[
+		    SELECT COUNT(star) FROM community where goods_id=#{goods_id};
+    	]]>
+	</select>
+	
+	<!--상품 리뷰 불러오기 -->
+	<select id="reviewList" resultMap="communityResult"  parameterType="java.util.List">
+		<![CDATA[
+		SELECT * FROM community where goods_id=#{goods_id} order by c_date desc					
+		]]>      
 	</select>
 	
 </mapper>

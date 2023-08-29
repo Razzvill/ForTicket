@@ -23,13 +23,14 @@ public class GoodsVO {
 	private String mem_id;
 	private String goods_seats;
 	private String goods_fileName;
-	private double arg;
+	private double goods_avg;
 	
-	public double getArg() {
-		return arg;
+
+	public double getGoods_avg() {
+		return goods_avg;
 	}
-	public void setArg(double arg) {
-		this.arg = arg;
+	public void setGoods_avg(double goods_avg) {
+		this.goods_avg = goods_avg;
 	}
 	public int getGoods_id() {
 		return goods_id;
@@ -142,7 +143,7 @@ public class GoodsVO {
 				+ goods_endDate + ", goods_runningTime=" + goods_runningTime + ", goods_age=" + goods_age
 				+ ", goods_price=" + goods_price + ", goods_discount=" + goods_discount + ", goods_info=" + goods_info
 				+ ", goods_notice=" + goods_notice + ", goods_place=" + goods_place + ", goods_creDate=" + goods_creDate
-				+ ", mem_id=" + mem_id + ", goods_seats=" + goods_seats + ", goods_fileName=" + goods_fileName + "]";
+				+ ", mem_id=" + mem_id + ", goods_seats=" + goods_seats + ", goods_fileName=" + goods_fileName +" goods_avg =        "+goods_avg+ "]";
 	}
 	
 	
