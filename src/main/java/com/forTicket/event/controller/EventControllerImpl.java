@@ -222,11 +222,9 @@ public class EventControllerImpl implements EventController {
 	@RequestMapping(value = "/event/addEventForm.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("utf-8");
-		
+		resp.setContentType("text/html; charset=UTF-8");
 		String viewName = (String)req.getAttribute("viewName");
-		
 		HttpSession session = req.getSession();
-		
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		String mem_id = member.getMem_id();
 		List goodsList = goodsService.findGoodsById(mem_id);
