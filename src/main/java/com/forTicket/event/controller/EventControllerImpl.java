@@ -47,6 +47,8 @@ public class EventControllerImpl implements EventController {
 	@Override
 	@RequestMapping(value = "/event/listEvent.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listEvent(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html;charset=utf-8");
 		String viewName = (String) req.getAttribute("viewName");
 		List<EventVO> eventList = eventService.listEvents();
 		ModelAndView mav = new ModelAndView();
@@ -222,6 +224,7 @@ public class EventControllerImpl implements EventController {
 	@RequestMapping(value = "/event/addEventForm.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html; charset=UTF-8");
 		String viewName = (String)req.getAttribute("viewName");
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
@@ -422,11 +425,12 @@ public class EventControllerImpl implements EventController {
 			HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		//System.out.println("modifyEventInfo");
 		request.setCharacterEncoding("utf-8");
+		System.out.println("event_no: "+event_no+", attribute: "+attribute+", value: "+value);
 		Map goodsMap=new HashMap();
 		goodsMap.put("event_no", event_no);
 		goodsMap.put(attribute, value);
+		System.out.println("event_status: "+goodsMap.get("event_status"));
 		eventService.modEventStatus(goodsMap);
-		System.out.println(goodsMap.get("event_status"));
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
