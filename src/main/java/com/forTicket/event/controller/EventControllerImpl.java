@@ -428,9 +428,8 @@ public class EventControllerImpl implements EventController {
 		
 		goodsMap.put("event_no", event_no);
 		goodsMap.put(attribute, value);
+		System.out.println("event_status: "+goodsMap.get("event_status"));
 		eventService.modEventStatus(goodsMap);
-		System.out.println(goodsMap.get("event_status"));
-		
 		String message = null;
 		
 		ResponseEntity resEntity = null;
