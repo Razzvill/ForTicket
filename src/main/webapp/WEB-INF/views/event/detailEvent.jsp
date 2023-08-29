@@ -255,7 +255,7 @@ request.setCharacterEncoding("utf-8");
 					
 					<!-- 상세이미지 -->
 					<c:forEach var="image" items="${imageList }">
-						<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${image.fileName}">
+						<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${image.fileName}">
 					</c:forEach>
 					
 					<div class="main_img"></div>

@@ -54,6 +54,7 @@ public class EventServiceImpl implements EventService {
 		ArrayList<E_imageFileVO> imageFileList = (ArrayList) eventMap.get("imageFileList");
 		for(E_imageFileVO imageFileVO : imageFileList) {
 			imageFileVO.setEvent_no(event_no);
+			eventDAO.insertEventImage(imageFileVO);
 		}
 		return event_no;
 	}
