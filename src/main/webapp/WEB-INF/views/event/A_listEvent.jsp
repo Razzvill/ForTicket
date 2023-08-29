@@ -91,12 +91,8 @@
 	</style>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript">
-	function fn_modify_event(event_no, attribute){
-		var frm_list=document.frm_list;
-		var value="";
-		if(attribute=='event_status'){
-			value=frm_list.event_status.value;
-		}
+	function fn_modify_event(event_no, selectId){
+		var value=document.getElementById(selectId).value;
 
 		$.ajax({
 			type : "post",

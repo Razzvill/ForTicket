@@ -109,6 +109,47 @@ public class FileDownloadController {
 		out.close();
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("/community/download.do")
 	protected void download(@RequestParam("imageFileName") String imageFileName, @RequestParam("c_No") String c_No,	HttpServletResponse response) throws Exception {
 		

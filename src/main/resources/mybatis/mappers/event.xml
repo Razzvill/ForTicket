@@ -114,6 +114,9 @@
 	
 	<insert id="insertEventImage" parameterType="E_imageFileVO">
 		<![CDATA[
+		
+		
+		
 			INSERT INTO event_detail_images(event_name, event_startDate, event_endDate, event_type, event_detail, mem_id, event_image) VALUES(#{event_name}, #{event_startDate}, #{event_endDate}, #{event_type}, #{event_detail}, #{mem_id}, #{event_image})
 		]]>
 	</insert>
