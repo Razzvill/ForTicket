@@ -57,11 +57,11 @@
 		]]>
 	</select>
 
-	<select id="selectEventDetail" resultType="goodsVO"	parameterType="int">
+	<select id="selectEventDetail" resultType="eventVO"	parameterType="int">
 	    <![CDATA[
 		    select g.*, d.fileName from event g, event_detail_images d
 	        where g.event_no=d.event_no
-	        and d.filetype='main_image'
+	        and d.fileType='main_image'
 	        and g.event_no=#{event_no}
 	        order by g.event_no
     	]]>

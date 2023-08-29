@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:set var="event" value="${event.event}" />
-<c:set var="imageList" value="${event.imageFileList }" />
+<c:set var="imageList" value="${events.imageFileList }" />
+<c:set var="event" value="${events.event}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
@@ -234,8 +234,11 @@ request.setCharacterEncoding("utf-8");
 						</c:otherwise>
 					</c:choose></p>
 					<p class="detail">이벤트 기간 : ${event.event_startDate} ~ ${event.event_endDate}</p>
-					<c:if test="${goods.goods_discount != 0}">
+					<c:if test="${event.event_type == 'disc'}">
 						<p class="detail">할인율 : ${goods.goods_discount}%</p>
+					</c:if>
+					<c:if test="${event.event_type == 'inv'}">
+						<p class="detail">당첨자 발표 : ${event.event_finalDate}</p>
 					</c:if>
 					<p class="detail">이벤트 내용 : ${event.event_detail}</p>
 				</div>
@@ -254,7 +257,7 @@ request.setCharacterEncoding("utf-8");
 				<div class="main_tab_wrap">
 					
 					<!-- 상세이미지 -->
-					<c:forEach var="image" items="${imageList }">
+					<c:forEach var="image" items="${imageList}">
 						<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${image.fileName}">
 					</c:forEach>
 					
