@@ -120,4 +120,14 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsDAO.deleteAllGoodsImage(goods_id);
 	}
 	
+	//별점평균
+	@Override
+	public double avgStar(int goods_id) throws DataAccessException {
+		
+		System.out.println("service : "+goods_id);
+		return goodsDAO.avgStar(goods_id);
+	}
+	
+	
+	
 }

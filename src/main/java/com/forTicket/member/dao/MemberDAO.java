@@ -14,6 +14,7 @@ import com.forTicket.member.vo.MemberVO;
 @Repository("memberDAO")
 public interface MemberDAO {
     public int insertMember(MemberVO memberVO) throws DataAccessException;
+    public int insertbusiness(MemberVO memberVO) throws DataAccessException;
     public int deleteMember(String mem_id) throws DataAccessException;
     public MemberVO loginById(MemberVO memberVO) throws DataAccessException;
     public MemberVO selectMemberById(String mem_id) throws DataAccessException;

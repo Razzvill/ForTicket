@@ -16,8 +16,8 @@ public class YourApplicationClass {
         
         mailSender.setHost("smtp.naver.com");
         mailSender.setPort(587);
-        mailSender.setUsername("");//이메일주소
-        mailSender.setPassword("");//이메일패스워드
+        mailSender.setUsername("wndals104@naver.com");//이메일주소
+        mailSender.setPassword("alzm15-503860");//이메일패스워드
         
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

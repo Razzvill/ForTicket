@@ -33,6 +33,13 @@
 		values(#{type},#{mem_id}, #{pwd},#{mem_name}, #{email},#{phone},#{post},#{addr1},#{addr2},#{checkbox})
 	]]>      
 	</insert>
+	
+		<insert id="insertbusiness"  parameterType="memberVO">
+	<![CDATA[
+		insert into member(type,mem_id,b_number,pwd,mem_name,b_name, email,phone, b_phone, post, addr1, addr2, checkbox)
+		values(#{type},#{mem_id},#{b_number},#{pwd},#{mem_name},#{b_name}, #{email},#{phone},#{b_phone},#{post},#{addr1},#{addr2},#{checkbox})
+	]]>      
+	</insert>
 	  
 	<update id="updateMember"  parameterType="memberVO">
 	<![CDATA[

@@ -29,4 +29,6 @@ public interface GoodsDAO {
 	public void updateGoodsImage(G_imageFileVO imageFileVO) throws DataAccessException;
 	public void deleteGoodsImage(int image_id) throws DataAccessException;
 	public void deleteAllGoodsImage(int image_id) throws DataAccessException;
+	//별점 평균
+	public double avgStar(int goods_id) throws DataAccessException;
 }

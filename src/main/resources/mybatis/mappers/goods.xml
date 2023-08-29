@@ -22,6 +22,7 @@
 		<result property="mem_id" column="mem_id" />
 		<result property="goods_seats" column="goods_seats" />
 		<result property="goods_fileName" column="fileName" />
+		<result property="arg" column="arg" />
 	</resultMap>
 
 	<resultMap id="imageResult" type="G_imageFileVO">
@@ -30,6 +31,20 @@
 		<result property="fileName" column="fileName" />
 		<result property="fileType" column="fileType" />
 		<result property="reg_id" column="reg_id" />
+	</resultMap>
+	
+	<resultMap id="communityResult" type="CommunityVO">
+		<result property="c_No" column="c_No" />
+		<result property="order_No" column="order_No" />
+		<result property="mem_id" column="mem_id" />
+		<result property="c_title" column="c_title" />
+		<result property="c_content" column="c_content" />
+		<result property="c_date" column="c_date" />
+		<result property="star" column="star" />
+		<result property="imageFileName" column="imageFileName" />
+		<result property="c_reply" column="c_reply" />
+		<result property="c_replydate" column="c_replydate" />
+		<result property="goods_id" column="goods_id" />
 	</resultMap>
 	
 	<select id="selectGoodsList" resultMap="goodsResult">
@@ -154,4 +169,12 @@
 		  where goods_id=#{goods_id}
 		  ]]>
 	</delete>
+	
+	<!-- 커뮤니티 별점 평균 -->
+	<select id="avgStar" resultType="double" parameterType="int">
+	    <![CDATA[
+		    select avg(star) as avg from community where goods_id=#{goods_id};
+    	]]>
+	</select>
+	
 </mapper>

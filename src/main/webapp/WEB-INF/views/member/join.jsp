@@ -66,7 +66,7 @@
 		</a>
         </div>
         <div class="div2">
-        <a href="#" style="text-decoration: none;">
+        <a href="${contextPath}/member/businessForm.do" style="text-decoration: none;">
 			<div><img src="${contextPath}/resources/images/member/mem2.png" style="width:260px; height:260px; margin-top:50px;" alt="사업자">
 			<div class="div1_1" >사업자 사용자 회원가입</div>
 			</div>
