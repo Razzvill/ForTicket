@@ -171,7 +171,7 @@ $nav.addEventListener('click', (e) => {
 						<strong>진행중인 이벤트가 없습니다.</strong>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="event" items="eventList">
+						<c:forEach var="event" items="${eventList}">
 							<c:if test="${event.event_status == '진행중'}">
 								<li>
 									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">

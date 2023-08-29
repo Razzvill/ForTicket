@@ -137,7 +137,7 @@ request.setCharacterEncoding("utf-8");
 					<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
 						<div class="drama_list">
 							<div class="thumb">
-								<img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
+								<img src="${contextPath}/goods/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
 								<div></div>
 							</div>
 							<div class="text">

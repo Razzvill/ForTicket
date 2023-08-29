@@ -38,12 +38,97 @@
 	      eventFinalDateInput.disabled = false;
 	    }
 	  }
-</script>    
-</head>
+	$(document).ready(function() {
 
+			//When page loads...
+			$(".tab_content").hide(); //Hide all content
+			$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+			$(".tab_content:first").show(); //Show first tab content
+
+			//On Click Event
+			$("ul.tabs li").click(function() {
+
+				$("ul.tabs li").removeClass("active"); //Remove any "active" class
+				$(this).addClass("active"); //Add "active" class to selected tab
+				$(".tab_content").hide(); //Hide all tab content
+
+				var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+				$(activeTab).fadeIn(); //Fade in the active ID content
+				return false;
+			});
+
+		});
+</script>
+<script type="text/javascript">
+  function handleGoodsSelectChange() {
+    var selectedOption = document.getElementById("goodsSelect").options[document.getElementById("goodsSelect").selectedIndex];
+    
+    document.getElementById("goods_type").value = selectedOption.getAttribute("data-goods-type");
+    document.getElementById("goods_genre").value = selectedOption.getAttribute("data-goods-genre");
+    document.getElementById("goods_startDate").value = selectedOption.getAttribute("data-goods-startDate");
+    document.getElementById("goods_endDate").value = selectedOption.getAttribute("data-goods-endDate");
+    document.getElementById("goods_runningTime").value = selectedOption.getAttribute("data-goods-runningTime");
+    document.getElementById("goods_age").value = selectedOption.getAttribute("data-goods-age");
+    document.getElementById("goods_price").value = selectedOption.getAttribute("data-goods-price");
+    document.getElementById("goods_discount").value = selectedOption.getAttribute("data-goods-discount");
+  }
+</script>
+</head>
+<style>
+	hr {
+		width: 90%;
+		float: left;
+	}
+	form {
+		width: 1100px;
+		margin: auto;
+	}
+#container {
+	margin: 40px auto; width: 100%;
+}
+#selec {
+	width: 317px;
+}
+ul.tabs {
+	list-style: none; margin: 0px; padding: 0px; width: 100%; height: 32px; border-bottom-color: rgb(255, 0, 0); border-bottom-width: 1px; border-bottom-style: solid; float: left;
+}
+ul.tabs li {
+	border-width: 1px; border-style: solid; border-color: rgb(153, 153, 153) rgb(153, 153, 153) rgb(255, 0, 0); margin: 0px 1px; padding: 0px; border-image: none; height: 31px; line-height: 31px; overflow: hidden; float: left; border-top-left-radius: 7px; border-top-right-radius: 7px; background-color: rgb(245, 245, 245);
+}
+ul.tabs li a {
+	padding: 0px 20px; color: rgb(0, 0, 0); font-size: 12px; font-weight: bold; text-decoration: none; display: block;
+}
+ul.tabs li a:hover {
+	background-color: rgb(202, 228, 255);
+}
+ul.tabs li.active {
+	background: rgb(255, 255, 255); border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255); border-bottom-width: 2px; border-bottom-style: solid;
+}
+ul.tabs li.active a:hover {
+	background: rgb(255, 255, 255); border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255); border-bottom-width: 2px; border-bottom-style: solid;
+}
+.tab_container {
+	background: rgb(255, 255, 255); width: 100%; clear: both; border-top-color: currentColor; border-top-width: medium; border-top-style: none; 
+}
+.tab_content {
+	padding: 10px 10px 20px; line-height: 1.8em; font-size: 0.75em; min-height: 400px;
+}
+.tab_content h4 {
+	background-position: left top; margin: 10px 0px; padding: 20px 0px 5px 35px; height: 30px; color: rgb(255, 255, 255); letter-spacing: 4px; font-family: "NanumGothic", Serif; font-size: 16px; font-weight: bold; background-image: url("../imgs/h4_back.png"); background-repeat: no-repeat;
+}
+.tab_content p {
+	margin: 10px 0px 0px;
+}
+.tab_content img {
+	margin: 10px; padding: 5px;
+}
+.tab_content .writer {
+	margin: 10px 0px; padding: 5px; color: rgb(0, 0, 0); font-size: 1.2em; font-weight: bold; border-bottom-color: rgb(255, 153, 0); border-bottom-width: 1px; border-bottom-style: solid;
+}
+</style>
 <body>
 <form action="${contextPath}/event/addEvent.do" method="post"  enctype="multipart/form-data">
-		<h1>이벤트 상품 등록창</h1>
+		<h1 align="left">이벤트 상품 등록창</h1>
 <div class="tab_container">
 	<!-- 내용 들어 가는 곳 -->
 	<div class="tab_container" id="container">
@@ -58,41 +143,49 @@
 					<tr>
 						<td width=200>상품 선택</td>
 						<td width=500>
-							<select name="goods_name">
-								<c:forEach var="goods" items="goodsList">
-									<option value="${goods.goods_id}">${goods.goods_name}</option>
+							<select name="goods_id" id="goodsSelect" onchange="handleGoodsSelectChange()">
+								<c:forEach var="goods" items="${goodsList}">
+									<option value="${goods.goods_id}"
+							            data-goods-type="${goods.goods_type}"
+							            data-goods-genre="${goods.goods_genre}"
+							            data-goods-startDate="${goods.goods_startDate}"
+							            data-goods-endDate="${goods.goods_endDate}"
+							            data-goods-runningTime="${goods.goods_runningTime}"
+							            data-goods-age="${goods.goods_age}"
+							            data-goods-price="${goods.goods_price}"
+							            data-goods-discount="${goods.goods_discount }">${goods.goods_name}</option>
 								</c:forEach>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>상품 분류</td>
-						<td><input name="goods_type" value="${goods.goods_type}" type="text" size="40" readonly/></td>
+						<td><input name="goods_type" id="goods_type" value="" type="text" size="40" readonly/></td>
 					</tr>
 					<tr>
 						<td>장르</td>
-						<td><input name="goods_genre" value="${goods.goods_genre}" type="text" size="40" readonly/></td>
+						<td><input name="goods_genre" id="goods_genre" value="" type="text" size="40" readonly/></td>
 					</tr>
 					<tr>
 						<td>공연 기간</td>
-						<td><input name="goods_startDate" value="${goods.goods_startDate}" type="text" size="18" readonly/> ~ 
-						<input name="goods_endDate" value="${goods.goods_endDate}" type="text" size="18" readonly/></td>
+						<td><input name="goods_startDate" id="goods_startDate" value="" type="date" size="18" readonly/> ~ 
+						<input name="goods_endDate" id="goods_endDate" value="" type="date" size="18" readonly/></td>
 					</tr>
 					<tr>
 						<td>러닝타임</td>
-						<td><input name="goods_runningTime" value="${goods.goods_runningTime}" type="text" size="40" readonly/></td>
+						<td><input name="goods_runningTime" id="goods_runningTime" value="" type="text" size="40" readonly/></td>
 					</tr>
 					<tr>
 						<td>이용등급</td>
-						<td><input name="goods_age" value="${goods.goods_age}" type="text" size="40" readonly/></td>
+						<td><input name="goods_age" id="goods_age" value="" type="text" size="40" readonly/></td>
 					</tr>
 					<tr>
 						<td>정가</td>
-						<td><input name="goods_price" value="${goods.goods_price}" type="text" size="40" readonly/></td>
+						<td><input name="goods_price" id="goods_price" value="" type="text" size="40" readonly/></td>
 					</tr>
 					<tr>
 						<td>할인율</td>
-						<td><input  name="goods_discount" value="${goods.goods_discount}" type="text" size="40"/></td>
+						<td><input  name="goods_discount" id="goods_discount" value="" type="text" size="40"/></td>
 					</tr>
 				</table>
 			</div>
@@ -122,7 +215,7 @@
 					</tr>
 					<tr>
 						<td>이벤트 내용</td>
-						<td><textarea rows="100" cols="80" name="event_detail"></textarea></td>
+						<td><textarea rows="20" cols="80" name="event_detail"></textarea></td>
 					</tr>
 				</table>	
 			</div>
