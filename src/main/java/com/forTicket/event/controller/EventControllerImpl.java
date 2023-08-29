@@ -215,7 +215,7 @@ public class EventControllerImpl implements EventController {
 
 		mav.addObject("goods", goods);
 		mav.addObject("member", member);
-		mav.addObject("event", event);
+		mav.addObject("events", event);
 		return mav;
 	}
 	

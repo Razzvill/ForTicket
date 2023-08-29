@@ -140,7 +140,7 @@ $(document).ready(function() {
 		$(this).addClass("active"); //Add "active" class to selected tab
 		$(".tab-content").hide(); //Hide all tab content
 
-		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+		var activeTab = $(this).attr("href"); //Find the href attribute value to identify the active tab + content
 		$(activeTab).fadeIn(); //Fade in the active ID content
 		return false;
 	});
@@ -164,10 +164,7 @@ $(document).ready(function() {
 		<div id="event-ing" class="tab-content">
 			<ul>
 				<c:choose>
-					<c:when test="${empty eventList}">
-						<strong>진행중인 이벤트가 없습니다.</strong>
-					</c:when>
-					<c:otherwise>
+					<c:when test="${not empty eventList}">
 						<c:forEach var="event" items="${eventList}">
 							<c:if test="${event.event_status == '진행중'}">
 								<li>
@@ -193,17 +190,17 @@ $(document).ready(function() {
 								</li>
 							</c:if>
 						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<strong>진행중인 이벤트가 없습니다.</strong>
 					</c:otherwise>
 				</c:choose>
 			</ul>
 		</div>
-		<div id="event-end" class="tab-content">
+		<div id="event-end" class="tab-content" style="display: none;">
 			<ul>
 				<c:choose>
-					<c:when test="${empty eventList}">
-						<strong>종료된 이벤트가 없습니다.</strong>
-					</c:when>
-					<c:otherwise>
+					<c:when test="${not empty eventList}">
 						<c:forEach var="event" items="${eventList}">
 							<c:if test="${event.event_status == '종료'}">
 								<li>
@@ -228,6 +225,9 @@ $(document).ready(function() {
 								</li>
 							</c:if>
 						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<strong>종료된 이벤트가 없습니다.</strong>
 					</c:otherwise>
 				</c:choose>
 			</ul>

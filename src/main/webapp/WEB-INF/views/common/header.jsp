@@ -229,7 +229,7 @@
 		    <ul class="gnb_nav">
 				<li style="padding-right:80px;"><a href="${contextPath}/goods/a_listGoods.do" class="button" onclick="changeStyle(this)">상품관리</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장관리</a></li>
-				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/schedule/listSchedule.do" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/member/a_Profile.do" class="button" onclick="changeStyle(this)">회원관리</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/event/A_listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/community/u_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
@@ -241,7 +241,7 @@
 		<div class="gnb_wrap" style="height:55px; padding-top:5px;">
 		    <ul class="gnb_nav">
 				<li style="padding-right:85px;"><a href="${contextPath}/goods/a_listGoods.do" class="button" onclick="changeStyle(this)">상품관리</a></li>
-				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">스케쥴관리</a></li>
+				<li style="padding-right:85px;"><a href="${contextPath}/schedule/listSchedule.do" class="button" onclick="changeStyle(this)">스케쥴관리</a></li>
 				<li style="padding-right:85px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">예매관리</a></li>
 				<li style="padding-right:85px;"><a href="${contextPath}/event/B_listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
