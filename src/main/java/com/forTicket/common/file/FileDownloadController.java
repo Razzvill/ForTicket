@@ -18,6 +18,7 @@ public class FileDownloadController {
 	private static String THEATER_IMAGE_REPO = "C:\\forTicket\\theater";
 	private static String GOODS_IMAGE_REPO = "C:\\forTicket\\goods";
 	private static String EVENT_IMAGE_REPO = "C:\\forTicket\\event";
+	private static final String COMMUNITY_IMAGE_REPO = "C:\\forTicket\\community";
 	
 	@RequestMapping("/theater/download.do")
 	protected void t_download(@RequestParam("theater_image") String theater_image, @RequestParam("theater_id") int theater_id, HttpServletRequest req, HttpServletResponse resp)
@@ -107,4 +108,33 @@ public class FileDownloadController {
 		out.write(buffer);
 		out.close();
 	}
+
+	@RequestMapping("/community/download.do")
+	protected void download(@RequestParam("imageFileName") String imageFileName,
+							@RequestParam("c_No") String c_No,
+							HttpServletResponse response) throws Exception {
+		
+		OutputStream out = response.getOutputStream();//웹에서 보내준다
+		
+		String downFile = COMMUNITY_IMAGE_REPO + "\\" + c_No + "\\" + imageFileName;
+		File file = new File(downFile);
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disponsition", "attachment: fileName="+imageFileName);
+		
+		FileInputStream in = new FileInputStream(file);
+		
+		byte[] buffer = new byte[1024*8];
+		
+		while(true) {
+			int count = in.read(buffer);
+			if(count == -1)
+				break;
+			out.write(buffer,0,count);
+		}
+		in.close();
+		out.close();		
+	
+	}//download
+
 }

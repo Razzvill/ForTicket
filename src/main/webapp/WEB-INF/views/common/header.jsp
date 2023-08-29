@@ -159,7 +159,7 @@
 			<li class="top1"><span id="user">일반회원</span>&nbsp;</li>
 			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="${contextPath }/member/myreservation.do">마이페이지<br></a></li>
+			<li><a class="top" href="${contextPath }/member/myreservation.do?mem_id=${member.mem_id}">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
@@ -173,7 +173,7 @@
 			<li class="top1"><span id="business">사업자</span>&nbsp;</li>
 			<li class="top">${member.mem_name} 님<br></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="${contextPath }/member/myreservation.do">마이페이지<br></a></li>
+			<li><a class="top" href="${contextPath }/member/myreservation.do?mem_id=${member.mem_id}">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
 		</ul>
@@ -232,7 +232,7 @@
 				<li style="padding-right:80px;"><a href="#" class="button" onclick="changeStyle(this)">스케줄관리</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/member/a_Profile.do" class="button" onclick="changeStyle(this)">회원관리</a></li>
 				<li style="padding-right:80px;"><a href="${contextPath}/event/A_listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li style="padding-right:80px;"><a href="${contextPath}/community/a_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li style="padding-right:80px;"><a href="${contextPath}/community/u_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
 	</div>
@@ -245,7 +245,7 @@
 				<li style="padding-right:85px;"><a href="${contextPath}/theater/listTheater.do" class="button" onclick="changeStyle(this)">공연장</a></li>
 				<li style="padding-right:85px;"><a href="#" class="button" onclick="changeStyle(this)">예매관리</a></li>
 				<li style="padding-right:85px;"><a href="${contextPath}/event/B_listEvent.do" class="button" onclick="changeStyle(this)">이벤트</a></li>
-				<li style="padding-right:85px;"><a href="${contextPath}/community/b_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
+				<li style="padding-right:85px;"><a href="${contextPath}/community/u_Commu.do" class="button" onclick="changeStyle(this)">커뮤니티</a></li>
 				<li><a href="${contextPath}/center/notice.do" class="button" onclick="changeStyle(this)">고객센터</a></li>
 		    </ul>
 	</div>

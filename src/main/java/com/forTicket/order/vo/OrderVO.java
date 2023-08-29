@@ -13,7 +13,7 @@ public class OrderVO {
 	private int orderNum; 
 	private int ordersit; 
 	private String orderName; 
-	private String orderPhone1; 
+	private String orderPhone; 
 	private String orderPhone2; 
 	private String orderEmail;
 	private String orderPay; 
@@ -22,7 +22,14 @@ public class OrderVO {
 	private Date orderTicketing;
 	private Date orderDate; 
 	private int order_price;
+	private String goods_name;
 	
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
+	}
 	public int getOrder_No() {
 		return order_No;
 	}
@@ -65,11 +72,11 @@ public class OrderVO {
 	public void setOrderName(String orderName) {
 		this.orderName = orderName;
 	}
-	public String getOrderPhone1() {
-		return orderPhone1;
+	public String getOrderPhone() {
+		return orderPhone;
 	}
-	public void setOrderPhone1(String orderPhone1) {
-		this.orderPhone1 = orderPhone1;
+	public void setOrderPhone(String orderPhone) {
+		this.orderPhone = orderPhone;
 	}
 	public String getOrderPhone2() {
 		return orderPhone2;
