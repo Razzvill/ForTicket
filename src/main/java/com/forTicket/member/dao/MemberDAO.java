@@ -1,6 +1,5 @@
 package com.forTicket.member.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,12 +14,12 @@ import com.forTicket.member.vo.MemberVO;
 public interface MemberDAO {
     public int insertMember(MemberVO memberVO) throws DataAccessException;
     public int insertbusiness(MemberVO memberVO) throws DataAccessException;
-    public int deleteMember(String mem_id) throws DataAccessException;
     public MemberVO loginById(MemberVO memberVO) throws DataAccessException;
     public MemberVO selectMemberById(String mem_id) throws DataAccessException;
-    public int updateMember(MemberVO memberVO) throws DataAccessException;
     public String selectOverlappedID(String id) throws DataAccessException;
     public String findId(@Param("mem_name") String mem_name, @Param("phone") String phone) throws DataAccessException;
     public String findByMemberEmail(String email) throws DataAccessException; // 이 부분을 추가해야 합니다.
     public void updatePassword(@Param("mem_id") String mem_id, @Param("pwd") String pwd) throws DataAccessException; // 이 부분도 추가해야 합니다
+    public int updateMember(MemberVO memberVO) throws DataAccessException;
+    public MemberVO m_Edit(HashMap condMap)  throws DataAccessException;
 }

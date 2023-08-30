@@ -1,6 +1,5 @@
 package com.forTicket.member.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +48,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 
-
-	@Override
-	public int updateMember(MemberVO member)throws DataAccessException{
-		return memberDAO.updateMember(member);
-	}
 	
 	@Override
 	public String overlapped(String id) throws Exception{
@@ -122,5 +116,15 @@ public class MemberServiceImpl implements MemberService {
 	    public void updatePassWord(String mem_id, String pwd) {
 	        memberDAO.updatePassword(mem_id, pwd);;
 	    }
+	    
+	    @Override
+		public int updateMember(MemberVO memberVO) throws DataAccessException {
+			return memberDAO.updateMember(memberVO);
+			}
+
+		@Override
+		public MemberVO m_Edit(HashMap condMap) throws DataAccessException{
+			return memberDAO.m_Edit(condMap);
+		}    
 
 }

@@ -1,6 +1,5 @@
 package com.forTicket.member.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.dao.DataAccessException;
@@ -13,7 +12,6 @@ public interface MemberService {
     public int insertbusiness(MemberVO memberVO) throws DataAccessException ;
     public MemberVO modMember(String mem_id) throws DataAccessException;
     public MemberVO login(MemberVO memberVO) throws Exception;
-    public int updateMember(MemberVO memberVO) throws DataAccessException;
     public String overlapped(String id) throws Exception;
     public String findId(String mem_name, String phone) throws Exception;
     //비밀먼호 이메일
@@ -22,5 +20,7 @@ public interface MemberService {
     public String getTempPassword() throws DataAccessException;
     public void mailSend(MailDTO mailDTO) throws DataAccessException;
     public void updatePassWord(String mem_id, String pwd) throws DataAccessException;
+    public int updateMember(MemberVO memberVO) throws DataAccessException;
+    public MemberVO m_Edit(HashMap condMap) throws DataAccessException;
     
 }
