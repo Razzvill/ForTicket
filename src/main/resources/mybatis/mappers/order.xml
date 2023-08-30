@@ -9,18 +9,23 @@
 		<result property="goods_id" column="goods_id" />
 		<result property="mem_id" column="mem_id" />
 		<result property="s_no" column="s_no" />
-		<result property="orderNum" column="orderNum" />
+		
 		<result property="ordersit" column="ordersit" />
 		<result property="orderName" column="orderName" />
 		<result property="orderPhone1" column="orderPhone1" />
-		<result property="orderPhone2" column="orderPhone2" />
+
 		<result property="orderEmail" column="orderEmail" />
 		<result property="orderPay" column="orderPay" />
 		<result property="orderCheck" column="orderCheck" />
 		<result property="orderStatus" column="orderStatus" />
 		<result property="orderTicketing" column="orderTicketing" />
 		<result property="orderDate" column="orderDate" />
-		<result property="order_price" column="order_price" />
+		<result property="totalPrice" column="totalPrice" />
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_place" column="goods_place" />
+		<result property="totalQuantity" column="totalQuantity" />
+		<result property="goods_price" column="goods_price" />
+		<result property="goods_Time" column="goods_Time" />
 	</resultMap>
 
 	

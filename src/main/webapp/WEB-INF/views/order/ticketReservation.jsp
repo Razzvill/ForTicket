@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>메인 페이지</title>
+	<title>예매 페이지</title>
  	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<style>
 	.section_box{
@@ -163,14 +163,12 @@
   .check_box div {
     padding-bottom: 5px;
   }
-
   .check_box label {
     cursor: pointer;
     margin-left: 0px;
     font-size: 15px;
     color: #313131;
   }
-
   .perform_today {
     margin-top: 20px;
     height: 60px;
@@ -182,13 +180,11 @@
     line-height: 180%;
     padding-top: 15px;
   }
-
   .pay_btn {
     text-align: center;
     padding-top: 25px;
     margin-bottom:30px;
   }
-
   #pay_confirm {
     padding: 12px;
     width: 250px;
@@ -199,8 +195,6 @@
     font-size: 22px;
     cursor: pointer;
   }
-
-
   .section_flex {
     display: flex; justify-content: space-between; background-color: #fff;
   }
@@ -219,42 +213,75 @@
   .payment_box p {
     text-align: center; font-size: 15px;
   }
+ 
+	.payment_box input[type="radio"]:checked#pay_naver + div {
+    	background: #01c73c;
+    	color: #fff;
+    	outline: none;
+	}
+
+	.payment_box input[type="radio"]:checked#pay_kakao + div {
+    	background: #ffeb00;
+    	outline: none;
+	}
+  
+  	.payment_box input[type="radio"]:checked#pay_toss + div {
+    	background: #0064FF;
+    	color: #fff;
+    	outline: none;
+    }
+    
+    .payment_box input[type="radio"]:checked + div {
+    outline: 1px solid #ff4b4b;
+    background-color: rgba(255, 75, 75, 0.1);
+}
+  
 </style>
 </head>
 <body>
+<form name="form_order">
 <div class="section_box">
   		<!-- 페이지 타이틀 -->
   		<div class="page_title">티켓 예매하기
     		<div style="border-color: #FF6251; width:auto;" ></div>
   		</div>
-  		<div class="basket_title">티켓정보</div>
+  		
+  		<c:forEach var="item" items="${myOrderList }">
+	  		<input type="hidden" id="goods_id" name="goods_id" value="${item.goods_id }">
+	  		<div class="basket_title">티켓정보</div>
   			<div class="basket_box" style="border-color: #FF6251;">
     			<div>
       				<div class="basket_subtitle">티켓명</div>
-      				<span>라면</span>
+      				<span>${item.goods_name }</span>
+      				<input type="hidden" id="goods_name" name="goods_name" value="${item.goods_name }">
     			</div>
     			<div style="padding-top:3px;">
       				<div class="basket_subtitle">이용장소</div>
-      				<span>해피씨어터 (서울 종로구 대학로10길 5)</span>
+      				<span>${item.goods_place }</span>
+      				<input type="hidden" id="goods_place" name="goods_place" value="${item.goods_place }">
     			</div>
   			</div>
 
-		<div class="basket_title">예매정보</div>
-		<div style="margin-top:10px; border:1px solid #d2d2d2; border-radius: 10px; background:#fff; padding:10px 25px; font-size:15px; color:#313131; line-height:160%; border-color: #FF6251;">
-        	<div class="option_title">선택옵션</div>
-        		<div style="width:100%;">8.31[목] 19:00 일반</div>
-        	<div class="option_title">티켓가격</div>
-        		<div style="width:100%;">18,900 원</div>
-        	<div class="option_title"">수량</div>
-        		<div style="width:100%; vertical-align:bottom;">1 매</div>
-        	<div style="clear:both;"></div>
-        	<div class="option_title">티켓합계</div>
-        		<div style="width:100%; vertical-align:bottom;">
-          			<span id="">18,900</span> 원
-          			<input type="hidden" name="" id="" value="18900">
-        		</div>
-      	</div>
-		
+			<div class="basket_title">예매정보</div>
+			<div style="margin-top:10px; border:1px solid #d2d2d2; border-radius: 10px; background:#fff; padding:10px 25px; font-size:15px; color:#313131; line-height:160%; border-color: #FF6251;">
+	        	<div class="option_title">선택옵션</div>
+	        		<div style="width:100%;">${item.orderDate } / ${item.goods_Time }</div>
+	        		<input type="hidden" id="orderDate" name="orderDate" value="${item.orderDate }">
+	        		<input type="hidden" id="goods_Time" name="goods_Time" value="${item.goods_Time }">
+	        	<div class="option_title">티켓가격</div>
+	        		<div style="width:100%;">${item.goods_price } 원</div>
+	        		<input type="hidden" id="goods_price" name="goods_price" value="${item.goods_price }">
+	        	<div class="option_title"">수량</div>
+	        		<div style="width:100%; vertical-align:bottom;">${item.totalQuantity } 매</div>
+	        		<input type="hidden" id="totalQuantity" name="totalQuantity" value="${item.totalQuantity }">
+	        	<div style="clear:both;"></div>
+	        	<div class="option_title">티켓합계</div>
+	        		<div style="width:100%; vertical-align:bottom;">
+	          			<span id="">${item.totalPrice }</span> 원
+	          			<input type="hidden" id="totalPrice" name="totalPrice" value="${item.totalPrice }">
+	        		</div>
+	      	</div>
+		</c:forEach>
 		<div class="basket_title">이용자정보</div>
 		<div class="basket_text">
     		<p>· 실제로 관람/이용하실 분의 실명/연락처를 입력해 주세요.</p>
@@ -263,22 +290,24 @@
   		<div class="basket_box" style="border-color: #FF6251;">
     	<div>
       		<div class="basket_subtitle">이용자이름</div>
-      		<input class="basket_input" type="text" name="name" value="LJM" id="user_name">
+      		<input class="basket_input" type="text" id="orderName" name="orderName" value="${orderer.mem_name }">
     	</div>
     	<div>
       		<div class="basket_subtitle">휴대폰번호</div>
-      		<input class="basket_input" type="text" name="hphone" maxlength="13" value="010-2422-7237" id="user_hphone" onkeyup="AUTO_HYPHEN_PHONE(value)">
+      		<input class="basket_input" type="text" name="orderPhone" maxlength="13" value="${orderer.phone }" id="orderPhone">
     	</div>
     	<div>
       		<div class="basket_subtitle">이메일주소</div>
-      		<input class="basket_input" type="text" name="email" value="wndals104@naver.com" id="user_email">
+      		<input class="basket_input" type="text" name="orderEmail" value="${orderer.email }" id="orderEmail">
+      	</div>
+    	<div>
+    		<span id="emailError" style="color: red;"></span>
     	</div>
   		</div>
 		
 		<div class="basket_title" style="margin-top:20px;">
     		<span>총 결제금액
-    			<span id="total_price_view" class="pay_total pay_total_price" value="18900">18,900원</span>
-    			<span id="total_point_view" class="pay_total_point"></span>
+    			<span id="total_price_view" class="pay_total pay_total_price" value="">${item.totalPrice }</span>
     		</span>
   		</div>
 	
@@ -289,30 +318,30 @@
     <div class="basket_box" alt="결제수단" style="padding-top:8px; border-color: #FF6251;" >
     	<div class="section_flex" style="border-bottom:1px solid #eee; padding-bottom: 8px;">
         	<label class="payment_box">
-          		<input type="radio" name="pay_type" id="pay_naver" value="naverpay" onclick="PAYMENT_SELECT_FUNC('naver');">
+          		<input type="radio" id="pay_naver" name="orderPay" value="네이버페이" onclick="PAYMENT_SELECT_FUNC('naver');">
           		<div>
-            	<img id="pay_naver_img" class="payment_img" src="${contextPath}/resources/image/naverpay.png" style="width:50px; height:50px;">
+            	<img id="pay_naver_img" class="payment_img" src="${contextPath}/resources/images/pay_naverpay_off.png" style="width:60px; height:45px;">
             	<p>네이버페이</p>
           		</div>
         	</label>
         	<label class="payment_box">
-          		<input type="radio" name="pay_type" id="pay_kakao" value="kakaopay" onclick="PAYMENT_SELECT_FUNC(this.value);">
+          		<input type="radio" id="pay_kakao" name="orderPay" value="카카오페이" onclick="PAYMENT_SELECT_FUNC(this.value);">
           		<div>
-            	<img id="pay_kakao_img" src="${contextPath}/resources/image/kakaopay.png"style="width:50px; height:50px;">
+            	<img id="pay_kakao_img" src="${contextPath}/resources/images/pay_kakaopay_off.png"style="width:60px; height:45px;">
             	<p>카카오페이</p>
           	</div>
         	</label>
 	        <label class="payment_box">
-    		    <input type="radio" name="pay_type" id="pay_toss" value="tosspay" onclick="PAYMENT_SELECT_FUNC(this.value);">
+    		    <input type="radio" id="pay_toss" name="orderPay" value="토스페이" onclick="PAYMENT_SELECT_FUNC(this.value);">
           		<div>
-            	<img id="pay_toss_img" class="payment_img" src="${contextPath}/resources/image/tosspay.png"style="width:50px; height:50px;">
+            	<img id="pay_toss_img" class="payment_img" src="${contextPath}/resources/images/pay_tosspay_off.png"style="width:60px; height:45px;">
             	<p>토스페이</p>
           		</div>
         	</label>
 	        <label class="payment_box">
-    	    	<input type="radio" name="pay_type" id="pay_payco" value="payco" onclick="PAYMENT_SELECT_FUNC(this.value);">
+    	    	<input type="radio" id="pay_payco" name="orderPay" value="페이코" onclick="PAYMENT_SELECT_FUNC(this.value);">
           		<div>
-            	<img id="pay_payco_img" class="payment_img" src="${contextPath}/resources/image/paycopay.png"style="width:50px; height:50px;">
+            	<img id="pay_payco_img" class="payment_img" src="${contextPath}/resources/images/pay_payco_off.png"style="width:60px; height:45px;">
             	<p>페이코</p>
           		</div>
           	</label>
@@ -320,23 +349,23 @@
        
         <div class="section_flex" style="margin-top:8px;">
         	<label class="payment_box">
-        		<input type="radio" name="pay_type" id="pay_card" value="card" onclick="PAYMENT_SELECT_FUNC(this.value);">
+        		<input type="radio" id="pay_card" name="orderPay" value="신용카드" onclick="PAYMENT_SELECT_FUNC(this.value);">
           		<div>
-            	<img id="pay_card_img" class="payment_img" src="${contextPath}/resources/image/card.png"style="width:50px; height:50px;">
+            	<img id="pay_card_img" class="payment_img" src="${contextPath}/resources/images/pay_card_off.png"style="width:60px; height:45px;">
             	<p>카드결제</p>
           		</div>
         	</label>
 	        <label class="payment_box">
-    	    	<input type="radio" name="pay_type" id="pay_phone" value="phone" onclick="PAYMENT_SELECT_FUNC(this.value);">
+    	    	<input type="radio" id="pay_phone" name="orderPay" value="핸드폰" onclick="PAYMENT_SELECT_FUNC(this.value);">
           		<div>
-            	<img id="pay_phone_img" class="payment_img" src="${contextPath}/resources/image/phonepay.png"style="width:50px; height:50px;">
+            	<img id="pay_phone_img" class="payment_img" src="${contextPath}/resources/images/pay_phone_off.png"style="width:60px; height:45px;">
             	<p>휴대폰결제</p>
         		</div>
         	</label>
 	        <label class="payment_box">
-    	    	<input type="radio" name="pay_type" id="pay_bank" value="bank" onclick="PAYMENT_SELECT_FUNC(this.value);">
+    	    	<input type="radio" id="pay_bank" name="orderPay" value="무통장입금" onclick="PAYMENT_SELECT_FUNC(this.value);">
           		<div>
-            	<img id="pay_bank_img" class="payment_img" src="${contextPath}/resources/image/pay.png"style="width:50px; height:50px;">
+            	<img id="pay_bank_img" class="payment_img" src="${contextPath}/resources/images/pay_bank_off.png"style="width:60px; height:45px;">
             	<p>무통장입금</p>
           		</div>
           	</label>
@@ -414,20 +443,168 @@
 	</div>
 	<div class="check_box">
     <div>
-    	<input type="checkbox" name="check_1" id="check_1" class="check_box_squre">
+    	<input type="checkbox" name="orderCheck1" id="check_1" class="check_box_squre">
       	<label for="check_1">&nbsp;상단의 환불규정 / 주의사항 / 약관을 확인하였으며 이에 동의합니다.</label>
     </div>
     <div style="">
-      	<input type="checkbox" name="check_2" id="check_2" class="check_box_squre">
+      	<input type="checkbox" name="orderCheck2" id="check_2" class="check_box_squre">
       	<label for="check_2">
         <span style="color:blue;">&nbsp;공연티켓은 관람당일 환불/변경이 절대 불가</span>한 점에 동의합니다.(지각, 지역착오, 연령미준수로 인한 환불불가)
       </label>
     </div>
 
     <div class="pay_btn">
-	    <button type="button" id="pay_confirm">결제하기</button>
+	    <a href="javascript:fn_process_pay_order();">결제하기</a>
     </div>
   	</div>
 </div>
+</form>
+
+<script type="text/javascript">
+	//이메일
+	document.addEventListener('DOMContentLoaded', function() {
+	    var emailInput = document.getElementById('email');
+	    var emailError = document.getElementById('emailError');
+	
+	    emailInput.addEventListener('input', function() {
+	        var emailValue = emailInput.value;
+	        if (isEmailValid(emailValue)) {
+	            emailError.textContent = "";
+	        } else {
+	        	emailError.style.fontSize = "12px";
+	            emailError.textContent = "올바른 이메일 형식이 아닙니다.";
+	        }
+	    });
+	
+	    function isEmailValid(email) {
+	        var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	        return pattern.test(email);
+	    }
+	});
+	
+	//핸드폰번호유형
+	document.addEventListener('DOMContentLoaded', function() {
+	    var phoneInput = document.getElementById('orderPhone');
+	    
+	    phoneInput.addEventListener('input', function() {
+	        var phoneNumber = phoneInput.value;
+	        var cleanedPhoneNumber = phoneNumber.replace(/\D/g, ''); // 숫자 이외의 문자 제거
+	        var formattedPhoneNumber = formatPhoneNumber(cleanedPhoneNumber);
+	        phoneInput.value = formattedPhoneNumber;
+	    });
+	
+	    function formatPhoneNumber(phoneNumber) {
+	        if (phoneNumber.length > 10) {
+	            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7, 11);
+	        } else if (phoneNumber.length > 6) {
+	            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7);
+	        } else if (phoneNumber.length > 3) {
+	            return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3);
+	        } else {
+	            return phoneNumber;
+	        }
+	    }
+	});
+	
+	//정보 미입력 시 오류
+	function validateForm() {
+    var memId = document.getElementById("orderName").value;
+
+    var email = document.getElementById("orderEmail").value;
+    var phone = document.getElementById("orderPhone").value;
+
+	var orderPay = document.getElementById("orderPay").value;
+    
+    var check_1 = document.getElementById("check_1").checked;
+    var check_2 = document.getElementById("check_2").checked;
+
+    if (memId === "" || email === "" || phone === "" || orderPay ==="") {
+        alert("모든 항목을 입력해주세요.");
+        return false; // 폼 제출 방지
+    }
+    
+    if (!check_1 || !check_2) {
+        alert("이용약관에 동의해주세요.");
+        return false; // 폼 제출 방지
+    }
+     return true; // 폼 제출 허용
+	}
+		
+	var goods_id = document.getElementById("goods_id").value;
+ 	var goods_name = document.getElementById("goods_name").value;
+ 	var goods_place = document.getElementById("goods_place").value;
+ 	var orderDate = document.getElementById("orderDate").value;
+ 	var goods_Time = document.getElementById("goods_Time").value;
+ 	var goods_price = document.getElementById("goods_price").value;
+ 	var totalQuantity = document.getElementById("totalQuantity").value;
+ 	var totalPrice = document.getElementById("totalPrice").value;
+ 	var orderName = "${orderer.mem_name}";
+ 	var orderPhone = "${orderer.phone}";
+ 	var orderEmail = "${orderer.email}";
+ 	 	
+ 	function fn_process_pay_order(){
+ 		
+ 		debugger;
+ 		
+ 		var formObj=document.createElement("form");
+ 		
+ 	    var i_goods_id=document.createElement("input");
+ 	    var i_goods_name=document.createElement("input");
+ 	    var i_goods_place=document.createElement("input");
+ 	    var i_orderDate=document.createElement("input");
+ 	    var i_goods_Time=document.createElement("input");
+ 	    var i_goods_price=document.createElement("input");
+ 	    var i_totalQuantity=document.createElement("input");
+ 	    var i_totalPrice=document.createElement("input");
+ 	    var i_orderName=document.createElement("input");
+ 	    var i_orderPhone=document.createElement("input");
+ 	    var i_orderEmail=document.createElement("input");
+
+ 	    
+		i_goods_id.name="goods_id";
+		i_goods_name.name="goods_name";
+		i_goods_place.name="goods_place";
+		i_orderDate.name="orderDate";
+		i_goods_Time.name="goods_Time";
+		i_goods_price.name="goods_price";
+		i_totalQuantity.name="totalQuantity";
+		i_totalPrice.name="totalPrice";
+		i_orderName.name="orderName";
+		i_orderPhone.name="orderPhone";
+		i_orderEmail.name="orderEmail";
+		 	   
+ 	  
+		i_goods_id.value=goods_id;
+		i_goods_name.value=goods_name;
+		i_goods_place.value=goods_place;
+		i_orderDate.value=orderDate;
+		i_goods_Time.value=goods_Time;
+		i_goods_price.value=goods_price;
+		i_totalQuantity.value=totalQuantity;
+		i_totalPrice.value=totalPrice;
+		i_orderName.value=orderName;
+		i_orderPhone.value=orderPhone;
+		i_orderEmail.value=orderEmail;
+ 	    
+ 	    
+ 	    formObj.appendChild(i_goods_id);
+ 	    formObj.appendChild(i_goods_name);
+ 	    formObj.appendChild(i_goods_place);
+ 	    formObj.appendChild(i_orderDate);
+ 	    formObj.appendChild(i_goods_Time);
+ 	    formObj.appendChild(i_goods_price);
+ 	    formObj.appendChild(i_totalQuantity);
+ 	    formObj.appendChild(i_totalPrice);
+ 	    formObj.appendChild(i_orderName);
+ 	    formObj.appendChild(i_orderPhone);
+ 	    formObj.appendChild(i_orderEmail);
+ 	    
+
+ 	    document.body.appendChild(formObj); 
+ 	    formObj.method="post";
+ 	    formObj.action="${contextPath}/order/reservationSuccess.do";
+ 	    formObj.submit();
+ 	}
+</script>
 </body>
 </html>

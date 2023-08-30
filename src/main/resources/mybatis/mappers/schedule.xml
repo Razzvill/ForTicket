@@ -41,8 +41,8 @@
 	</select>
 	
 	<insert id="insertSchedule" parameterType="java.util.Map">
-		INSERT INTO schedule(goods_id, theater_id, s_date, seats)
-		VALUES(#{goods_id}, #{theater_id}, date_format(#{s_date},'%Y-%m-%d %H:%i'), #{seats})
+		INSERT INTO schedule(goods_id, theater_id, s_date, seats, reg_id)
+		VALUES(#{goods_id}, #{theater_id}, date_format(#{s_date},'%Y-%m-%d %H:%i'), #{seats}, #{reg_id})
 	</insert>
 	
 	<delete id="deleteSchedule" parameterType="int">

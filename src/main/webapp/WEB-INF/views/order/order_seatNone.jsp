@@ -20,22 +20,32 @@ request.setCharacterEncoding("utf-8");
 <script type="text/javascript"
 	src="${contextPath}/resources/js/ajaxtabs.js"></script>
 <script>
-    var goodsPrice = ${goods.goods_price};
-    console.log(goodsPrice);
+    var goods_price = ${goods.goods_price};
+    console.log(goods_price);
 </script>
 <script type="text/javascript">
+var selectedTime = "";
+var totalQuantity = 0;
+var totalPrice = 0;
+
 function getScRoomTime(){
 	var output = "";
 	var goods_id = <%= goods_id %>;
+	var selectedDate = $("#scDate").val();
 	var date;
 	var hours;
 	var minutes;
 	var formattedTime;
-	if(selectScheduleDate.length>0){
+	if(orderDate.length>0){
 		$.ajax({
 			type : "get",
 			url : "/order/getSelectedSchedule.do",
-			data : {"goods_id" : goods_id, "s_date" : selectScheduleDate},
+			data : {
+					"goods_id" : goods_id,
+					"s_date" : orderDate,
+					"goods_name": "${goods.goods_name}",
+		            "goods_place": "${goods.goods_place}"
+					},
 			dataType : "json",
 			async : false,
 			success : function(result){
@@ -94,7 +104,9 @@ function ScRoomTime(selObj){
     $(".select_list").append(output); // 새로운 요소 추가
  	// 총 결제금액 업데이트
     updateTotalPrice();
+    
 }
+
 //수량조절
 $(document).ready(function() {
     // "X" 버튼 클릭 시 해당 select_item 제거
@@ -130,18 +142,97 @@ $(document).ready(function() {
         updateTotalPrice();
     });
 });
+
 function updateTotalPrice() {
     var totalQuantity = 0;
     var totalPrice;
     
     $(".select_item").each(function() {
         var quantity = parseInt($(this).find(".selected_quantity").text());
-        totalQuantity = quantity;
+        totalQuantity += quantity;
     });
 
-    totalPrice = totalQuantity * parseInt(goodsPrice);
+    totalPrice = totalQuantity * parseInt(goods_price);
     $(".total_price").text(totalPrice.toLocaleString() + '원');
+    
 }
+
+function fn_order_each_goods(goods_id, goods_name,goods_place){
+	//debugger;
+	
+	var _isLogOn=document.getElementById("isLogOn");
+	var isLogOn=_isLogOn.value;
+	
+	 if(isLogOn=="false" || isLogOn=='' ){
+		alert("로그인 후 주문이 가능합니다!!!");
+	} 
+	
+	// getScRoomTime 함수에서 가져온 selectedTime 값을 사용
+    var goods_Time = $("input[name=s_time]:checked").val();
+	
+    // ScRoomTime 함수에서 계산한 totalQuantity 값 사용
+    var totalQuantity = 0;
+    $(".select_item").each(function() {
+        var quantity = parseInt($(this).find(".selected_quantity").text());
+        totalQuantity += quantity;
+    });
+    
+    // updateTotalPrice 함수에서 계산한 totalPrice 값을 사용
+    var totalPrice = totalQuantity * parseInt(goods_price);
+	
+    var formObj=document.createElement("form");
+		
+	var i_goods_id = document.createElement("input"); 
+    var i_goods_name = document.createElement("input");
+    var i_goods_place = document.createElement("input");
+    
+    var i_goods_Time = document.createElement("input");
+    var i_totalQuantity = document.createElement("input");
+    var i_goods_price = document.createElement("input");
+    var i_totalPrice = document.createElement("input");
+    var i_orderDate = document.createElement("input");
+    
+    
+    i_goods_id.name="goods_id";
+    i_goods_name.name="goods_name";
+    i_goods_place.name="goods_place";
+   
+    
+    i_goods_Time.name = "goods_Time"; // 선택한 시간 값 추가
+    i_totalQuantity.name = "totalQuantity"; // 총 수량 값 추가
+    i_goods_price.name = "goods_price"; // 가격 값 추가
+    i_totalPrice.name = "totalPrice"; // 총 가격 값 추가
+    i_orderDate.name = "orderDate"; // 선택한 일자 값 추가
+    
+    
+    i_goods_id.value=goods_id;
+    i_goods_name.value=goods_name;
+    i_goods_place.value=goods_place;
+    
+    
+    i_goods_Time.value = goods_Time; // 선택한 시간 값 설정
+    i_totalQuantity.value = totalQuantity; // 총 수량 값 설정
+    i_goods_price.value = goods_price; // 총 가격 값 설정
+    i_totalPrice.value = totalPrice; // 총 가격 값 설정
+    i_orderDate.value = orderDate; // 선택한 일자 값 설정
+    
+    formObj.appendChild(i_goods_id);
+    formObj.appendChild(i_goods_name);
+    formObj.appendChild(i_goods_place);
+	
+    
+    formObj.appendChild(i_goods_Time);
+    formObj.appendChild(i_totalQuantity);
+    formObj.appendChild(i_goods_price);
+    formObj.appendChild(i_totalPrice);
+    formObj.appendChild(i_orderDate);
+    
+
+    document.body.appendChild(formObj); 
+    formObj.method="post";
+    formObj.action="${contextPath}/order/ticketReservation.do";
+    formObj.submit();
+	}	
 </script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -270,7 +361,7 @@ function updateTotalPrice() {
 				<div id="datepicker"></div>
 				<script type="text/javascript">
 						/* 상영관 출력 */
-						var selectScheduleDate = "";
+						var orderDate = "";
 						$(function() {
 							$("#datepicker").datepicker();
 						});
@@ -288,7 +379,7 @@ function updateTotalPrice() {
 							onSelect:function(selDate){
 								console.log(selDate);
 								$("#scDate").val(selDate);
-								selectScheduleDate = selDate;
+								orderDate = selDate;
 								getScRoomTime();
 							}
 						})
@@ -301,207 +392,25 @@ function updateTotalPrice() {
 						<p class="selectbox_title" style="display: block;">
 							시간선택
 						</p>
-							<div id="scRoomAndTime"></div>
+							<div id="scRoomAndTime">
+							
+							</div>
 					</div>
 					<div class="choice_select" style="display: block;">
 						<p class="title">수량선택</p>
 						<div class="select_list">
-							<%-- <div class="select_item" id="264681">
-								<div class="select_name" style="float: left;"></div>
-								<div style="float: right; display: inline-block;">
-									<a href="#item_close" class="close" data-store="264681">
-									<span class="remove_ticket" style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;"
-										value="16800">X</span></a>
-								</div>
-								<div style="clear: both;"></div>
-									<div class="price_warp">
-										<div class="quantity">
-											<button type="button" class="remove_ticket" value="16800">
-												<img
-													src="${contextPath}/resources/images/btn_minus_square.png"
-													style="width: 18px; vertical-align: -3px;">
-											</button>
-											<span class="selected_quantity">1</span>
-											<button type="button" class="add_ticket" value="16800">
-												<img
-													src="${contextPath}/resources/images/btn_plus_square.png"
-													style="width: 18px; vertical-align: -3px;">
-											</button>
-										</div>
-										<p class="price">${goods.goods_price}</p>
-										
-									</div>
-							</div> --%>
 						</div>
 						<div class="total_warp" style="display: flex;">
 							<p class="title">총 결제금액</p>
 							<p class="total_price"></p>
 						</div>
 						<div class="submit_btn">
-							<button href="${contextPath}/order/ticketReservation.do" class="">결제하기</button>
+						<a href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_name }','${goods.goods_place}');">구매하기 </a>
 						</div>
 					</div>
 				</form>
 			</div>
 		</section>
-		<div style="clear: both;"></div>
-		<section style="width: 820px; margin: 0 auto; padding-top: 20px;">
-			<div class="review_preview" style="">
-				<div class="review_preview_container">
-					<div class="review_preview_title_section">
-						<div class="review_preview_left">
-							<span class="review_preview_title">이용후기</span> <span
-								class="review_preview_number">862</span> <span
-								class="review_preview_title">평점</span> <span
-								class="review_preview_number" style="color: #ff4b4b;">4.8/5</span>
-						</div>
-						<div class="review_preview_right">
-							후기 더보기 <span class="review_preview_right_btn"></span>
-						</div>
-					</div>
-					<div class="review_preview_samples">
-						<div class="review_wrap" id="user_review_933478">
-							<div class="review_title">
-								<div class="review_title_left">
-									<div class="review_title_left_stars">
-										<div class="review_title_left_star">
-											<div class="review_title_left_star_filled"
-												style="width: calc(5 * 19px);"></div>
-										</div>
-									</div>
-									<div class="review_title_left_name" style="padding-left: 10px;">
-										김*정</div>
-								</div>
-								<div class="review_title_right" style="padding-right: 8px;">
-									2023-08-11</div>
-							</div>
-
-							<div class="review_text">
-								<div class="review_text_area" id="sample_review_0">
-									우리 아이들과 모처럼 관람했는데 요 아이를 선택하기를 넘 잘했어요<br> 잔잔한 웃음과 함께 시원한
-									여름을 잘 보내고왔어요
-								</div>
-								<div class="review_text_seemore" id="sample_seemore_0"
-									onclick="showFullReviewForSample(0)" style="display: none;">
-									... 더보기</div>
-							</div>
-						</div>
-
-						<div class="review_wrap" id="user_review_799070">
-							<div class="review_title">
-								<div class="review_title_left">
-									<div class="review_title_left_stars">
-										<div class="review_title_left_star">
-											<div class="review_title_left_star_filled"
-												style="width: calc(5 * 19px);"></div>
-										</div>
-									</div>
-									<div class="review_title_left_name" style="padding-left: 10px;">
-										장*정</div>
-								</div>
-								<div class="review_title_right" style="padding-right: 8px;">
-									2023-08-09</div>
-							</div>
-
-							<div class="review_text">
-								<div class="review_text_area" id="sample_review_1">크
-									멀티맨님.....ㅋㅋㅋㅋ 너무 귀여우시고 연기도 잘 하시고 감초같은 매력.. 최고였습니다... 남자친구랑 다 보고
-									나와서 한참을 따라했어요..ㅋㅋㅋㅋㅋㅋ 너무너무 재밌었습니다!!!</div>
-								<div class="review_text_seemore" id="sample_seemore_1"
-									onclick="showFullReviewForSample(1)" style="display: none;">
-									... 더보기</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section style="width:820px; margin:0 auto; padding-top:20px; border-radius:10px; border:1px solid #eee;">
-		<div id="ajaxcontentarea" class="contentstyle1" >
-		<div class="main_tab_wrap">
-        <!-- 클래스 안내 배너 -->
-        <div style="display:none;; width:700px; height:95px; margin-bottom:20px;">
-          <img src="img/bnr_class_noti.png" style="width:700px; border-radius:10px;" alt="예매전 주의사항 - 클래스">
-        </div>
-
-        <div style="margin-top:10px;">
-          <div class="viewpage_noti">예매정보</div>
-          <div class="viewpage_text radius_box">
-            <p>· 진행기간: OPEN RUN</p>
-            <p>· 이용등급: 만 11세 이상</p>
-            <p>· 이용시간: 약 90분</p>
-          </div>
-        </div>
-
-        <div style="margin-top:25px; ">
-          <div class="viewpage_noti">기획사 공지사항</div>
-          <div class="viewpage_text radius_box"><p>· 공연사 전화문의는 마지막 회차 공연 시작 전까지 가능합니다.</p></div>
-        </div>
-
-        <div style="margin-top:25px;">
-          <div class="viewpage_noti">이용정보</div>
-          <div class="viewpage_text radius_box"><p>· 예매가능시간: 공연 시작 10분 전까지</p>
-<p>· 티켓배부: 공연 시작 40분 전부터 공연장 매표소에서 배부</p>
-<p>· 티켓수령: 예매내역 제시 후 현장 수령(신분증/증빙자료 지참)</p>
-<p>· 입장시간: 공연 시작 15분 전부터 입장 가능</p>
-<p>· 좌석배정: 비지정석(타예매처 지정석 제외 후 매표소 선착순 배정)</p>
-<p class="txt_red">※ 각각 예매하더라도 함께 발권하면 연석 배정 가능합니다.</p></div>
-        </div>
-
-
-        <!-- 상세이미지 -->
-        <div class="info_detail_poster" alt="상세">
-          <div class="info_detail_gradient"></div>
-          <div class="info_detail_btn" onclick="showMoreDetailImage()">펼쳐보기
-            <img src="${contextPath}/resources/images/icon_down.png" style="width:13px; vertical-align:2px;padding-left:10px;">
-          </div>
-          <script>
-            function showMoreDetailImage() {
-              document.querySelector('.info_detail_btn').remove();
-              document.querySelector('.info_detail_gradient').remove();
-              document.querySelector('.info_detail_poster').setAttribute("style", `display:none;`);
-              let xhr = new XMLHttpRequest();
-              xhr.open('GET', `./index.php?number=4343&mode=extend_detail_info`, true);
-              xhr.send();
-              xhr.onload = () => {
-                  if (xhr.status === 200) {
-                    document.querySelector('.main_img').innerHTML = xhr.response;
-                    document.querySelector('.main_img').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }
-              }
-          </script>
-        </div>
-        <div class="main_img"></div>
-
-
-        <div style="margin-top:25px;">
-          <div class="viewpage_noti">유의사항</div>
-          <div class="viewpage_text radius_box"><p>· 공연 시작 후 발권 또는 입장 불가(지연입장 불가)</p>
-<p>· 지각으로 인해 관람하지 못할 시 환불/변경 불가</p>
-<p>· 지역착오, 연령 미숙지로 관람하지 못할 시 환불/변경 불가</p>
-<p>· 음식물 반입 금지. 공연 중 사진/동영상 촬영 금지</p>
-<p class="txt_red">· 관람 당일은 결제 후 환불/변경 불가하니 신중히 예매하세요.</p></div>
-        </div>
-
-        <!--------- 장소안내 --------->
-        <div style="margin-top:25px;">
-          <div class="viewpage_noti">장소안내</div>
-          <div class="viewpage_text radius_box" style="border-radius: 10px 10px 0 0;">
-            <p>· 장소: 해피씨어터&nbsp;/&nbsp;총 200석</p>
-            <p>· 주소: 서울 종로구 대학로10길 5 , 지하1층</p>
-            <p>· 주차: 주차불가(인근 유료주차장 이용 권장)</p>
-          </div>
-          <div align="center" style="margin-top:10px;">
-            <div style="z-index:-1;" id="daum_map">
-              <div id="map" style="height: 350px; border-radius: 0px 0px 10px 10px; position: relative; overflow: hidden; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/bg_tile.png&quot;);"><div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; touch-action: none; cursor: url(&quot;https://t1.daumcdn.net/mapjsapi/images/cursor/openhand.cur.ico&quot;) 7 5, url(&quot;https://t1.daumcdn.net/mapjsapi/images/cursor/openhand.cur.ico&quot;), default;"><div style="position: absolute;"><div style="position: absolute; z-index: 0; left: 0px; top: 0px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4011/1796.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 17.5px; top: 190.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4011/1797.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 145.5px; top: 190.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4011/1798.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 273.5px; top: 190.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4011/1799.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 401.5px; top: 190.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4012/1796.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 17.5px; top: 62.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4012/1797.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 145.5px; top: 62.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4012/1798.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 273.5px; top: 62.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4012/1799.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 401.5px; top: 62.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4013/1796.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 17.5px; top: -65.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4013/1797.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 145.5px; top: -65.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4013/1798.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 273.5px; top: -65.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/2/4013/1799.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 401.5px; top: -65.5px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 128px; height: 128px;"></div><div style="position: absolute; z-index: 1; left: 0px; top: 0px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2005/897.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: -238px; top: 190px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2005/898.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 18px; top: 190px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2005/899.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 274px; top: 190px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2005/900.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 530px; top: 190px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2006/897.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: -238px; top: -66px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2006/898.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 18px; top: -66px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2006/899.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 274px; top: -66px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2006/900.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 530px; top: -66px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2007/897.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: -238px; top: -322px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2007/898.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 18px; top: -322px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2007/899.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 274px; top: -322px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map.daumcdn.net/map_k3f_prod/bakery/image_map_png/PNGSD01/v14_hzs4v/3/2007/900.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 530px; top: -322px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"></div><div style="position: absolute; z-index: 1;"></div><div style="width: 700px; height: 350px; position: absolute; z-index: 1;"></div><div style="position: absolute; z-index: 1;"><svg version="1.1" style="stroke: none; stroke-dashoffset: 0.5; stroke-linejoin: round; fill: none; transform: translateZ(0px); position: absolute; left: -1400px; top: -700px; width: 3500px; height: 1750px;" viewBox="0 0 3500 1750"><defs></defs></svg></div><div style="position: absolute; z-index: 1; width: 100%; height: 0px; transform: translateZ(0px);"><div style="position: absolute; margin: -39px 0px 0px -14px; z-index: 0; left: 357px; top: 133px;"><img draggable="false" src="https://t1.daumcdn.net/mapjsapi/images/marker.png" alt="" role="presentation" title="" style="min-width: 0px; min-height: 0px; max-width: 99999px; max-height: none; border: 0px; display: block; position: absolute; user-select: none; -webkit-user-drag: none; clip: rect(0px, 29px, 42px, 0px); top: 0px; left: 0px; width: 29px; height: 42px;"><img src="https://t1.daumcdn.net/mapjsapi/images/transparent.gif" alt="" role="presentation" draggable="false" usemap="#daum.maps.Marker.Area:1" style="min-width: 0px; min-height: 0px; max-width: 99999px; max-height: none; border: 0px; display: block; position: absolute; user-select: none; -webkit-user-drag: none; width: 29px; height: 42px;"><map id="daum.maps.Marker.Area:1" name="daum.maps.Marker.Area:1"><area href="javascript:void(0)" alt="" role="presentation" shape="poly" coords="14,39,9,27,4,21,1,16,1,10,4,4,11,0,18,0,25,4,28,10,28,16,25,21,20,27" title="" style="-webkit-tap-highlight-color: transparent;"></map></div></div></div></div><div style="position: absolute; cursor: default; z-index: 1; margin: 0px 6px; height: 19px; line-height: 14px; left: 0px; bottom: 0px; color: rgb(0, 0, 0);"><div style="color: rgb(0, 0, 0); text-align: center; font-size: 10px; float: left;"><div style="float: left; margin: 2px 3px 0px 4px; height: 6px; transition: width 0.1s ease 0s; border-top: none rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 2px solid rgb(0, 0, 0); border-image: initial; width: 46px;"></div><div style="float: left; margin: 0px 4px 0px 0px; font-family: AppleSDGothicNeo-Regular, 돋움, dotum, sans-serif; font-weight: bold; color: rgb(0, 0, 0);">50m</div></div><div style="margin: 0px 4px; float: left;"><a target="_blank" href="http://map.kakao.com/" title="Kakao 지도로 보시려면 클릭하세요." style="float: left; width: 32px; height: 10px;"><img src="https://t1.daumcdn.net/mapjsapi/images/m_bi_b.png" alt="Kakao 지도로 이동" style="float: left; width: 32px; height: 10px; border: none;"></a><div style="font: 11px / 11px Arial, Tahoma, Dotum, sans-serif; float: left;"></div></div></div><div style="cursor: auto; position: absolute; z-index: 2; left: 0px; top: 0px;"><div style="width: 32px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px; position: absolute; left: 665px; top: 3px;"><button draggable="false" title="확대" type="button" style="float: left; cursor: pointer; width: 32px; height: 32px; user-select: none; -webkit-user-drag: none; border-top: none; border-right: none; border-bottom: 1px solid rgb(226, 226, 226); border-left: none; border-image: initial; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) -40px 0px / 116px 264px no-repeat rgb(255, 255, 255); border-radius: 3px 3px 0px 0px;"></button><div style="float: left; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/bg_zoom_control.png&quot;) repeat; padding: 7px 0px; transition: height 0s ease 0s, margin 0.1s ease 0s;"><div style="cursor: pointer; position: relative; background-size: 116px 264px; transition: height 0.1s ease 0s; margin: 2px 0px; display: block; width: 32px; height: 104px;"><div style="position: absolute; width: 4px; height: 100%; background-color: rgb(51, 150, 255); left: 50%; margin: 0px 0px 0px -2px;"><div style="width: 4px; height: 2px; margin-bottom: -2px; bottom: 0px; position: absolute; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) -50px -127px / 116px 264px;"></div><div style="width: 4px; height: 2px; margin-top: -2px; top: 0px; position: absolute; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) -40px -100px / 116px 264px;"></div></div><div style="position: absolute; background-color: rgb(204, 204, 204); transition: height 0.1s ease 0s; left: 50%; margin: 0px 0px 0px -2px; width: 4px; height: 16px;"></div><div style="cursor: row-resize; position: absolute; width: 20px; height: 10px; margin: -4px 0px 0px -10px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) -40px -80px / 116px 264px; left: 50%; transition: top 0.1s ease 0s; top: 16px;"></div></div></div><button draggable="false" title="축소" type="button" style="float: left; cursor: pointer; width: 32px; height: 32px; user-select: none; -webkit-user-drag: none; border-top: 1px solid rgb(226, 226, 226); border-right: none; border-bottom: none; border-left: none; border-image: initial; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) -40px -32px / 116px 264px no-repeat rgb(255, 255, 255); border-radius: 0px 0px 3px 3px; margin: 0px;"></button><div style="display: none; position: absolute; margin: 41px 0px 0px -30px; background-size: 116px 264px; width: 30px; height: 104px;"><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) 0px -80px / 116px 264px; left: 0px; top: 8px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) 0px -100px / 116px 264px; left: 0px; top: 32px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) 0px -120px / 116px 264px; left: 0px; top: 64px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) 0px -140px / 116px 264px; left: 0px; top: 80px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/control.png&quot;) 0px -160px / 116px 264px; left: 0px; top: 96px;"></div></div></div></div></div>
-            </div>
-          </div>
-        </div>
-        </div>
-        </div>
-  </section>
 </body>
-
 </html>
+<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>

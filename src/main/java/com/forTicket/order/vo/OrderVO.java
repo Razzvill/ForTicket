@@ -10,19 +10,26 @@ public class OrderVO {
 	private int goods_id;
 	private String mem_id; 
 	private int s_no; 
-	private int orderNum; 
+	//private int orderNum; 
 	private int ordersit; 
 	private String orderName; 
 	private String orderPhone; 
-	private String orderPhone2; 
 	private String orderEmail;
 	private String orderPay; 
 	private String orderCheck;
 	private String orderStatus; 
 	private Date orderTicketing;
-	private Date orderDate; 
-	private int order_price;
+	private Date orderDate; //공연날짜
+	private int totalPrice;//총 결제금액
 	private String goods_name;
+	
+	private String goods_place;//공연장소
+	private int totalQuantity;//예매수량
+	private int goods_price;//상품가격
+	private String goods_Time;//공연시간
+	
+	
+	
 	
 	public String getGoods_name() {
 		return goods_name;
@@ -54,12 +61,6 @@ public class OrderVO {
 	public void setS_no(int s_no) {
 		this.s_no = s_no;
 	}
-	public int getOrderNum() {
-		return orderNum;
-	}
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
-	}
 	public int getOrdersit() {
 		return ordersit;
 	}
@@ -78,12 +79,7 @@ public class OrderVO {
 	public void setOrderPhone(String orderPhone) {
 		this.orderPhone = orderPhone;
 	}
-	public String getOrderPhone2() {
-		return orderPhone2;
-	}
-	public void setOrderPhone2(String orderPhone2) {
-		this.orderPhone2 = orderPhone2;
-	}
+	
 	public String getOrderEmail() {
 		return orderEmail;
 	}
@@ -120,11 +116,36 @@ public class OrderVO {
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
-	public int getOrder_price() {
-		return order_price;
+	public int getTotalPrice() {
+		return totalPrice;
 	}
-	public void setOrder_price(int order_price) {
-		this.order_price = order_price;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
+	public String getGoods_place() {
+		return goods_place;
+	}
+	public void setGoods_place(String goods_place) {
+		this.goods_place = goods_place;
+	}
+	public int getTotalQuantity() {
+		return totalQuantity;
+	}
+	public void setTotalQuantity(int totalQuantity) {
+		this.totalQuantity = totalQuantity;
+	}
+	public int getGoods_price() {
+		return goods_price;
+	}
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+	public String getGoods_Time() {
+		return goods_Time;
+	}
+	public void setGoods_Time(String goods_Time) {
+		this.goods_Time = goods_Time;
+	}
+
 	
 }
