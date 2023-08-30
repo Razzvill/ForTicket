@@ -29,7 +29,9 @@
 	
 	<select id="selectAllEventList" resultMap="eventResult">
 		<![CDATA[
-			SELECT * FROM event ORDER BY event_creDate DESC
+			SELECT g.*, d.fileName FROM event g, event_detail_images d 
+			where d.fileType='main_image'
+			ORDER BY event_creDate DESC
 		]]>
 	</select>
 	
@@ -63,7 +65,6 @@
 	        where g.event_no=d.event_no
 	        and d.fileType='main_image'
 	        and g.event_no=#{event_no}
-	        order by g.event_no
     	]]>
 	</select>
 	
@@ -138,4 +139,10 @@
 		  where event_no=#{event_no}
 		  ]]>
 	</delete>
+	
+	<insert id="insertEventApply" parameterType="java.util.Map">
+		<![CDATA[
+			INSERT INTO event_applied(event_no, mem_id) VALUES(#{event_no}, #{mem_id})
+		]]>
+	</insert>
 </mapper>
