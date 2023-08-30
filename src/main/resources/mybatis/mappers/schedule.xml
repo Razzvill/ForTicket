@@ -31,18 +31,18 @@
 	</select>
 	
 	<select id="selectScheduleByGoods" resultMap="scheduleResult" parameterType="java.util.Map">
-		SELECT s.*, g.goods_name, t.theater_name FROM schedule s, goods g, theater t 
+		SELECT s.s_no, s.goods_id, s.theater_id, date_format(s.s_date,'%Y-%m-%d %H:%i') AS s_date, s.seats, s.reg_id, g.goods_name, t.theater_name FROM schedule s, goods g, theater t 
 		where s.goods_id=#{goods_id} and g.goods_id=#{goods_id} and t.theater_id=#{theater_id} order by goods_id, s_date desc
 	</select>
 	
 	<select id="selectAllSchedule" resultMap="scheduleResult">
-		SELECT s.*, g.goods_name, t.theater_name FROM schedule s, goods g, theater t 
+		SELECT s.s_no, s.goods_id, s.theater_id, date_format(s.s_date,'%Y-%m-%d %H:%i') AS s_date, s.seats, s.reg_id, g.goods_name, t.theater_name FROM schedule s, goods g, theater t 
 		where s.goods_id=g.goods_id and t.theater_name=g.goods_place order by goods_id, s_date desc
 	</select>
 	
 	<insert id="insertSchedule" parameterType="java.util.Map">
-		INSERT INTO schedule(goods_id, theater_id, s_date, seats)
-		VALUES(#{goods_id}, #{theater_id}, date_format(#{s_date},'%Y-%m-%d %H:%i'), #{seats})
+		INSERT INTO schedule(goods_id, theater_id, s_date, seats, reg_id)
+		VALUES(#{goods_id}, #{theater_id}, date_format(#{s_date},'%Y-%m-%d %H:%i'), #{seats}, #{reg_id})
 	</insert>
 	
 	<delete id="deleteSchedule" parameterType="int">
