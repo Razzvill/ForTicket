@@ -42,7 +42,7 @@ public class EventServiceImpl implements EventService {
 		Map eventMap = new HashMap();
 		EventVO eventVO = eventDAO.selectEventDetail(event_no);
 		List imageFileList = eventDAO.selectEventImageFileList(event_no);
-		eventMap.put("event", eventVO);
+		eventMap.put("eventVO", eventVO);
 		eventMap.put("imageFileList", imageFileList);
 		return eventMap;
 	}
@@ -99,6 +99,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public void removeAllEventImage(int event_no) throws DataAccessException {
 		eventDAO.deleteAllEventImage(event_no);
+	}
+
+	@Override
+	public void eventApply(Map condMap) throws DataAccessException {
+		eventDAO.insertEventApply(condMap);
 	}
 	
 }

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="imageList" value="${events.imageFileList }" />
-<c:set var="event" value="${events.event}" />
+<c:set var="event" value="${events.eventVO}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
@@ -19,10 +19,41 @@ request.setCharacterEncoding("utf-8");
 <title>메인 페이지</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="${contextPath}/resources/js/ajaxtabs.js"></script>
-
-<script>
+<script type="text/javascript">
+	var eventNo = null;
+	var memId = "";
+	function applyEvent(){
+		eventNo = ${event.event_no};
+		console.log(eventNo);
+		memId = "${member.mem_id}";
+		console.log(memId);
+		var returnVal = confirm("이벤트에 응모하시겠습니까?");
+		if(returnVal){
+			if(memId.length==0){
+				alert("로그인 후 응모가 가능합니다.");
+			} else {
+				$.ajax({
+					type : "post",
+					async : false,
+					url : "/event/eventApply.do",
+					data : {
+						event_no : eventNo,
+						mem_id : memId
+					},
+					success : function(data, textStatus){
+						alert("이벤트에 응모 되셨습니다.");
+						tr.style.display = 'none';
+					},
+					error : function(data, textStatus){
+						alert("에러가 발생했습니다."+textStatus);
+					},
+					complete : function(data, textStatus){}
+				});
+			}
+		} else {
+			alert("이벤트 응모를 취소했습니다.");
+		}
+	};
 </script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -244,7 +275,7 @@ request.setCharacterEncoding("utf-8");
 				</div>
 			</div>
 			<div class="submit_btn">
-				<button href="#" class="">응모하기</button>
+				<button type="button" onclick="applyEvent()" class="">응모하기</button>
 			</div>
 		</section>
 

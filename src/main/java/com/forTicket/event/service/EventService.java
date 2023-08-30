@@ -20,4 +20,5 @@ public interface EventService {
 	public void modEventImage(List imageFileList) throws DataAccessException;
 	public void removeEventImage(int image_id) throws DataAccessException;
 	public void removeAllEventImage(int goods_id) throws DataAccessException;
+	public void eventApply(Map condMap) throws DataAccessException;
 }

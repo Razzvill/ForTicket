@@ -1,6 +1,7 @@
 package com.forTicket.event.controller;
 
 import java.io.File;
+import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,10 +55,6 @@ public class EventControllerImpl implements EventController {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		
-		for(EventVO event : eventList) {
-			System.out.println(event.getEvent_status());
-		}
 		
 		mav.addObject("member", member);
 		mav.addObject("eventList", eventList);
@@ -205,14 +202,13 @@ public class EventControllerImpl implements EventController {
 		resp.setContentType("html/text;charset=utf-8");
 		String viewName = (String) req.getAttribute("viewName");
 		Map event = eventService.eventInfo(event_no);
-		EventVO eventVO = (EventVO) event.get("event");
+		EventVO eventVO = (EventVO) event.get("eventVO");
 		int goods_id = eventVO.getGoods_id();
 		Map goodsMap = goodsService.goodsInfo(goods_id);
 		GoodsVO goods = (GoodsVO)goodsMap.get("goodsVO");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
-
 		mav.addObject("goods", goods);
 		mav.addObject("member", member);
 		mav.addObject("events", event);
@@ -351,7 +347,7 @@ public class EventControllerImpl implements EventController {
 			FileUtils.deleteDirectory(destDir);
 			message = "<script>";
 			message += " alert('이벤트가 삭제되었습니다.');";
-			if(type=="admin") {
+			if(type.equals("admin")) {
 				message += "location.href='"+req.getContextPath()+"/event/A_listEvent.do';";
 			} else {
 				message += "location.href='"+req.getContextPath()+"/event/B_listEvent.do';";
@@ -361,7 +357,7 @@ public class EventControllerImpl implements EventController {
 		} catch (Exception e) {
 			message = "<script>";
 			message += " alert('이벤트 삭제에 실패했습니다.');";
-			if(type=="admin") {
+			if(type.equals("admin")) {
 				message += "location.href='"+req.getContextPath()+"/event/A_listEvent.do';";
 			} else {
 				message += "location.href='"+req.getContextPath()+"/event/B_listEvent.do';";
@@ -638,5 +634,15 @@ public class EventControllerImpl implements EventController {
 			}
 		}
 		return fileList;
+	}
+	
+	@Override
+	@RequestMapping(value = "/event/eventApply.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public void eventApply(int event_no, String mem_id) throws Exception {
+		Map condMap = new HashMap();
+		condMap.put("event_no", event_no);
+		condMap.put("mem_id", mem_id);
+		eventService.eventApply(condMap);
 	}
 }

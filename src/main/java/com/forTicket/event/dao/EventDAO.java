@@ -27,4 +27,5 @@ public interface EventDAO {
 	public void updateEventImage(E_imageFileVO imageFileVO) throws DataAccessException;
 	public void deleteEventImage(int image_id) throws DataAccessException;
 	public void deleteAllEventImage(int image_id) throws DataAccessException;
+	public void insertEventApply(Map condMap) throws DataAccessException;
 }

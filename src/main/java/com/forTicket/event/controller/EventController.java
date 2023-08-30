@@ -24,4 +24,5 @@ public interface EventController {
 	public void addNewEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
 	public void modEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
 	public void removeEventImage(@RequestParam("event_no") int event_no, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public void eventApply(int event_no, String mem_id) throws Exception;
 }
