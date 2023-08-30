@@ -13,7 +13,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>상품 관리</title>
+	<title>스케줄 관리</title>
 	<style>
 	body {
 		width: 1100px;
@@ -153,7 +153,7 @@
 <div>
 <form method="post" name="frm_list">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left;">상품 관리</h2>
+    	<h2 style="text-align:left;">스케줄 관리</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>
@@ -296,7 +296,7 @@
 					<option value="all" checked>전체</option>
 					<option value="goods_id">상품번호</option>
 					<option value="goods_name">상품명</option>
-					<option value="goods_genre">장르</option>
+					<option value="theater_name">공연장 이름</option>
 				</select>
 			</td>
 			<td align="left"><input class="inputSize1" type="text" name="t_search_word"></td>
@@ -307,42 +307,37 @@
 		</tr>
 	</table>
 <div class="clear"></div>
-<c:if test="${type == 'B' }">
 <input type="button" value="등록하기" style="float: right;" onclick="location.href='${contextPath}/goods/addGoodsForm.do'"/>
-</c:if>
 	<table class="result">
 		<tr>
-			<td>상품번호</td>
+			<td>상품 번호</td>
 			<td>상품명</td>
-			<td>장르</td>
-			<td>공연기간</td>
+			<td>공연일자</td>
+			<td>공연시간</td>
 			<td>공연장소</td>
-			<td>가격</td>
-			<td>등록일</td>
-			<td>수정</td>
+			<td>잔여석</td>
 			<td>삭제</td>
 		</tr>
 		<c:choose>
-			<c:when test="${empty goodsList}">
-				<tr>
-					<td colspan="9">
-					<strong>조회된 상품이 없습니다.</strong>
-					</td>		
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="list" items="${goodsList}">
+			<c:when test="${not empty scheduleList}">
+				<c:forEach var="list" items="${scheduleList}">
 					<tr>
 						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
 						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
-						<td>${list.goods_genre }</td>
-						<td>${list.goods_startDate }~${list.goods_endDate }</td>
-						<td>${list.goods_place }</td>
-						<td>${list.goods_price }</td>
-						<td>${list.goods_creDate}</td>
-						<td><a href="${contextPath}/goods/modGoodsForm.do?goods_id=${list.goods_id }" class="reply">수정</a></td>
-						<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
+						<td>${list.s_date}</td>
+						<td>${list.s_time}</td>
+						<td>${list.theater_name}</td>
+						<td>${list.seats}</td>
+						<td><a href="${contextPath}/schedule/removeSchedule.do?s_no=${list.s_no}" class="reply">삭제</a></td>
 					</tr>
 				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td colspan="9">
+					<strong>조회된 상품이 없습니다.</strong>
+					</td>
+				</tr>	
 			</c:otherwise>
 		</c:choose>
 		         <tr>

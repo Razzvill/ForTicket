@@ -89,13 +89,11 @@
         text-align: center;     
 	}
 	</style>
-	<script>
-	function fn_modify_event(event_no, attribute){
-		var frm_list=document.frm_list;
-		var value="";
-		if(attribute=='event_status'){
-			value=frm_list.event_status.value;
-		}
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
+	function fn_modify_event(event_no, selectId){
+		var value=document.getElementById(selectId).value;
 
 		$.ajax({
 			type : "post",
@@ -103,7 +101,7 @@
 			url : "${contextPath}/event/modEventStatus.do",
 			data : {
 				event_no:event_no,
-				attribute:attribute,
+				attribute:"event_status",
 				value:value
 			},
 			success : function(data, textStatus) {
@@ -363,40 +361,36 @@
 					</td>		
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="list" items="${eventList}">
+				<c:forEach var="list" items="${eventList}" varStatus="index">
 					<tr>
 						<td><a href="${contextPath}/event/detailEvent.do?event_no=${list.event_no}">${list.event_no }</a></td>
 						<td><a href="${contextPath}/goods/detailGoods?goods_id=${list.goods_id}">${list.goods_name }</a></td>
 						<td>${list.event_type }</td>
 						<td>${list.event_name }</td>
-						<td>${list.event_startDate}~${list.endDate}</td>
+						<td>${list.event_startDate}~${list.event_endDate}</td>
 						<td>${list.event_creDate}</td>
 						<td>
-							<c:choose>
-								<c:when test="${event_status == '진행중'}">
-									<select name="event_status">
+							<select name="event_status" id="event_status_${index.index}">
+								<c:choose>
+									<c:when test="${list.event_status=='진행중'}">
 										<option value="등록대기">등록대기</option>
 										<option value="진행중" selected>진행중</option>
 										<option value="종료">종료</option>
-									</select>
-								</c:when>
-								<c:when test="${event_status == '종료'}">
-									<select name="event_status">
+									</c:when>
+									<c:when test="${list.event_status=='종료'}">
 										<option value="등록대기">등록대기</option>
 										<option value="진행중">진행중</option>
 										<option value="종료" selected>종료</option>
-									</select>
-								</c:when>
-								<c:otherwise>
-									<select name="event_status">
+									</c:when>
+									<c:otherwise>
 										<option value="등록대기" selected>등록대기</option>
 										<option value="진행중">진행중</option>
 										<option value="종료">종료</option>
-									</select>
-								</c:otherwise>
-							</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</select>
 						</td>
-						<td><a onClick="fn_modify_goods('${event.event_no }','event_status')" class="reply">반영</a></td>
+						<td><a href="javascript:void(0);" onClick="fn_modify_event('${list.event_no }','event_status_${index.index}');" class="reply">반영</a></td>
 						<td><a href="${contextPath }/event/removeEvent.do?event_no=${list.event_no }" class="reply">삭제</a></td>
 					</tr>
 				</c:forEach>

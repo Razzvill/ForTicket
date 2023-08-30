@@ -194,12 +194,112 @@ request.setCharacterEncoding("utf-8");
 	border: 0;
 	cursor: pointer;
 }
+
+.wrap_1100 {
+	margin: auto;
+	width: 1100px;
+	position: relative;
+	padding-top: 20px;
+}
+
+	.review_title {
+    	display: flex;
+    	justify-content: space-between;
+    	padding: 10px 0 7px 0;
+	}
+
+	.review_title_left {
+    	display: flex;
+    	align-items: center;
+	}
+
+	.review_title_left_stars {
+	    width: 95px;
+	    height: 16px;
+	}
+
+	.review_title_left_star {
+	    background-repeat: no-repeat;
+	    background-size: 95px;
+	    width: 100%;
+	    height: 16px;
+	}
+
+	.review_title_left_star_filled {
+	    position: absolute;
+	    background-repeat: no-repeat;
+	    background-size: 95px;
+	    height: 16px;
+	}
+	
+	.review_title_left_name {
+   		align-items: flex-end;
+	}
+
+	.review_title_left_name, .review_title_right {
+	    color: #777;
+	    font-size: 14px;
+	}
+	
+	.text {
+		/* 요소의 내용이 영역을 벗어날 경우 그 부분은 숨겨지게 처리 */ 
+		overflow: hidden;
+		/* 요소의 표시 방법을 -webkit-box로 표시 */
+		display: none;
+		/* webkit-box로 표시된 자식 요소들의 배치 방법 결정 (여기서는 수직) */ 
+		-webkit-box-orient: vertical;
+		/* 요소 내 텍스트를 지정한 라인수까지만 표시 */
+		-webkit-line-clamp: 3;
+		width: 99%;
+		font-size: 15px;
+	}
+
+	.more{
+		text-align: right;
+	}
+	
+	.more-text{
+		/* 글씨 크기,색상 지정 */ 
+		font-size: 15px;
+		/* 마우스 포인트가 올라갔을 때 커서 모양을 포인터로 변경 */
+		cursor: pointer;
+		font-weight: bold;
+		color: #000;
+		text-align: left;
+	}
+	
+	.section{
+		cursor: pointer;
+		color: black;
+		text-decoration: none;
+	}
+	
+	.reply{
+		cursor: pointer;
+		color: #FF6251;
+		text-decoration: none;
+		font-size: 15px;
+		text-align: right;	
+		padding-left: 730px;	
+	}
+	
+	.star {
+	    unicode-bidi: bidi-override;
+	    color: #FFD700;
+	    font-size: 25px;
+	    height: 35px;
+	    width: 125px;
+	    margin: 0 auto;
+	    position: relative;
+	    text-align: left;
+	}
+
 </style>
 
 </head>
 
 <body>
-	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
+	<div class="wrap_1100">
 		<div class="now_engine" style="margin-right: 680px;">
 			🗂️ <a href="#">공연 &gt; </a><a href="#">${goods.goods_type} </a>
 		</div>
@@ -258,69 +358,61 @@ request.setCharacterEncoding("utf-8");
 				<div class="review_preview_container">
 					<div class="review_preview_title_section">
 						<div class="review_preview_left">
-							<span class="review_preview_title">이용후기</span> <span
-								class="review_preview_number">862</span> <span
-								class="review_preview_title">평점</span> <span
-								class="review_preview_number" style="color: #ff4b4b;">4.8/5</span>
+							<span class="review_preview_title">이용후기</span>
+							<span class="review_preview_number">${count}</span>
+							<span class="review_preview_title">평점</span>
+							<span class="review_preview_number" style="color: #ff4b4b;">${avgStar}</span>
 						</div>
 						<div class="review_preview_right">
 							후기 더보기 <span class="review_preview_right_btn"></span>
 						</div>
 					</div>
-					<div class="review_preview_samples">
-						<div class="review_wrap" id="user_review_933478">
-							<div class="review_title">
-								<div class="review_title_left">
-									<div class="review_title_left_stars">
-										<div class="review_title_left_star">
-											<div class="review_title_left_star_filled"
-												style="width: calc(5 * 19px);"></div>
+					<c:choose>
+						<c:when test="${empty reviewList }">
+							리뷰가 없습니다.
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="u_list" items="${reviewList }">
+							  	<div class="review_title">
+									<div class="review_title_left">
+										<c:if test="${reviewList.star =='1'}">
+											<span class="star">★</span>
+										</c:if>
+										<c:if test="${reviewList.star =='2'}">
+											<span class="star">★★</span>
+										</c:if>
+										<c:if test="${reviewList.star =='3'}">
+											<span class="star">★★★</span>
+										</c:if>
+										<c:if test="${reviewList.star =='4'}">
+											<span class="star">★★★★</span>
+										</c:if>
+										<c:if test="${reviewList.star =='5'}">
+											<span class="star">★★★★★</span>
+										</c:if>
+										<div class="review_title_left_name" style="padding-left: 10px;">
+											${reviewList.mem_id }
 										</div>
 									</div>
-									<div class="review_title_left_name" style="padding-left: 10px;">
-										김*정</div>
-								</div>
-								<div class="review_title_right" style="padding-right: 8px;">
-									2023-08-11</div>
-							</div>
-
-							<div class="review_text">
-								<div class="review_text_area" id="sample_review_0">
-									우리 아이들과 모처럼 관람했는데 요 아이를 선택하기를 넘 잘했어요<br> 잔잔한 웃음과 함께 시원한
-									여름을 잘 보내고왔어요
-								</div>
-								<div class="review_text_seemore" id="sample_seemore_0"
-									onclick="showFullReviewForSample(0)" style="display: none;">
-									... 더보기</div>
-							</div>
-						</div>
-
-						<div class="review_wrap" id="user_review_799070">
-							<div class="review_title">
-								<div class="review_title_left">
-									<div class="review_title_left_stars">
-										<div class="review_title_left_star">
-											<div class="review_title_left_star_filled"
-												style="width: calc(5 * 19px);"></div>
-										</div>
+									<div class="review_title_right" style="padding-right:8px;">
+									${reviewList.c_date }
 									</div>
-									<div class="review_title_left_name" style="padding-left: 10px;">
-										장*정</div>
 								</div>
-								<div class="review_title_right" style="padding-right: 8px;">
-									2023-08-09</div>
-							</div>
-
-							<div class="review_text">
-								<div class="review_text_area" id="sample_review_1">크
-									멀티맨님.....ㅋㅋㅋㅋ 너무 귀여우시고 연기도 잘 하시고 감초같은 매력.. 최고였습니다... 남자친구랑 다 보고
-									나와서 한참을 따라했어요..ㅋㅋㅋㅋㅋㅋ 너무너무 재밌었습니다!!!</div>
-								<div class="review_text_seemore" id="sample_seemore_1"
-									onclick="showFullReviewForSample(1)" style="display: none;">
-									... 더보기</div>
-							</div>
-						</div>
-					</div>
+								<div>
+									<div class="more-text">
+										${reviewList.c_title }
+									<div class="more">더보기</div>
+									<span class="text"> ${reviewList.c_content }<br><br>
+										<c:if test="${not empty reviewList.imageFileName && u_list.imageFileName !='null' }">
+											<img width="100px" height="100px" src="${contextPath}/community/download.do?c_No=${reviewList.c_No}&imageFileName=${reviewList.imageFileName}"><br><br>
+										</c:if>
+										<input type="hidden" name="c_No" value="${reviewList.c_No }">
+									</span>
+									</div>
+								</div>
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</section>
@@ -441,6 +533,7 @@ request.setCharacterEncoding("utf-8");
 				</div>
 			</div>
 		</section>
+		</div>
 </body>
 
 </html>

@@ -12,11 +12,20 @@ public interface GoodsService {
 	public List a_listGoods(Map condMap) throws DataAccessException;
 	public List findGoodsById(String mem_id) throws DataAccessException;
 	public Map goodsInfo(int goods_id) throws DataAccessException;
+	public String goodsName(int goods_id) throws DataAccessException;
+	public int goodsDisc(int goods_id) throws DataAccessException;
 	public int addGoods(Map goodsMap) throws DataAccessException;
 	public void modGoods(Map goodsMap) throws DataAccessException;
+	public void modDisc(Map goodsMap) throws DataAccessException;
 	public void removeGoods(int goods_id) throws DataAccessException;
 	public void addGoodsImage(List imageFileList) throws DataAccessException;
 	public void modGoodsImage(List imageFileList) throws DataAccessException;
 	public void removeGoodsImage(int image_id) throws DataAccessException;
 	public void removeAllGoodsImage(int goods_id) throws DataAccessException;
+	//별점평균
+	public Double avgStar(int goods_id) throws DataAccessException;
+	//별점 카운트
+	public int countStar(int goods_id) throws DataAccessException;
+	//리뷰 호출
+	public List reviewList(int goods_id) throws DataAccessException;
 }

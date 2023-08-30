@@ -121,6 +121,11 @@
 			<put-attribute name="title" value="이벤트 목록(관리자)" />
 			<put-attribute name="body" value="/WEB-INF/views/event/A_listEvent.jsp" />
 		</definition>
+		<!-- 이벤트 상세-->
+		<definition name="/event/detailEvent" extends="baseLayout">
+			<put-attribute name="title" value="이벤트 상세" />
+			<put-attribute name="body" value="/WEB-INF/views/event/detailEvent.jsp" />
+		</definition>
 		<!-- 이벤트 등록-->
 		<definition name="/event/addEventForm" extends="baseLayout">
 			<put-attribute name="title" value="이벤트 등록" />
@@ -167,25 +172,15 @@
 	
 	
 	<!-- 커뮤니티 -->
-		<!-- 관리자 커뮤니티화면 -->
-		<definition name="/community/a_Commu" extends="baseLayout">
-			<put-attribute name="title" value="관리자 커뮤니티" />
-			<put-attribute name="body" value="/WEB-INF/views/community/a_Commu.jsp" />
-		</definition>
 		<!-- 회원 커뮤니티화면 -->
 		<definition name="/community/u_Commu" extends="baseLayout">
 			<put-attribute name="title" value="관리자 커뮤니티" />
 			<put-attribute name="body" value="/WEB-INF/views/community/u_Commu.jsp" />
 		</definition>
-		<!-- 사업자 커뮤니티화면 -->
-		<definition name="/community/b_Commu" extends="baseLayout">
-			<put-attribute name="title" value="관리자 커뮤니티" />
-			<put-attribute name="body" value="/WEB-INF/views/community/b_Commu.jsp" />
-		</definition>
 		<!-- 회원 커뮤니티 작성 화면 -->
-		<definition name="/community/commu_wirte" extends="baseLayout">
+		<definition name="/community/reply" extends="baseLayout">
 			<put-attribute name="title" value="리뷰 작성" />
-			<put-attribute name="body" value="/WEB-INF/views/community/commu_wirte.jsp" />
+			<put-attribute name="body" value="/WEB-INF/views/community/reply.jsp" />
 		</definition>
 		
 	<!-- 스케줄 관련 -->
@@ -193,6 +188,11 @@
 		<definition name="/schedule/addScheduleForm" extends="baseLayout">
 			<put-attribute name="title" value="스케줄 등록" />
 			<put-attribute name="body" value="/WEB-INF/views/schedule/addScheduleForm.jsp" />
+		</definition>
+		<!-- 스케줄 관리(사업자, 관리자)-->
+		<definition name="/schedule/listSchedule" extends="baseLayout">
+			<put-attribute name="title" value="스케줄 등록" />
+			<put-attribute name="body" value="/WEB-INF/views/schedule/listSchedule.jsp" />
 		</definition>
 </tiles-definitions>
 

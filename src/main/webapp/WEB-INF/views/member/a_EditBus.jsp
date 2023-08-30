@@ -121,7 +121,7 @@
 		</tr>
 		<tr>
 			<td>핸드폰</td>
-			<td><input type="text" class="inputSize1" name="phone" value="${taget.phone}"></td>
+			<td><input type="text" class="inputSize1" id="phone" name="phone" value="${taget.phone}"></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
@@ -256,6 +256,30 @@ function execPostCode() {
        }
     }).open();
 }
+
+//핸드폰번호유형
+document.addEventListener('DOMContentLoaded', function() {
+  var phoneInput = document.getElementById('phone');
+  
+  phoneInput.addEventListener('input', function() {
+      var phoneNumber = phoneInput.value;
+      var cleanedPhoneNumber = phoneNumber.replace(/\D/g, ''); // 숫자 이외의 문자 제거
+      var formattedPhoneNumber = formatPhoneNumber(cleanedPhoneNumber);
+      phoneInput.value = formattedPhoneNumber;
+  });
+
+  function formatPhoneNumber(phoneNumber) {
+      if (phoneNumber.length > 10) {
+          return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7, 11);
+      } else if (phoneNumber.length > 6) {
+          return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 7) + '-' + phoneNumber.slice(7);
+      } else if (phoneNumber.length > 3) {
+          return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3);
+      } else {
+          return phoneNumber;
+      }
+  }
+});
 </script>
 </body>
 </html>

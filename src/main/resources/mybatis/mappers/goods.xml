@@ -22,6 +22,7 @@
 		<result property="mem_id" column="mem_id" />
 		<result property="goods_seats" column="goods_seats" />
 		<result property="goods_fileName" column="fileName" />
+		<result property="goods_avg" column="goods_avg" />
 	</resultMap>
 
 	<resultMap id="imageResult" type="G_imageFileVO">
@@ -30,6 +31,20 @@
 		<result property="fileName" column="fileName" />
 		<result property="fileType" column="fileType" />
 		<result property="reg_id" column="reg_id" />
+	</resultMap>
+	
+	<resultMap id="communityResult" type="CommunityVO">
+		<result property="c_No" column="c_No" />
+		<result property="order_No" column="order_No" />
+		<result property="mem_id" column="mem_id" />
+		<result property="c_title" column="c_title" />
+		<result property="c_content" column="c_content" />
+		<result property="c_date" column="c_date" />
+		<result property="star" column="star" />
+		<result property="imageFileName" column="imageFileName" />
+		<result property="c_reply" column="c_reply" />
+		<result property="c_replydate" column="c_replydate" />
+		<result property="goods_id" column="goods_id" />
 	</resultMap>
 	
 	<select id="selectGoodsList" resultMap="goodsResult">
@@ -68,6 +83,14 @@
     	]]>
 	</select>
 	
+	<select id="selectGoodsNameById" resultType="String" parameterType="int">
+		select goods_name from goods where goods_id=#{goods_id}
+	</select>
+	
+	<select id="selectGoodsDisc" resultType="int" parameterType="int">
+		select goods_discount from goods where goods_id=#{goods_id}
+	</select>
+	
 	<select id="selectGoodsNo" resultType="int" parameterType="java.util.Map">
 		<![CDATA[
 			SELECT goods_id FROM goods WHERE mem_id=#{mem_id} AND goods_name=#{goods_name}
@@ -90,6 +113,13 @@
 	<update id="updateGoods" parameterType="goodsVO">
 		<![CDATA[
 			update goods set goods_type=#{goods_type}, goods_genre=#{goods_genre}, goods_name=#{goods_name}, goods_startDate=#{goods_startDate}, goods_endDate=#{goods_endDate}, goods_runningTime=#{goods_runningTime}, goods_age=#{goods_age}, goods_price=#{goods_price}, goods_discount=#{goods_discount}, goods_info=#{goods_info}, goods_notice=#{goods_notice}, goods_place=#{goods_place}, goods_seats=#{goods_seats}
+			where goods_id=#{goods_id}
+		]]>
+	</update>
+	
+	<update id="updateDisc" parameterType="java.util.Map">
+		<![CDATA[
+			update goods set goods_discount=#{goods_discount}
 			where goods_id=#{goods_id}
 		]]>
 	</update>
@@ -139,4 +169,26 @@
 		  where goods_id=#{goods_id}
 		  ]]>
 	</delete>
+	
+	<!-- 커뮤니티 별점 평균 -->
+	<select id="avgStar" resultType="Double" parameterType="int">
+	    <![CDATA[
+		    select avg(star) as avg from community where goods_id=#{goods_id};
+    	]]>
+	</select>
+	
+	<!-- 커뮤니티 카운트 -->
+		<select id="countStar" resultType="int" parameterType="int">
+	    <![CDATA[
+		    SELECT COUNT(star) FROM community where goods_id=#{goods_id};
+    	]]>
+	</select>
+	
+	<!--상품 리뷰 불러오기 -->
+	<select id="reviewList" resultMap="communityResult"  parameterType="java.util.List">
+		<![CDATA[
+		SELECT * FROM community where goods_id=#{goods_id} order by c_date desc					
+		]]>      
+	</select>
+	
 </mapper>

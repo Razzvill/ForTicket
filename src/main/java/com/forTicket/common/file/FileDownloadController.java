@@ -18,6 +18,7 @@ public class FileDownloadController {
 	private static String THEATER_IMAGE_REPO = "C:\\forTicket\\theater";
 	private static String GOODS_IMAGE_REPO = "C:\\forTicket\\goods";
 	private static String EVENT_IMAGE_REPO = "C:\\forTicket\\event";
+	private static final String COMMUNITY_IMAGE_REPO = "C:\\forTicket\\community";
 	
 	@RequestMapping("/theater/download.do")
 	protected void t_download(@RequestParam("theater_image") String theater_image, @RequestParam("theater_id") int theater_id, HttpServletRequest req, HttpServletResponse resp)
@@ -58,10 +59,10 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/event/download.do")
-	protected void e_download(@RequestParam("event_image") String event_image, @RequestParam("event_id") int event_id, HttpServletRequest req, HttpServletResponse resp)
+	protected void e_download(@RequestParam("event_image") String event_image, @RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp)
 			throws Exception {
 		OutputStream out = resp.getOutputStream();
-		String downFile = EVENT_IMAGE_REPO + "\\" + event_id+"\\"+event_image;
+		String downFile = EVENT_IMAGE_REPO + "\\" + event_no+"\\"+event_image;
 		File file = new File(downFile);
 		resp.setHeader("Cache-Control", "no-cache");
 		resp.addHeader("Content-disposition", "attachment: fileName="+event_image);
@@ -76,7 +77,7 @@ public class FileDownloadController {
 		out.close();
 	}
 	
-	@RequestMapping("/thumbnails.do")
+	@RequestMapping("/goods/thumbnails.do")
 	protected void thumbnails(@RequestParam("goods_fileName") String goods_fileName,
                             	@RequestParam("goods_id") String goods_id,
 			                 HttpServletResponse response) throws Exception {
@@ -91,4 +92,47 @@ public class FileDownloadController {
 		out.write(buffer);
 		out.close();
 	}
+	
+	@RequestMapping("/event/thumbnails.do")
+	protected void thumbnails(@RequestParam("event_image") String event_image,
+                            	@RequestParam("event_no") int event_no,
+			                 HttpServletResponse response) throws Exception {
+		OutputStream out = response.getOutputStream();
+		String filePath=GOODS_IMAGE_REPO+"\\"+event_no+"\\"+event_image;
+		File image=new File(filePath);
+		
+		if (image.exists()) { 
+			Thumbnails.of(image).size(121,154).outputFormat("png").toOutputStream(out);
+		}
+		byte[] buffer = new byte[1024 * 8];
+		out.write(buffer);
+		out.close();
+	}
+
+	@RequestMapping("/community/download.do")
+	protected void download(@RequestParam("imageFileName") String imageFileName, @RequestParam("c_No") String c_No,	HttpServletResponse response) throws Exception {
+		
+		OutputStream out = response.getOutputStream();//웹에서 보내준다
+		
+		String downFile = COMMUNITY_IMAGE_REPO + "\\" + c_No + "\\" + imageFileName;
+		File file = new File(downFile);
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disponsition", "attachment: fileName="+imageFileName);
+		
+		FileInputStream in = new FileInputStream(file);
+		
+		byte[] buffer = new byte[1024*8];
+		
+		while(true) {
+			int count = in.read(buffer);
+			if(count == -1)
+				break;
+			out.write(buffer,0,count);
+		}
+		in.close();
+		out.close();		
+	
+	}//download
+
 }

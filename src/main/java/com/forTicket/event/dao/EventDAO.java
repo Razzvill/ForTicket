@@ -16,6 +16,7 @@ public interface EventDAO {
 	public List selectAllEventList() throws DataAccessException;
 	public List selectAdminEventList(Map condMap) throws DataAccessException;
 	public EventVO selectEventInfo(int event_no) throws DataAccessException;
+	public EventVO selectEventDetail(int event_no) throws DataAccessException;
 	public int selectEventNo(Map eventMap) throws DataAccessException;
 	public void insertEvent(Map eventMap) throws DataAccessException;
 	public void updateEvent(Map eventMap) throws DataAccessException;

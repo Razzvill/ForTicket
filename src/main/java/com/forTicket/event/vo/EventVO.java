@@ -16,6 +16,10 @@ public class EventVO {
 	private String mem_id;
 	private Date event_finalDate;
 	private Date event_creDate;
+	private int goods_id;
+	private String goods_name;
+	private int goods_discount;
+	private String event_fileName;
 	
 	public int getEvent_no() {
 		return event_no;
@@ -76,6 +80,30 @@ public class EventVO {
 	}
 	public void setEvent_creDate(Date event_creDate) {
 		this.event_creDate = event_creDate;
+	}
+	public int getGoods_id() {
+		return goods_id;
+	}
+	public void setGoods_id(int goods_id) {
+		this.goods_id = goods_id;
+	}
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
+	}
+	public int getGoods_discount() {
+		return goods_discount;
+	}
+	public void setGoods_discount(int goods_discount) {
+		this.goods_discount = goods_discount;
+	}
+	public String getEvent_fileName() {
+		return event_fileName;
+	}
+	public void setEvent_fileName(String event_fileName) {
+		this.event_fileName = event_fileName;
 	}
 	
 	

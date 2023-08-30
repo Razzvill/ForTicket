@@ -12,7 +12,18 @@ public class CommunityVO {
 	private String c_title;
 	private String c_content;
 	private Date c_date;
-	
+	private int star;
+	private String imageFileName;
+	private String c_reply;
+	private Date c_replydate;
+	private int goods_id;
+			
+	public int getStar() {
+		return star;
+	}
+	public void setStar(int star) {
+		this.star = star;
+	}
 	public int getC_No() {
 		return c_No;
 	}
@@ -49,6 +60,30 @@ public class CommunityVO {
 	}
 	public void setC_date(Date c_date) {
 		this.c_date = c_date;
+	}
+	public String getImageFileName() {
+		return imageFileName;
+	}
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
+	public String getC_reply() {
+		return c_reply;
+	}
+	public void setC_reply(String c_reply) {
+		this.c_reply = c_reply;
+	}
+	public Date getC_replydate() {
+		return c_replydate;
+	}
+	public void setC_replydate(Date c_replydate) {
+		this.c_replydate = c_replydate;
+	}
+	public int getGoods_id() {
+		return goods_id;
+	}
+	public void setGoods_id(int goods_id) {
+		this.goods_id = goods_id;
 	}
 	
 }

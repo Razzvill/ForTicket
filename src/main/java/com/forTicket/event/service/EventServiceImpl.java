@@ -1,7 +1,5 @@
 package com.forTicket.event.service;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +12,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.forTicket.event.dao.EventDAO;
-import com.forTicket.event.vo.EventVO;
 import com.forTicket.event.vo.E_imageFileVO;
+import com.forTicket.event.vo.EventVO;
+import com.forTicket.goods.dao.GoodsDAO;
 
 @Service("eventService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -23,18 +22,12 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	private EventDAO eventDAO;
 	
+	@Autowired
+	private GoodsDAO goodsDAO;
+	
 	@Override
 	public List listEvents() throws DataAccessException {
-		Date date = new Date(System.currentTimeMillis());
-		List<EventVO> eventList = eventDAO.selectAllEventList();
-		for(EventVO event : eventList) {
-			if(event.getEvent_endDate().compareTo(date)<0) {
-				event.setEvent_status("종료");
-				Map eventMap = new HashMap();
-				eventDAO.updateEventStatus(eventMap);
-			}
-		}
-		eventList = eventDAO.selectAllEventList();
+		List eventList = eventDAO.selectAllEventList();
 		return eventList;
 	}
 
@@ -47,7 +40,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public Map eventInfo(int event_no) throws DataAccessException {
 		Map eventMap = new HashMap();
-		EventVO eventVO = eventDAO.selectEventInfo(event_no);
+		EventVO eventVO = eventDAO.selectEventDetail(event_no);
 		List imageFileList = eventDAO.selectEventImageFileList(event_no);
 		eventMap.put("event", eventVO);
 		eventMap.put("imageFileList", imageFileList);
@@ -61,6 +54,7 @@ public class EventServiceImpl implements EventService {
 		ArrayList<E_imageFileVO> imageFileList = (ArrayList) eventMap.get("imageFileList");
 		for(E_imageFileVO imageFileVO : imageFileList) {
 			imageFileVO.setEvent_no(event_no);
+			eventDAO.insertEventImage(imageFileVO);
 		}
 		return event_no;
 	}
@@ -68,6 +62,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public void modEvent(Map eventMap) throws DataAccessException {
 		eventDAO.updateEvent(eventMap);
+		goodsDAO.updateDisc(eventMap);
 	}
 
 	@Override

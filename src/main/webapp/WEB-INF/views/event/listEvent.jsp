@@ -22,7 +22,6 @@
 	    color: inherit;
 	}
 	.event-main-list ul {
-	    margin-left: -45px;
 	}
 	.event-main-list li > a {
 	    display: block;
@@ -84,6 +83,9 @@
 	.mypage4{
 		border:3px solid #d2d2d2;
 		border-radius: 15px;
+		width: 1100px;
+		height: auto;
+		margin: auto;
 		padding:10px 15px;
 		font-size:15px;
 		line-height:280%;
@@ -102,7 +104,7 @@
 	    color: #888;
 	    position: relative;
 	}
-	.event-division a#on {
+	.event-division a.active {
 	    color: #FF6251;
 	}
 	.event-division a:after {
@@ -118,64 +120,56 @@
 	.event-division a:last-child {
 	    margin-right: 0;
 	}
+	.event-division a:last-child::after {
+	    content: none;
+	}
 	</style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-//진행중.종료된 이벤트 클릭 시 폰트 컬러 적용 이벤트
-$(function(){
-	$(".event-division a").on('click',function(e){
-		e.preventDefault();
-		$(".event-division a").removeClass("on");
-		$(this).addClass("on");
+$(document).ready(function() {
+
+	//When page loads...
+	$(".tab_content").hide(); //Hide all content
+	$("nav.event-division a:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+
+	//On Click Event
+	$("nav.event-division a").click(function() {
+
+		$("nav.event-division a").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab-content").hide(); //Hide all tab content
+
+		var activeTab = $(this).attr("href"); //Find the href attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active ID content
+		return false;
 	});
-});
 
-//탭 전환 이벤트
-const $nav = document.querySelector('#event-division')
-const $sections = document.querySelectorAll('.tab-section');
-
-$nav.addEventListener('click', (e) => {
-  if (!e.target.classList.contains('tab')) {
-    return;
-  }
-  
-  const focusedTabId = e.target.dataset.tabSection;
-
-  $sections.forEach(($section) => {
-    if ($section.id === focusedTabId) {
-      $section.removeAttribute('hidden');
-    } else {
-      $section.setAttribute('hidden', true);
-    }
-  });
 });
 </script>
 
 </head>
 
 <body>
-<div class="mypage4">
+<section class="mypage4">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:center;">이벤트</h2>
     </div>
 	<nav class="event-division">
-		<a id="on" class="tab" data-tab-section="event-ing">진행중인 이벤트</a>
-		<a id="" class="tab" data-tab-section="event-end">종료된 이벤트</a>
+		<a href="#event-ing" id="on">진행중인 이벤트</a>
+		<a href="#event-end" id="">종료된 이벤트</a>
 	</nav>
 	<div class="clear"></div>
 	<div class="event-main-list">
-		<section id="event-ing" class="tab-section">
+		<div id="event-ing" class="tab-content">
 			<ul>
 				<c:choose>
-					<c:when test="${empty eventList}">
-						<strong>진행중인 이벤트가 없습니다.</strong>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="event" items="eventList">
+					<c:when test="${not empty eventList}">
+						<c:forEach var="event" items="${eventList}">
 							<c:if test="${event.event_status == '진행중'}">
 								<li>
 									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
-										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_image}" alt="${event.event_name}">
+										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}" alt="${event.event_name}">
 										<div class="eve-mlist-box">
 											<c:choose>
 												<c:when test="${event.event_type == 'disc'}">
@@ -186,28 +180,32 @@ $nav.addEventListener('click', (e) => {
 												</c:otherwise>
 											</c:choose>
 											<p class="eve-mlist-tit">${event.event_name}</p>
-											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate} | ${event.event_finalDate} 발표</p>
+											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}
+												<c:if test="${event.event_type=='inv' }">
+												 | ${event.event_finalDate} 발표
+												</c:if>
+											</p>
 										</div>
 									</a>
 								</li>
 							</c:if>
 						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<strong>진행중인 이벤트가 없습니다.</strong>
 					</c:otherwise>
 				</c:choose>
 			</ul>
-		</section>
-		<section id="event-end" class="tab-section">
+		</div>
+		<div id="event-end" class="tab-content" style="display: none;">
 			<ul>
 				<c:choose>
-					<c:when test="${empty eventList}">
-						<strong>종료된 이벤트가 없습니다.</strong>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="event" items="eventList">
+					<c:when test="${not empty eventList}">
+						<c:forEach var="event" items="${eventList}">
 							<c:if test="${event.event_status == '종료'}">
 								<li>
 									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
-										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_image}" alt="${event.event_name}">
+										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}" alt="${event.event_name}">
 										<div class="eve-mlist-box">
 											<c:choose>
 												<c:when test="${event.event_type == 'disc'}">
@@ -218,17 +216,23 @@ $nav.addEventListener('click', (e) => {
 												</c:otherwise>
 											</c:choose>
 											<p class="eve-mlist-tit">${event.event_name}</p>
-											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate} | ${event.event_finalDate} 발표</p>
+											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}
+												<c:if test="${event.event_type=='inv' }">
+												 | ${event.event_finalDate} 발표
+												</c:if></p>
 										</div>
 									</a>
 								</li>
 							</c:if>
 						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<strong>종료된 이벤트가 없습니다.</strong>
 					</c:otherwise>
 				</c:choose>
 			</ul>
-		</section>
+		</div>
 	</div>
-</div>
+</section>
 </body>
 </html>

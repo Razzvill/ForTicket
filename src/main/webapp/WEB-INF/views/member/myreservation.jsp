@@ -101,7 +101,7 @@
 		    document.body.appendChild(formObj); 
 			
 		    formObj.method="get";
-		    formObj.action="${contextPath}/member/a_Profile.do";
+		    formObj.action="${contextPath}/member/myreservation.do?mem_id=${member.mem_id}";
 		    formObj.submit();
 		}
 						
@@ -144,7 +144,7 @@
 		    formObj.appendChild(i_search_word);
 		    document.body.appendChild(formObj); 
 		    formObj.method="get";
-		    formObj.action="${contextPath}/member/a_Profile.do";
+		    formObj.action="${contextPath}/member/myreservation.do?mem_id=${member.mem_id}";
 		    formObj.submit();
 		}
 		</script>
@@ -322,28 +322,30 @@
 			<td>예매상태</td>
 		</tr>
 		<c:choose>
-			<c:when test="${empty member_list}">
+			<c:when test="${empty reservation_list}">
 				<tr>
 					<td colspan="9">
 					<strong>조회된 회원이 없습니다.</strong>
 					</td>		
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="list" items="${member_list}">
+				<c:forEach var="order" items="${reservation_list}">
 					<tr>
-						<td class="font1">${list.mem_name }</td>
-						<td class="font1">${list.mem_id }</td>
-						<td class="font1">${list.pwd }</td>
-						<td class="font1">${list.phone }</td>
-						<td class="font1">${list.email }</td>
-						<td class="font1">${list.addr1 }&nbsp;${list.addr2 }</td>
+						<td class="font1">${order.order_No }</td>
+						<td class="font1">${order.goods_name }</td>
+						<td class="font1">${order.orderDate }</td>
+						<td class="font1">${order.orderPhone }</td>
+						<td class="font1">${order.orderNum }</td>
 						<td class="font1">
-							<c:set var="join_date" value="${list.joinDate}" />
-						    <c:set var="arr" value="${fn:split(join_date,' ')}" />
+							<c:set var="join_date" value="${order.orderTicketing}" />
+						    <c:set var="arr" value="${fn:split(orderTicketing,' ')}" />
 						    <c:out value="${arr[0]}" />
 						</td>
-						<td class="font1"><a href="${contextPath}/member/a_Edit.do?mem_id=${list.mem_id }" class="reply">수정하기</a></td>
-						<td class="font1"><a href="${contextPath }/admin/deleteMember.do?mem_id=${list.mem_id }" class="reply">삭제하기</a></td>
+						<td class="font1">goods_id ${order.goods_id }</td>
+						<td class="font1">
+							<a href="${contextPath}/community/review.do?order_No=${order.order_No}" class="reply">리뷰쓰기</a>&nbsp;/&nbsp;
+							<a href="${contextPath }/admin/deleteMember.do?mem_id=${order.mem_id }" class="reply">${order.orderStatus }</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
@@ -352,11 +354,11 @@
 			<td colspan=8 class="fixed">
 				<c:forEach   var="page" begin="1" end="10" step="1" >
 					<c:if test="${section >1 && page==1 }">
-						<a class="alink" href="${contextPath}/member/a_Profile.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
 					</c:if>
-						<a class="alink" href="${contextPath}/member/a_Profile.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
 					<c:if test="${page ==10 }">
-						<a class="alink" href="${contextPath}/member/a_Profile.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 					</c:if> 
 				</c:forEach> 
 			</td>

@@ -42,7 +42,7 @@
 		}
 		
 		#content{
-			width: 82%;
+			width: 78%;
 			padding: 0px;
 			margin-top: 50px;
 			margin-left: 15px;

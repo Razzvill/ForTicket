@@ -3,12 +3,14 @@ package com.forTicket.goods.controller;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.forTicket.common.util.ValidUtil;
+import com.forTicket.community.vo.CommunityVO;
 import com.forTicket.goods.service.GoodsService;
 import com.forTicket.goods.vo.G_imageFileVO;
 import com.forTicket.goods.vo.GoodsVO;
@@ -46,6 +48,8 @@ public class GoodsControllerImpl implements GoodsController{
 	private TheaterService theaterService;
 	@Autowired
 	private TheaterDAO theaterDAO;
+	@Autowired
+	private GoodsVO goodsVO;
 	
 	//상품 목록(사용자)
 	@Override
@@ -55,12 +59,38 @@ public class GoodsControllerImpl implements GoodsController{
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		List<GoodsVO> goodsList = goodsService.listGoods();
+		
+		List<Integer> goodsIds = goodsList.stream()
+                .mapToInt(GoodsVO::getGoods_id)
+                .boxed()
+                .collect(Collectors.toList());
+		
+		Map<Integer, Double> goodsIdToAvgStarMap = new HashMap<>();
+		
+		for (int goods_id : goodsIds) {
+		    double avgStar = calculateAverageStar(goods_id); // 평균 평점 계산
+		    double roundedAvgStar = Math.round(avgStar * 10) / 10.0; // 반올림하여 소수점 첫째 자리까지 표시
+		    goodsIdToAvgStarMap.put(goods_id, roundedAvgStar); // 맵에 값 추가
+
+		    // goodsList에서 해당 goods_id에 해당하는 GoodsVO 객체를 찾아 avgStar 설정
+		    goodsList.stream()
+		        .filter(goods -> goods.getGoods_id() == goods_id)
+		        .findFirst()
+		        .ifPresent(goods -> goods.setGoods_avg(roundedAvgStar));
+		    
+		    System.out.println("Goods ID: " + goods_id + ", Average Star: " + roundedAvgStar);
+		}
+		
+		System.out.println("goodsList                                             "+goodsList);
+		
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		mav.addObject("goodsList", goodsList);
 		mav.addObject("goodsType", goodsType);
 		mav.setViewName(viewName);
+		mav.addObject("avgStar", goodsIdToAvgStarMap);
+		
 		return mav;
 	}
 
@@ -131,14 +161,29 @@ public class GoodsControllerImpl implements GoodsController{
 	public ModelAndView detailGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String viewName=(String)req.getAttribute("viewName");
 		HttpSession session=req.getSession();
+		
 		Map goodsMap=goodsService.goodsInfo(goods_id);
 		GoodsVO goodsVO = (GoodsVO) goodsMap.get("goodsVO");
 		String theater_name = goodsVO.getGoods_place();
 		int theater_id = theaterDAO.selectIdFromName(theater_name);
 		TheaterVO theaterVO = theaterDAO.selectTheaterInfo(theater_id);
+		
+		int countStar = goodsService.countStar(goods_id);
+		double avgStar = calculateAverageStar(goods_id);
+		System.out.println(" count                              "+countStar);
+		System.out.println(" avgstar                              "+avgStar);
+		
+		List<CommunityVO> reviewList = goodsService.reviewList(goods_id);
+		
+		System.out.println(reviewList);
+		
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsMap", goodsMap);
 		mav.addObject("theater", theaterVO);
+		mav.addObject("count",countStar);
+		mav.addObject("avgStar", avgStar);
+		mav.addObject("reviewList", reviewList);
+		
 		return mav;
 	}
 	
@@ -268,7 +313,7 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value = "/goods/removeGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity removeGoods(@RequestParam("theater_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
+	public ResponseEntity removeGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp)
 			throws Exception {
 		req.setCharacterEncoding("utf-8");
 		String message;
@@ -501,5 +546,20 @@ public class GoodsControllerImpl implements GoodsController{
 			}
 		}
 		return fileList;
+	}
+	
+	private double calculateAverageStar(int goods_id) {
+		Double avgStar = goodsService.avgStar(goods_id); // goods_id에 해당하는 상품의 평균 평점을 DB에서 조회하여 계산하는 로직
+	    // 실제로는 데이터베이스 조회 등의 작업이 여기에 들어감
+	  System.out.println(goods_id);
+	  System.out.println(avgStar);
+	  
+	  
+		if (avgStar != null) {
+	        return avgStar; // 평균 평점이 null이 아닐 경우 정상적으로 값을 반환
+	    } else {
+	        return 0; // 평균 평점이 null일 경우 0 또는 다른 기본값을 반환
+	    }
+ 	   
 	}
 }

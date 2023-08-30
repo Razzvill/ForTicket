@@ -137,7 +137,7 @@ request.setCharacterEncoding("utf-8");
 					<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
 						<div class="drama_list">
 							<div class="thumb">
-								<img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
+								<img src="${contextPath}/goods/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
 								<div></div>
 							</div>
 							<div class="text">
@@ -155,7 +155,10 @@ request.setCharacterEncoding("utf-8");
 								<p style="font-size: 20px;">${goods.goods_name}</p>
 							<div>
 								<div class="price">
-								<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
+								<span>
+									<img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">
+									${goods.goods_avg}
+									</span>
 								<span style="padding-right:30px;">${goods.goods_price} 원</span>
 								</div>
 							</div>

@@ -73,6 +73,23 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
+	public void modDisc(Map goodsMap) throws DataAccessException {
+		goodsDAO.updateDisc(goodsMap);		
+	}
+
+	@Override
+	public String goodsName(int goods_id) throws DataAccessException {
+		String goods_name = goodsDAO.selectGoodsNameById(goods_id);
+		return goods_name;
+	}
+
+	@Override
+	public int goodsDisc(int goods_id) throws DataAccessException {
+		int goods_discount = goodsDAO.selectGoodsDisc(goods_id);
+		return goods_discount;
+	}
+
+	@Override
 	public void removeGoods(int goods_id) throws DataAccessException {
 		goodsDAO.deleteGoods(goods_id);
 	}
@@ -102,5 +119,30 @@ public class GoodsServiceImpl implements GoodsService {
 	public void removeAllGoodsImage(int goods_id) throws DataAccessException {
 		goodsDAO.deleteAllGoodsImage(goods_id);
 	}
+	
+	//별점평균
+	@Override
+	public Double avgStar(int goods_id) throws DataAccessException {
+		
+		System.out.println("service : "+goods_id);
+		return goodsDAO.avgStar(goods_id);
+	}
+	
+	//별점 카운트
+	@Override
+	public int countStar(int goods_id) throws DataAccessException {
+		System.out.println("service : "+goods_id);
+		
+		return goodsDAO.countStar(goods_id);
+	}
+	
+	//리뷰 호출
+	@Override
+	public List reviewList(int goods_id) throws DataAccessException {
+		List reviewList = goodsDAO.reviewList(goods_id);
+		return reviewList;
+	}
+	
+	
 	
 }

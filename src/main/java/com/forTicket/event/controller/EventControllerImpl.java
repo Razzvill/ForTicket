@@ -30,7 +30,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.forTicket.event.service.EventService;
 import com.forTicket.event.vo.E_imageFileVO;
+import com.forTicket.event.vo.EventVO;
 import com.forTicket.goods.service.GoodsService;
+import com.forTicket.goods.vo.GoodsVO;
 import com.forTicket.member.vo.MemberVO;
 
 @Controller("eventController")
@@ -45,11 +47,18 @@ public class EventControllerImpl implements EventController {
 	@Override
 	@RequestMapping(value = "/event/listEvent.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listEvent(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html;charset=utf-8");
 		String viewName = (String) req.getAttribute("viewName");
-		List eventList = eventService.listEvents();
+		List<EventVO> eventList = eventService.listEvents();
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
-		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		
+		for(EventVO event : eventList) {
+			System.out.println(event.getEvent_status());
+		}
+		
 		mav.addObject("member", member);
 		mav.addObject("eventList", eventList);
 		mav.setViewName(viewName);
@@ -63,7 +72,7 @@ public class EventControllerImpl implements EventController {
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
-		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
@@ -94,7 +103,13 @@ public class EventControllerImpl implements EventController {
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		
-		ArrayList eventList = (ArrayList) eventService.A_listEvents(condMap);
+		ArrayList<EventVO> eventList = (ArrayList) eventService.A_listEvents(condMap);
+		for(EventVO eventVO : eventList) {
+			String goods_name = goodsService.goodsName(eventVO.getGoods_id());
+			int goods_discount = goodsService.goodsDisc(eventVO.getGoods_id());
+			eventVO.setGoods_name(goods_name);
+			eventVO.setGoods_discount(goods_discount);
+		}
 		mav.addObject("eventList", eventList);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -123,7 +138,7 @@ public class EventControllerImpl implements EventController {
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
-		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
@@ -154,7 +169,13 @@ public class EventControllerImpl implements EventController {
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		
-		ArrayList eventList = (ArrayList) eventService.A_listEvents(condMap);
+		ArrayList<EventVO> eventList = (ArrayList) eventService.A_listEvents(condMap);
+		for(EventVO eventVO : eventList) {
+			String goods_name = goodsService.goodsName(eventVO.getGoods_id());
+			int goods_discount = goodsService.goodsDisc(eventVO.getGoods_id());
+			eventVO.setGoods_name(goods_name);
+			eventVO.setGoods_discount(goods_discount);
+		}
 		mav.addObject("eventList", eventList);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -178,16 +199,40 @@ public class EventControllerImpl implements EventController {
 
 	//이벤트 상세페이지
 	@Override
+	@RequestMapping(value= "/event/detailEvent.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView detailEvent(@RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("html/text;charset=utf-8");
 		String viewName = (String) req.getAttribute("viewName");
 		Map event = eventService.eventInfo(event_no);
+		EventVO eventVO = (EventVO) event.get("event");
+		int goods_id = eventVO.getGoods_id();
+		Map goodsMap = goodsService.goodsInfo(goods_id);
+		GoodsVO goods = (GoodsVO)goodsMap.get("goodsVO");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = req.getSession();
-		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		mav.addObject("goods", goods);
 		mav.addObject("member", member);
-		mav.addObject("event", event);
+		mav.addObject("events", event);
+		return mav;
+	}
+	
+	//이벤트 등록 페이지
+	@Override
+	@RequestMapping(value = "/event/addEventForm.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		String viewName = (String)req.getAttribute("viewName");
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String mem_id = member.getMem_id();
+		List goodsList = goodsService.findGoodsById(mem_id);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("member", member);
+		mav.addObject("goodsList", goodsList);
 		return mav;
 	}
 
@@ -209,10 +254,37 @@ public class EventControllerImpl implements EventController {
 			goodsMap.put(name,value);
 		}
 		
-		HttpSession session = multipartReq.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String reg_id = memberVO.getMem_id();
+		String g_startDate = (String) goodsMap.get("goods_startDate");
+		java.sql.Date goods_startDate = java.sql.Date.valueOf(g_startDate);
+		goodsMap.remove("goods_startDate");
+		goodsMap.put("goods_startDate", goods_startDate);
 		
+		String g_endDate = (String) goodsMap.get("goods_endDate");
+		java.sql.Date goods_endDate = java.sql.Date.valueOf(g_endDate);
+		goodsMap.remove("goods_endDate");
+		goodsMap.put("goods_endDate", goods_endDate);
+		
+		String e_startDate = (String) goodsMap.get("event_startDate");
+		java.sql.Date event_startDate = java.sql.Date.valueOf(e_startDate);
+		goodsMap.remove("event_startDate");
+		goodsMap.put("event_startDate", event_startDate);
+		
+		String e_endDate = (String) goodsMap.get("event_endDate");
+		java.sql.Date event_endDate = java.sql.Date.valueOf(e_endDate);
+		goodsMap.remove("event_endDate");
+		goodsMap.put("event_endDate", event_endDate);
+		
+		String e_finalDate = (String) goodsMap.get("event_finalDate");
+		if(e_finalDate != null) {
+			java.sql.Date event_finalDate = java.sql.Date.valueOf(e_finalDate);
+			goodsMap.remove("event_finalDate");
+			goodsMap.put("event_finalDate", event_finalDate);
+		}
+		
+		HttpSession session = multipartReq.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String reg_id = memberVO.getMem_id();
+		goodsMap.put("mem_id", reg_id);
 		
 		List<E_imageFileVO> imageFileList = upload(multipartReq);
 		if(imageFileList!= null && imageFileList.size()!=0) {
@@ -227,18 +299,19 @@ public class EventControllerImpl implements EventController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			int goods_id = eventService.addEvent(goodsMap);
+			int event_no = eventService.addEvent(goodsMap);
+			goodsService.modDisc(goodsMap);
 			if(imageFileList!=null && imageFileList.size()!=0) {
 				for(E_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
 					File srcFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
-					File destDir = new File(EVENT_IMAGE_REPO+"\\"+goods_id);
+					File destDir = new File(EVENT_IMAGE_REPO+"\\"+event_no);
 					FileUtils.moveFileToDirectory(srcFile, destDir,true);
 				}
 			}
 			message= "<script>";
 			message += " alert('이벤트 등록에 성공했습니다.');";
-			message +=" location.href='"+multipartReq.getContextPath()+"/goods/a_listEvent.do';";
+			message +=" location.href='"+multipartReq.getContextPath()+"/event/B_listEvent.do';";
 			message +=("</script>");
 		}catch(Exception e) {
 			if(imageFileList!=null && imageFileList.size()!=0) {
@@ -250,7 +323,7 @@ public class EventControllerImpl implements EventController {
 			}
 			message= "<script>";
 			message += " alert('이벤트 등록에 실패했습니다.');";
-			message +=" location.href='"+multipartReq.getContextPath()+"/goods/addEventForm.do';";
+			message +=" location.href='"+multipartReq.getContextPath()+"/event/addEventForm.do';";
 			message +=("</script>");
 			e.printStackTrace();
 		}
@@ -265,7 +338,7 @@ public class EventControllerImpl implements EventController {
 	public ResponseEntity removeEvent(@RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String type = memberVO.getType();
 		String message;
 		ResponseEntity resEnt = null;
@@ -307,11 +380,16 @@ public class EventControllerImpl implements EventController {
 		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
 		Map eventMap = eventService.eventInfo(event_no);
+		EventVO eventVO = (EventVO) eventMap.get("event");
+		int goods_id = eventVO.getGoods_id();
+		Map goodsMap = goodsService.goodsInfo(goods_id);
+		GoodsVO goods = (GoodsVO)goodsMap.get("goodsVO");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = req.getSession();
-		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		mav.addObject("eventMap", eventMap);
+		mav.addObject("goods", goods);
 		return mav;
 	}
 
@@ -346,34 +424,19 @@ public class EventControllerImpl implements EventController {
 			                     @RequestParam("value") String value,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		//System.out.println("modifyEventInfo");
-		
+		request.setCharacterEncoding("utf-8");
+		System.out.println("event_no: "+event_no+", attribute: "+attribute+", value: "+value);
 		Map goodsMap=new HashMap();
 		goodsMap.put("event_no", event_no);
 		goodsMap.put(attribute, value);
+		System.out.println("event_status: "+goodsMap.get("event_status"));
 		eventService.modEventStatus(goodsMap);
-		
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		message  = "mod_success";
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
-	}
-	
-	//이벤트 등록 페이지
-	@Override
-	@RequestMapping(value = "/event/addEventForm.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		req.setCharacterEncoding("utf-8");
-		String viewName = (String)req.getAttribute("viewName");
-		HttpSession session = req.getSession();
-		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
-		String mem_id = member.getMem_id();
-		List goodsList = goodsService.findGoodsById(mem_id);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("member", member);
-		mav.addObject("goodsList", goodsList);
-		return mav;
 	}
 
 	//이벤트 이미지 추가
@@ -394,7 +457,7 @@ public class EventControllerImpl implements EventController {
 		}
 		
 		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String reg_id = memberVO.getMem_id();
 		
 		List<E_imageFileVO> imageFileList=null;
@@ -445,7 +508,7 @@ public class EventControllerImpl implements EventController {
 		}
 		
 		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String reg_id = memberVO.getMem_id();
 		
 		List<E_imageFileVO> imageFileList=null;
@@ -505,7 +568,7 @@ public class EventControllerImpl implements EventController {
 		HttpSession session = req.getSession();
 		session.setAttribute("action", action);
 		ModelAndView mav = new ModelAndView();
-		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);
 		mav.addObject("result", result);
 		mav.setViewName(viewName);
