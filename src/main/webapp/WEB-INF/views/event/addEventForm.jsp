@@ -60,6 +60,8 @@
 		});
 </script>
 <script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", handleGoodsSelectChange);
+  
   function handleGoodsSelectChange() {
     var selectedOption = document.getElementById("goodsSelect").options[document.getElementById("goodsSelect").selectedIndex];
     

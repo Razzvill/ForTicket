@@ -275,7 +275,9 @@ request.setCharacterEncoding("utf-8");
 				</div>
 			</div>
 			<div class="submit_btn">
-				<button type="button" onclick="applyEvent()" class="">응모하기</button>
+				<c:if test="${event.event_type == 'inv'}">
+					<button type="button" onclick="applyEvent()" class="">응모하기</button>
+				</c:if>
 			</div>
 		</section>
 

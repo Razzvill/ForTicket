@@ -15,13 +15,25 @@
 	<meta charset="UTF-8">
 	<title>진행중인 이벤트</title>
 	<style>
+	.mypage4{
+		border:3px solid #d2d2d2;
+		border-radius: 15px;
+		width: 1100px;
+		margin: auto;
+		padding:10px 15px;
+		font-size:15px;
+		line-height:280%;
+		border-color: #FF6251;
+		padding-bottom: 50px;
+	}
 	a {
 	    font-size: 0;
 	    text-decoration: none;
 	    outline: none;
 	    color: inherit;
 	}
-	.event-main-list ul {
+	.event-main-list {
+		idsplay: inline-block;
 	}
 	.event-main-list li > a {
 	    display: block;
@@ -38,27 +50,19 @@
 	    transition: all ease-out 0.3s;
 	}
 	.event-main-list li > a .eve-mlist-tit {
-	    position: absolute;
-	    left: 0;
-	    top: 75px;
 	    font-size: 16px;
 	    color: #333;
-	    line-height: 23px;
-	    height: 46px;
+	    line-height: 16px;
 	    overflow: hidden;
 	}
 	.event-main-list li > a .eve-mlist-txt {
-	    position: absolute;
-	    left: 0;
-	    top: 135px;
 	    font-size: 13px;
 	    color: #999;
+	    line-height: 13px;
 	}
 	.event-main-list li > a .eve-mlist-mark span#disc {
-	    display: inline-block;
 	    min-width: 67px;
-	    height: 28px;
-	    line-height: 28px;
+	    line-height: 18px;
 	    text-align: center;
 	    padding: 0 8px;
 	    font-size: 15px;
@@ -68,10 +72,8 @@
 	    border-radius: 15px;
 	}
 	.event-main-list li > a .eve-mlist-mark span#inv {
-	    display: inline-block;
 	    min-width: 67px;
-	    height: 28px;
-	    line-height: 28px;
+	    line-height: 18px;
 	    text-align: center;
 	    padding: 0 8px;
 	    font-size: 15px;
@@ -79,18 +81,6 @@
 	    color: #3E90FF;
 	    border: 1px solid #3E90FF;
 	    border-radius: 15px;
-	}
-	.mypage4{
-		border:3px solid #d2d2d2;
-		border-radius: 15px;
-		width: 1100px;
-		height: auto;
-		margin: auto;
-		padding:10px 15px;
-		font-size:15px;
-		line-height:280%;
-		border-color: #FF6251;
-		padding-bottom: 50px;
 	}
 	.event-division {
 		text-align: center;
@@ -123,6 +113,12 @@
 	.event-division a:last-child::after {
 	    content: none;
 	}
+	.event_list:hover {
+		transform: translateY(-5px);
+	}
+	.event_list {
+	    transition: transform 0.3s ease-in-out;
+	}
 	</style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
@@ -151,7 +147,7 @@ $(document).ready(function() {
 </head>
 
 <body>
-<section class="mypage4">
+<div class="mypage4">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:center;">이벤트</h2>
     </div>
@@ -167,7 +163,7 @@ $(document).ready(function() {
 					<c:when test="${not empty eventList}">
 						<c:forEach var="event" items="${eventList}">
 							<c:if test="${event.event_status == '진행중'}">
-								<li>
+								<li class="event_list">
 									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
 										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}" alt="${event.event_name}">
 										<div class="eve-mlist-box">
@@ -233,6 +229,6 @@ $(document).ready(function() {
 			</ul>
 		</div>
 	</div>
-</section>
+</div>
 </body>
 </html>

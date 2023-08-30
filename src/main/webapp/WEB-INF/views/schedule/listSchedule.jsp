@@ -307,7 +307,7 @@
 		</tr>
 	</table>
 <div class="clear"></div>
-<input type="button" value="등록하기" style="float: right;" onclick="location.href='${contextPath}/goods/addGoodsForm.do'"/>
+<input type="button" value="등록하기" style="float: right;" onclick="location.href='${contextPath}/schedule/addScheduleForm.do'"/>
 	<table class="result">
 		<tr>
 			<td>상품 번호</td>
