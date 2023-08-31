@@ -16,15 +16,13 @@
 	<title>진행중인 이벤트</title>
 	<style>
 	.mypage4{
-		border:3px solid #d2d2d2;
+		border:3px solid #FF6251;
 		border-radius: 15px;
 		width: 1100px;
 		margin: auto;
 		padding:10px 15px;
 		font-size:15px;
-		line-height:280%;
-		border-color: #FF6251;
-		padding-bottom: 50px;
+		position: relative;
 	}
 	a {
 	    font-size: 0;
@@ -212,10 +210,10 @@ $(document).ready(function() {
 												</c:otherwise>
 											</c:choose>
 											<p class="eve-mlist-tit">${event.event_name}</p>
-											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}
+											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}</p>
 												<c:if test="${event.event_type=='inv' }">
-												 | ${event.event_finalDate} 발표
-												</c:if></p>
+													<p>${event.event_finalDate} 발표</p>
+												</c:if>
 										</div>
 									</a>
 								</li>
