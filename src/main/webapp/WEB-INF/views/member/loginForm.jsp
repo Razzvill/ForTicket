@@ -115,7 +115,7 @@
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
   integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous"></script>
 <script>
-Kakao.init('9c4ab2164685265e5b9aa5dd366cab70'); // 사용하려는 앱의 JavaScript 키 입력
+Kakao.init('714b1cee4e7cce6b2f35d6356e10b558'); // 사용하려는 앱의 JavaScript 키 입력
 </script>
 <script>
 function loginWithKakao() {
