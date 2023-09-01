@@ -81,8 +81,6 @@ public class GoodsControllerImpl implements GoodsController{
 		    System.out.println("Goods ID: " + goods_id + ", Average Star: " + roundedAvgStar);
 		}
 		
-		System.out.println("goodsList                                             "+goodsList);
-		
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("member", member);

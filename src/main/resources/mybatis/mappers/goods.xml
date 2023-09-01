@@ -22,7 +22,6 @@
 		<result property="mem_id" column="mem_id" />
 		<result property="goods_seats" column="goods_seats" />
 		<result property="goods_fileName" column="fileName" />
-		<result property="goods_avg" column="goods_avg" />
 	</resultMap>
 
 	<resultMap id="imageResult" type="G_imageFileVO">
