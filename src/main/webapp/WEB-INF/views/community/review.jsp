@@ -159,7 +159,7 @@
 			</tr>
 		</table>
 		<input type="hidden" name="order_No" value="${review.order_No }" readonly>		
-		<input type="text" name="goods_id" value="${review.goods_id }" readonly>		
+		<input type="hidden" name="goods_id" value="${review.goods_id }" readonly>		
 	</form>
 </div>
 </body>

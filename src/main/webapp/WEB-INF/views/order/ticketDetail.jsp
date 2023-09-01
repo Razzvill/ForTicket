@@ -168,48 +168,40 @@
 </head>
 <body>
 <div class="mypage_right_wrap">
-
 	<div class="detail">
         <div class="detail_title">상세 내역</div>
         
         <div class="option_title">티켓명</div>
-        <div class="option_con1">라면</div>
+        <div class="option_con1">${detail.goods_name}</div>
         
         <div class="option_title1">예매번호</div>
-        <div class="option_con1">095-8176-601</div>
+        <div class="option_con1">${detail.order_No}</div>
         
         <div class="option_title1">장소</div>
-        <div class="option_con2">아신극장</div>
-        
-        <div class="option_title1">연락처</div>
-        <div class="option_con2">1599-3091</div>
+        <div class="option_con2">${detail.goods_place}</div>
         
         <div class="option_title1">날짜/시간</div>
-        <div class="option_con2">2023.08.31(목)19:00</div>
+        <div class="option_con2">${detail.orderDate} ${detail.goods_Time}</div>
         
         <div class="option_title1">수량</div>
-        <div class="option_con2">1</div>
-        
-        <div class="option_title1">좌석번호</div>
-        <div class="option_con2">c-1</div>
+        <div class="option_con2">${detail.totalQuantity}</div>
         
         <div class="option_title1">이용자</div>
-        <div class="option_con2">이중민(010-****-****)</div>
+        <div class="option_con2">${detail.receiver_name}</div>
         
         <div class="option_title1">티켓합계</div>
-        <div class="option_con2">19,000원</div>
+        <div class="option_con2">${detail.totalPrice}원</div>
         
         <div class="option_title1">환불기한</div>
         <div class="option_con2">이용 1일 전 자정까지 신청가능<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(환불규정에 따라 위약금이 발생할 수 있음)</div>
-     
-          <input type="hidden" name="row_price_value_258000" id="row_price_value_258000" value="18900">
 	</div>
 </div>
 
 <div style="padding:30px; text-align:center;">
 	<span style="padding-left:20px;">
-		<a href=""><button style="width:200px; height:50px; border:none; background:#ff4b4b; color:#fff; border-radius:5px; font-size:18px; font-weight:bold; cursor:pointer ">환불신청하기</button></a>
+		<a href="${contextPath }/order/ticketrefund.do?order_No=${detail.order_No}"><button style="width:200px; height:50px; border:none; background:#ff4b4b; color:#fff; border-radius:5px; font-size:18px; font-weight:bold; cursor:pointer ">환불신청하기</button></a>
 	</span>
 </div>
+<input type="text" name="order_No" value="${detail.order_No }">
 </body>
 </html>

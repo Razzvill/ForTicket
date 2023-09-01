@@ -9,19 +9,82 @@
 		<result property="goods_id" column="goods_id" />
 		<result property="mem_id" column="mem_id" />
 		<result property="s_no" column="s_no" />
-		<result property="orderNum" column="orderNum" />
 		<result property="ordersit" column="ordersit" />
 		<result property="orderName" column="orderName" />
-		<result property="orderPhone1" column="orderPhone1" />
-		<result property="orderPhone2" column="orderPhone2" />
+		<result property="orderPhone" column="orderPhone" />
 		<result property="orderEmail" column="orderEmail" />
 		<result property="orderPay" column="orderPay" />
-		<result property="orderCheck" column="orderCheck" />
+		<result property="orderCheck1" column="orderCheck1" />
+		<result property="orderCheck2" column="orderCheck2" />
 		<result property="orderStatus" column="orderStatus" />
 		<result property="orderTicketing" column="orderTicketing" />
-		<result property="orderDate" column="orderDate" />
-		<result property="order_price" column="order_price" />
-	</resultMap>
 
+		<result property="totalPrice" column="totalPrice" />
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_place" column="goods_place" />
+		<result property="totalQuantity" column="totalQuantity" />
+		<result property="goods_price" column="goods_price" />
+
+		<result property="receiver_name" column="receiver_name" />
+		<result property="goods_Date" column="goods_Date" />
+	</resultMap>
+	
+	<!-- 예매 -->
+	<insert id="insertNewOrder"  parameterType="java.util.List">
+		insert into `Order`(order_No,
+							goods_id,
+							mem_id,
+							ordersit,
+							orderName,
+							orderPhone,
+							orderEmail,
+							orderPay,
+							orderCheck1,
+							orderCheck2,
+							orderStatus,
+							
+							totalPrice,
+							goods_name,
+							goods_place,
+							totalQuantity,
+							goods_price,
+							
+							receiver_name,
+							goods_Date,
+							s_no)
+											values
+											<foreach collection="list" item="item" separator=",">
+									        (	#{item.order_No},
+									            #{item.goods_id},
+									            #{item.mem_id},
+									            #{item.ordersit},
+									            #{item.orderName},
+									            #{item.orderPhone},
+									            #{item.orderEmail},
+									            #{item.orderPay},
+									            #{item.orderCheck1},
+									            #{item.orderCheck2},
+									            #{item.orderStatus},
+									           
+									            #{item.totalPrice},
+									            #{item.goods_name},
+									            #{item.goods_place},
+									            #{item.totalQuantity},
+									            #{item.goods_price},
+									          
+									            #{item.receiver_name},
+									            #{item.goods_Date},
+									            #{item.s_no}
+									        )
+									    </foreach>
+
+	</insert>
+	
+	<!-- 리뷰화면이동 -->
+	<select id="ticketDetail" resultType="OrderVO" parameterType="int">
+		<![CDATA[
+			select * from `order` where order_No = #{order_No}
+ 		]]>  
+	</select>
 	
 </mapper>
