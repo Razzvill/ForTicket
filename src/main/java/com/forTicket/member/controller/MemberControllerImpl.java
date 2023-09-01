@@ -1,6 +1,8 @@
 package com.forTicket.member.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -243,6 +246,43 @@ public class MemberControllerImpl implements MemberController{
 		mav.setViewName(viewName);
 		
 		return mav;
+	}
+	
+	//카카오 로그인
+	@RequestMapping(value="/member/kakaoLoginPro.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> kakaoLoginPro(@RequestParam Map<String,Object> paramMap, HttpSession session) throws SQLException, Exception {
+		System.out.println("paramMap:" + paramMap);
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		Map <String, Object> kakaoConnectionCheck = memberService.kakaoConnectionCheck(paramMap);
+		System.out.println("kakaoConnectionCheck : " + kakaoConnectionCheck);
+		
+		if(kakaoConnectionCheck == null) {    //일치하는 이메일 없을때
+			resultMap.put("JavaData", "register");
+		}
+		else if(kakaoConnectionCheck.get("api") == null && kakaoConnectionCheck.get("email") != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
+			System.out.println("kakao 로 로그인");
+			memberService.setKakaoConnection(paramMap);
+			
+			if(memberVO != null && memberVO.getAddr1() == null) {
+				session.setAttribute("memberVO", kakaoConnectionCheck);
+				session.setAttribute("isLogOn", true);
+			}
+			resultMap.put("JavaData", "YES");
+		}
+		else{
+			System.out.println("이건가?");
+			if(memberVO != null && memberVO.getAddr1() == null) {
+				System.out.println("d여기와따");
+				session.setAttribute("memberVO", kakaoConnectionCheck);
+				session.setAttribute("isLogOn", true);
+			}
+			
+			resultMap.put("JavaData", "YES");
+		}
+		System.out.println("resultMap : " + resultMap);
+		return resultMap;		
 	}
 	
 

@@ -1,6 +1,7 @@
 package com.forTicket.member.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -22,5 +23,9 @@ public interface MemberService {
     public void updatePassWord(String mem_id, String pwd) throws DataAccessException;
     public int updateMember(MemberVO memberVO) throws DataAccessException;
     public MemberVO m_Edit(HashMap condMap) throws DataAccessException;
+    public Map<String, Object> kakaoConnectionCheck(Map<String, Object> paramMap);
+	public int setKakaoConnection(Map<String, Object> paramMap);
+	public Map<String, Object> userKakaoLoginPro(Map<String, Object> paramMap);
+	public Integer userKakaoRegisterPro(Map<String, Object> paramMap);
 
 }

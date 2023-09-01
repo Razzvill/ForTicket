@@ -104,7 +104,7 @@
     </form>
     <div class="social_wrap">
       <div>
-        <a id="kakao-login-btn" href="javascript:loginWithKakao()">
+        <a id="kakao-login-btn" href="javascript:void(0)" onclick="kakaoLogin();">
           <img src="${contextPath}/resources/images/member/kakao.png" alt="카카오로그인">
         </a>
         <p id="token-result"></p>
@@ -112,41 +112,73 @@
 
     </div>
   </div>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
-  integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-Kakao.init('714b1cee4e7cce6b2f35d6356e10b558'); // 사용하려는 앱의 JavaScript 키 입력
+Kakao.init('9c4ab2164685265e5b9aa5dd366cab70'); 
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
 </script>
 <script>
-function loginWithKakao() {
-    Kakao.Auth.authorize({
-      redirectUri: 'https://kauth.kakao.com/oauth/authorize',
-    });
+function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (response) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+
+          success: function (response) {
+            KakaoLoginPro(response),
+        	  console.log(response)
+          },
+
+          fail: function (error) {
+            console.log(error)
+          },
+
+        })
+      },
+
+      fail: function (error) {
+        console.log(error)
+      },
+    })
   }
 
-displayToken()
-function displayToken() {
-  var token = getCookie('authorize-access-token');
+function KakaoLoginPro(response){
+	  var data = {id:response.id, email:response.kakao_account.email, nickname:response.kakao_account.profile.nickname }
+    
+	  $.ajax({
+  		type : 'POST',
+		  url : '/member/kakaoLoginPro.do',
+		  data : data,
+		  dataType : 'json',
 
-  if(token) {
-    Kakao.Auth.setAccessToken(token);
-    Kakao.Auth.getStatusInfo()
-      .then(function(res) {
-        if (res.status === 'connected') {
-          document.getElementById('token-result').innerText
-            = 'login success, token: ' + Kakao.Auth.getAccessToken();
-        }
-      })
-      .catch(function(err) {
-        Kakao.Auth.setAccessToken(null);
-      });
+		  success : function(data){
+  			console.log(data)
+        
+			  if(data.JavaData == "YES"){
+  				alert("로그인되었습니다.");
+          naverLogout();
+				  location.href = '/main.do'
+			  }
+        else if(data.JavaData == "register"){
+  				$("#kakaoEmail").val(response.kakao_account.email);
+				  $("#kakaoId").val(response.id);
+          $("#kakaoNickname").val(response.kakao_account.profile.nickname);
+          
+				  $("#kakaoForm").submit();
+
+			  }
+        else{
+  				alert("로그인에 실패했습니다22");
+			  }
+      
+		  },
+
+		  error: function(xhr, status, error){
+        alert("로그인에 실패했습니다11."+ error);
+		  }
+	  });
   }
-}
-
-function getCookie(name) {
-  var parts = document.cookie.split(name + '=');
-  if (parts.length === 2) { return parts[1].split(';')[0]; }
-}
 </script>
 </body>
 </html>
