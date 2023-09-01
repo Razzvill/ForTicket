@@ -1,6 +1,7 @@
 package com.forTicket.member.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -124,6 +125,26 @@ public class MemberServiceImpl implements MemberService {
 	    @Override
 		public MemberVO m_Edit(HashMap condMap) throws DataAccessException{
 			return memberDAO.m_Edit(condMap);
+		}
+	    
+	    @Override
+		public Map <String, Object> kakaoConnectionCheck(Map<String, Object> paramMap) {
+			return memberDAO.kakaoConnectionCheck(paramMap);
+		}
+
+		@Override
+		public int setKakaoConnection(Map<String, Object> paramMap) {
+			return memberDAO.setKakaoConnection(paramMap);
+		}
+
+		@Override
+		public Map<String, Object> userKakaoLoginPro(Map<String, Object> paramMap) {
+			return memberDAO.kakaoLogin(paramMap);
+		}
+
+		@Override
+		public Integer userKakaoRegisterPro(Map<String, Object> paramMap) {
+			return memberDAO.insert_kakao(paramMap);
 		}
 
 }
