@@ -43,10 +43,10 @@
 	  
 	<update id="updateMember"  parameterType="memberVO">
 	<![CDATA[
-		update member
-		set pwd=#{pwd}, name=#{mem_name}, email=#{email}
-		where
-		mem_id = #{mem_id}
+		 update member
+	     	set mem_name=#{mem_name}, pwd=#{pwd}, phone=#{phone}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
+	     	where
+			mem_id=#{mem_id}
 	]]>      
 	  </update> 
 	    
@@ -119,5 +119,11 @@
         WHERE mem_id = #{mem_id}
     ]]>
     </update>
+    
+    <select id="m_Edit" parameterType="hashmap" resultType="com.forTicket.member.vo.MemberVO">
+    SELECT *
+    FROM member
+    WHERE mem_id = #{mem_id}
+</select>
 	
 </mapper>
