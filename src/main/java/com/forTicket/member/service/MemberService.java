@@ -22,5 +22,5 @@ public interface MemberService {
     public void updatePassWord(String mem_id, String pwd) throws DataAccessException;
     public int updateMember(MemberVO memberVO) throws DataAccessException;
     public MemberVO m_Edit(HashMap condMap) throws DataAccessException;
-    
+
 }

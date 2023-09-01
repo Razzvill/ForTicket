@@ -28,6 +28,7 @@ public class MemberControllerImpl implements MemberController{
 	@Autowired
 	private MemberService memberService;
 	private MemberVO memberVO ;
+	private HttpSession session;
 	
 
 	//로그인 페이지 이동
@@ -244,6 +245,6 @@ public class MemberControllerImpl implements MemberController{
 		return mav;
 	}
 	
-	
+
    
 }

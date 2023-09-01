@@ -14,8 +14,6 @@ import com.forTicket.member.dao.MemberDAO;
 import com.forTicket.member.vo.MailDTO;
 import com.forTicket.member.vo.MemberVO;
 
-
-
 @Service("memberService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class MemberServiceImpl implements MemberService {
@@ -25,6 +23,7 @@ public class MemberServiceImpl implements MemberService {
     private MailSender mailSender;
 	@Autowired
 	private MailDTO mailDTO;
+
 	
 	@Override
 	public int insertMember(MemberVO member) throws DataAccessException {
@@ -121,10 +120,10 @@ public class MemberServiceImpl implements MemberService {
 		public int updateMember(MemberVO memberVO) throws DataAccessException {
 			return memberDAO.updateMember(memberVO);
 			}
-
-		@Override
+	    
+	    @Override
 		public MemberVO m_Edit(HashMap condMap) throws DataAccessException{
 			return memberDAO.m_Edit(condMap);
-		}    
+		}
 
 }
