@@ -18,7 +18,8 @@ request.setCharacterEncoding("utf-8");
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript"
-	src="${contextPath}/resources/js/ajaxtabs.js"></script>
+	src="${contextPath}/resources/js/ajaxtabs.js">
+</script>
 <script>
     var goods_price = ${goods.goods_price};
     console.log(goods_price);
@@ -236,7 +237,6 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
 	}	
 </script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/jquery-ui.css">
 <link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/calendar_theme.css">
 <link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/detail.css">
@@ -403,7 +403,7 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
 							<p class="total_price"></p>
 						</div>
 						<div class="submit_btn">
-						<a href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_name }','${goods.goods_place}');"><button>구매하기</button></a>
+						<a href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_name }','${goods.goods_place}');">결제하기</a>
 						</div>
 					</div>
 				</form>

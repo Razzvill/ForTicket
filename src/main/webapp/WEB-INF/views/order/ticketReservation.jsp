@@ -217,7 +217,17 @@
     outline: 1px solid #ff4b4b;
     background-color: rgba(255, 75, 75, 0.1);
 }
-  
+	.pay_a{
+		padding: 10px;
+	    border: none;
+	    background: #ff4b4b;
+	    color: #fff;
+	    border-radius: 5px;
+	    font-size: 18px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -437,7 +447,7 @@
     </div>
 
     <div class="pay_btn">
-	    <a href="javascript:fn_process_pay_order();"><button>결제하기</button></a>
+	    <a class="pay_a" href="javascript:fn_process_pay_order();">결제하기</a>
     </div>
   	</div>
 </div>
@@ -511,17 +521,27 @@
 	    }
 	});
 	
+    //결제 선택
+    var orderPay='';
+    
+	function PAYMENT_SELECT_FUNC(selectedValue) {
+		var orderPays = selectedValue;
+	    orderPay = orderPays;
+	    console.log(orderPays); // 선택한 값이 콘솔에 출력됨
+	}
+	
 	//정보 미입력 시 오류
 	function validateForm() {
+		debugger;
     var memId = document.getElementById("orderName").value;
 
     var email = document.getElementById("orderEmail").value;
     var phone = document.getElementById("orderPhone").value;
 
-	var orderPay = document.getElementById("orderPay").value;
-    
-    var check_1 = document.getElementById("check_1").checked;
+	var check_1 = document.getElementById("check_1").checked;
     var check_2 = document.getElementById("check_2").checked;
+    
+
 
     if (memId === "" || email === "" || phone === "" || orderPay ==="") {
         alert("모든 항목을 입력해주세요.");
@@ -535,13 +555,6 @@
      return true; // 폼 제출 허용
 	}
     
-    //결제 선택
-    var orderPay;
-	function PAYMENT_SELECT_FUNC(selectedValue) {
-		var orderPays = selectedValue;
-	    orderPay = orderPays;
-	    console.log(orderPays); // 선택한 값이 콘솔에 출력됨
-	}
 
 
     function fn_process_pay_order(){

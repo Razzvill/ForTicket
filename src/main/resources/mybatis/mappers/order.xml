@@ -87,4 +87,10 @@
  		]]>  
 	</select>
 	
+	<!-- 환불 -->
+	<update id="refundSuccess" parameterType="int">
+	   update `order`
+	 	  set orderStatus='예매취소'
+	   where order_No=#{order_No}
+	</update>
 </mapper>

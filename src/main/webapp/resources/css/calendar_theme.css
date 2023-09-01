@@ -172,7 +172,7 @@
     cursor: pointer;
 }
 
-.calendar_popup_02 .submit_btn button {
+.calendar_popup_02 .submit_btn a {
     display: block;
     width: 100%;
     height:50px;

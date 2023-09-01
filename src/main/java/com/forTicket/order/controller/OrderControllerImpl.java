@@ -224,20 +224,20 @@ public class OrderControllerImpl implements OrderController{
 		return mav;
 	}
 	
-/*	//환불 완료 페이지
+	//환불 완료 페이지
 	@Override
 	@RequestMapping(value= "/order/refundSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView refundSuccess(@RequestParam("order_No") int order_No, @RequestParam("mem_id") String mem_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
-		
-		HttpSession session=request.getSession();
+
+		orderService.refundSuccess(order_No);
 				
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		
+		mav.setViewName("redirect:/member/myreservation.do?mem_id="+mem_id);
+					
 		return mav;
 	}
-*/
+
 	
 	@Override
 	@RequestMapping(value = "/order/getSelectedSchedule.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -252,10 +252,4 @@ public class OrderControllerImpl implements OrderController{
 		return selectThAndDate;
 	}
 
-
-	@Override
-	public ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

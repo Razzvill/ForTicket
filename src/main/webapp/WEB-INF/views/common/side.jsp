@@ -113,7 +113,7 @@
 			<ul class="side_ul">		
 				<li class="side_li"><a href="${contextPath }/member/m_Edit.do?mem_id=${member.mem_id }" class="side2" onclick="changeStyle(this)">회원 정보 수정</a></li>
 				<li class="side_li"><a href="${contextPath }/admin/getUserGrade.do" class="side2" onclick="changeStyle(this)">관심 공연</a></li>
-				<li class="side_li"><a href="${contextPath }/admin/getUserGrade.do" class="side2" onclick="changeStyle(this)">예매 내역</a></li>
+				<li class="side_li"><a href="${contextPath }/member/myreservation.do?mem_id=${member.mem_id}" class="side2" onclick="changeStyle(this)">예매 내역</a></li>
 				<li class="side_li"><a href="${contextPath}/center/question.do?mem_id=${member.mem_id }" class="side2" onclick="changeStyle(this)">1:1 문의</a></li>
 			</ul>
 		</c:when>
