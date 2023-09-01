@@ -144,7 +144,7 @@ img #map {
 	height: auto;
 }
 hr {
-	width: 90%;
+	width: 100%;
 	float: left;
 }
 .btn1 {

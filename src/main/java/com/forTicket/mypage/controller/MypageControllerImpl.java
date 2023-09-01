@@ -94,8 +94,6 @@ public class MypageControllerImpl implements MypageController{
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
 		
-		System.out.println(reservation_list);
-		
 		return mav;
 	}
 	

@@ -20,20 +20,16 @@ request.setCharacterEncoding("utf-8");
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript"
-	src="${contextPath}/resources/js/ajaxtabs.js"></script>
-
+	src="${contextPath}/resources/js/ajaxtabs.js">
+</script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/calendar_theme.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/detail.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/user_review.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/common.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/calendar_theme.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/detail.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/user_review.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/common.css">
 <style>
 .main_tab_wrap {
 	/* border: 1px solid #eee; */
@@ -197,7 +193,7 @@ request.setCharacterEncoding("utf-8");
 
 .wrap_1100 {
 	margin: auto;
-	width: 1100px;
+	width: 840px;
 	position: relative;
 	padding-top: 20px;
 }

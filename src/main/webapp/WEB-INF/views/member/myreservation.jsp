@@ -90,6 +90,7 @@
 		font-size: 12px;
 	}
 	</style>
+
 	<script>
 		//버튼으로 조회하기
 		function search_member(fixedSearchPeriod){	
@@ -315,7 +316,6 @@
 			<td>예매번호</td>
 			<td>공연명</td>
 			<td>공연일자</td>
-			<td>공연시간</td>
 			<td>공연장소</td>
 			<td>인원</td>
 			<td>좌석번호</td>
@@ -325,7 +325,7 @@
 			<c:when test="${empty reservation_list}">
 				<tr>
 					<td colspan="9">
-					<strong>조회된 회원이 없습니다.</strong>
+					<strong>예매 내역이 없습니다.</strong>
 					</td>		
 			</c:when>
 			<c:otherwise>
@@ -333,15 +333,14 @@
 					<tr>
 						<td class="font1">${order.order_No }</td>
 						<td class="font1">${order.goods_name }</td>
-						<td class="font1">${order.orderDate }</td>
-						<td class="font1">${order.goods_Time }</td>
+						<td class="font1">${order.goods_Date }</td>
 						<td class="font1">${order.goods_place }</td>
 						<td class="font1">${order.totalQuantity }</td>
 						<td class="font1">${order.ordersit }</td>
 						<td class="font1">
-							<a href="${contextPath}/community/review.do?order_No=${order.order_No}" class="reply">리뷰쓰기</a>&nbsp;/&nbsp;
 							<c:choose>
    		 						<c:when test="${order.orderStatus == '예매완료'}">
+									<a href="${contextPath}/community/review.do?order_No=${order.order_No}" class="reply">리뷰쓰기</a>&nbsp;/&nbsp;
         							<a href="${contextPath}/order/ticketDetail.do?order_No=${order.order_No}" class="reply">${order.orderStatus}</a>
     							</c:when>
     							<c:otherwise>
