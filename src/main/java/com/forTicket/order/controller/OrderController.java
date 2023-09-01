@@ -1,6 +1,7 @@
 package com.forTicket.order.controller;
 
 import java.sql.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +17,12 @@ public interface OrderController {
 	public ModelAndView order_seatNone(@RequestParam("goods_id")int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	//결제화면
 	public ModelAndView ticketReservation(@ModelAttribute("orderVO") OrderVO orderVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView reservationSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView ticketDetail(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView ticketrefund(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	//결제완료화면
+	public ModelAndView reservationSuccess(@RequestParam Map<String, String> receiverMap,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	//결제 상세페이지
+	public ModelAndView ticketDetail(@ModelAttribute("order_No") int order_No,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	//환불 페이지
+	public ModelAndView ticketRefund(@ModelAttribute("order_No") int order_No,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public String getSelectedSchedule(String theater_id, Date s_date) throws Exception;
 }

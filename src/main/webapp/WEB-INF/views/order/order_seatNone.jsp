@@ -54,8 +54,8 @@ function getScRoomTime(){
 						hours = date.getHours();
 						minutes = date.getMinutes();
 						formattedTime = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
-						output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+result[i].s_date+"\" onclick=\"ScRoomTime(this)\" >"+formattedTime+"</label>";
-						output += "<input class=\"btn-check\" id=\""+result[i].s_date+"\" type=\"radio\" name=\"s_time\" value=\""+formattedTime+"\">";
+						output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\"" + result[i].s_no + "\" onclick=\"ScRoomTime(this)\" data-sno=\"" + result[i].s_no + "\">" + formattedTime + "</label>";
+						output += "<input class=\"btn-check\" id=\"" + result[i].s_no + "\" type=\"radio\" name=\"s_time\" value=\"" + formattedTime + "\" data-sno=\"" + result[i].s_no + "\">";
 					}
 					$("#scRoomAndTime").html(output);
 			}
@@ -163,7 +163,7 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
 	var _isLogOn=document.getElementById("isLogOn");
 	var isLogOn=_isLogOn.value;
 	
-	 if(isLogOn=="false" || isLogOn=='' ){
+	if(isLogOn=="false" || isLogOn=='' ){
 		alert("로그인 후 주문이 가능합니다!!!");
 	} 
 	
@@ -179,55 +179,56 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
     
     // updateTotalPrice 함수에서 계산한 totalPrice 값을 사용
     var totalPrice = totalQuantity * parseInt(goods_price);
-	
+    
+    var s_no = $("input[name=s_time]:checked").data("sno"); // 선택한 시간의 s_no 값을 가져옴
+
+    
     var formObj=document.createElement("form");
 		
 	var i_goods_id = document.createElement("input"); 
     var i_goods_name = document.createElement("input");
     var i_goods_place = document.createElement("input");
-    
     var i_goods_Time = document.createElement("input");
     var i_totalQuantity = document.createElement("input");
     var i_goods_price = document.createElement("input");
     var i_totalPrice = document.createElement("input");
     var i_orderDate = document.createElement("input");
+    var i_s_no = document.createElement("input");
     
     
     i_goods_id.name="goods_id";
     i_goods_name.name="goods_name";
     i_goods_place.name="goods_place";
-   
-    
     i_goods_Time.name = "goods_Time"; // 선택한 시간 값 추가
     i_totalQuantity.name = "totalQuantity"; // 총 수량 값 추가
     i_goods_price.name = "goods_price"; // 가격 값 추가
     i_totalPrice.name = "totalPrice"; // 총 가격 값 추가
     i_orderDate.name = "orderDate"; // 선택한 일자 값 추가
+    i_s_no.name = "s_no";
     
     
     i_goods_id.value=goods_id;
     i_goods_name.value=goods_name;
     i_goods_place.value=goods_place;
-    
-    
     i_goods_Time.value = goods_Time; // 선택한 시간 값 설정
     i_totalQuantity.value = totalQuantity; // 총 수량 값 설정
     i_goods_price.value = goods_price; // 총 가격 값 설정
     i_totalPrice.value = totalPrice; // 총 가격 값 설정
     i_orderDate.value = orderDate; // 선택한 일자 값 설정
+    i_s_no.value = s_no;
+    
     
     formObj.appendChild(i_goods_id);
     formObj.appendChild(i_goods_name);
     formObj.appendChild(i_goods_place);
-	
-    
     formObj.appendChild(i_goods_Time);
     formObj.appendChild(i_totalQuantity);
     formObj.appendChild(i_goods_price);
     formObj.appendChild(i_totalPrice);
     formObj.appendChild(i_orderDate);
-    
+    formObj.appendChild(i_s_no);
 
+    
     document.body.appendChild(formObj); 
     formObj.method="post";
     formObj.action="${contextPath}/order/ticketReservation.do";
@@ -235,15 +236,12 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
 	}	
 </script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/calendar_theme.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/detail.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/user_review.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/common.css">
+
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/calendar_theme.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/detail.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/user_review.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/common.css">
 <style>
   .main_tab_wrap {
     /* border: 1px solid #eee; */
@@ -308,9 +306,9 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
     text-decoration: underline;
   }
   .border_box {
-  border: 1px solid #eee;
-  padding: 10px 20px;
-  border-radius: 10px;
+	  border: 1px solid #eee;
+	  padding: 10px 20px;
+	  border-radius: 10px;
   margin-top: 5px;
   }
   .border_box .viewpage_flex {
@@ -405,7 +403,7 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
 							<p class="total_price"></p>
 						</div>
 						<div class="submit_btn">
-						<a href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_name }','${goods.goods_place}');">구매하기 </a>
+						<a href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_name }','${goods.goods_place}');"><button>구매하기</button></a>
 						</div>
 					</div>
 				</form>

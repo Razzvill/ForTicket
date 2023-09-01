@@ -334,17 +334,20 @@
 						<td class="font1">${order.order_No }</td>
 						<td class="font1">${order.goods_name }</td>
 						<td class="font1">${order.orderDate }</td>
-						<td class="font1">${order.orderPhone }</td>
-						<td class="font1">${order.orderNum }</td>
-						<td class="font1">
-							<c:set var="join_date" value="${order.orderTicketing}" />
-						    <c:set var="arr" value="${fn:split(orderTicketing,' ')}" />
-						    <c:out value="${arr[0]}" />
-						</td>
-						<td class="font1">goods_id ${order.goods_id }</td>
+						<td class="font1">${order.goods_Time }</td>
+						<td class="font1">${order.goods_place }</td>
+						<td class="font1">${order.totalQuantity }</td>
+						<td class="font1">${order.ordersit }</td>
 						<td class="font1">
 							<a href="${contextPath}/community/review.do?order_No=${order.order_No}" class="reply">리뷰쓰기</a>&nbsp;/&nbsp;
-							<a href="${contextPath }/admin/deleteMember.do?mem_id=${order.mem_id }" class="reply">${order.orderStatus }</a>
+							<c:choose>
+   		 						<c:when test="${order.orderStatus == '예매완료'}">
+        							<a href="${contextPath}/order/ticketDetail.do?order_No=${order.order_No}" class="reply">${order.orderStatus}</a>
+    							</c:when>
+    							<c:otherwise>
+									${order.orderStatus }	
+        						</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 				</c:forEach>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title>환불 완료</title>
 <style>
 	.mypage_right_wrap {
 		margin: 0 auto;

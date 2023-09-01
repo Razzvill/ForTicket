@@ -1,6 +1,8 @@
 package com.forTicket.order.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +32,7 @@ import com.forTicket.theater.service.TheaterService;
 import com.forTicket.theater.vo.TheaterVO;
 
 
-@Controller("OrderController")
+@Controller("orderController")
 public class OrderControllerImpl implements OrderController{
 	@Autowired
 	private GoodsService goodsService;
@@ -119,7 +121,7 @@ public class OrderControllerImpl implements OrderController{
 		myOrderList.add(orderVO);
 		
 		MemberVO memberInfo=(MemberVO)session.getAttribute("member");
-		
+		System.out.println("ticketReservation                           "+myOrderList);
 		session.setAttribute("myOrderList", myOrderList);
 		session.setAttribute("orderer", memberInfo);
 		return mav;
@@ -128,46 +130,101 @@ public class OrderControllerImpl implements OrderController{
 	//예약완료
 	@Override
 	@RequestMapping(value= "/order/reservationSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView reservationSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
+	public ModelAndView reservationSuccess(@RequestParam Map<String, String> receiverMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
 		
 		HttpSession session=request.getSession();
-				
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
+		MemberVO memberVO=(MemberVO)session.getAttribute("orderer");
 		
+		String mem_id=memberVO.getMem_id();
+		String orderer_name=memberVO.getMem_name();
+		String orderer_hp = memberVO.getPhone();
+		List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("myOrderList");
+		System.out.println("reservationSuccessreservationSuccessreservationSuccess+                   "+myOrderList);
+		for(int i=0; i<myOrderList.size();i++){
+			OrderVO orderVO=(OrderVO)myOrderList.get(i);
+								
+			String goodsPriceString = receiverMap.get("goods_price"); // 전달된 가격 문자열
+			String goodsIdString = receiverMap.get("goods_id"); // 전달된 goods_id 문자열
+			String totalQuantityString = receiverMap.get("totalQuantity"); // 전달된 goods_id 문자열
+			String totalPriceeString = receiverMap.get("totalPrice"); // 전달된 goods_id 문자열
+			String s_noString = receiverMap.get("s_no"); // 전달된 goods_id 문자열
+
+			int goods_id = Integer.parseInt(goodsIdString);
+			int goodsPrice = Integer.parseInt(goodsPriceString); // 문자열을 int로 변환
+			int totalQuantity = Integer.parseInt(totalQuantityString); // 문자열을 int로 변환
+			int totalPrice = Integer.parseInt(totalPriceeString); // 문자열을 int로 변환
+			int s_no = Integer.parseInt(s_noString); // 문자열을 int로 변환
+			
+			
+			String orderDate = receiverMap.get("orderDate");
+			String goods_Time = receiverMap.get("goods_Time");
+			String goods_Date = orderDate +" "+ goods_Time;
+			
+			
+			orderVO.setS_no(s_no);
+			orderVO.setGoods_id(goods_id);
+			orderVO.setGoods_name(receiverMap.get("goods_name"));
+			orderVO.setMem_id(mem_id);
+			orderVO.setOrderName(orderer_name);
+			orderVO.setOrder_No();
+			orderVO.setReceiver_name(receiverMap.get("receiver_name"));
+			orderVO.setOrderPhone(receiverMap.get("orderPhone"));
+			orderVO.setGoods_place(receiverMap.get("goods_place"));
+			
+			orderVO.setGoods_Date(goods_Date);
+			
+			orderVO.setGoods_price(goodsPrice); // 변환된 가격을 객체에 설정
+			orderVO.setTotalQuantity(totalQuantity); 
+			orderVO.setTotalPrice(totalPrice); 
+			orderVO.setGoods_Time(receiverMap.get("goods_Time"));
+			orderVO.setOrderEmail(receiverMap.get("orderEmail"));
+			orderVO.setOrderPay(receiverMap.get("orderPay"));
+			orderVO.setOrderStatus("예매완료");
+			
+			myOrderList.set(i, orderVO); ///각 orderVO에 주문자 정보를 세팅한 후 다시 myOrderList에 저장한다.
+		
+			System.out.println("myOrderList                             "+			myOrderList);
+		}//end for
+			System.out.println("receiverMap+                            "+receiverMap);
+		orderService.addNewOrder(myOrderList);
+		mav.addObject("myOrderInfo",receiverMap);//OrderVO로 주문결과 페이지에  주문자 정보를 표시한다.
+		mav.addObject("myOrderList", myOrderList);
 		return mav;
 	}
 	
 	//예매상세
 	@Override
 	@RequestMapping(value= "/order/ticketDetail.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView ticketDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView ticketDetail(@ModelAttribute("order_No") int order_No, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
 		
-		HttpSession session=request.getSession();
-				
+		orderVO = orderService.ticketDetail(order_No);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-		
+		mav.addObject("detail", orderVO);
+					
 		return mav;
 	}
 	
 	//환불 신청 화면
 	@Override
 	@RequestMapping(value= "/order/ticketrefund.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView ticketrefund(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView ticketRefund(@ModelAttribute("order_No") int order_No,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
 		
-		HttpSession session=request.getSession();
-				
+		orderVO = orderService.ticketDetail(order_No);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-		
+		mav.addObject("refund", orderVO);
+					
 		return mav;
 	}
 	
-	//환불 완료 페이지
+/*	//환불 완료 페이지
 	@Override
 	@RequestMapping(value= "/order/refundSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -180,6 +237,7 @@ public class OrderControllerImpl implements OrderController{
 		
 		return mav;
 	}
+*/
 	
 	@Override
 	@RequestMapping(value = "/order/getSelectedSchedule.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -192,5 +250,12 @@ public class OrderControllerImpl implements OrderController{
 		String selectThAndDate = scheduleService.getSelectedSchedule_order(condMap);
 		System.out.println(selectThAndDate);
 		return selectThAndDate;
+	}
+
+
+	@Override
+	public ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

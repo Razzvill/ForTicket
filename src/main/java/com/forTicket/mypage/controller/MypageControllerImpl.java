@@ -72,6 +72,7 @@ public class MypageControllerImpl implements MypageController{
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		condMap.put("mem_id", mem_id);
+		
 		ArrayList<OrderVO> reservation_list=mypageService.myReservation(condMap);
 		
 		mav.addObject("reservation_list", reservation_list);
@@ -92,7 +93,9 @@ public class MypageControllerImpl implements MypageController{
 
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
-				
+		
+		System.out.println(reservation_list);
+		
 		return mav;
 	}
 	

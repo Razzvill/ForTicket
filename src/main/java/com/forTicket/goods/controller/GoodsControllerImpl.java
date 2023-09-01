@@ -169,7 +169,9 @@ public class GoodsControllerImpl implements GoodsController{
 		TheaterVO theaterVO = theaterDAO.selectTheaterInfo(theater_id);
 		
 		int countStar = goodsService.countStar(goods_id);
+
 		double avgStar = calculateAverageStar(goods_id);
+		double roundedAvgStar = Math.round(avgStar * 10) / 10.0;
 		System.out.println(" count                              "+countStar);
 		System.out.println(" avgstar                              "+avgStar);
 		
@@ -181,7 +183,7 @@ public class GoodsControllerImpl implements GoodsController{
 		mav.addObject("goodsMap", goodsMap);
 		mav.addObject("theater", theaterVO);
 		mav.addObject("count",countStar);
-		mav.addObject("avgStar", avgStar);
+		mav.addObject("avgStar", roundedAvgStar);
 		mav.addObject("reviewList", reviewList);
 		
 		return mav;

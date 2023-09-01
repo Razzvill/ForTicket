@@ -10,16 +10,17 @@ public class OrderVO {
 	private int goods_id;
 	private String mem_id; 
 	private int s_no; 
-	//private int orderNum; 
+	
 	private int ordersit; 
-	private String orderName; 
+	private String orderName; //주문자 이름
 	private String orderPhone; 
 	private String orderEmail;
 	private String orderPay; 
-	private String orderCheck;
+	private String orderCheck1;
+	private String orderCheck2;
 	private String orderStatus; 
 	private Date orderTicketing;
-	private Date orderDate; //공연날짜
+	private String orderDate; //공연날짜
 	private int totalPrice;//총 결제금액
 	private String goods_name;
 	
@@ -27,10 +28,16 @@ public class OrderVO {
 	private int totalQuantity;//예매수량
 	private int goods_price;//상품가격
 	private String goods_Time;//공연시간
+	private String goods_Date;//공연날짜+시간
+	private String receiver_name;// 받는자 이름
 	
-	
-	
-	
+		
+	public String getGoods_Date() {
+		return goods_Date;
+	}
+	public void setGoods_Date(String goods_Date) {
+		this.goods_Date = goods_Date;
+	}
 	public String getGoods_name() {
 		return goods_name;
 	}
@@ -40,9 +47,20 @@ public class OrderVO {
 	public int getOrder_No() {
 		return order_No;
 	}
+	public void setOrder_No() {
+		this.order_No = (int) (Math.random() * 100000)+1;
+	}
+		
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
 	public void setOrder_No(int order_No) {
 		this.order_No = order_No;
 	}
+	
 	public int getGoods_id() {
 		return goods_id;
 	}
@@ -92,11 +110,17 @@ public class OrderVO {
 	public void setOrderPay(String orderPay) {
 		this.orderPay = orderPay;
 	}
-	public String getOrderCheck() {
-		return orderCheck;
+	public String getOrderCheck1() {
+		return orderCheck1;
 	}
-	public void setOrderCheck(String orderCheck) {
-		this.orderCheck = orderCheck;
+	public void setOrderCheck1(String orderCheck1) {
+		this.orderCheck1 = orderCheck1;
+	}
+	public String getOrderCheck2() {
+		return orderCheck2;
+	}
+	public void setOrderCheck2(String orderCheck2) {
+		this.orderCheck2 = orderCheck2;
 	}
 	public String getOrderStatus() {
 		return orderStatus;
@@ -110,12 +134,7 @@ public class OrderVO {
 	public void setOrderTicketing(Date orderTicketing) {
 		this.orderTicketing = orderTicketing;
 	}
-	public Date getOrderDate() {
-		return orderDate;
-	}
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
+	
 	public int getTotalPrice() {
 		return totalPrice;
 	}
@@ -146,6 +165,37 @@ public class OrderVO {
 	public void setGoods_Time(String goods_Time) {
 		this.goods_Time = goods_Time;
 	}
-
+	public String getReceiver_name() {
+		return receiver_name;
+	}
+	public void setReceiver_name(String receiver_name) {
+		this.receiver_name = receiver_name;
+	}
+    @Override
+    public String toString() {
+        return "OrderVO{" +
+                 ", order_No=" + order_No +
+                ", goods_id=" + goods_id +
+                ", mem_id='" + mem_id + '\'' +
+                ", s_no=" + s_no +
+                ", ordersit=" + ordersit +
+                ", orderName='" + orderName + '\'' +
+                ", orderPhone='" + orderPhone + '\'' +
+                ", orderEmail='" + orderEmail + '\'' +
+                ", orderPay='" + orderPay + '\'' +
+                ", orderCheck1='" + orderCheck1 + '\'' +
+                ", orderCheck2='" + orderCheck2 + '\'' +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", orderTicketing=" + orderTicketing +
+                ", orderDate='" + orderDate + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", goods_name='" + goods_name + '\'' +
+                ", goods_place='" + goods_place + '\'' +
+                ", totalQuantity=" + totalQuantity +
+                ", goods_price=" + goods_price +
+                ", goods_Time='" + goods_Time + '\'' +
+                ", receiver_name='" + receiver_name + '\'' +
+                '}';
+    }
 	
 }
