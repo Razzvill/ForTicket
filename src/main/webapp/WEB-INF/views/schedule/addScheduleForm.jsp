@@ -53,6 +53,11 @@ request.setCharacterEncoding("utf-8");
   .item-58 {
     width: 58%;
   }
+  /* 선택되지 않은 라벨의 스타일 */
+.btn.btn_sm.font-weight-bold.mx-1.my-2 {
+    border: none;
+    color: none;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -60,6 +65,7 @@ request.setCharacterEncoding("utf-8");
 	var selectGoodsCode = "";
 	var selectTheaterCode = "";
 	var selectScheduleDate = "";
+	var selectSeats = "";
 	
 	/* 상품 코드 클릭 */
 	function goodsCodeClick(goodsObj, goods){
@@ -126,14 +132,18 @@ request.setCharacterEncoding("utf-8");
 				dataType : "json",
 				success : function(result){
 						var registTime = [];
-						for(var i=0; i<result.length; i++){
-							registTime.push(result[i].s_date)
-						}
+				        if (result) { // result가 null 또는 undefined인 경우를 방지하기 위한 조건
+				            for (var i = 0; i < result.length; i++) {
+				                registTime.push(result[i].s_date);
+				            }
+				        }
+						var registTime = registTime.map(function(item) {
+						    return item.split(' ')[1]; // 공백을 기준으로 나눈 두 번째 부분을 추출 (시간 부분)
+						});
 						console.log("registTime: "+registTime);
 						for(var thTime=0; thTime<thTimeList.length; thTime++){
-							console.log("thTimeList[thTime]: "+thTimeList[thTime]);
-							console.log(registTime.includes(thTimeList[thTime]));
-							if(registTime.includes(thTimeList[thTime])){
+							var currentTime = thTimeList[thTime];
+							if(registTime.includes(currentTime)){
 								output += "<button disabled class=\"btn btn-sm btn-danger font-weight-bold mx-1 my-2\" for=\"" + thTimeList[thTime] + "\">" + thTimeList[thTime] + "</button>";
 							} else {
 								output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+thTimeList[thTime]+"\" onclick=\"ScRoomTime(this)\" >"+thTimeList[thTime]+"</label>";
@@ -155,6 +165,7 @@ request.setCharacterEncoding("utf-8");
 	}
 	/* form 확인 */
 	function scFormCheck(){
+		selectSeats = document.getElementById("seats").value;
 		if(selectGoodsCode.length==0){
 			alert("공연이 선택되지 않았습니다.");
 			return false;
@@ -171,6 +182,10 @@ request.setCharacterEncoding("utf-8");
 		console.log(check);
 		if(!check){
 			alert("공연 시간이 선택되지 않았습니다.");
+			return false;
+		}
+		if(selectSeats.length==0){
+			alert("좌석 수가 입력되지 않았습니다.");
 			return false;
 		}
 	}
