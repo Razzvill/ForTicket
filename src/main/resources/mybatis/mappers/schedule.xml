@@ -49,12 +49,12 @@
 		DELETE FROM schedule WHERE s_no=#{s_no}
 	</delete>
 	
-	<update id="newOrder" parameterType="java.util.Map">
+	<update id="newOrder" parameterType="int">
 		UPDATE schedule
 		SET seats=seats-#{seats} WHERE s_no=#{s_no}
 	</update>
 	
-	<update id="cancelOrder" parameterType="java.util.Map">
+	<update id="cancelOrder" parameterType="int">
 		UPDATE schedule
 		SET seats=seats+#{seats} WHERE s_no=#{s_no}
 	</update>

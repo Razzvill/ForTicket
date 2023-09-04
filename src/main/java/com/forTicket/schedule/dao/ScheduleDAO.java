@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,6 @@ public interface ScheduleDAO {
 	public ArrayList<ScheduleVO> selectAllSchedule() throws DataAccessException;
 	public void insertSchedule(Map scMap) throws DataAccessException;
 	public void deleteSchedule(int s_no) throws DataAccessException;
-	public void newOrder(Map scMap) throws DataAccessException;
-	public void cancelOrder(Map scMap) throws DataAccessException;
+	public void newOrder(@Param("s_no") int s_no, @Param("seats") int seats) throws DataAccessException;
+	public void cancelOrder(@Param("s_no") int s_no, @Param("seats") int seats) throws DataAccessException;
 }

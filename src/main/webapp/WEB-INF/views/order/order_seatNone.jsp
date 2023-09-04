@@ -347,7 +347,6 @@ function fn_order_each_goods(goods_id, goods_name,goods_place){
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
 			<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}"
 				style="width: 482px; border-radius: 10px;">
-			<div class="info_bg_gradient"></div>
 
 		</div>
 

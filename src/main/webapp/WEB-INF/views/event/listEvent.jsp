@@ -23,6 +23,7 @@
 		padding:10px 15px;
 		font-size:15px;
 		position: relative;
+		display: inline-block;
 	}
 	a {
 	    font-size: 0;
@@ -31,7 +32,7 @@
 	    color: inherit;
 	}
 	.event-main-list {
-		idsplay: inline-block;
+		display: inline-block;
 	}
 	.event-main-list li > a {
 	    display: block;

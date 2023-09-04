@@ -59,7 +59,7 @@
 		]]>
 	</select>
 
-	<select id="selectEventDetail" resultType="eventVO"	parameterType="int">
+	<select id="selectEventDetail" resultMap="eventResult"	parameterType="int">
 	    <![CDATA[
 		    select g.*, d.fileName from event g, event_detail_images d
 	        where g.event_no=d.event_no
@@ -105,8 +105,8 @@
 	<select id="selectEventImageFileList" resultMap="imageResult"   parameterType="int"  >
 	    <![CDATA[
 		    	select * from  event_detail_images 
-		    	where  
-			    event_no=#{event_no}
+		    	where fileType!='main_image'
+			    and event_no=#{event_no}
 			    order by image_id asc
     	]]>
 	</select>

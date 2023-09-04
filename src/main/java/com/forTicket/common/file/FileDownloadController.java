@@ -78,9 +78,7 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/goods/thumbnails.do")
-	protected void thumbnails(@RequestParam("goods_fileName") String goods_fileName,
-                            	@RequestParam("goods_id") String goods_id,
-			                 HttpServletResponse response) throws Exception {
+	protected void thumbnails(@RequestParam("goods_fileName") String goods_fileName, @RequestParam("goods_id") String goods_id, HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
 		String filePath=GOODS_IMAGE_REPO+"\\"+goods_id+"\\"+goods_fileName;
 		File image=new File(filePath);
@@ -94,9 +92,7 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/event/thumbnails.do")
-	protected void thumbnails(@RequestParam("event_image") String event_image,
-                            	@RequestParam("event_no") int event_no,
-			                 HttpServletResponse response) throws Exception {
+	protected void thumbnails(@RequestParam("event_no") int event_no,@RequestParam("event_image") String event_image, HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
 		String filePath=GOODS_IMAGE_REPO+"\\"+event_no+"\\"+event_image;
 		File image=new File(filePath);
