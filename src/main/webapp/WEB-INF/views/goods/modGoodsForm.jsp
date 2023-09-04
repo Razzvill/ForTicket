@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="goods" value="${goodsMap.goodsVO}" />
-<c:set var="imageList" value="${goodsMap.imageList }" />
+<c:set var="imageList" value="${goodsMap.imageFileList }" />
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
@@ -38,7 +38,7 @@
 		  cnt++;
 	  }
 	  
-	  function modifyImageFile(fileId,goods_id, image_id,fileType){
+	  function modifyImageFile(fileId, goods_id, image_id, fileType, originalFileName){
 	    // alert(fileId);
 		  var form = $('#FILE_FORM')[0];
 	      var formData = new FormData(form);
@@ -46,9 +46,10 @@
 	      formData.append("goods_id", goods_id);
 	      formData.append("image_id", image_id);
 	      formData.append("fileType", fileType);
+	      formData.append("originalFileName", originalFileName);
 	      
 	      $.ajax({
-	        url: '${contextPath}/event/modGoodsImage.do',
+	        url: '/goods/modGoodsImage.do',
 	        processData: false,
 	        contentType: false,
 	        data: formData,
@@ -68,13 +69,13 @@
 		      formData.append("fileType", fileType);
 		      
 		      $.ajax({
-		          url: '${contextPath}/event/addGoodsImage.do',
+		          url: '/goods/addGoodsImage.do',
 		                  processData: false,
 		                  contentType: false,
 		                  data: formData,
 		                  type: 'post',
 		                  success: function(result){
-		                      alert("이미지를 수정했습니다!");
+		                      alert("이미지를 추가했습니다!");
 		                  }
 		          });
 		  }
@@ -85,7 +86,7 @@
 	      	$.ajax({
 	    		type : "post",
 	    		async : true, //false인 경우 동기식으로 처리한다.
-	    		url : "${contextPath}/event/removeGoodsImage.do",
+	    		url : "/goods/removeGoodsImage.do",
 	    		data: {goods_id:goods_id,
 	     	         image_id:image_id,
 	     	         imageFileName:imageFileName},
@@ -162,9 +163,6 @@ ul.tabs li.active a:hover {
 }
 .tab_content {
 	padding: 10px 10px 20px; line-height: 1.8em; font-size: 0.75em; min-height: 400px;
-}
-.tab_content h4 {
-	background-position: left top; margin: 10px 0px; padding: 20px 0px 5px 35px; height: 30px; color: rgb(255, 255, 255); letter-spacing: 4px; font-family: "NanumGothic", Serif; font-size: 16px; font-weight: bold; background-image: url("../imgs/h4_back.png"); background-repeat: no-repeat;
 }
 .tab_content p {
 	margin: 10px 0px 0px;
@@ -258,7 +256,6 @@ ul.tabs li.active a:hover {
 						</table>
 					</div>
 					<div class="tab_content" id="tab2">
-						<H4>이용정보</H4>
 						<table>	
 							 <tr>
 								<td>이용정보</td>
@@ -267,7 +264,6 @@ ul.tabs li.active a:hover {
 						</table>
 					</div>
 			<div class="tab_content" id="tab3">
-				<H4>유의사항</H4>
 				<table>	
 				 <tr>
 					<td>유의사항</td>
@@ -276,7 +272,6 @@ ul.tabs li.active a:hover {
 				</table>	
 			</div>
 			<div class="tab_content" id="tab4">
-				<H4>장소안내</H4>
 				<table>	
 				 <tr>
 					<td>공연장</td>
@@ -336,10 +331,9 @@ ul.tabs li.active a:hover {
 			</div>
 					<div class="tab_content" id="tab7">
 						<form id="FILE_FORM" method="post" enctype="multipart/form-data">
-							<h4>상품이미지</h4>
 							<table>
 								<tr>
-									<c:forEach var="item" items="${imageFileList }"
+									<c:forEach var="item" items="${imageList }"
 										varStatus="itemNum">
 										<c:choose>
 											<c:when test="${item.fileType=='main_image' }">
@@ -347,16 +341,17 @@ ul.tabs li.active a:hover {
 													<td>메인 이미지</td>
 													<td><input type="file" id="main_image"
 														name="main_image"
-														onchange="readURL(this,'preview${itemNum.count}');" /> <%-- <input type="text" id="image_id${itemNum.count }"  value="${item.fileName }" disabled  /> --%>
+														onchange="readURL(this,'preview${itemNum.count}');" />
+														<input type="text" id="image_id${itemNum.count }"  value="${item.fileName }" disabled  />
 														<input type="hidden" name="image_id"
 														value="${item.image_id}" /> <br></td>
 													<td><img id="preview${itemNum.count }" width=200
 														height=200
-														src="${contextPath}/event/download.do?goods_id=${item.goods_id}&fileName=${item.fileName}" />
+														src="${contextPath}/goods/download.do?goods_id=${item.goods_id}&goods_fileName=${item.fileName}" />
 													</td>
 													<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 													<td><input type="button" value="수정"
-														onClick="modifyImageFile('main_image','${item.goods_id}','${item.image_id}','${item.fileType}')" />
+														onClick="modifyImageFile('main_image','${item.goods_id}','${item.image_id}','${item.fileType}', '${item.fileName}')" />
 													</td>
 												</tr>
 												<tr>
@@ -368,12 +363,12 @@ ul.tabs li.active a:hover {
 													<td>상세 이미지${itemNum.count-1 }</td>
 													<td><input type="file" name="detail_image"
 														id="detail_image"
-														onchange="readURL(this,'preview${itemNum.count}');" /> <%-- <input type="text" id="image_id${itemNum.count }"  value="${item.fileName }" disabled  /> --%>
+														onchange="readURL(this,'preview${itemNum.count}');" /> <input type="text" id="image_id${itemNum.count }"  value="${item.fileName }" disabled  />
 														<input type="hidden" name="image_id"
 														value="${item.image_id }" /> <br></td>
 													<td><img id="preview${itemNum.count }" width=200
 														height=200
-														src="${contextPath}/event/download.do?goods_id=${item.goods_id}&fileName=${item.fileName}">
+														src="${contextPath}/goods/download.do?goods_id=${item.goods_id}&goods_fileName=${item.fileName}">
 													</td>
 													<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 													<td><input type="button" value="수정"
@@ -388,6 +383,7 @@ ul.tabs li.active a:hover {
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
+								</tr>
 								<tr align="center">
 									<td colspan="3">
 										<div id="d_file">

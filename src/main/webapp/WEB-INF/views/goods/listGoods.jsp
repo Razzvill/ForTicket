@@ -112,7 +112,7 @@ request.setCharacterEncoding("utf-8");
 		</div><hr>
 	<div class="main_title_more">
 			<ul class="category_sort">
-				<li><a href="#"> 인기순 </a></li>
+				<li><a href="#"> 종료일순 </a></li>
 				<li>|</li>
 				<li><a href="#"> 별점순 </a></li>
 				<li>|</li>

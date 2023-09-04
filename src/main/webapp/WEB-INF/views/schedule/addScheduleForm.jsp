@@ -187,7 +187,9 @@ request.setCharacterEncoding("utf-8");
 				</div>
 				<div class="card-body text-center scrollerline" id="goodsList">
 					<c:forEach items="${goodsList}" var="goods">
-						<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
+						<c:if test="${member.mem_id == goods.mem_id}">
+							<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
+						</c:if>
 					</c:forEach>
 				</div>
 			</div>

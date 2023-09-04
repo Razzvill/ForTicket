@@ -90,6 +90,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		
 		List goodsList = goodsService.listGoods();
 		List theaterList = theaterService.listTheaters();
 		mav.addObject("goodsList", goodsList);
