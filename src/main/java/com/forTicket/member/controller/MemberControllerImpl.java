@@ -266,7 +266,7 @@ public class MemberControllerImpl implements MemberController{
 			memberService.setKakaoConnection(paramMap);
 			
 			if(memberVO != null && memberVO.getAddr1() == null) {
-				session.setAttribute("memberVO", kakaoConnectionCheck);
+				session.setAttribute("member", kakaoConnectionCheck);
 				session.setAttribute("isLogOn", true);
 			}
 			resultMap.put("JavaData", "YES");
@@ -275,7 +275,7 @@ public class MemberControllerImpl implements MemberController{
 			System.out.println("이건가?");
 			if(memberVO != null && memberVO.getAddr1() == null) {
 				System.out.println("d여기와따");
-				session.setAttribute("memberVO", kakaoConnectionCheck);
+				session.setAttribute("member", kakaoConnectionCheck);
 				session.setAttribute("isLogOn", true);
 			}
 			

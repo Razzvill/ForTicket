@@ -115,7 +115,7 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-Kakao.init('9c4ab2164685265e5b9aa5dd366cab70'); 
+Kakao.init('714b1cee4e7cce6b2f35d6356e10b558'); 
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
 </script>
 <script>
@@ -127,7 +127,7 @@ function kakaoLogin() {
 
           success: function (response) {
             KakaoLoginPro(response),
-        	  console.log(response)
+	       	  console.log(response)
           },
 
           fail: function (error) {
@@ -157,8 +157,7 @@ function KakaoLoginPro(response){
         
 			  if(data.JavaData == "YES"){
   				alert("로그인되었습니다.");
-          naverLogout();
-				  location.href = '/main.do'
+                location.href = '/main.do'
 			  }
         else if(data.JavaData == "register"){
   				$("#kakaoEmail").val(response.kakao_account.email);
