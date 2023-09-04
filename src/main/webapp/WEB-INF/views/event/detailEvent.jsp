@@ -246,7 +246,7 @@ request.setCharacterEncoding("utf-8");
 
 		<div
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
-			<img src="${contextPath}/event/thumbnail.do?event_no=${event.event_no}&event_image=${event.event_fileName}"
+			<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}"
 				style="width: 482px; border-radius: 10px;">
 		</div>
 		
@@ -254,6 +254,7 @@ request.setCharacterEncoding("utf-8");
 		<section style="float: right; width: 307px;">
 			<div class="theater_list">
 				<div class="theater_info">
+					<p class="title">${event.event_fileName}</p>
 					<p class="title">${event.event_name}</p>
 					<p class="detail">유형 : 
 					<c:choose>

@@ -126,14 +126,14 @@ request.setCharacterEncoding("utf-8");
 				dataType : "json",
 				success : function(result){
 						var registTime = [];
-						var registGoodsName = [];
 						for(var i=0; i<result.length; i++){
 							registTime.push(result[i].s_date)
-							registGoodsName.push(result[i].goods_name)
 						}
+						console.log("registTime: "+registTime);
 						for(var thTime=0; thTime<thTimeList.length; thTime++){
+							console.log("thTimeList[thTime]: "+thTimeList[thTime]);
+							console.log(registTime.includes(thTimeList[thTime]));
 							if(registTime.includes(thTimeList[thTime])){
-								var mvNameIdx = registTime.indexOf(thTimeList[thTime]);
 								output += "<button disabled class=\"btn btn-sm btn-danger font-weight-bold mx-1 my-2\" for=\"" + thTimeList[thTime] + "\">" + thTimeList[thTime] + "</button>";
 							} else {
 								output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+thTimeList[thTime]+"\" onclick=\"ScRoomTime(this)\" >"+thTimeList[thTime]+"</label>";
@@ -227,7 +227,6 @@ request.setCharacterEncoding("utf-8");
 							monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
 									'9월', '10월', '11월', '12월' ],
 							onSelect:function(selDate){
-								console.log(selDate);
 								
 								$("#scDate").val(selDate);
 								selectScheduleDate = selDate;

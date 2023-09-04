@@ -33,6 +33,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		ArrayList<ScheduleVO> idAndDate = scheduleDAO.selectSchedule(scMap);
 		Gson gson = new Gson();
 		String idAndDate_json = gson.toJson(idAndDate);
+		System.out.println("idAndDate: "+idAndDate_json);
 		return idAndDate_json;
 	}
 	
