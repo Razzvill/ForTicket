@@ -1,22 +1,18 @@
 package com.forTicket.member.controller;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +28,7 @@ public class MemberControllerImpl implements MemberController{
 	@Autowired
 	private MemberService memberService;
 	private MemberVO memberVO ;
+	private HttpSession session;
 	
 
 	//로그인 페이지 이동
@@ -164,7 +161,8 @@ public class MemberControllerImpl implements MemberController{
 		resEntity =new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
 	}
-    @RequestMapping(value = "/member/findId.do", method = RequestMethod.GET)
+   
+	@RequestMapping(value = "/member/findId.do", method = RequestMethod.GET)
     public ModelAndView findIdForm(HttpServletRequest request, HttpServletResponse response) {
         String viewName = (String) request.getAttribute("viewName");
 
@@ -196,12 +194,57 @@ public class MemberControllerImpl implements MemberController{
     
     // 이메일 보내기
     @Transactional
-    @PostMapping("/member/sendEmail.do")
+    @RequestMapping("/member/sendEmail.do")
     public String sendEmail(@RequestParam("email") String email) {
         MailDTO dto = memberService.createMailAndChangePassword(email);
         memberService.mailSend(dto);
 
         return "redirect:/member/loginForm.do"; // 수정된 부분
     }
+    
+	//회원 정보 수정	
+	@Override
+	@RequestMapping(value="/member/updateMember.do", method = RequestMethod.GET)
+	public ModelAndView updateMember(MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
+		int result = 0;
+		result = memberService.updateMember(member);
+	    ModelAndView mav = new ModelAndView("redirect:/main.do");
+	    return mav;
+	}
+	
+	//회원 수정창 이동, memberVO값 가져오기
+	@Override
+	@RequestMapping(value="/member/m_Edit.do", method = RequestMethod.GET)
+	public ModelAndView m_Edit(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		MemberVO member = new MemberVO();
+		
+		request.setCharacterEncoding("utf-8");
+
+		String viewName = (String)request.getAttribute("viewName");
+		
+		HashMap<String,String> condMap = new HashMap<String,String>();
+		
+		ModelAndView mav = new ModelAndView();
+
+		condMap.put("mem_id", mem_id);
+
+		member = memberService.m_Edit(condMap);
+		
+		mav.addObject("taget", member);
+		
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
+	
+
    
 }

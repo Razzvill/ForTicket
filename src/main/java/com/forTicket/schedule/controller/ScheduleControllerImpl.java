@@ -122,7 +122,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		String reg_id = memberVO.getMem_id();
 		scMap.put("reg_id", reg_id);
 		
-		
+		System.out.println(reg_id+" /schedule/addScheduleForm.do/schedule/addScheduleForm.do");
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();

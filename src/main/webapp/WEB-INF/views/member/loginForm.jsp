@@ -104,44 +104,49 @@
     </form>
     <div class="social_wrap">
       <div>
-        <a id="login_kakao" class="kakao" 
-        href="https://kauth.kakao.com/oauth/authorize?client_id=bef73bba323cabf247befa4488582672&redirect_uri=REDIRECT_URI&response_type=code">
+        <a id="kakao-login-btn" href="javascript:loginWithKakao()">
           <img src="${contextPath}/resources/images/member/kakao.png" alt="카카오로그인">
         </a>
+        <p id="token-result"></p>
       </div>
+
     </div>
   </div>
-
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
+  integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous"></script>
 <script>
-var sns_login = function (site, r, scheme = null) {
-    r = r || '';
-    let url;
-    let cid = '';
-    if (scheme === 'y') {
-        authorizeUrl = encodeURIComponent(`https://timeticket.co.kr/login/app${site}.php/?r=${r}`);
-        url = `timeticket://sns_login?url=${authorizeUrl}&provider=${site}`;
-    } else {
-        url = `/login/authorize?t=${site}&r=${r}`;
-    }
-    window.location.href = url;
+Kakao.init('714b1cee4e7cce6b2f35d6356e10b558'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+<script>
+function loginWithKakao() {
+    Kakao.Auth.authorize({
+      redirectUri: 'https://kauth.kakao.com/oauth/authorize',
+    });
+  }
+
+displayToken()
+function displayToken() {
+  var token = getCookie('authorize-access-token');
+
+  if(token) {
+    Kakao.Auth.setAccessToken(token);
+    Kakao.Auth.getStatusInfo()
+      .then(function(res) {
+        if (res.status === 'connected') {
+          document.getElementById('token-result').innerText
+            = 'login success, token: ' + Kakao.Auth.getAccessToken();
+        }
+      })
+      .catch(function(err) {
+        Kakao.Auth.setAccessToken(null);
+      });
+  }
 }
 
-// app 스킴 예외처리
-const appScheme = '';
-
-// 간편 로그인 : 회원가입 일때는 join과 cid 함께 전달
-if (window.location.href.includes('join')) {
-    r = encodeURI('&from=join&mem_id=');
-} else if (window.location.href.includes('login')) {
-    r = '';
+function getCookie(name) {
+  var parts = document.cookie.split(name + '=');
+  if (parts.length === 2) { return parts[1].split(';')[0]; }
 }
-
-// 카카오톡 간편 로그인 버튼 클릭 시 실행되는 함수
-var loginKakaoButton = document.getElementById('login_kakao');
-loginKakaoButton.addEventListener('click', function (e) {
-    e.preventDefault(); // 기본 클릭 동작 방지
-    sns_login('kakao', r, appScheme); // sns_login 함수 호출
-});
 </script>
 </body>
 </html>

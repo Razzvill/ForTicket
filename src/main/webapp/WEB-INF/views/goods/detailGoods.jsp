@@ -20,20 +20,16 @@ request.setCharacterEncoding("utf-8");
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript"
-	src="${contextPath}/resources/js/ajaxtabs.js"></script>
-
-<script>
+	src="${contextPath}/resources/js/ajaxtabs.js">
 </script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/calendar_theme.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/detail.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/user_review.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/common.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/calendar_theme.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/detail.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/user_review.css">
+<link rel="stylesheet" type="text/css"	href="${contextPath}/resources/css/common.css">
 <style>
 .main_tab_wrap {
 	/* border: 1px solid #eee; */
@@ -197,7 +193,7 @@ request.setCharacterEncoding("utf-8");
 
 .wrap_1100 {
 	margin: auto;
-	width: 1100px;
+	width: 840px;
 	position: relative;
 	padding-top: 20px;
 }
@@ -249,7 +245,7 @@ request.setCharacterEncoding("utf-8");
 		/* webkit-box로 표시된 자식 요소들의 배치 방법 결정 (여기서는 수직) */ 
 		-webkit-box-orient: vertical;
 		/* 요소 내 텍스트를 지정한 라인수까지만 표시 */
-		-webkit-line-clamp: 3;
+		-webkit-line-clamp: 1;
 		width: 99%;
 		font-size: 15px;
 	}
@@ -354,20 +350,23 @@ request.setCharacterEncoding("utf-8");
 
 		<!-- 후기 영역 시작 -->
 		<section style="width: 820px; margin: 0 auto; padding-top: 20px;">
-			<div class="review_preview" style="">
-				<div class="review_preview_container">
-					<div class="review_preview_title_section">
-						<div class="review_preview_left">
-							<span class="review_preview_title">이용후기</span>
-							<span class="review_preview_number">${count}</span>
-							<span class="review_preview_title">평점</span>
-							<span class="review_preview_number" style="color: #ff4b4b;">${avgStar}</span>
-						</div>
-						<div class="review_preview_right">
-							후기 더보기 <span class="review_preview_right_btn"></span>
-						</div>
+		<div class="accordion" id="accordionExample">
+		<div class="accordion-item">
+		<h2 class="accordion-header">
+			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				<div class="review_preview_title_section">
+					<div class="review_preview_left">
+						<span class="review_preview_title">이용후기</span>
+						<span class="review_preview_number">${count}</span>
+						<span class="review_preview_title">평점</span>
+						<span class="review_preview_number" style="color: #ff4b4b;">${avgStar}</span>
 					</div>
-					<c:choose>
+				</div>
+			</button>
+		</h2>
+		<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<c:choose>
 						<c:when test="${empty reviewList }">
 							리뷰가 없습니다.
 						</c:when>
@@ -375,46 +374,48 @@ request.setCharacterEncoding("utf-8");
 							<c:forEach var="u_list" items="${reviewList }">
 							  	<div class="review_title">
 									<div class="review_title_left">
-										<c:if test="${reviewList.star =='1'}">
+										<c:if test="${u_list.star =='1'}">
 											<span class="star">★</span>
 										</c:if>
-										<c:if test="${reviewList.star =='2'}">
+										<c:if test="${u_list.star =='2'}">
 											<span class="star">★★</span>
 										</c:if>
-										<c:if test="${reviewList.star =='3'}">
+										<c:if test="${u_list.star =='3'}">
 											<span class="star">★★★</span>
 										</c:if>
-										<c:if test="${reviewList.star =='4'}">
+										<c:if test="${u_list.star =='4'}">
 											<span class="star">★★★★</span>
 										</c:if>
-										<c:if test="${reviewList.star =='5'}">
+										<c:if test="${u_list.star =='5'}">
 											<span class="star">★★★★★</span>
 										</c:if>
 										<div class="review_title_left_name" style="padding-left: 10px;">
-											${reviewList.mem_id }
+											${u_list.mem_id }
 										</div>
 									</div>
 									<div class="review_title_right" style="padding-right:8px;">
-									${reviewList.c_date }
+									${u_list.c_date }
 									</div>
 								</div>
 								<div>
 									<div class="more-text">
-										${reviewList.c_title }
+										${u_list.c_title }
 									<div class="more">더보기</div>
-									<span class="text"> ${reviewList.c_content }<br><br>
-										<c:if test="${not empty reviewList.imageFileName && u_list.imageFileName !='null' }">
-											<img width="100px" height="100px" src="${contextPath}/community/download.do?c_No=${reviewList.c_No}&imageFileName=${reviewList.imageFileName}"><br><br>
+									<span class="text"> ${u_list.c_content }<br><br>
+										<c:if test="${not empty u_list.imageFileName && u_list.imageFileName !='null' }">
+											<img width="100px" height="100px" src="${contextPath}/community/download.do?c_No=${u_list.c_No}&imageFileName=${u_list.imageFileName}"><br><br>
 										</c:if>
-										<input type="hidden" name="c_No" value="${reviewList.c_No }">
+										<input type="hidden" name="c_No" value="${u_list.c_No }">
 									</span>
 									</div>
 								</div>
 						</c:forEach>
 					</c:otherwise>
-					</c:choose>
-				</div>
+				</c:choose>
 			</div>
+		</div>
+		</div>
+		</div>
 		</section>
 
 		<!-- 상세정보 -->
@@ -435,31 +436,6 @@ request.setCharacterEncoding("utf-8");
 					<c:forEach var="image" items="${imageList }">
 						<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${image.fileName}">
 					</c:forEach>
-
-					<%-- <!-- 상세이미지 -->
-					<div class="info_detail_poster" alt="상세">
-						<div class="info_detail_gradient"></div>
-						<div class="info_detail_btn" onclick="showMoreDetailImage()">
-							펼쳐보기 <img src="${contextPath}/resources/images/icon_down.png"
-								style="width: 13px; vertical-align: 2px; padding-left: 10px;">
-						</div>
-						<script>
-            function showMoreDetailImage() {
-              document.querySelector('.info_detail_btn').remove();
-              document.querySelector('.info_detail_gradient').remove();
-              document.querySelector('.info_detail_poster').setAttribute("style", `display:none;`);
-              let xhr = new XMLHttpRequest();
-              xhr.open('GET', `./index.php?number=4343&mode=extend_detail_info`, true);
-              xhr.send();
-              xhr.onload = () => {
-                  if (xhr.status === 200) {
-                    document.querySelector('.main_img').innerHTML = xhr.response;
-                    document.querySelector('.main_img').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }
-              }
-          </script>
-					</div> --%>
 					<div class="main_img"></div>
 
 					<!-- 유의사항 -->
@@ -534,6 +510,47 @@ request.setCharacterEncoding("utf-8");
 			</div>
 		</section>
 		</div>
+<script>
+	//코드에 필요한 요소들 변수에 할당 (전체 ui를 감싸는 div, 내용 텍스트, 더보기/줄이기 텍스트)
+	//debugger;
+	var arrMoreText = document.getElementsByClassName("more-text");
+	var arrMoreTextLen = arrMoreText.length;
+	
+	for(var i =0; i<arrMoreTextLen; i++){
+		let moreTextObj = arrMoreText[i];
+		
+		moreTextObj.addEventListener('click', () => {
+			
+			moreTextObj.childNodes.forEach(function(v){//v = nodeList
+				if(v.nodeName === "SPAN"){
+					if(v.style.display === "inline-block"){
+						v.style.display = "";
+					}else{
+						v.style.display = 'inline-block';
+					}
+				}
+			});
+		});
+	}
+
+	/*
+	// 더보기 텍스트 클릭시 이벤트
+	moreText.addEventListener('click', () => {
+		
+	moreText.style.display = 'none'; // 더보기 텍스트 삭제
+    lessText.style.display = 'inline-block'; // 줄이기 텍스트 표시
+    text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
+    });
+
+	// 줄이기 텍스트 클릭시 이벤트
+    lessText.addEventListener('click', () => {
+
+    lessText.style.display = 'none'; // 줄이기 텍스트 삭제
+    moreText.style.display = 'inline-block'; // 더보기 텍스트 표시
+    text.style.display = '-webkit-box'; // 텍스트의 속성을 다시 -webkit-box로 표시
+    });
+	*/
+</script>
 </body>
 
 </html>
