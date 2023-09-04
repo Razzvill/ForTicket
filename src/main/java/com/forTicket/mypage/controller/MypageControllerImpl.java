@@ -97,6 +97,72 @@ public class MypageControllerImpl implements MypageController{
 		return mav;
 	}
 	
+	//마이페이지 예매내역 이동
+		@RequestMapping(value= "/member/b_myreservation.do", method = {RequestMethod.GET,RequestMethod.POST})
+		public ModelAndView b_myreservation(@RequestParam("mem_id") String mem_id, @RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+			
+			HttpSession session=request.getSession();
+			session=request.getSession();
+					
+			session.setAttribute("side_menu", "bus_mode"); //마이페이지 사이드 메뉴로 설정한다.
+			
+			String viewName=(String)request.getAttribute("viewName");
+			ModelAndView mav = new ModelAndView(viewName);
+
+			String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
+					
+			String section = dateMap.get("section");
+			String pageNum = dateMap.get("pageNum");
+			String search_type = dateMap.get("search_type");
+			String search_word = dateMap.get("search_word");
+			String beginDate=null,endDate=null;
+			
+			String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
+			beginDate=tempDate[0];
+			endDate=tempDate[1];
+			dateMap.put("beginDate", beginDate);
+			dateMap.put("endDate", endDate);
+			
+			
+			HashMap<String,Object> condMap=new HashMap<String,Object>();
+			if(section== null) {
+				section = "1";
+			}
+			condMap.put("section",section);
+			if(pageNum== null) {
+				pageNum = "1";
+			}
+			condMap.put("pageNum",pageNum);
+			condMap.put("beginDate",beginDate);
+			condMap.put("endDate", endDate);
+			condMap.put("search_type",search_type);
+			condMap.put("search_word", search_word);
+			condMap.put("mem_id", mem_id);
+			
+			ArrayList<OrderVO> reservation_list=mypageService.b_myReservation(condMap);
+			
+			mav.addObject("reservation_list", reservation_list);
+			
+			String beginDate1[]=beginDate.split("-");
+			String endDate2[]=endDate.split("-");
+			
+			mav.addObject("beginYear",beginDate1[0]);
+			mav.addObject("beginMonth",beginDate1[1]);
+			mav.addObject("beginDay",beginDate1[2]);
+
+			mav.addObject("endYear",endDate2[0]);
+			mav.addObject("endMonth",endDate2[1]);
+			mav.addObject("endDay",endDate2[2]);
+			
+			mav.addObject("search_type",search_type);
+			mav.addObject("search_word",search_word);
+
+			mav.addObject("section", section);
+			mav.addObject("pageNum", pageNum);
+			
+			return mav;
+		}
+	
 	protected String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
 		String endDate=null;

@@ -134,15 +134,13 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Double avgStar(int goods_id) throws DataAccessException {
 		
-		System.out.println("service : "+goods_id);
 		return goodsDAO.avgStar(goods_id);
 	}
 	
 	//별점 카운트
 	@Override
 	public int countStar(int goods_id) throws DataAccessException {
-		System.out.println("service : "+goods_id);
-		
+				
 		return goodsDAO.countStar(goods_id);
 	}
 	

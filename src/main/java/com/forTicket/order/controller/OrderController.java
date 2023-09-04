@@ -26,6 +26,10 @@ public interface OrderController {
 	public ModelAndView ticketRefund(@ModelAttribute("order_No") int order_No,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	//환불 완료페이지
 	public ModelAndView refundSuccess(@RequestParam("order_No") int order_No, @RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
-	
+	//결제 상세페이지(사업자)
+	public ModelAndView b_ticketDetail(@ModelAttribute("order_No") int order_No,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	//환불 완료페이지(사업자)
+	public ModelAndView b_refundSuccess(@RequestParam("order_No") int order_No, @RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
+		
 	public String getSelectedSchedule(String theater_id, Date s_date) throws Exception;
 }

@@ -15,4 +15,6 @@ public interface MypageController {
 	//예매내역페이지
 	public ModelAndView myreservation(@RequestParam("mem_id") String mem_id, @RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
+	//사업자상품 예매내역페이지
+	public ModelAndView b_myreservation(@RequestParam("mem_id") String mem_id, @RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }

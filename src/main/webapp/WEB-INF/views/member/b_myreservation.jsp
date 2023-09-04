@@ -13,7 +13,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>예매 내역</title>
+	<title>사업자 상품 예매 내역</title>
 	<style>
 	.search{
 		width: 100%;
@@ -97,20 +97,20 @@
 			var formObj=document.createElement("form");
 			var i_fixedSearch_period = document.createElement("input");
 			var i_mem_id = document.createElement("input");
-
+	
 			i_fixedSearch_period.name="fixedSearchPeriod";
 			i_mem_id.name="mem_id";
-
+	
 			i_fixedSearch_period.value=fixedSearchPeriod;
 			i_mem_id.value=mem_id;
 		    
 			formObj.appendChild(i_fixedSearch_period);
 			formObj.appendChild(i_mem_id);
-
+	
 			document.body.appendChild(formObj); 
 			
 		    formObj.method="get";
-		    formObj.action="${contextPath }/member/myreservation.do?mem_id=${member.mem_id}";
+		    formObj.action="${contextPath }/member/b_myreservation.do?mem_id=${member.mem_id}";
 		    formObj.submit();
 		}
 						
@@ -157,7 +157,7 @@
 		    formObj.appendChild(i_mem_id);
 		    document.body.appendChild(formObj); 
 		    formObj.method="get";
-		    formObj.action="${contextPath }/member/myreservation.do";
+		    formObj.action="${contextPath }/member/b_myreservation.do";
 		    formObj.submit();
 		}
 		</script>
@@ -167,7 +167,7 @@
 <div class="mypage4">
 <form method="post" name="frm_list">
 	<div style="margin-bottom:20px;">
-    	<h2 style="text-align:left;">예매 내역</h2>
+    	<h2 style="text-align:left;">상품 예매 내역</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         	<div style="border-color: #FF6251; width:auto;"></div>
     </div>
@@ -352,8 +352,7 @@
 						<td class="font1">
 							<c:choose>
    		 						<c:when test="${order.orderStatus == '예매완료'}">
-									<a href="${contextPath}/community/review.do?order_No=${order.order_No}" class="reply">리뷰쓰기</a>&nbsp;/&nbsp;
-        							<a href="${contextPath}/order/ticketDetail.do?order_No=${order.order_No}" class="reply">${order.orderStatus}</a>
+        							<a href="${contextPath}/order/b_ticketDetail.do?order_No=${order.order_No}" class="reply">${order.orderStatus}</a>
     							</c:when>
     							<c:otherwise>
 									${order.orderStatus }	
