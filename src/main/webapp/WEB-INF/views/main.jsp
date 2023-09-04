@@ -119,94 +119,38 @@
 			<div class="main_title">
 			연극
 			<div class="main_title_more">
-				<a href="#"> 더보기 &gt; </a>
+				<a href="${contextPath}/goods/listGoods.do?goodsType=drama"> 더보기 &gt; </a>
 			</div>
 			</div>
 		<br>
 		<div class="wrap_1100">	
 			<table style="width: 100%; border: 0; cellpadding: 0; cellspacing: 0;">
 			<tbody>
+			<c:set  var="goods_count" value="0" />
 			<tr>
+			<c:forEach var="item" items="${goodsMap.drama }">
+				<c:set  var="goods_count" value="${goods_count+1 }" />
 				<td valign="top" align="left">
-					<a href="#">
+					<a href="${contextPath}/goods/detailGoods.do?goods_id=${item.goods_id}">
 						<div class="list">
 							<div class="thumb">
-								<img src="${contextPath}/resources/images/drama/drama1.jpg" alt="연극1">
+								<img src="${contextPath}/goods/thumbnails.do?goods_id=${item.goods_id}&goods_fileName=${item.goods_fileName}" alt="${item.goods_name}">
 								<div></div>
 							</div>
 							<div class="text">
-								<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-								<p style="font-size: 20px;">불편한 편의점</p>
+								<p style="color:#666666;">🗂️ 연극 &gt; ${item.goods_genre}</p>
+								<p style="font-size: 20px;">${item.goods_name}</p>
 							<div>
 								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(120)</span></span>
-									<span style="padding-right:30px;">33,000원</span>
+									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">${item.goods_avg}</span>
+									<span style="padding-right:30px;">${item.goods_price}원</span>
 								</div>
 							</div>
 							</div>
 						</div>
 					</a>
 				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/drama/drama2.jpg" alt="연극2">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-								<p style="font-size: 20px;">망원동 브라더스</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.4 <span>(61)</span></span>
-									<span style="padding-right:30px;">27,500원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/drama/drama3.jpg" alt="연극3">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-								<p style="font-size: 20px;">시간을 파는 상점</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(34)</span></span>
-									<span style="padding-right:30px;">22,000원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/drama/drama4.jpg" alt="연극4">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 연극 &gt; 드라마</p>
-								<p style="font-size: 20px;">내일은 내일에게</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.5 <span>(74)</span></span>
-									<span style="padding-right:30px;">19,800원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
+			</c:forEach>
 			</tr>
 			</tbody>
 			</table>
@@ -218,94 +162,38 @@
 			<div class="main_title">
 			뮤지컬
 			<div class="main_title_more">
-				<a href="#"> 더보기 &gt; </a>
+				<a href="${contextPath}/goods/listGoods.do?goodsType=musical"> 더보기 &gt; </a>
 			</div>
 			</div>
 		<br>
 		<div class="wrap_1100">	
 			<table style="width: 100%; border: 0; cellpadding: 0; cellspacing: 0;">
 			<tbody>
+			<c:set  var="goods_count" value="0" />
 			<tr>
+			<c:forEach var="item" items="${goodsMap.musical }">
+				<c:set  var="goods_count" value="${goods_count+1 }" />
 				<td valign="top" align="left">
-					<a href="#">
+					<a href="${contextPath}/goods/detailGoods.do?goods_id=${item.goods_id}">
 						<div class="list">
 							<div class="thumb">
-								<img src="${contextPath}/resources/images/musical/musical1.jpg" alt="뮤지컬1">
+								<img src="${contextPath}/goods/thumbnails.do?goods_id=${item.goods_id}&goods_fileName=${item.goods_fileName}" alt="${item.goods_name}">
 								<div></div>
 							</div>
 							<div class="text">
-								<p style="color:#666666;">🗂️ 뮤지컬 &gt; 퍼포먼스</p>
-								<p style="font-size: 20px;">난타(NANTA)</p>
+								<p style="color:#666666;">🗂️ 뮤지컬 &gt; ${item.goods_genre}</p>
+								<p style="font-size: 20px;">${item.goods_name}</p>
 							<div>
 								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.9 <span>(56)</span></span>
-									<span style="padding-right:30px;">26,400원</span>
+									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">${item.goods_avg}</span>
+									<span style="padding-right:30px;">${item.goods_price}원</span>
 								</div>
 							</div>
 							</div>
 						</div>
 					</a>
 				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/musical/musical2.jpg" alt="뮤지컬2">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 뮤지컬 &gt; 드라마</p>
-								<p style="font-size: 20px;">빨래</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.3 <span>(31)</span></span>
-									<span style="padding-right:30px;">25,000원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/musical/musical3.jpg" alt="뮤지컬3">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 뮤지컬 &gt; 드라마</p>
-								<p style="font-size: 20px;">언제나 행복하지 않은 순간이 있었나요</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.8 <span>(118)</span></span>
-									<span style="padding-right:30px;">24,000원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/musical/musical4.jpg" alt="뮤지컬4">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 뮤지컬 &gt; 드라마</p>
-								<p style="font-size: 20px;">코드네임X</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.3 <span>(87)</span></span>
-									<span style="padding-right:30px;">21,900원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
+			</c:forEach>
 			</tr>
 			</tbody>
 			</table>
@@ -317,94 +205,38 @@
 			<div class="main_title">
 			연극
 			<div class="main_title_more">
-				<a href="#"> 더보기 &gt; </a>
+				<a href="${contextPath}/goods/listGoods.do?goodsType=concert"> 더보기 &gt; </a>
 			</div>
 			</div>
 		<br>
 		<div class="wrap_1100">	
 			<table style="width: 100%; border: 0; cellpadding: 0; cellspacing: 0;">
 			<tbody>
+			<c:set  var="goods_count" value="0" />
 			<tr>
+			<c:forEach var="item" items="${goodsMap.concert }">
+				<c:set  var="goods_count" value="${goods_count+1 }" />
 				<td valign="top" align="left">
-					<a href="#">
+					<a href="${contextPath}/goods/detailGoods.do?goods_id=${item.goods_id}">
 						<div class="list">
 							<div class="thumb">
-								<img src="${contextPath}/resources/images/concert/concert1.jpg" alt="공연1">
+								<img src="${contextPath}/goods/thumbnails.do?goods_id=${item.goods_id}&goods_fileName=${item.goods_fileName}" alt="${item.goods_name}">
 								<div></div>
 							</div>
 							<div class="text">
 								<p style="color:#666666;">🗂️ 공연</p>
-								<p style="font-size: 20px;">아르뗌뮤지엄1</p>
+								<p style="font-size: 20px;">${item.goods_name}</p>
 							<div>
 								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.4 <span>(101)</span></span>
-									<span style="padding-right:30px;">10,000원</span>
+									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">${item.goods_avg}</span>
+									<span style="padding-right:30px;">${item.goods_price}원</span>
 								</div>
 							</div>
 							</div>
 						</div>
 					</a>
 				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/concert/concert2.jpg" alt="공연2">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 공연</p>
-								<p style="font-size: 20px;">아르뗌뮤지엄2</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.2 <span>(74)</span></span>
-									<span style="padding-right:30px;">10,000원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/concert/concert3.jpg" alt="공연3">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 공연</p>
-								<p style="font-size: 20px;">이탈리안 라이프스타일</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.2 <span>(62)</span></span>
-									<span style="padding-right:30px;">7,000원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
-				<td valign="top" align="left">
-					<a href="#">
-						<div class="list">
-							<div class="thumb">
-								<img src="${contextPath}/resources/images/concert/concert4.jpg" alt="공연4">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ 공연</p>
-								<p style="font-size: 20px;">스니커즈 언박스드</p>
-							<div>
-								<div class="price">
-									<span><img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">4.0 <span>(50)</span></span>
-									<span style="padding-right:30px;">15,000원</span>
-								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
+			</c:forEach>
 			</tr>
 			</tbody>
 			</table>

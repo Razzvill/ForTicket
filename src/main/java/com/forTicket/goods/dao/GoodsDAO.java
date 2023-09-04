@@ -35,4 +35,7 @@ public interface GoodsDAO {
 	public int countStar(int goods_id) throws DataAccessException;
 	//리뷰 호출
 	public List reviewList(int goods_id) throws DataAccessException;
+	//메인페이지 상품 리스트
+	public List<GoodsVO> mainListGoods(String goods_type) throws DataAccessException;
+
 }

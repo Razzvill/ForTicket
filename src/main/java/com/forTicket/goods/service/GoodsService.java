@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
-import com.forTicket.goods.vo.G_imageFileVO;
+import com.forTicket.goods.vo.GoodsVO;
 
 public interface GoodsService {
 	public List listGoods() throws DataAccessException;
@@ -28,4 +28,6 @@ public interface GoodsService {
 	public int countStar(int goods_id) throws DataAccessException;
 	//리뷰 호출
 	public List reviewList(int goods_id) throws DataAccessException;
+	//메인페이지 상품 리스트
+	public Map<String,List<GoodsVO>> mainListGoods() throws Exception;
 }
