@@ -353,13 +353,6 @@
 										<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
 									</tr>
 								</c:when>
-								<c:otherwise>
-									<tr>
-										<td colspan="9">
-										<strong>조회된 상품이 없습니다.</strong>
-										</td>
-									</tr>
-								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 					</c:when>

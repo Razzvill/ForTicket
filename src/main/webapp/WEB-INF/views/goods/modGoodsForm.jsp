@@ -9,7 +9,15 @@
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-
+function fn_mod_new_goods(obj){
+	 fileName = $('#main_image').val();
+	 if(fileName != null && fileName != undefined){
+		 obj.submit();
+	 }else{
+		 alert("메인 이미지는 반드시 첨부해야 합니다.");
+		 return;
+	 }
+}
 	
 	var cnt = 0;
 	function fn_addFile() {
@@ -175,7 +183,7 @@ ul.tabs li.active a:hover {
 }
 </style>
 <body>
-	<form action="${contextPath}/event/modEvent.do" method="post"
+	<form action="${contextPath}/goods/modGoods.do" method="post"
 		enctype="multipart/form-data">
 		<h1>상품 수정</h1>
 		<div class="tab_container">
@@ -405,7 +413,7 @@ ul.tabs li.active a:hover {
 				<table>
 					<tr>
 						<td align=center><input type="button" value="상품 등록하기"
-							onClick="fn_add_new_goods(this.form)"></td>
+							onClick="fn_mod_new_goods(this.form)"></td>
 					</tr>
 				</table>
 			</center>
