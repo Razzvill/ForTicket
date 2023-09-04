@@ -143,6 +143,23 @@ public class GoodsServiceImpl implements GoodsService {
 		return reviewList;
 	}
 	
+	//메인페이지 상품 리스트
+	@Override
+	public Map<String, List<GoodsVO>> mainListGoods() throws Exception {
+		Map<String,List<GoodsVO>> goodsMap=new HashMap<String,List<GoodsVO>>();
+		List<GoodsVO> goodsList=goodsDAO.mainListGoods("drama");
+		goodsMap.put("drama",goodsList);
+		
+		goodsList=goodsDAO.mainListGoods("musical");
+		goodsMap.put("musical",goodsList);
+		
+		goodsList=goodsDAO.mainListGoods("concert");
+		goodsMap.put("concert",goodsList);
+		
+		return goodsMap;
+	}
+	
+	
 	
 	
 }

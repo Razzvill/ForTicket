@@ -190,4 +190,16 @@
 		]]>      
 	</select>
 	
+	<!-- 메인페이지 상품 리스트 -->
+	<select id="mainListGoods" parameterType="String" resultMap="goodsResult"   >
+        <![CDATA[
+			select t.*
+			from(
+			select g.*,d.fileName from goods g, goods_detail_images d
+			where g.goods_id=d.goods_id 
+			and d.filetype='main_image'
+			and goods_type=#{goods_type}
+			order by g.goods_creDate desc)  t limit 4;
+	    ]]>
+	</select> 
 </mapper>
