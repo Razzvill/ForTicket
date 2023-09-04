@@ -138,6 +138,16 @@
 			    order by image_id asc
     	]]>
 	</select>
+
+	<select id="selectGoodsImageFileList_2" resultMap="imageResult"
+		parameterType="int">
+	    <![CDATA[
+		    	select * from  goods_detail_images 
+		    	where  
+			    goods_id=#{goods_id}
+			    order by image_id asc
+    	]]>
+	</select>
 	
 	<insert id="insertGoodsImageFile" parameterType="G_imageFileVO">
 	    <![CDATA[
@@ -151,7 +161,7 @@
 			update goods_detail_images
 			set fileName=#{fileName}
 			where	 
-			goods_id=#{goods_id} and image_id=#{image_id}
+			goods_id=#{goods_id} and image_id=#{image_id} and fileType=#{fileType}
 		]]>
 	</update>
 	

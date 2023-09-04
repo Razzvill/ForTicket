@@ -335,29 +335,60 @@
 			<td>삭제</td>
 		</tr>
 		<c:choose>
-			<c:when test="${empty goodsList}">
+			<c:when test="${not empty goodsList}">
+				<c:choose>
+					<c:when test="${type=='B'}">
+						<c:forEach var="list" items="${goodsList}">
+							<c:choose>
+								<c:when test="${list.mem_id == member.mem_id}">
+									<tr>
+										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
+										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
+										<td>${list.goods_genre }</td>
+										<td>${list.goods_startDate }~${list.goods_endDate }</td>
+										<td>${list.goods_place }</td>
+										<td>${list.goods_price }</td>
+										<td>${list.goods_creDate}</td>
+										<td><a href="${contextPath}/goods/modGoodsForm.do?goods_id=${list.goods_id }" class="reply">수정</a></td>
+										<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<tr>
+										<td colspan="9">
+										<strong>조회된 상품이 없습니다.</strong>
+										</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="list" items="${goodsList}">
+							<tr>
+								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
+								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
+								<td>${list.goods_genre }</td>
+								<td>${list.goods_startDate }~${list.goods_endDate }</td>
+								<td>${list.goods_place }</td>
+								<td>${list.goods_price }</td>
+								<td>${list.goods_creDate}</td>
+								<td><a href="${contextPath}/goods/modGoodsForm.do?goods_id=${list.goods_id }" class="reply">수정</a></td>
+								<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
 				<tr>
 					<td colspan="9">
 					<strong>조회된 상품이 없습니다.</strong>
-					</td>		
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="list" items="${goodsList}">
-					<tr>
-						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
-						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
-						<td>${list.goods_genre }</td>
-						<td>${list.goods_startDate }~${list.goods_endDate }</td>
-						<td>${list.goods_place }</td>
-						<td>${list.goods_price }</td>
-						<td>${list.goods_creDate}</td>
-						<td><a href="${contextPath}/goods/modGoodsForm.do?goods_id=${list.goods_id }" class="reply">수정</a></td>
-						<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
-					</tr>
-				</c:forEach>
+					</td>
+				</tr>
 			</c:otherwise>
 		</c:choose>
-		         <tr>
+		<tr>
              <td colspan=8 class="fixed">
              <div class="page1">
                  <c:forEach   var="page" begin="1" end="10" step="1" >

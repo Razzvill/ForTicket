@@ -45,13 +45,23 @@ public class GoodsServiceImpl implements GoodsService {
 		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(goods_id);
 		List imageFileList = goodsDAO.selectGoodsImageFileList(goods_id);
 		System.out.println("fileName: "+goodsVO.getGoods_fileName());
-		/*
-		 * G_imageFileVO imageObj = null; if(!imageFileList.isEmpty()) { imageObj =
-		 * (G_imageFileVO) imageFileList.get(0); } goodsMap.put("goodsImage", imageObj);
-		 */
 		
 		goodsMap.put("goodsVO", goodsVO);
 		goodsMap.put("imageList", imageFileList);
+		return goodsMap;
+	}
+	
+	
+
+	@Override
+	public Map goodDetail(int goods_id) throws DataAccessException {
+		Map goodsMap = new HashMap();
+		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(goods_id);
+		List imageFileList = goodsDAO.selectGoodsImageFileList_2(goods_id);
+		System.out.println("fileName: "+goodsVO.getGoods_fileName());
+		
+		goodsMap.put("goodsVO", goodsVO);
+		goodsMap.put("imageFileList", imageFileList);
 		return goodsMap;
 	}
 
@@ -107,7 +117,7 @@ public class GoodsServiceImpl implements GoodsService {
 		for(int i=0; i<imageFileList.size();i++) {
 			G_imageFileVO imageFileVO = (G_imageFileVO) imageFileList.get(i);
 			goodsDAO.updateGoodsImage(imageFileVO);
-		}
+		}	
 	}
 
 	@Override
