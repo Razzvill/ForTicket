@@ -267,22 +267,38 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value= "/goods/modGoods.do", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ResponseEntity modGoods(@RequestParam("goods_id") int goods_id, @RequestParam("attribute") String attribute,
-            @RequestParam("value") String value,MultipartHttpServletRequest multipartRequest,
-			HttpServletResponse response) throws Exception {
+	public ResponseEntity modGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
-		Map goodsMap=new HashMap();
-		goodsMap.put("goods_id", goods_id);
-		goodsMap.put(attribute, value);
-		goodsService.modGoods(goodsMap);
-		
+		Map goodsMap = new HashMap();
+		Enumeration enu=multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()){
+			String name=(String)enu.nextElement();
+			String value=multipartRequest.getParameter(name);
+			goodsMap.put(name,value);
+		}
+
+		int goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
 		String message = null;
-		ResponseEntity resEntity = null;
+		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
-		message  = "mod_success";
-		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		return resEntity;
+		try {
+			goodsService.modGoods(goodsMap);
+			message = "<script>";
+			message += " alert('상품이 수정되었습니다.');";
+			message += "location.href='"+multipartRequest.getContextPath()+"/goods/a_listGoods.do';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch(Exception e) {
+			message = "<script>";
+			message += " alert('상품 수정에 실패했습니다.');";
+			message += "location.href='"+multipartRequest.getContextPath()+"/goods/modGoodsForm.do?goods_id="+goods_id+"';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		resEnt =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEnt;
 	}
 	
 	//상품 수정 페이지

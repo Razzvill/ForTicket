@@ -5,22 +5,22 @@
 
 <mapper namespace="com.forTicket.goods.dao.GoodsDAO">
 	<resultMap id="goodsResult" type="goodsVO">
-		<result property="goods_id" column="goods_id" />
+		<result property="goods_id" column="goods_id" jdbcType="INTEGER"/>
 		<result property="goods_type" column="goods_type" />
 		<result property="goods_genre" column="goods_genre" />
 		<result property="goods_name" column="goods_name" />
-		<result property="goods_startDate" column="goods_startDate" />
-		<result property="goods_endDate" column="goods_endDate" />
+		<result property="goods_startDate" column="goods_startDate" jdbcType="DATE"/>
+		<result property="goods_endDate" column="goods_endDate" jdbcType="DATE"/>
 		<result property="goods_runningTime" column="goods_runningTime" />
 		<result property="goods_age" column="goods_age" />
-		<result property="goods_price" column="goods_price" />
-		<result property="goods_discount" column="goods_discount" />
+		<result property="goods_price" column="goods_price" jdbcType="INTEGER"/>
+		<result property="goods_discount" column="goods_discount" jdbcType="INTEGER"/>
 		<result property="goods_info" column="goods_info" />
 		<result property="goods_notice" column="goods_notice" />
 		<result property="goods_place" column="goods_place" />
 		<result property="goods_creDate" column="goods_creDate" />
 		<result property="mem_id" column="mem_id" />
-		<result property="goods_seats" column="goods_seats" />
+		<result property="goods_seats" column="goods_seats"/>
 		<result property="goods_fileName" column="fileName" />
 	</resultMap>
 
@@ -109,9 +109,9 @@
 		]]>
 	</insert>
 	
-	<update id="updateGoods" parameterType="goodsVO">
+	<update id="updateGoods" parameterType="java.util.Map">
 		<![CDATA[
-			update goods set goods_type=#{goods_type}, goods_genre=#{goods_genre}, goods_name=#{goods_name}, goods_startDate=#{goods_startDate}, goods_endDate=#{goods_endDate}, goods_runningTime=#{goods_runningTime}, goods_age=#{goods_age}, goods_price=#{goods_price}, goods_discount=#{goods_discount}, goods_info=#{goods_info}, goods_notice=#{goods_notice}, goods_place=#{goods_place}, goods_seats=#{goods_seats}
+			update goods set goods_type=#{goods_type}, goods_genre=#{goods_genre}, goods_name=#{goods_name}, goods_startDate=#{goods_startDate}, goods_endDate=#{goods_endDate}, goods_runningTime=#{goods_runningTime}, goods_age=#{goods_age}, goods_price=#{goods_price}, goods_discount=#{goods_discount}, goods_info=#{goods_info}, goods_notice=#{goods_notice}, goods_place=#{goods_place}
 			where goods_id=#{goods_id}
 		]]>
 	</update>
