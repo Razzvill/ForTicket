@@ -321,13 +321,13 @@ public class GoodsControllerImpl implements GoodsController{
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html;charset=utf-8");
 		try {
-			goodsService.removeGoods(goods_id);
 			goodsService.removeAllGoodsImage(goods_id);
+			goodsService.removeGoods(goods_id);
 			File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
 			FileUtils.deleteDirectory(destDir);
 			message = "<script>";
 			message += " alert('상품이 삭제되었습니다.');";
-			message += "location.href='"+req.getContextPath()+"/goods/listGoods.do';";
+			message += "location.href='"+req.getContextPath()+"/goods/a_listGoods.do';";
 			message += "</script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -533,7 +533,7 @@ public class GoodsControllerImpl implements GoodsController{
 		while(fileNames.hasNext()){
 			G_imageFileVO imageFileVO =new G_imageFileVO();
 			String fileName = fileNames.next();
-			imageFileVO.setFileName(fileName);
+			imageFileVO.setFileType(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			String originalFileName=mFile.getOriginalFilename();
 			imageFileVO.setFileName(originalFileName);

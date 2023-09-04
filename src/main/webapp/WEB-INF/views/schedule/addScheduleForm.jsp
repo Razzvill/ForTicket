@@ -186,11 +186,25 @@ request.setCharacterEncoding("utf-8");
 					<h6 class="m-0 font-weight-bold text-primary">상품 선택</h6>
 				</div>
 				<div class="card-body text-center scrollerline" id="goodsList">
-					<c:forEach items="${goodsList}" var="goods">
-						<c:if test="${member.mem_id == goods.mem_id}">
-							<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
-						</c:if>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${type=='B'}">
+							<c:forEach var="goods" items="${goodsList}">
+								<c:choose>
+									<c:when test="${goods.mem_id==member.mem_id}">
+										<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
+									</c:when>
+									<c:otherwise>
+										
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="goods" items="${goodsList}">
+								<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

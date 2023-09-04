@@ -348,13 +348,6 @@
 									</tr>
 								</c:when>
 							</c:choose>
-							<c:otherwise>
-								<tr>
-									<td colspan="9">
-									<strong>조회된 스케줄이 없습니다.</strong>
-									</td>
-								</tr>
-							</c:otherwise>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>

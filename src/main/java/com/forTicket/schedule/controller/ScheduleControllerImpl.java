@@ -90,11 +90,13 @@ public class ScheduleControllerImpl implements ScheduleController {
 		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("member");
 		List goodsList = goodsService.listGoods();
 		List theaterList = theaterService.listTheaters();
 		mav.addObject("goodsList", goodsList);
 		mav.addObject("theaterList", theaterList);
+		mav.addObject("member", member);
 		return mav;
 	}
 
