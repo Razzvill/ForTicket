@@ -23,4 +23,10 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDAO.myReservation(condMap);
 	}
 	
+	//사업자 상품 예매내역페이지
+	@Override
+	public ArrayList<OrderVO> b_myReservation(HashMap condMap) throws Exception {
+		return mypageDAO.b_myReservation(condMap);
+	}
+	
 }

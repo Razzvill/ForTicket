@@ -72,8 +72,33 @@
 		text-align:left;
 		font-weight:bold;
 	}
-
 </style>
+<script>
+function fn_cancel_order(order_No,mem_id){
+	var answer=confirm("예매가 취소되었습니다.");
+	if(answer==true){
+		
+		debugger;
+		
+		var formObj=document.createElement("form");
+		var i_order_No = document.createElement("input"); 
+		var i_mem_id = document.createElement("input"); 
+	    
+	    i_order_No.name="order_No";
+	    i_mem_id.name="mem_id";
+	    
+	    i_order_No.value=order_No;
+	    i_mem_id.value=mem_id;
+		
+	    formObj.appendChild(i_order_No);
+	    formObj.appendChild(i_mem_id);
+	    document.body.appendChild(formObj); 
+	    formObj.method="post";
+	    formObj.action="${contextPath}/order/b_refundSuccess.do";
+	    formObj.submit();	
+	}
+}
+</script>
 </head>
 <body>
 <div class="mypage_right_wrap">
@@ -114,12 +139,13 @@
         		<td class="option_con1">이용 1일 전 자정까지 신청가능<br>(환불규정에 따라 위약금이 발생할 수 있음)
         	</tr>
         </table>
+        <input type="hidden" value="${member.mem_id }">
  	</div>
 </div>
 
 <div style="padding:30px; text-align:center;">
 	<span style="padding-left:20px;">
-		<a href="${contextPath }/order/ticketrefund.do?order_No=${detail.order_No}"><button style="width:200px; height:50px; border:none; background:#ff4b4b; color:#fff; border-radius:5px; font-size:18px; font-weight:bold; cursor:pointer ">환불신청하기</button></a>
+		<a onClick="fn_cancel_order('${detail.order_No}','${member.mem_id}')"><button style="width:200px; height:50px; border:none; background:#ff4b4b; color:#fff; border-radius:5px; font-size:18px; font-weight:bold; cursor:pointer ">환불하기</button></a>
 	</span>
 </div>
 </body>

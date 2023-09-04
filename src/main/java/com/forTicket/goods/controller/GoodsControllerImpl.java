@@ -77,8 +77,6 @@ public class GoodsControllerImpl implements GoodsController{
 		        .filter(goods -> goods.getGoods_id() == goods_id)
 		        .findFirst()
 		        .ifPresent(goods -> goods.setGoods_avg(roundedAvgStar));
-		    
-		    System.out.println("Goods ID: " + goods_id + ", Average Star: " + roundedAvgStar);
 		}
 		
 		HttpSession session = req.getSession();
@@ -170,13 +168,9 @@ public class GoodsControllerImpl implements GoodsController{
 
 		double avgStar = calculateAverageStar(goods_id);
 		double roundedAvgStar = Math.round(avgStar * 10) / 10.0;
-		System.out.println(" count                              "+countStar);
-		System.out.println(" avgstar                              "+avgStar);
 		
 		List<CommunityVO> reviewList = goodsService.reviewList(goods_id);
-		
-		System.out.println(reviewList);
-		
+				
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsMap", goodsMap);
 		mav.addObject("theater", theaterVO);
@@ -551,10 +545,6 @@ public class GoodsControllerImpl implements GoodsController{
 	private double calculateAverageStar(int goods_id) {
 		Double avgStar = goodsService.avgStar(goods_id); // goods_id에 해당하는 상품의 평균 평점을 DB에서 조회하여 계산하는 로직
 	    // 실제로는 데이터베이스 조회 등의 작업이 여기에 들어감
-	  System.out.println(goods_id);
-	  System.out.println(avgStar);
-	  
-	  
 		if (avgStar != null) {
 	        return avgStar; // 평균 평점이 null이 아닐 경우 정상적으로 값을 반환
 	    } else {
