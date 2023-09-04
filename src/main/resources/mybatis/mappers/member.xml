@@ -19,6 +19,8 @@
 		<result property="checkbox" column="checkbox" />
 		<result property="type" column="type" />
 		<result property="joinDate" column="joinDate" />
+		<result property="api" column="api" />
+		<result property="snsid" column="snsid" />
 	</resultMap>
 
 	<select id="selectAllMemberList" resultMap="memResult"   >
@@ -150,7 +152,7 @@
 	
     <update id="setKakaoConnection"  parameterType="java.util.Map">
 		<![CDATA[
-		 update user SET api =#{flag}, snsid =#{pwd} WHERE email =#{email} limit 10 ;
+		 update member SET api =#{flag}, snsid =#{pwd} WHERE email =#{email} limit 10 ;
 		]]>      
 	</update>
 	
