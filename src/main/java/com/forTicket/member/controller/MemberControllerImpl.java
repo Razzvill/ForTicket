@@ -51,10 +51,26 @@ public class MemberControllerImpl implements MemberController{
 	@RequestMapping(value = "/member/logout.do", method =  RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		
+
+		String loginType = session.getAttribute("loginType") == null ? "" : session.getAttribute("loginType").toString();
+		
+		if(!loginType.isEmpty()) {
+			if(loginType.equals("kakao")) {
+				MemberVO currentUser = (MemberVO) session.getAttribute("member");
+				HashMap currentUserMap = new HashMap();
+				currentUserMap.put("email", currentUser.getEmail());
+				
+				memberService.setKakaoDisConnection(currentUserMap);
+				
+			}
+		}
+		
+		session.removeAttribute("loginType");
 		session.removeAttribute("member");
 		session.removeAttribute("isLogOn");
 		session.removeAttribute("type");
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/main.do");
 		return mav;
@@ -139,6 +155,7 @@ public class MemberControllerImpl implements MemberController{
 		    HttpSession session = request.getSession();
 		    session.setAttribute("member", memberVO);
 		    session.setAttribute("isLogOn", true);
+		    session.setAttribute("loginType", "");
 		    session.setAttribute("type", memberVO.getType());
 		   		    
 		    String action = (String)session.getAttribute("action");
@@ -255,36 +272,32 @@ public class MemberControllerImpl implements MemberController{
 		System.out.println("paramMap:" + paramMap);
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		
-		Map <String, Object> kakaoConnectionCheck = memberService.kakaoConnectionCheck(paramMap);
-		System.out.println("kakaoConnectionCheck : " + kakaoConnectionCheck);
-		
-		if(kakaoConnectionCheck == null) {    //일치하는 이메일 없을때
+		memberVO = memberService.kakaoConnectionEmailCheck(paramMap);
+
+		if(memberVO == null) {    //일치하는 이메일 없을때
 			resultMap.put("JavaData", "register");
+			return resultMap;
 		}
-		else if(kakaoConnectionCheck.get("api") == null && kakaoConnectionCheck.get("email") != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
-			System.out.println("kakao 로 로그인");
-			memberService.setKakaoConnection(paramMap);
+		
+		if(memberVO.getEmail() != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
+			// 카카오로 로그인 했는지 판단하기위한 값
+			HashMap kakaoDataMap = new HashMap();
+			kakaoDataMap.put("flag", "kakao");
+			kakaoDataMap.put("pwd", memberVO.getMem_id());
+			kakaoDataMap.put("email", memberVO.getEmail());
 			
-			if(memberVO != null && memberVO.getAddr1() == null) {
-				session.setAttribute("member", kakaoConnectionCheck);
-				session.setAttribute("isLogOn", true);
-			}
+			memberService.setKakaoConnection(kakaoDataMap);
+			
+			session.setAttribute("member", memberVO);
+		    session.setAttribute("isLogOn", true);
+		    session.setAttribute("type", memberVO.getType());
+		    session.setAttribute("loginType", "kakao");
 			resultMap.put("JavaData", "YES");
 		}
 		else{
-			System.out.println("이건가?");
-			if(memberVO != null && memberVO.getAddr1() == null) {
-				System.out.println("d여기와따");
-				session.setAttribute("member", kakaoConnectionCheck);
-				session.setAttribute("isLogOn", true);
-			}
-			
-			resultMap.put("JavaData", "YES");
+			resultMap.put("JavaData", "NO");
 		}
-		System.out.println("resultMap : " + resultMap);
+
 		return resultMap;		
 	}
-	
-
-   
 }

@@ -26,6 +26,8 @@ public interface MemberDAO {
     public int insert_kakao(Map<String, Object> paramMap);
 	public Map<String, Object> kakaoLogin(Map<String, Object> paramMap);
 	public Map<String, Object> kakaoConnectionCheck(Map<String, Object> paramMap);
+	public MemberVO kakaoConnectionEmailCheck(Map<String, Object> paramMap);
 	public int setKakaoConnection(Map<String, Object> paramMap);
+	public int setKakaoDisConnection(Map<String, Object> paramMap);
 
 }

@@ -112,12 +112,6 @@
 
     </div>
   </div>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-Kakao.init('714b1cee4e7cce6b2f35d6356e10b558'); 
-console.log(Kakao.isInitialized()); // sdk초기화여부판단
-</script>
 <script>
 function kakaoLogin() {
     Kakao.Auth.login({
@@ -126,6 +120,7 @@ function kakaoLogin() {
           url: '/v2/user/me',
 
           success: function (response) {
+        	  debugger;
             KakaoLoginPro(response),
 	       	  console.log(response)
           },
@@ -144,40 +139,37 @@ function kakaoLogin() {
   }
 
 function KakaoLoginPro(response){
-	  var data = {id:response.id, email:response.kakao_account.email, nickname:response.kakao_account.profile.nickname }
-    
-	  $.ajax({
-  		type : 'POST',
-		  url : '/member/kakaoLoginPro.do',
-		  data : data,
-		  dataType : 'json',
+	var data = {id:response.id, email:response.kakao_account.email, nickname:response.kakao_account.profile.nickname }
 
-		  success : function(data){
-  			console.log(data)
-        
-			  if(data.JavaData == "YES"){
-  				alert("로그인되었습니다.");
-                location.href = '/main.do'
-			  }
-        else if(data.JavaData == "register"){
-  				$("#kakaoEmail").val(response.kakao_account.email);
-				  $("#kakaoId").val(response.id);
-          $("#kakaoNickname").val(response.kakao_account.profile.nickname);
-          
-				  $("#kakaoForm").submit();
+	$.ajax({
+		type : 'POST',
+		url : '/member/kakaoLoginPro.do',
+		data : data,
+		dataType : 'json',
+		success : function(data){
+			console.log(data)
 
-			  }
-        else{
-  				alert("로그인에 실패했습니다22");
-			  }
-      
-		  },
-
-		  error: function(xhr, status, error){
-        alert("로그인에 실패했습니다11."+ error);
-		  }
-	  });
-  }
+			if(data.JavaData == "YES"){
+				alert("로그인되었습니다.");
+				location.href = '/main.do'
+			}
+			else if(data.JavaData == "register"){
+				$("#kakaoEmail").val(response.kakao_account.email);
+				$("#kakaoId").val(response.id);
+				$("#kakaoNickname").val(response.kakao_account.profile.nickname);
+				$("#kakaoForm").submit();
+			}
+			else{
+				alert("로그인에 실패했습니다");
+				return;
+			}
+		},
+		error: function(xhr, status, error){
+			alert("로그인에 실패했습니다 ERROR CODE : "+ error);
+			return;
+		}
+	});
+}
 </script>
 </body>
 </html>

@@ -160,6 +160,8 @@
 </head>
 <body>
 <div style="width:100%;">
+	<input type="hidden" id="hiddenLogout" value="${contextPath }/member/logout.do" />
+	<input type="hidden" id="hiddenLoginType" value="${loginType}" />
 	<!-- header 상단 -->
 	<c:choose>
 	<c:when test="${isLogOn == true && type=='U' }">
@@ -171,7 +173,7 @@
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/myreservation.do?mem_id=${member.mem_id}">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
+			<li><a class="top" onclick="logout()">로그아웃<br></a></li>
 		</ul>
 		</div>
 	</div>
@@ -185,7 +187,7 @@
 			<li>&nbsp;|&nbsp;</li>
 			<li><a class="top" href="${contextPath }/member/b_myreservation.do?mem_id=${member.mem_id}">마이페이지<br></a></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
+			<li><a class="top" onclick="logout()">로그아웃<br></a></li>
 		</ul>
 		</div>
 	</div>
@@ -197,7 +199,7 @@
 			<li class="top1"><span id="admin">관리자</span>&nbsp;</li>
 			<li class="top">관리자님<br></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a class="top" href="${contextPath }/member/logout.do">로그아웃<br></a></li>
+			<li><a class="top" onclick="logout()">로그아웃<br></a></li>
 		</ul>
 		</div>
 	</div>
@@ -290,5 +292,34 @@
 	</c:otherwise>
 	</c:choose>
 </div>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+Kakao.init('714b1cee4e7cce6b2f35d6356e10b558'); 
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+
+	function kakaoLogout(logoutUrl) {
+		Kakao.Auth.logout(function(){
+			location.href = logoutUrl;
+		});
+	}  
+	
+	function logout(){
+		debugger;
+		let logoutUrl = document.getElementById("hiddenLogout").value;
+		let loginType = document.getElementById("hiddenLoginType").value;
+		
+		if(loginType === "kakao"){
+			kakaoLogout(logoutUrl);
+		}else{
+			location.href = logoutUrl;
+		}
+	}
+</script>
+
 </body>
+
 </html>
+
