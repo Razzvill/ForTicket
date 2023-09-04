@@ -129,7 +129,14 @@
 </select>
 
 
-<select id="kakaoConnectionCheck" resultType="Map" parameterType="java.util.Map" >
+	<select id="kakaoConnectionCheck" resultType="Map" parameterType="java.util.Map" >
+		<![CDATA[
+		SELECT * from member
+		where email=#{email}  
+		]]>
+  	</select>
+  	
+  	<select id="kakaoConnectionEmailCheck" resultType="memberVO" parameterType="java.util.Map" >
 		<![CDATA[
 		SELECT * from member
 		where email=#{email}  
@@ -152,7 +159,13 @@
 	
     <update id="setKakaoConnection"  parameterType="java.util.Map">
 		<![CDATA[
-		 update member SET api =#{flag}, snsid =#{pwd} WHERE email =#{email} limit 10 ;
+		 update member SET api =#{flag}, snsid =#{pwd} WHERE email =#{email}
+		]]>      
+	</update>
+	
+	<update id="setKakaoDisConnection"  parameterType="java.util.Map">
+		<![CDATA[
+		 update member SET api = NULL, snsid = NULL WHERE email =#{email}
 		]]>      
 	</update>
 	
