@@ -125,5 +125,33 @@
     FROM member
     WHERE mem_id = #{mem_id}
 </select>
+
+
+<select id="kakaoConnectionCheck" resultType="Map" parameterType="java.util.Map" >
+		<![CDATA[
+		SELECT * from member
+		where email=#{email}  
+		]]>
+  	</select>
+	
+	 <insert id="insert_kakao"  parameterType="java.util.Map">
+		<![CDATA[
+		 insert into member(type,mem_id,b_number,pwd,mem_name,b_name, email,phone, b_phone, post, addr1, addr2, checkbox, api, snsid)
+		values(#{type},#{mem_id},#{b_number},#{pwd},#{mem_name},#{b_name}, #{email},#{phone},#{b_phone},#{post},#{addr1},#{addr2},#{checkbox},#{api},#{snsid})
+		]]>      
+	</insert>
+
+	<select id="kakaoLogin"  resultType="memberVO" parameterType="java.util.Map" >
+		<![CDATA[
+		select * from member
+		where mem_id=#{mem_id} and pwd=#{id} and api=#{flag}	
+		]]>
+  	</select>
+	
+    <update id="setKakaoConnection"  parameterType="java.util.Map">
+		<![CDATA[
+		 update user SET api =#{flag}, snsid =#{pwd} WHERE email =#{email} limit 10 ;
+		]]>      
+	</update>
 	
 </mapper>

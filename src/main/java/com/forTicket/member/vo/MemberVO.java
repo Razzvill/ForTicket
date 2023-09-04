@@ -19,6 +19,23 @@ public class MemberVO {
 	private String b_phone;
 	private String checkbox;
 	private String type;
+	private String api;
+	private String snsid;
+	
+	
+	public String getApi() {
+		return api;
+	}
+	public void setApi(String api) {
+		this.api = api;
+	}
+	public String getSnsid() {
+		return snsid;
+	}
+	public void setSnsid(String snsid) {
+		this.snsid = snsid;
+	}
+
 	private Date joinDate;
 	
 	
