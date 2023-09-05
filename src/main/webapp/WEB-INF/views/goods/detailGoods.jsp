@@ -342,7 +342,7 @@ request.setCharacterEncoding("utf-8");
 						<button onClick="location.href='${contextPath}/order/order_seatNone.do?goods_id=${goods.goods_id}'" class="">예매하기</button>
 					</c:otherwise>
 				</c:choose>
-				<button href="#" class="">관심 ☆</button>
+				<button onClick="location.href='${contextPath}/member/basket.do?goods_id=${goods.goods_id}'" class="">관심 ☆</button>
 			</div>
 		</section>
 

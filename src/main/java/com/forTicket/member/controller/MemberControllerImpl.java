@@ -300,4 +300,17 @@ public class MemberControllerImpl implements MemberController{
 
 		return resultMap;		
 	}
+	
+	//로그인 페이지 이동
+	@RequestMapping(value= "/member/basket.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView basket(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		
+		HttpSession session=request.getSession();
+				
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
 }

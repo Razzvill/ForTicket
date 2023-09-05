@@ -87,7 +87,7 @@
     	<h2 style="text-align:left; margin-bottom:10px;">공지사항</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
     </div>
-    <div class="board">
+    <div class="">
     	<table class="board">
 		<tr class="boardtr1">
 			<td class="boardtd1">글번호</td>
