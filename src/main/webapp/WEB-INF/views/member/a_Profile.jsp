@@ -312,15 +312,15 @@
 
 	<table class="result">
 		<tr>
-			<td>회원명</td>
-			<td>아이디</td>
-			<td>비밀번호</td>
-			<td>핸드폰번호</td>
-			<td>이메일</td>
-			<td>주소</td>
-			<td>가입일자</td>
-			<td>수정</td>
-			<td>삭제</td>
+			<td class="font1">회원명</td>
+			<td class="font1">아이디</td>
+			<td class="font1">비밀번호</td>
+			<td class="font1">핸드폰번호</td>
+			<td class="font1">이메일</td>
+			<td class="font1">주소</td>
+			<td class="font1">가입일자</td>
+			<td class="font1">수정</td>
+			<td class="font1">삭제</td>
 		</tr>
 		<c:choose>
 			<c:when test="${empty member_list}">
