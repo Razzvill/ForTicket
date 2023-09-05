@@ -23,6 +23,6 @@ public interface MemberController {
 	public ModelAndView findIdResult(String mem_name, String phone, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView updateMember(@ModelAttribute("info") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView m_Edit(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView kakaoLoginPro(@RequestParam Map<String, Object> paramMap, HttpSession session) throws SQLException, Exception;
+	public Map<String, Object> kakaoLoginPro(@RequestParam Map<String, Object> paramMap, HttpSession session) throws SQLException, Exception;
 	
 }

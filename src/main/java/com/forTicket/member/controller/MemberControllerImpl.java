@@ -265,58 +265,7 @@ public class MemberControllerImpl implements MemberController{
 		return mav;
 	}
 	
-<<<<<<< HEAD
-	// 카카오 로그인
-	@Override
-	@RequestMapping(value = "/member/kakaoLoginPro.do", method = RequestMethod.POST)
-	public ModelAndView kakaoLoginPro(@RequestParam Map<String, Object> paramMap, HttpSession session)
-	        throws SQLException, Exception {
-	    ModelAndView mav = new ModelAndView();
-	    System.out.println("paramMap:" + paramMap);
-
-	    Map<String, Object> resultMap = new HashMap<String, Object>();
-	    
-	    // 1. 카카오로부터 받은 정보 처리
-	    String kakaoId = (String) paramMap.get("id");
-	    String kakaoNickname = (String) paramMap.get("nickname");
-
-	    // 2. 카카오 연동된 사용자인지 확인
-	    Map<String, Object> kakaoConnectionCheck = memberService.kakaoConnectionCheck(paramMap);
-
-	    if (kakaoConnectionCheck == null) {
-	    	System.out.println("회원가입");
-	        // 3. 카카오 연동된 사용자가 아니라면, 회원가입 페이지로 이동
-	        mav.setViewName("redirect:/member/memberForm.do");
-	    } else if (kakaoConnectionCheck.get("api") == null && kakaoConnectionCheck.get("email") != null) {
-	        // 4. 카카오 연동된 사용자인 경우, 로그인 처리를 합니다.
-	        // 이 부분은 회원 정보에 따라 로그인 처리 방식을 수정할 수 있습니다.
-	        // 여기서는 memberService를 사용하여 로그인 처리를 진행하도록 가정합니다.
-	        MemberVO memberVO = new MemberVO();
-
-	        try {
-	            // 5. 회원 로그인 처리
-	            memberVO = memberService.login(memberVO);
-	            if (memberVO != null) {
-	                session.setAttribute("memberVO", memberVO);
-	                session.setAttribute("isLogOn", true);
-	                resultMap.put("JavaData", "YES");
-	            } else {
-	                resultMap.put("JavaData", "로그인 실패 메시지");
-	            }
-	        } catch (Exception e) {
-	            // 6. 로그인 처리 중 예외 발생
-	            resultMap.put("JavaData", "로그인 실패 메시지");
-	        }
-	    } else {
-	        resultMap.put("JavaData", "로그인 실패 메시지");
-	    }
-
-	    mav.addObject("resultMap", resultMap);
-	    System.out.println("resultMap : " + resultMap);
-	    return mav;
-	}
    
-=======
 	//카카오 로그인
 	@RequestMapping(value="/member/kakaoLoginPro.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -326,13 +275,12 @@ public class MemberControllerImpl implements MemberController{
 		
 		memberVO = memberService.kakaoConnectionEmailCheck(paramMap);
 
-		if(memberVO == null) {    //일치하는 이메일 없을때
+		if(memberVO == null) {    
 			resultMap.put("JavaData", "register");
 			return resultMap;
 		}
 		
-		if(memberVO.getEmail() != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
-			// 카카오로 로그인 했는지 판단하기위한 값
+		if(memberVO.getEmail() != null) { 
 			HashMap kakaoDataMap = new HashMap();
 			kakaoDataMap.put("flag", "kakao");
 			kakaoDataMap.put("pwd", memberVO.getMem_id());
@@ -352,5 +300,4 @@ public class MemberControllerImpl implements MemberController{
 
 		return resultMap;		
 	}
->>>>>>> refs/remotes/origin/master
 }

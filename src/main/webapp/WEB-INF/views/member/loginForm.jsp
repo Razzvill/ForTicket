@@ -111,23 +111,9 @@
       </div>
 
     </div>
-    <form id="kakaoForm" method="post" action="${contextPath}/member/kakaoLoginPro.do">
-      <input type="hidden" name="id" id="kakaoId">
-      <input type="hidden" name="email" id="kakaoEmail">
-      <input type="hidden" name="nickname" id="kakaoNickname">
-    </form>
   </div>
-<<<<<<< HEAD
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>
-Kakao.init('9c4ab2164685265e5b9aa5dd366cab70'); 
-console.log(Kakao.isInitialized()); // sdk초기화여부판단
 
-//카카오로그인
-=======
 <script>
->>>>>>> refs/remotes/origin/master
 function kakaoLogin() {
     Kakao.Auth.login({
       success: function (response) {
@@ -135,7 +121,6 @@ function kakaoLogin() {
           url: '/v2/user/me',
 
           success: function (response) {
-        	  debugger;
             KakaoLoginPro(response),
 	       	  console.log(response)
           },
@@ -164,21 +149,6 @@ function KakaoLoginPro(response){
 		success : function(data){
 			console.log(data)
 
-<<<<<<< HEAD
-			  }
-        else{
-  				alert("로그인에 실패했습니다22");
-			  }
-      
-		  },
-
-		  error: function(xhr, status, error){
-        alert("로그인에 실패했습니다11."+ error);
-		  }
-	  });
-  }
-
-=======
 			if(data.JavaData == "YES"){
 				alert("로그인되었습니다.");
 				location.href = '/main.do'
@@ -200,7 +170,7 @@ function KakaoLoginPro(response){
 		}
 	});
 }
->>>>>>> refs/remotes/origin/master
+
 </script>
 </body>
 </html>
