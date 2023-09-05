@@ -22,7 +22,9 @@ request.setCharacterEncoding("utf-8");
 		width: 1100px;
 		position: relative;
 	}
-	
+	li.prod, a.prod {
+		width: 270px;
+	}
 	.main_title {
 		font-size: 25px;
 		font-weight: 900;
@@ -192,8 +194,8 @@ request.setCharacterEncoding("utf-8");
 			<ul id="sortedList">
 				<c:forEach var="goods" items="${goodsList}">
 					<c:if test="${goods.goods_type == goodsType}">
-						<li>
-							<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
+						<li class="prod">
+							<a class="prod" href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
 								<div class="drama_list">
 									<div class="thumb">
 										<img src="${contextPath}/goods/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
