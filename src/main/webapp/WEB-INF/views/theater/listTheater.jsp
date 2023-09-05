@@ -20,6 +20,11 @@
 	}
 	table {
 	  border-collapse: collapse;
+	  width: 1100px;
+	  display: inline-block;
+	  border: 0;
+	  cellpadding: 0;
+	  cellspacing: 0;
 	}
 	object {
 	  display: block;
@@ -28,6 +33,7 @@
 	  margin: auto;
 	  width: 1100px;
 	  position: relative;
+	  display: inline-block;
 	}
 	img {
 	  border: none;
@@ -40,7 +46,7 @@
 	.theater_list {
 	  position: relative;
 	  width: 255px;
-	  margin-right: 26px;
+	  margin-right: 20px;
 	  margin-bottom: 60px;
 	  letter-spacing: -1px;
 	  text-align: left;
@@ -136,27 +142,23 @@
 		<strong>등록된 공연장이 없습니다.</strong>
 	</c:when>
 	<c:otherwise>
-		<table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<tbody>
-				<tr>
-					<c:forEach var="theater" items="${theatersList}">
-					<td valign="top" align="left">
-						<a href="${contextPath}/theater/detailTheater.do?theater_id=${theater.theater_id}">
-							<div class="theater_list">
-								<div class="thumb">
-									<img src="${contextPath}/theater/download.do?theater_id=${theater.theater_id}&theater_image=${theater.theater_image}" alt="${theater.theater_name}">
-								</div>
-								<div class="theater_info">
-									<p class="category">${theater.theater_cat}</p>
-									<p class="title">${theater.theater_name}</p>
-								</div>
+		<ul>
+			<c:forEach var="theater" items="${theatersList}">
+				<li>
+					<a href="${contextPath}/theater/detailTheater.do?theater_id=${theater.theater_id}">
+						<div class="theater_list">
+							<div class="thumb">
+								<img src="${contextPath}/theater/download.do?theater_id=${theater.theater_id}&theater_image=${theater.theater_image}" alt="${theater.theater_name}">
 							</div>
-						</a>
-					</td>
-					</c:forEach>
-				</tr>
-			</tbody>
-		</table>
+							<div class="theater_info">
+								<p class="category">${theater.theater_cat}</p>
+								<p class="title">${theater.theater_name}</p>
+							</div>
+						</div>
+					</a>
+				</li>
+			</c:forEach>
+		</ul>
 	</c:otherwise>
 </c:choose>
 </div>
