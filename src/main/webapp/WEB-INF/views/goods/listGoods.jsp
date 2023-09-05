@@ -92,7 +92,68 @@ request.setCharacterEncoding("utf-8");
 	}
 </style>
 </head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	//등록일 내림차순 정렬 함수
+	function sortByDateDescending(a, b) {
+	    return new Date(b.goods_creDate) - new Date(a.goods_creDate);
+	}
+	
+	// 별점 내림차순 정렬 함수
+	function sortByStarDescending(a, b) {
+	    return b.goods_avg - a.goods_avg;
+	}
+	
+	// 가격 오름차순 정렬 함수
+	function sortByPriceAscending(a, b) {
+	    return a.goods_price - b.goods_price;
+	}
+	
+	// 가격 내림차순 정렬 함수
+	function sortByPriceDescending(a, b) {
+	    return b.goods_price - a.goods_price;
+	}
+	
+	$(document).ready(function () {
+	    // 초기 정렬 (등록일 내림차순)
+	    var goodsList = []; // 상품 목록을 저장할 배열
 
+	    // goodsList 배열에 상품 정보를 저장하는 코드
+
+	    // 클릭 이벤트 처리
+	    $("#sortDate").click(function () {
+	        goodsList.sort(sortByDateDescending);
+	        displaySortedGoods(goodsList);
+	    });
+
+	    $("#sortStar").click(function () {
+	        goodsList.sort(sortByStarDescending);
+	        displaySortedGoods(goodsList);
+	    });
+
+	    $("#sortCheaper").click(function () {
+	        goodsList.sort(sortByPriceAscending);
+	        displaySortedGoods(goodsList);
+	    });
+
+	    $("#sortExpensive").click(function () {
+	        goodsList.sort(sortByPriceDescending);
+	        displaySortedGoods(goodsList);
+	    });
+
+	    // 정렬된 상품을 화면에 출력하는 함수
+	    function displaySortedGoods(sortedGoodsList) {
+	        var sortedHtml = ""; // 정렬된 상품 목록을 저장할 변수
+
+	        for (var i = 0; i < sortedGoodsList.length; i++) {
+	            var goods = sortedGoodsList[i];
+	            // 상품 정보를 HTML로 변환하여 sortedHtml에 추가하는 코드
+	        }
+
+	        $("#sortedList").html(sortedHtml); // 정렬된 상품 목록을 화면에 출력
+	    }
+	});
+</script>
 <body>
 <section>
 	<div class="wrap_1100">
@@ -112,68 +173,65 @@ request.setCharacterEncoding("utf-8");
 		</div><hr>
 	<div class="main_title_more">
 			<ul class="category_sort">
-				<li><a href="#"> 종료일순 </a></li>
+				<li><a href="#" id="sortDate"> 최신순 </a></li>
 				<li>|</li>
-				<li><a href="#"> 별점순 </a></li>
+				<li><a href="#" id="sortStar"> 별점순 </a></li>
 				<li>|</li>
-				<li><a href="#"> 최저가순 </a></li>
+				<li><a href="#" id="sortCheaper"> 최저가순 </a></li>
 				<li>|</li>
-				<li><a href="#"> 최고가순 </a></li>
+				<li><a href="#" id="sortExpensive"> 최고가순 </a></li>
 			</ul>
 		</div>
 	<!-- 중단 상품 나열 -->
 	<div style="padding-top: 50px;">
 	<c:choose>
-	<c:when test="${empty goodsList}">
-		<strong>등록된 상품이 없습니다.</strong>
-	</c:when>
-	<c:otherwise>
-	<table style="width: 100%; border: 0; cellpadding: 0; cellspacing: 0;">
-	<tbody>
-	<tr>
-		<c:forEach var="goods" items="${goodsList}">
-			<c:if test="${goods.goods_type == goodsType}">
-				<td valign="top" align="left">
-					<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
-						<div class="drama_list">
-							<div class="thumb">
-								<img src="${contextPath}/goods/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
-								<div></div>
-							</div>
-							<div class="text">
-								<p style="color:#666666;">🗂️ <c:choose>
-						<c:when test="${goods.goods_type == 'drama'}">
-							연극
-						</c:when>
-						<c:when test="${goods.goods_type=='musical'}">
-							뮤지컬
-						</c:when>
-						<c:otherwise>
-							공연
-						</c:otherwise>
-					</c:choose> &gt; ${goods.goods_genre}</p>
-								<p style="font-size: 20px;">${goods.goods_name}</p>
-							<div>
-								<div class="price">
-								<span>
-									<img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">
-									${goods.goods_avg}
-									</span>
-								<span style="padding-right:30px;">${goods.goods_price} 원</span>
+		<c:when test="${empty goodsList}">
+			<strong>등록된 상품이 없습니다.</strong>
+		</c:when>
+		<c:otherwise>
+			<ul id="sortedList">
+				<c:forEach var="goods" items="${goodsList}">
+					<c:if test="${goods.goods_type == goodsType}">
+						<li>
+							<a href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
+								<div class="drama_list">
+									<div class="thumb">
+										<img src="${contextPath}/goods/thumbnails.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}" alt="${goods.goods_name}">
+										<div></div>
+									</div>
+									<div class="text">
+										<p style="color:#666666;">🗂️
+										<c:choose>
+											<c:when test="${goods.goods_type == 'drama'}">
+												연극
+											</c:when>
+											<c:when test="${goods.goods_type=='musical'}">
+												뮤지컬
+											</c:when>
+											<c:otherwise>
+												공연
+											</c:otherwise>
+										</c:choose> &gt; ${goods.goods_genre}</p>
+										<p style="font-size: 20px;">${goods.goods_name}</p>
+										<div>
+											<div class="price">
+												<span>
+													<img class="stars" src="${contextPath}/resources/images/ico_star.png" alt="별점">
+													${goods.goods_avg}
+												</span>
+												<span style="padding-right:30px;">${goods.goods_price} 원</span>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
-							</div>
-						</div>
-					</a>
-				</td>
-			</c:if>
-		</c:forEach>
-	</tr>
-	</tbody>
-	</table>
-	</c:otherwise>
+							</a>
+						</li>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</c:otherwise>
 	</c:choose>
-</div>	
+</div>
 </section>
 </body>
 </html>
