@@ -18,7 +18,7 @@
 		<result property="goods_info" column="goods_info" />
 		<result property="goods_notice" column="goods_notice" />
 		<result property="goods_place" column="goods_place" />
-		<result property="goods_creDate" column="goods_creDate" />
+		<result property="goods_creDate" column="goods_creDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
 		<result property="mem_id" column="mem_id" />
 		<result property="goods_seats" column="goods_seats"/>
 		<result property="goods_fileName" column="fileName" />
