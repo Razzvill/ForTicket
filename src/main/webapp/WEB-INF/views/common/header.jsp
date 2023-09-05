@@ -95,6 +95,7 @@
 	   	text-decoration: none;
 		margin-top: 4px;
 		color: black;
+		cursor: pointer;
 	}
 	
 	.top1{

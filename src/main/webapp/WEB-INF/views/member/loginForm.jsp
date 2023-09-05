@@ -120,7 +120,7 @@ function kakaoLogin() {
           url: '/v2/user/me',
 
           success: function (response) {
-        	  debugger;
+        	 // debugger;
             KakaoLoginPro(response),
 	       	  console.log(response)
           },
