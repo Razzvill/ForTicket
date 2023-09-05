@@ -104,21 +104,26 @@
     </form>
     <div class="social_wrap">
       <div>
-        <a id="kakao-login-btn" href="javascript:void(0)" onclick="kakaoLogin();">
+        <a id="kakao-login-btn"  href="javascript:void(0)" onclick="kakaoLogin();">
           <img src="${contextPath}/resources/images/member/kakao.png" alt="카카오로그인">
         </a>
         <p id="token-result"></p>
       </div>
 
     </div>
+    <form id="kakaoForm" method="post" action="${contextPath}/member/kakaoLoginPro.do">
+      <input type="hidden" name="id" id="kakaoId">
+      <input type="hidden" name="email" id="kakaoEmail">
+      <input type="hidden" name="nickname" id="kakaoNickname">
+    </form>
   </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 Kakao.init('9c4ab2164685265e5b9aa5dd366cab70'); 
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
-</script>
-<script>
+
+//카카오로그인
 function kakaoLogin() {
     Kakao.Auth.login({
       success: function (response) {
@@ -179,6 +184,7 @@ function KakaoLoginPro(response){
 		  }
 	  });
   }
+
 </script>
 </body>
 </html>
