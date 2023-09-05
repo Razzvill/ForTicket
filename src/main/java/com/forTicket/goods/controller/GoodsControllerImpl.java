@@ -3,7 +3,6 @@ package com.forTicket.goods.controller;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -48,8 +47,6 @@ public class GoodsControllerImpl implements GoodsController{
 	private TheaterService theaterService;
 	@Autowired
 	private TheaterDAO theaterDAO;
-	@Autowired
-	private GoodsVO goodsVO;
 	
 	//상품 목록(사용자)
 	@Override
@@ -59,6 +56,9 @@ public class GoodsControllerImpl implements GoodsController{
 		String viewName = (String)req.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		List<GoodsVO> goodsList = goodsService.listGoods();
+		for(GoodsVO goods : goodsList) {
+			System.out.println(goods.getGoods_creDate());
+		}
 		
 		List<Integer> goodsIds = goodsList.stream()
                 .mapToInt(GoodsVO::getGoods_id)

@@ -1,6 +1,7 @@
 package com.forTicket.goods.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ public class GoodsVO {
 	private String goods_info;
 	private String goods_notice;
 	private String goods_place;
-	private Date goods_creDate;
+	private Timestamp goods_creDate;
 	private String mem_id;
 	private String goods_seats;
 	private String goods_fileName;
@@ -110,13 +111,13 @@ public class GoodsVO {
 	public void setGoods_place(String goods_place) {
 		this.goods_place = goods_place;
 	}
-	public Date getGoods_creDate() {
+	
+	public Timestamp getGoods_creDate() {
 		return goods_creDate;
 	}
-	public void setGoods_creDate(Date goods_creDate) {
+	public void setGoods_creDate(Timestamp goods_creDate) {
 		this.goods_creDate = goods_creDate;
 	}
-	
 	public String getMem_id() {
 		return mem_id;
 	}

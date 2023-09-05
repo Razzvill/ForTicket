@@ -15,7 +15,7 @@ request.setCharacterEncoding("utf-8");
 <head>
 <meta charset="UTF-8">
 <title>상품 페이지</title>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 	.wrap_1100 {
 		margin: auto;
@@ -94,85 +94,24 @@ request.setCharacterEncoding("utf-8");
 	}
 </style>
 </head>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-	//등록일 내림차순 정렬 함수
-	function sortByDateDescending(a, b) {
-	    return new Date(b.goods_creDate) - new Date(a.goods_creDate);
-	}
-	
-	// 별점 내림차순 정렬 함수
-	function sortByStarDescending(a, b) {
-	    return b.goods_avg - a.goods_avg;
-	}
-	
-	// 가격 오름차순 정렬 함수
-	function sortByPriceAscending(a, b) {
-	    return a.goods_price - b.goods_price;
-	}
-	
-	// 가격 내림차순 정렬 함수
-	function sortByPriceDescending(a, b) {
-	    return b.goods_price - a.goods_price;
-	}
-	
-	$(document).ready(function () {
-	    // 초기 정렬 (등록일 내림차순)
-	    var goodsList = []; // 상품 목록을 저장할 배열
 
-	    // goodsList 배열에 상품 정보를 저장하는 코드
-
-	    // 클릭 이벤트 처리
-	    $("#sortDate").click(function () {
-	        goodsList.sort(sortByDateDescending);
-	        displaySortedGoods(goodsList);
-	    });
-
-	    $("#sortStar").click(function () {
-	        goodsList.sort(sortByStarDescending);
-	        displaySortedGoods(goodsList);
-	    });
-
-	    $("#sortCheaper").click(function () {
-	        goodsList.sort(sortByPriceAscending);
-	        displaySortedGoods(goodsList);
-	    });
-
-	    $("#sortExpensive").click(function () {
-	        goodsList.sort(sortByPriceDescending);
-	        displaySortedGoods(goodsList);
-	    });
-
-	    // 정렬된 상품을 화면에 출력하는 함수
-	    function displaySortedGoods(sortedGoodsList) {
-	        var sortedHtml = ""; // 정렬된 상품 목록을 저장할 변수
-
-	        for (var i = 0; i < sortedGoodsList.length; i++) {
-	            var goods = sortedGoodsList[i];
-	            // 상품 정보를 HTML로 변환하여 sortedHtml에 추가하는 코드
-	        }
-
-	        $("#sortedList").html(sortedHtml); // 정렬된 상품 목록을 화면에 출력
-	    }
-	});
-</script>
 <body>
 <section>
 	<div class="wrap_1100">
 	<!-- 상단 -->
 	<div class="main_title">
 	<c:choose>
-		<c:when test="${goodsType == drama}">
+		<c:when test="${goodsType == 'drama'}">
 			연극
 		</c:when>
-		<c:when test="${goodsType == musical}">
+		<c:when test="${goodsType == 'musical'}">
 			뮤지컬
 		</c:when>
 		<c:otherwise>
 			공연
 		</c:otherwise>
 	</c:choose>
-		</div><hr>
+	</div><hr>
 	<div class="main_title_more">
 			<ul class="category_sort">
 				<li><a href="#" id="sortDate"> 최신순 </a></li>
@@ -194,7 +133,7 @@ request.setCharacterEncoding("utf-8");
 			<ul id="sortedList">
 				<c:forEach var="goods" items="${goodsList}">
 					<c:if test="${goods.goods_type == goodsType}">
-						<li class="prod">
+						<li class="prod" data-goods_creDate="${goods.goods_creDate}" data-goods_avg="${goods.goods_avg}" data-goods_price="${goods.goods_price}">
 							<a class="prod" href="${contextPath}/goods/detailGoods.do?goods_id=${goods.goods_id}">
 								<div class="drama_list">
 									<div class="thumb">
@@ -235,5 +174,46 @@ request.setCharacterEncoding("utf-8");
 	</c:choose>
 </div>
 </section>
+	<script type="text/javascript">
+        $(document).ready(function() {
+            // 기본 정렬 기준 (최신순)
+            var currentSortKey = "goods_creDate";
+
+            // 정렬 버튼 클릭 이벤트 처리
+            $("#sortDate").click(function() {
+                sortGoodsList("goods_creDate");
+            });
+
+            $("#sortStar").click(function() {
+                sortGoodsList("goods_avg");
+            });
+
+            $("#sortCheaper").click(function() {
+                sortGoodsList("goods_price");
+            });
+
+            $("#sortExpensive").click(function() {
+                sortGoodsList("goods_price", true); // 내림차순 정렬
+            });
+
+            // 상품 목록을 정렬하는 함수
+            function sortGoodsList(sortKey, reverse) {
+                // 목록을 복제하여 정렬할 복제 배열 생성
+                var clonedList = $("#sortedList li").clone();
+
+                // 정렬 기준에 따라 배열 정렬
+                clonedList.sort(function(a, b) {
+                    var aValue = $(a).data(sortKey);
+                    var bValue = $(b).data(sortKey);
+                    console.log(aValue);
+                    console.log(bValue);
+                    return reverse ? bValue - aValue : aValue - bValue;
+                });
+
+                // 정렬된 목록을 출력하는 부분 업데이트
+                $("#sortedList").empty().append(clonedList);
+            }
+        });
+    </script>
 </body>
 </html>
