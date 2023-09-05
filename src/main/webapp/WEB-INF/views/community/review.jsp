@@ -18,6 +18,11 @@
 			obj.submit();
 		}
 		
+		function addList(obj){
+			obj.action = "${contextPath }/community/add_review.do";
+			obj.submit();
+		}
+		
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
@@ -142,7 +147,8 @@
 			</tr>
 			<tr>
 				<td class="td1">내용</td>
-				<td class="td2"><input class="inputsize" type="text" name="c_content" value=""></td>
+				<td class="td2"><textarea class="inputsize" name="c_content" value="" rows ="10" cols="65" maxlength="4000"></textarea>
+				</td>
 			</tr>
 			<tr>
 				<td class="td1">사진첨부</td>
@@ -153,7 +159,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="td3">
-					<input type="submit" value="등록" />
+					<input type="button" value="등록" onclick="addList(this.form)" />
 					<input type="button" value="돌아가기" onclick="backToList(this.form)" />
 				</td>
 			</tr>
