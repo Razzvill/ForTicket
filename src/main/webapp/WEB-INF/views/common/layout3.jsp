@@ -36,7 +36,7 @@
 			margin-top: 50px;
 			margin-bottom: 50px;
 			float: left;
-			border: 3px solid #bcbcbc;
+			border: 3px solid #FF6251;
 			font-size: 10px;
 			border-radius : 30px;
 		}
