@@ -297,7 +297,7 @@ request.setCharacterEncoding("utf-8");
 <body>
 	<div class="wrap_1100">
 		<div class="now_engine" style="margin-right: 680px;">
-			🗂️ <a href="#">공연 &gt; </a><a href="#">${goods.goods_type} </a>
+			🗂️ <a href="#">공연 &gt; </a><a href="#">${goods.goods_genre} </a>
 		</div>
 
 		<div
@@ -433,11 +433,22 @@ request.setCharacterEncoding("utf-8");
 					</div>
 					
 					<!-- 상세이미지 -->
+					<div class="accordion" id="accordionPanelsStayOpenExample">
+  					<div class="accordion-item">
+    				<h2 class="accordion-header">
+      				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        			상세 내용 더보기
+      				</button>
+      				</h2>
+      				<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+      				<div class="accordion-body">
 					<c:forEach var="image" items="${imageList }">
 						<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${image.fileName}">
 					</c:forEach>
 					<div class="main_img"></div>
-
+					</div>
+					</div>
+					</div>
 					<!-- 유의사항 -->
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">유의사항</div>
