@@ -47,6 +47,7 @@
            	font-weight: 700;
            	color: black;
            	margin-top : 50px;
+           	text-align: center;
 		}
 		
 		.side_ul{
@@ -79,7 +80,7 @@
 		</c:when>
 		<c:when test="${side_menu=='bus_mode'}">
 			<div class="side_div">
-				마이페이지(사업자)
+				마이페이지
 			</div>
 			<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
 			<ul class="side_ul">
@@ -92,7 +93,7 @@
 			<div class="side_div">
 				고객센터
 			</div>
-			<div style="width: auto; border: 1px solid; border-color: #bcbcbc; margin-top: 10px; margin-bottom:10px;"></div>
+			<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
 			<ul class="side_ul">
 				<li class="side_li"><a href="${contextPath}/center/refund.do" class="side2">환불안내</a></li>
 				<li class="side_li"><a href="${contextPath}/center/notice.do" class="side2">공지사항</a></li>
@@ -107,7 +108,7 @@
 		</c:when>
 		<c:when test="${side_menu=='mem_mode' }">
 			<div class="side_div">
-				마이페이지(회원)
+				마이페이지
 			</div>
 			<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
 			<ul class="side_ul">		
@@ -119,7 +120,7 @@
 		</c:when>
 		<c:otherwise>
 			<div class="side_div">
-				마이페이지(비로그인)
+				마이페이지
 			</div>
 			<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
 			<ul class="side_ul">		

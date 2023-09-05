@@ -265,6 +265,7 @@ public class MemberControllerImpl implements MemberController{
 		return mav;
 	}
 	
+   
 	//카카오 로그인
 	@RequestMapping(value="/member/kakaoLoginPro.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -274,13 +275,12 @@ public class MemberControllerImpl implements MemberController{
 		
 		memberVO = memberService.kakaoConnectionEmailCheck(paramMap);
 
-		if(memberVO == null) {    //일치하는 이메일 없을때
+		if(memberVO == null) {    
 			resultMap.put("JavaData", "register");
 			return resultMap;
 		}
 		
-		if(memberVO.getEmail() != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
-			// 카카오로 로그인 했는지 판단하기위한 값
+		if(memberVO.getEmail() != null) { 
 			HashMap kakaoDataMap = new HashMap();
 			kakaoDataMap.put("flag", "kakao");
 			kakaoDataMap.put("pwd", memberVO.getMem_id());
