@@ -117,6 +117,7 @@
       <input type="hidden" name="nickname" id="kakaoNickname">
     </form>
   </div>
+<<<<<<< HEAD
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
@@ -124,6 +125,9 @@ Kakao.init('9c4ab2164685265e5b9aa5dd366cab70');
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
 
 //카카오로그인
+=======
+<script>
+>>>>>>> refs/remotes/origin/master
 function kakaoLogin() {
     Kakao.Auth.login({
       success: function (response) {
@@ -131,8 +135,9 @@ function kakaoLogin() {
           url: '/v2/user/me',
 
           success: function (response) {
+        	  debugger;
             KakaoLoginPro(response),
-        	  console.log(response)
+	       	  console.log(response)
           },
 
           fail: function (error) {
@@ -149,29 +154,17 @@ function kakaoLogin() {
   }
 
 function KakaoLoginPro(response){
-	  var data = {id:response.id, email:response.kakao_account.email, nickname:response.kakao_account.profile.nickname }
-    
-	  $.ajax({
-  		type : 'POST',
-		  url : '/member/kakaoLoginPro.do',
-		  data : data,
-		  dataType : 'json',
+	var data = {id:response.id, email:response.kakao_account.email, nickname:response.kakao_account.profile.nickname }
 
-		  success : function(data){
-  			console.log(data)
-        
-			  if(data.JavaData == "YES"){
-  				alert("로그인되었습니다.");
-          naverLogout();
-				  location.href = '/main.do'
-			  }
-        else if(data.JavaData == "register"){
-  				$("#kakaoEmail").val(response.kakao_account.email);
-				  $("#kakaoId").val(response.id);
-          $("#kakaoNickname").val(response.kakao_account.profile.nickname);
-          
-				  $("#kakaoForm").submit();
+	$.ajax({
+		type : 'POST',
+		url : '/member/kakaoLoginPro.do',
+		data : data,
+		dataType : 'json',
+		success : function(data){
+			console.log(data)
 
+<<<<<<< HEAD
 			  }
         else{
   				alert("로그인에 실패했습니다22");
@@ -185,6 +178,29 @@ function KakaoLoginPro(response){
 	  });
   }
 
+=======
+			if(data.JavaData == "YES"){
+				alert("로그인되었습니다.");
+				location.href = '/main.do'
+			}
+			else if(data.JavaData == "register"){
+				$("#kakaoEmail").val(response.kakao_account.email);
+				$("#kakaoId").val(response.id);
+				$("#kakaoNickname").val(response.kakao_account.profile.nickname);
+				$("#kakaoForm").submit();
+			}
+			else{
+				alert("로그인에 실패했습니다");
+				return;
+			}
+		},
+		error: function(xhr, status, error){
+			alert("로그인에 실패했습니다 ERROR CODE : "+ error);
+			return;
+		}
+	});
+}
+>>>>>>> refs/remotes/origin/master
 </script>
 </body>
 </html>

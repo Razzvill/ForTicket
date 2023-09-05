@@ -24,7 +24,9 @@ public interface MemberService {
     public int updateMember(MemberVO memberVO) throws DataAccessException;
     public MemberVO m_Edit(HashMap condMap) throws DataAccessException;
     public Map<String, Object> kakaoConnectionCheck(Map<String, Object> paramMap);
+    public MemberVO kakaoConnectionEmailCheck(Map<String, Object> paramMap);
 	public int setKakaoConnection(Map<String, Object> paramMap);
+	public int setKakaoDisConnection(Map<String, Object> paramMap);
 	public Map<String, Object> userKakaoLoginPro(Map<String, Object> paramMap);
 	public Integer userKakaoRegisterPro(Map<String, Object> paramMap);
 

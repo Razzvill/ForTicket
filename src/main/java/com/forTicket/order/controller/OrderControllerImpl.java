@@ -121,7 +121,7 @@ public class OrderControllerImpl implements OrderController{
 		myOrderList.add(orderVO);
 		
 		MemberVO memberInfo=(MemberVO)session.getAttribute("member");
-		System.out.println("ticketReservation                           "+myOrderList);
+
 		session.setAttribute("myOrderList", myOrderList);
 		session.setAttribute("orderer", memberInfo);
 		return mav;
@@ -141,7 +141,7 @@ public class OrderControllerImpl implements OrderController{
 		String orderer_name=memberVO.getMem_name();
 		String orderer_hp = memberVO.getPhone();
 		List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("myOrderList");
-		System.out.println("reservationSuccessreservationSuccessreservationSuccess+                   "+myOrderList);
+
 		for(int i=0; i<myOrderList.size();i++){
 			OrderVO orderVO=(OrderVO)myOrderList.get(i);
 								
@@ -184,10 +184,7 @@ public class OrderControllerImpl implements OrderController{
 			orderVO.setOrderStatus("예매완료");
 			
 			myOrderList.set(i, orderVO); ///각 orderVO에 주문자 정보를 세팅한 후 다시 myOrderList에 저장한다.
-		
-			System.out.println("myOrderList                             "+			myOrderList);
 		}//end for
-			System.out.println("receiverMap+                            "+receiverMap);
 		orderService.addNewOrder(myOrderList);
 		mav.addObject("myOrderInfo",receiverMap);//OrderVO로 주문결과 페이지에  주문자 정보를 표시한다.
 		mav.addObject("myOrderList", myOrderList);
@@ -224,21 +221,50 @@ public class OrderControllerImpl implements OrderController{
 		return mav;
 	}
 	
-/*	//환불 완료 페이지
+	//환불 완료 페이지
 	@Override
 	@RequestMapping(value= "/order/refundSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView refundSuccess(@RequestParam("order_No") int order_No, @RequestParam("mem_id") String mem_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
-		
-		HttpSession session=request.getSession();
+
+		orderService.refundSuccess(order_No);
 				
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		
+		mav.setViewName("redirect:/member/myreservation.do?mem_id="+mem_id);
+					
 		return mav;
 	}
-*/
 	
+	//예매상세페이지(사업자)	
+	@Override
+	@RequestMapping(value= "/order/b_ticketDetail.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView b_ticketDetail(int order_No, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		
+		orderVO = orderService.ticketDetail(order_No);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("detail", orderVO);
+					
+		return mav;
+	}
+	
+	//환불 완료 페이지(사업자)
+	@Override
+	@RequestMapping(value= "/order/b_refundSuccess.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView b_refundSuccess(@RequestParam("order_No") int order_No, @RequestParam("mem_id") String mem_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+
+		orderService.refundSuccess(order_No);
+				
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/member/b_myreservation.do?mem_id="+mem_id);
+					
+		return mav;
+	}
+	
+
 	@Override
 	@RequestMapping(value = "/order/getSelectedSchedule.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
@@ -252,10 +278,4 @@ public class OrderControllerImpl implements OrderController{
 		return selectThAndDate;
 	}
 
-
-	@Override
-	public ModelAndView refundSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

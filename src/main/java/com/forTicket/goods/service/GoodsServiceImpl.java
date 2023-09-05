@@ -45,13 +45,23 @@ public class GoodsServiceImpl implements GoodsService {
 		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(goods_id);
 		List imageFileList = goodsDAO.selectGoodsImageFileList(goods_id);
 		System.out.println("fileName: "+goodsVO.getGoods_fileName());
-		/*
-		 * G_imageFileVO imageObj = null; if(!imageFileList.isEmpty()) { imageObj =
-		 * (G_imageFileVO) imageFileList.get(0); } goodsMap.put("goodsImage", imageObj);
-		 */
 		
 		goodsMap.put("goodsVO", goodsVO);
 		goodsMap.put("imageList", imageFileList);
+		return goodsMap;
+	}
+	
+	
+
+	@Override
+	public Map goodDetail(int goods_id) throws DataAccessException {
+		Map goodsMap = new HashMap();
+		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(goods_id);
+		List imageFileList = goodsDAO.selectGoodsImageFileList_2(goods_id);
+		System.out.println("fileName: "+goodsVO.getGoods_fileName());
+		
+		goodsMap.put("goodsVO", goodsVO);
+		goodsMap.put("imageFileList", imageFileList);
 		return goodsMap;
 	}
 
@@ -107,7 +117,7 @@ public class GoodsServiceImpl implements GoodsService {
 		for(int i=0; i<imageFileList.size();i++) {
 			G_imageFileVO imageFileVO = (G_imageFileVO) imageFileList.get(i);
 			goodsDAO.updateGoodsImage(imageFileVO);
-		}
+		}	
 	}
 
 	@Override
@@ -124,15 +134,13 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Double avgStar(int goods_id) throws DataAccessException {
 		
-		System.out.println("service : "+goods_id);
 		return goodsDAO.avgStar(goods_id);
 	}
 	
 	//별점 카운트
 	@Override
 	public int countStar(int goods_id) throws DataAccessException {
-		System.out.println("service : "+goods_id);
-		
+				
 		return goodsDAO.countStar(goods_id);
 	}
 	
@@ -142,6 +150,23 @@ public class GoodsServiceImpl implements GoodsService {
 		List reviewList = goodsDAO.reviewList(goods_id);
 		return reviewList;
 	}
+	
+	//메인페이지 상품 리스트
+	@Override
+	public Map<String, List<GoodsVO>> mainListGoods() throws Exception {
+		Map<String,List<GoodsVO>> goodsMap=new HashMap<String,List<GoodsVO>>();
+		List<GoodsVO> goodsList=goodsDAO.mainListGoods("drama");
+		goodsMap.put("drama",goodsList);
+		
+		goodsList=goodsDAO.mainListGoods("musical");
+		goodsMap.put("musical",goodsList);
+		
+		goodsList=goodsDAO.mainListGoods("concert");
+		goodsMap.put("concert",goodsList);
+		
+		return goodsMap;
+	}
+	
 	
 	
 	

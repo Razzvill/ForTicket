@@ -87,6 +87,18 @@
         border-radius: 10px;   
         text-align: center;     
 	}
+	
+	.section{
+		cursor: pointer;
+		color: black;
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	
+	.page1{
+		margin-top:10px;
+	}
 	</style>
 	<script>
 		//버튼으로 조회하기
@@ -320,37 +332,60 @@
 		</tr>
 		<c:choose>
 			<c:when test="${not empty scheduleList}">
-				<c:forEach var="list" items="${scheduleList}">
-					<tr>
-						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
-						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
-						<td>${list.s_date}</td>
-						<td>${list.s_time}</td>
-						<td>${list.theater_name}</td>
-						<td>${list.seats}</td>
-						<td><a href="${contextPath}/schedule/removeSchedule.do?s_no=${list.s_no}" class="reply">삭제</a></td>
-					</tr>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${type=='B' }">
+						<c:forEach var="list" items="${scheduleList}">
+							<c:choose>
+								<c:when test="${list.reg_id==member.mem_id}">
+									<tr>
+										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
+										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
+										<td>${list.s_date}</td>
+										<td>${list.s_time}</td>
+										<td>${list.theater_name}</td>
+										<td>${list.seats}</td>
+										<td><a href="${contextPath}/schedule/removeSchedule.do?s_no=${list.s_no}" class="reply">삭제</a></td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="list" items="${scheduleList}">
+							<tr>
+								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
+								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
+								<td>${list.s_date}</td>
+								<td>${list.s_time}</td>
+								<td>${list.theater_name}</td>
+								<td>${list.seats}</td>
+								<td><a href="${contextPath}/schedule/removeSchedule.do?s_no=${list.s_no}" class="reply">삭제</a></td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</c:when>
 			<c:otherwise>
 				<tr>
 					<td colspan="9">
-					<strong>조회된 상품이 없습니다.</strong>
+					<strong>조회된 스케줄이 없습니다.</strong>
 					</td>
 				</tr>	
 			</c:otherwise>
 		</c:choose>
-		         <tr>
+		   <tr>
              <td colspan=8 class="fixed">
+		         <div class="page1">
                  <c:forEach   var="page" begin="1" end="10" step="1" >
 		         <c:if test="${section >1 && page==1 }">
-		          <a href="${contextPath}/goods/a_listGoods.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
 		         </c:if>
-		          <a href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
 		         <c:if test="${page ==10 }">
-		          <a href="${contextPath}/goods/a_listGoods.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 		         </c:if> 
 	      		</c:forEach> 
+           		</div>
            </td>
         </tr>
 	</table>

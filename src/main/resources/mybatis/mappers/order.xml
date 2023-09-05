@@ -39,16 +39,12 @@
 							orderPhone,
 							orderEmail,
 							orderPay,
-							orderCheck1,
-							orderCheck2,
 							orderStatus,
-							
 							totalPrice,
 							goods_name,
 							goods_place,
 							totalQuantity,
 							goods_price,
-							
 							receiver_name,
 							goods_Date,
 							s_no)
@@ -62,16 +58,12 @@
 									            #{item.orderPhone},
 									            #{item.orderEmail},
 									            #{item.orderPay},
-									            #{item.orderCheck1},
-									            #{item.orderCheck2},
 									            #{item.orderStatus},
-									           
 									            #{item.totalPrice},
 									            #{item.goods_name},
 									            #{item.goods_place},
 									            #{item.totalQuantity},
 									            #{item.goods_price},
-									          
 									            #{item.receiver_name},
 									            #{item.goods_Date},
 									            #{item.s_no}
@@ -87,4 +79,10 @@
  		]]>  
 	</select>
 	
+	<!-- 환불 -->
+	<update id="refundSuccess" parameterType="int">
+	   update `order`
+	 	  set orderStatus='예매취소'
+	   where order_No=#{order_No}
+	</update>
 </mapper>

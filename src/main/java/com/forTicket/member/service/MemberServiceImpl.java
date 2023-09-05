@@ -131,10 +131,18 @@ public class MemberServiceImpl implements MemberService {
 		public Map <String, Object> kakaoConnectionCheck(Map<String, Object> paramMap) {
 			return memberDAO.kakaoConnectionCheck(paramMap);
 		}
+	    
+	    public MemberVO kakaoConnectionEmailCheck(Map<String, Object> paramMap) {
+			return memberDAO.kakaoConnectionEmailCheck(paramMap);
+		}
 
 		@Override
 		public int setKakaoConnection(Map<String, Object> paramMap) {
 			return memberDAO.setKakaoConnection(paramMap);
+		}
+		
+		public int setKakaoDisConnection(Map<String, Object> paramMap) {
+			return memberDAO.setKakaoDisConnection(paramMap);
 		}
 
 		@Override

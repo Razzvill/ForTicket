@@ -14,7 +14,7 @@ request.setCharacterEncoding("utf-8");
 <meta charset="UTF-8">
 <title>스케줄 등록</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/jquery-ui.css">
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/calendar_theme.css">
 <style>
@@ -53,6 +53,11 @@ request.setCharacterEncoding("utf-8");
   .item-58 {
     width: 58%;
   }
+  /* 선택되지 않은 라벨의 스타일 */
+.btn.btn_sm.font-weight-bold.mx-1.my-2 {
+    border: none;
+    color: none;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -60,6 +65,7 @@ request.setCharacterEncoding("utf-8");
 	var selectGoodsCode = "";
 	var selectTheaterCode = "";
 	var selectScheduleDate = "";
+	var selectSeats = "";
 	
 	/* 상품 코드 클릭 */
 	function goodsCodeClick(goodsObj, goods){
@@ -126,14 +132,18 @@ request.setCharacterEncoding("utf-8");
 				dataType : "json",
 				success : function(result){
 						var registTime = [];
-						var registGoodsName = [];
-						for(var i=0; i<result.length; i++){
-							registTime.push(result[i].s_date)
-							registGoodsName.push(result[i].goods_name)
-						}
+				        if (result) { // result가 null 또는 undefined인 경우를 방지하기 위한 조건
+				            for (var i = 0; i < result.length; i++) {
+				                registTime.push(result[i].s_date);
+				            }
+				        }
+						var registTime = registTime.map(function(item) {
+						    return item.split(' ')[1]; // 공백을 기준으로 나눈 두 번째 부분을 추출 (시간 부분)
+						});
+						console.log("registTime: "+registTime);
 						for(var thTime=0; thTime<thTimeList.length; thTime++){
-							if(registTime.includes(thTimeList[thTime])){
-								var mvNameIdx = registTime.indexOf(thTimeList[thTime]);
+							var currentTime = thTimeList[thTime];
+							if(registTime.includes(currentTime)){
 								output += "<button disabled class=\"btn btn-sm btn-danger font-weight-bold mx-1 my-2\" for=\"" + thTimeList[thTime] + "\">" + thTimeList[thTime] + "</button>";
 							} else {
 								output += "<label class=\"btn btn_sm font-weight-bold mx-1 my-2\" for=\""+thTimeList[thTime]+"\" onclick=\"ScRoomTime(this)\" >"+thTimeList[thTime]+"</label>";
@@ -155,6 +165,7 @@ request.setCharacterEncoding("utf-8");
 	}
 	/* form 확인 */
 	function scFormCheck(){
+		selectSeats = document.getElementById("seats").value;
 		if(selectGoodsCode.length==0){
 			alert("공연이 선택되지 않았습니다.");
 			return false;
@@ -173,6 +184,10 @@ request.setCharacterEncoding("utf-8");
 			alert("공연 시간이 선택되지 않았습니다.");
 			return false;
 		}
+		if(selectSeats.length==0){
+			alert("좌석 수가 입력되지 않았습니다.");
+			return false;
+		}
 	}
 </script>
 </head>
@@ -186,9 +201,25 @@ request.setCharacterEncoding("utf-8");
 					<h6 class="m-0 font-weight-bold text-primary">상품 선택</h6>
 				</div>
 				<div class="card-body text-center scrollerline" id="goodsList">
-					<c:forEach items="${goodsList}" var="goods">
-						<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${type=='B'}">
+							<c:forEach var="goods" items="${goodsList}">
+								<c:choose>
+									<c:when test="${goods.mem_id==member.mem_id}">
+										<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
+									</c:when>
+									<c:otherwise>
+										
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="goods" items="${goodsList}">
+								<div title="${goods.goods_name}" class="p-3 font-weight0bold text-dark" id="mygoods" onclick="goodsCodeClick(this, '${goods.goods_id}')">${goods.goods_name}</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -227,7 +258,6 @@ request.setCharacterEncoding("utf-8");
 							monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
 									'9월', '10월', '11월', '12월' ],
 							onSelect:function(selDate){
-								console.log(selDate);
 								
 								$("#scDate").val(selDate);
 								selectScheduleDate = selDate;

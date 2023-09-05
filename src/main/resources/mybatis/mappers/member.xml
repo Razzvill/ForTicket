@@ -19,6 +19,8 @@
 		<result property="checkbox" column="checkbox" />
 		<result property="type" column="type" />
 		<result property="joinDate" column="joinDate" />
+		<result property="api" column="api" />
+		<result property="snsid" column="snsid" />
 	</resultMap>
 
 	<select id="selectAllMemberList" resultMap="memResult"   >
@@ -127,14 +129,38 @@
 </select>
 
 
+<<<<<<< HEAD
 <select id="kakaoConnectionCheck" resultType="Map" parameterType="java.util.Map">
     <![CDATA[
     SELECT * FROM member
     WHERE email = #{email}
     ]]>
 </select>
+=======
+	<select id="kakaoConnectionCheck" resultType="Map" parameterType="java.util.Map" >
+		<![CDATA[
+		SELECT * from member
+		where email=#{email}  
+		]]>
+  	</select>
+  	
+  	<select id="kakaoConnectionEmailCheck" resultType="memberVO" parameterType="java.util.Map" >
+		<![CDATA[
+		SELECT * from member
+		where email=#{email}  
+		]]>
+  	</select>
+	
+	 <insert id="insert_kakao"  parameterType="java.util.Map">
+		<![CDATA[
+		 insert into member(type,mem_id,b_number,pwd,mem_name,b_name, email,phone, b_phone, post, addr1, addr2, checkbox, api, snsid)
+		values(#{type},#{mem_id},#{b_number},#{pwd},#{mem_name},#{b_name}, #{email},#{phone},#{b_phone},#{post},#{addr1},#{addr2},#{checkbox},#{api},#{snsid})
+		]]>      
+	</insert>
+>>>>>>> refs/remotes/origin/master
 
 	
+<<<<<<< HEAD
 <insert id="insert_kakao" parameterType="java.util.Map">
     <![CDATA[
     INSERT INTO member (type, mem_id, b_number, pwd, mem_name, b_name, email, phone, b_phone, post, addr1, addr2, checkbox, api, snsid)
@@ -154,5 +180,18 @@
     UPDATE member SET api = #{flag}, snsid = #{snsid} WHERE email = #{email} LIMIT 1;
     ]]>
 </update>
+=======
+    <update id="setKakaoConnection"  parameterType="java.util.Map">
+		<![CDATA[
+		 update member SET api =#{flag}, snsid =#{pwd} WHERE email =#{email}
+		]]>      
+	</update>
+	
+	<update id="setKakaoDisConnection"  parameterType="java.util.Map">
+		<![CDATA[
+		 update member SET api = NULL, snsid = NULL WHERE email =#{email}
+		]]>      
+	</update>
+>>>>>>> refs/remotes/origin/master
 	
 </mapper>

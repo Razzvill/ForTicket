@@ -131,31 +131,40 @@
 		font-weight:bold;
 		
 	}
+	
+	.div2{
+		height:auto;
+		margin-top:30px;
+		border:2px solid #d2d2d2;
+		border-radius: 10px;
+		background:#fff;
+		padding:10px 25px;
+		font-size:15px;
+		color:#313131;
+		line-height:280%;
+		border-color: #FF6251;	
+	}
 </style>
 </head>
 <body>
 <div class="mypage_right_wrap">
 
-      <div class="mypage_right_title" style="margin-bottom:20px;">
+	<div class="mypage_right_title" style="margin-bottom:20px;">
         <h2 style="text-align:left;">결제 완료</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
         <div style="border-color: #FF6251; width:auto;"></div>
-        </div>
+	</div>
 
-<div style="margin-top:17px; padding:25px 0; border:1px solid #ff6060; border-radius:10px; text-align:center;">
-
-  
-
+<div style="margin-top:25px; padding:25px 0; border:2px solid #ff6060; border-radius:10px; text-align:center;">
 	<div style="font-size:20px; font-weight:bold; color:#ff6060;">
 		결제가 정상적으로 완료되었습니다.
 		<div style="font-size:14px; font-weight:300; color:#333; padding-top:15px;">
 			세부사항은 하단 예매내역을 참고해주세요.
 		</div>
 	</div>
-
 </div>
 
-<div style="height:500px; margin-top:10px; border:1px solid #d2d2d2; border-radius: 10px; background:#fff; padding:10px 25px; font-size:15px; color:#313131; line-height:280%; border-color: #FF6251;">
+<div class="div2">
 	<c:forEach var="item" items="${myOrderList }">
         <div class="option_title">티켓명</div>
         <div class="option_con1">${item.goods_name }</div>

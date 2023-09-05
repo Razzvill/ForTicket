@@ -77,11 +77,7 @@ public class GoodsControllerImpl implements GoodsController{
 		        .filter(goods -> goods.getGoods_id() == goods_id)
 		        .findFirst()
 		        .ifPresent(goods -> goods.setGoods_avg(roundedAvgStar));
-		    
-		    System.out.println("Goods ID: " + goods_id + ", Average Star: " + roundedAvgStar);
 		}
-		
-		System.out.println("goodsList                                             "+goodsList);
 		
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
@@ -172,13 +168,9 @@ public class GoodsControllerImpl implements GoodsController{
 
 		double avgStar = calculateAverageStar(goods_id);
 		double roundedAvgStar = Math.round(avgStar * 10) / 10.0;
-		System.out.println(" count                              "+countStar);
-		System.out.println(" avgstar                              "+avgStar);
 		
 		List<CommunityVO> reviewList = goodsService.reviewList(goods_id);
-		
-		System.out.println(reviewList);
-		
+				
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsMap", goodsMap);
 		mav.addObject("theater", theaterVO);
@@ -275,22 +267,38 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value= "/goods/modGoods.do", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ResponseEntity modGoods(@RequestParam("goods_id") int goods_id, @RequestParam("attribute") String attribute,
-            @RequestParam("value") String value,MultipartHttpServletRequest multipartRequest,
-			HttpServletResponse response) throws Exception {
+	public ResponseEntity modGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
-		Map goodsMap=new HashMap();
-		goodsMap.put("goods_id", goods_id);
-		goodsMap.put(attribute, value);
-		goodsService.modGoods(goodsMap);
-		
+		Map goodsMap = new HashMap();
+		Enumeration enu=multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()){
+			String name=(String)enu.nextElement();
+			String value=multipartRequest.getParameter(name);
+			goodsMap.put(name,value);
+		}
+
+		int goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
 		String message = null;
-		ResponseEntity resEntity = null;
+		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
-		message  = "mod_success";
-		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		return resEntity;
+		try {
+			goodsService.modGoods(goodsMap);
+			message = "<script>";
+			message += " alert('상품이 수정되었습니다.');";
+			message += "location.href='"+multipartRequest.getContextPath()+"/goods/a_listGoods.do';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch(Exception e) {
+			message = "<script>";
+			message += " alert('상품 수정에 실패했습니다.');";
+			message += "location.href='"+multipartRequest.getContextPath()+"/goods/modGoodsForm.do?goods_id="+goods_id+"';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		resEnt =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEnt;
 	}
 	
 	//상품 수정 페이지
@@ -300,7 +308,7 @@ public class GoodsControllerImpl implements GoodsController{
 			throws Exception {
 		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
-		Map goodsMap = goodsService.goodsInfo(goods_id);
+		Map goodsMap = goodsService.goodDetail(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
@@ -323,13 +331,13 @@ public class GoodsControllerImpl implements GoodsController{
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html;charset=utf-8");
 		try {
-			goodsService.removeGoods(goods_id);
 			goodsService.removeAllGoodsImage(goods_id);
+			goodsService.removeGoods(goods_id);
 			File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
 			FileUtils.deleteDirectory(destDir);
 			message = "<script>";
 			message += " alert('상품이 삭제되었습니다.');";
-			message += "location.href='"+req.getContextPath()+"/goods/listGoods.do';";
+			message += "location.href='"+req.getContextPath()+"/goods/a_listGoods.do';";
 			message += "</script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -347,7 +355,7 @@ public class GoodsControllerImpl implements GoodsController{
 
 	//상품 이미지 추가
 	@Override
-	@RequestMapping(value="/addGoodsImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/goods/addGoodsImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
@@ -399,67 +407,71 @@ public class GoodsControllerImpl implements GoodsController{
 	}
 
 	//상품 이미지 수정
-	@Override
-	@RequestMapping(value="/modGoodsImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
-	public void modGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
-			throws Exception {
-		multipartRequest.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		String imageFileName=null;
-		
-		Map goodsMap = new HashMap();
-		Enumeration enu=multipartRequest.getParameterNames();
-		while(enu.hasMoreElements()){
-			String name=(String)enu.nextElement();
-			String value=multipartRequest.getParameter(name);
-			goodsMap.put(name,value);
-		}
-		
-		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String reg_id = memberVO.getMem_id();
-		
-		List<G_imageFileVO> imageFileList=null;
-		int goods_id=0;
-		int image_id=0;
-		try {
-			imageFileList =upload(multipartRequest);
-			if(imageFileList!= null && imageFileList.size()!=0) {
-				for(G_imageFileVO imageFileVO : imageFileList) {
-					goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
-					image_id = Integer.parseInt((String)goodsMap.get("image_id"));
-					String originalFileName = (String)goodsMap.get("originalFileName");
-					File oldFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+originalFileName);
-					oldFile.delete();
-					imageFileVO.setGoods_id(goods_id);
-					imageFileVO.setImage_id(image_id);
-					imageFileVO.setReg_id(reg_id);
-				}
-				
-			    goodsService.modGoodsImage(imageFileList);
-				for(G_imageFileVO  imageFileVO:imageFileList) {
-					imageFileName = imageFileVO.getFileName();
-					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
-					File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
-					FileUtils.moveFileToDirectory(srcFile, destDir,true);
-				}
+		@Override
+		@RequestMapping(value="/goods/modGoodsImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+		public void modGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+				throws Exception {
+			multipartRequest.setCharacterEncoding("utf-8");
+			response.setContentType("text/html; charset=utf-8");
+			String imageFileName=null;
+			
+			Map goodsMap = new HashMap();
+			Enumeration enu=multipartRequest.getParameterNames();
+			while(enu.hasMoreElements()){
+				String name=(String)enu.nextElement();
+				String value=multipartRequest.getParameter(name);
+				goodsMap.put(name,value);
 			}
-		}catch(Exception e) {
-			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(G_imageFileVO  imageFileVO:imageFileList) {
-					imageFileName = imageFileVO.getFileName();
-					File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
-					srcFile.delete();
+			
+			HttpSession session = multipartRequest.getSession();
+			MemberVO memberVO = (MemberVO) session.getAttribute("member");
+			String reg_id = memberVO.getMem_id();
+			
+			List<G_imageFileVO> imageFileList=null;
+			int goods_id=0;
+			int image_id=0;
+			try {
+				imageFileList =upload(multipartRequest);
+				if(imageFileList!= null && imageFileList.size()!=0) {
+					for(G_imageFileVO imageFileVO : imageFileList) {
+						goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
+						image_id = Integer.parseInt((String)goodsMap.get("image_id"));
+						String originalFileName = (String)goodsMap.get("originalFileName");
+						String fileName = (String)goodsMap.get("fileName");
+						System.out.println("fileName:"+fileName);
+						File oldFile = new File(GOODS_IMAGE_REPO+"\\"+goods_id+"\\"+originalFileName);
+						oldFile.delete();
+						imageFileVO.setGoods_id(goods_id);
+						imageFileVO.setImage_id(image_id);
+						imageFileVO.setReg_id(reg_id);
+						imageFileVO.setFileName(fileName);
+						System.out.println(imageFileVO.toString());
+					}
+					
+				    goodsService.modGoodsImage(imageFileList);
+					for(G_imageFileVO  imageFileVO:imageFileList) {
+						imageFileName = imageFileVO.getFileName();
+						File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+						File destDir = new File(GOODS_IMAGE_REPO+"\\"+goods_id);
+						FileUtils.moveFileToDirectory(srcFile, destDir,true);
+					}
 				}
+			}catch(Exception e) {
+				if(imageFileList!=null && imageFileList.size()!=0) {
+					for(G_imageFileVO  imageFileVO:imageFileList) {
+						imageFileName = imageFileVO.getFileName();
+						File srcFile = new File(GOODS_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+						srcFile.delete();
+					}
+				}
+				e.printStackTrace();
 			}
-			e.printStackTrace();
+			
 		}
-		
-	}
 
 	//상품 이미지 삭제
 	@Override
-	@RequestMapping(value="/removeGoodsImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/goods/removeGoodsImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public void removeGoodsImage(@RequestParam("goods_id") int goods_id, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest req,
 			HttpServletResponse response) throws Exception {
 		goodsService.removeGoodsImage(image_id);
@@ -553,10 +565,6 @@ public class GoodsControllerImpl implements GoodsController{
 	private double calculateAverageStar(int goods_id) {
 		Double avgStar = goodsService.avgStar(goods_id); // goods_id에 해당하는 상품의 평균 평점을 DB에서 조회하여 계산하는 로직
 	    // 실제로는 데이터베이스 조회 등의 작업이 여기에 들어감
-	  System.out.println(goods_id);
-	  System.out.println(avgStar);
-	  
-	  
 		if (avgStar != null) {
 	        return avgStar; // 평균 평점이 null이 아닐 경우 정상적으로 값을 반환
 	    } else {

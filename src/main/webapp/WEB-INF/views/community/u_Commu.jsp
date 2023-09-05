@@ -19,7 +19,7 @@
 		position: relative;
 		border:3px solid #FF6251;
 		border-radius: 20px;
-		padding: 50px;
+		padding: 50px 50px 10px 50px;
 		margin-top: 50px;
 	}
 	
@@ -107,6 +107,8 @@
 		cursor: pointer;
 		color: black;
 		text-decoration: none;
+		font-size: 15px;
+		font-weight: bold;
 	}
 	
 	.reply{
@@ -127,6 +129,9 @@
 	    margin: 0 auto;
 	    position: relative;
 	    text-align: left;
+	}
+	.page1{
+		margin-top:50px;
 	}
 </style>
 </head>
@@ -199,16 +204,18 @@
 		</c:forEach>
 		</c:otherwise>
 	</c:choose>
+	<div class="page1">
+	<c:forEach var="page" begin="1" end="10" step="1" >
+		<c:if test="${section >1 && page==1 }">
+			<a class="section" href="${contextPath}/community/u_Commu.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+		</c:if>
+			<a class="section" href="${contextPath}/community/u_Commu.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+		<c:if test="${page ==10 }">
+			<a class="section" href="${contextPath}/community/u_Commu.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+		</c:if> 
+	</c:forEach>
+	</div> 
 </div>
-<c:forEach var="page" begin="1" end="10" step="1" >
-	<c:if test="${section >1 && page==1 }">
-		<a class="section" href="${contextPath}/community/u_Commu.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
-	</c:if>
-		<a class="section" href="${contextPath}/community/u_Commu.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
-	<c:if test="${page ==10 }">
-		<a class="section" href="${contextPath}/community/u_Commu.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-	</c:if> 
-</c:forEach> 
 <script>
 	//코드에 필요한 요소들 변수에 할당 (전체 ui를 감싸는 div, 내용 텍스트, 더보기/줄이기 텍스트)
 	//debugger;

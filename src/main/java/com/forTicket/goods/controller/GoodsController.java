@@ -16,7 +16,7 @@ public interface GoodsController {
 	public ModelAndView detailGoods(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public ResponseEntity addGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
 	public ModelAndView addForm(HttpServletRequest req, HttpServletResponse resp) throws Exception;
-	public ResponseEntity modGoods(@RequestParam("goods_id") int goods_id, @RequestParam("mod_type") String mod_type, @RequestParam("value") String value, MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
+	public ResponseEntity modGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
 	public ModelAndView modForm(@RequestParam("goods_id") int goods_id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public ResponseEntity removeGoods(@RequestParam("theater_id") int theater_id, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;

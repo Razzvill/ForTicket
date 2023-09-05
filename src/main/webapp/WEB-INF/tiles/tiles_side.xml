@@ -22,10 +22,10 @@
 	</definition>
 	
 	<!-- 회원 마이페이지 -->
-		<!-- 예매 내역 조회 -->
-		<definition name="/member/my_reservation" extends="baseLayout1">
-			<put-attribute name="title" value="로그인" />
-			<put-attribute name="body" value="/WEB-INF/views/member/my_reservation.jsp" />
+		<!-- 예매 마이페이지(회원) --> 
+		<definition name="/member/myreservation" extends="baseLayout1">
+			<put-attribute name="title" value="예매내역" />
+			<put-attribute name="body" value="/WEB-INF/views/member/myreservation.jsp" />
 		</definition>
 		
 		<!-- 예매 상세 내역 조회 -->
@@ -45,7 +45,25 @@
 			<put-attribute name="title" value="회원 정보 수정" />
 			<put-attribute name="body" value="/WEB-INF/views/member/m_Edit.jsp" />
 		</definition>
-	
+		
+		<!-- 리뷰페이지(회원) --> 
+		<definition name="/community/review" extends="baseLayout1">
+			<put-attribute name="title" value="리뷰작성" />
+			<put-attribute name="body" value="/WEB-INF/views/community/review.jsp" />
+		</definition>
+		
+		<!-- 예매 마이페이지(사업자) --> 
+		<definition name="/member/b_myreservation" extends="baseLayout1">
+			<put-attribute name="title" value="사업자상품 예매내역" />
+			<put-attribute name="body" value="/WEB-INF/views/member/b_myreservation.jsp" />
+		</definition>
+		
+		<!-- 예매 상세페이지(사업자) -->
+		<definition name="/order/b_ticketDetail" extends="baseLayout1">
+			<put-attribute name="title" value="사업자 예매상세내역" />
+			<put-attribute name="body" value="/WEB-INF/views/order/b_ticketDetail.jsp" />
+		</definition>
+		
 	<!-- 관리자 회원 관리 -->
 		<!-- 관리자 회원 수정 화면-->
 		<definition name="/member/a_Edit" extends="baseLayout1">
@@ -126,19 +144,6 @@
 			<put-attribute name="body" value="/WEB-INF/views/center/a_write.jsp" />
 		</definition>
 		
-	<!-- 마이페이지 -->
-		<!-- 예매 마이페이지(회원) --> 
-		<definition name="/member/myreservation" extends="baseLayout1">
-			<put-attribute name="title" value="예매내역" />
-			<put-attribute name="body" value="/WEB-INF/views/member/myreservation.jsp" />
-		</definition>
-		
-		<!-- 리뷰페이지(회원) --> 
-		<definition name="/community/review" extends="baseLayout1">
-			<put-attribute name="title" value="리뷰작성" />
-			<put-attribute name="body" value="/WEB-INF/views/community/review.jsp" />
-		</definition>
-
 </tiles-definitions>
 
 

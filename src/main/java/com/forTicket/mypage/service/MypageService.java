@@ -17,4 +17,7 @@ public interface MypageService {
 	//예매내역 페이지
     public ArrayList<OrderVO> myReservation(HashMap condMap) throws Exception;
     
+    //사업자예매내역 페이지
+    public ArrayList<OrderVO> b_myReservation(HashMap condMap) throws Exception;
+    
 }
