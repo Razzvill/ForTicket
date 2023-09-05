@@ -103,19 +103,22 @@ background-image: url("${contextPath}/resources/images/member/user_email.png");
   </div>
 
 
-  <div class="show_find_pass" style="display: none;">
+<div class="show_find_pass" style="display: none;">
     <section class="wrap_title">
-      가입한 이메일 주소로<br><span class="title_bold">임시 비밀번호</span>를 보내드려요.
+        가입한 이메일 주소로<br><span class="title_bold">임시 비밀번호</span>를 보내드려요.
     </section>
 
-   <div class="section_wrap">
-       <form action="${contextPath}/member/sendEmail.do" method="post">
-          <input type="text" id="mem_id" name="mem_id" placeholder="아이디" class="input_box icon_id" required="">
-          <input type="text" id="email" name="email" placeholder="이메일" class="input_box icon_email" style="margin-top:15px;" required="">
-          <button id="checkEmailButton" class="btn_submit">임시 비밀번호 발급</button>
-       </form>
+    <p id="passwordMessage"></p>
+    <p id="idMessage"></p> 
+
+    <div class="section_wrap">
+        <form action="${contextPath}/member/sendEmail.do" method="post">
+            <input type="text" id="mem_id" name="mem_id" placeholder="아이디" class="input_box icon_id" required="">
+            <input type="text" id="email" name="email" placeholder="이메일" class="input_box icon_email" style="margin-top:15px;" required="">
+            <button id="checkEmailButton" class="btn_submit">임시 비밀번호 발급</button>
+        </form>
     </div>
-  </div>
+</div>
 
 </div>
 </body>
@@ -163,36 +166,38 @@ background-image: url("${contextPath}/resources/images/member/user_email.png");
         }
     }
 });
-    //비밀번호 이메일발송
-$("#checkEmailButton").click(function () {
-    const email = $("#email").val();
-    const sendEmailForm = document.forms["/member/sendEmail.do"];  // 수정: 실제 폼의 이름으로 수정
+    const passwordMessage = document.getElementById('passwordMessage');
+    const idMessage = document.getElementById('idMessage');
 
-    $.ajax({
-        type: 'post',
-        url: 'emailDuplication',
-        data: {
-            'email': email
-        },
-        dataType: "text",
-        success: function (result) {
-            if (result === "no") {
-                // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
-                passwordMessage.innerText = "임시 비밀번호를 전송 했습니다. 로그인 후 패스워드를 변경 해주세요";
-                passwordMessage.style.display = "block";
-                idMessage.style.display = "none";
-                sendEmailForm.submit();  // 수정: 폼 이름을 변수로 사용
-            } else {
-                idMessage.innerText = "가입되지 않은 이메일입니다.";
-                idMessage.style.display = "block";
-                passwordMessage.style.display = "none";
+    $("#checkEmailButton").click(function () {
+        const email = $("#email").val();
+        const sendEmailForm = document.forms["/member/sendEmail.do"];
+
+        $.ajax({
+            type: 'post',
+            url: 'emailDuplication',
+            data: {
+                'email': email
+            },
+            dataType: "text",
+            success: function (result) {
+                if (result === "no") {
+                    // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
+                    passwordMessage.innerText = "임시 비밀번호를 전송 했습니다. 로그인 후 패스워드를 변경 해주세요";
+                    passwordMessage.style.display = "block";
+                    idMessage.style.display = "none";
+                    sendEmailForm.submit();
+                } else {
+                    idMessage.innerText = "가입되지 않은 이메일입니다.";
+                    idMessage.style.display = "block";
+                    passwordMessage.style.display = "none";
+                }
+            },
+            error: function () {
+                console.log('에러 체크!!');
             }
-        },
-        error: function () {
-            console.log('에러 체크!!');
-        }
+        });
     });
-});
 	
 </script>
 </html>

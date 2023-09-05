@@ -22,12 +22,12 @@ public interface MemberDAO {
     public String findByMemberEmail(String email) throws DataAccessException; // 이 부분을 추가해야 합니다.
     public void updatePassword(@Param("mem_id") String mem_id, @Param("pwd") String pwd) throws DataAccessException; // 이 부분도 추가해야 합니다
     public int updateMember(MemberVO memberVO) throws DataAccessException;
-    public MemberVO m_Edit(HashMap condMap)  throws DataAccessException;
-    public int insert_kakao(Map<String, Object> paramMap);
-	public Map<String, Object> kakaoLogin(Map<String, Object> paramMap);
-	public Map<String, Object> kakaoConnectionCheck(Map<String, Object> paramMap);
+    public MemberVO m_Edit(HashMap condMap)  throws DataAccessException;  
+    public int insert_kakao(Map<String, Object> paramMap) throws DataAccessException;
+	public Map<String, Object> kakaoLogin(Map<String, Object> paramMap)throws DataAccessException;
+	public Map<String, Object> kakaoConnectionCheck(Map<String, Object> paramMap)throws DataAccessException;
+	public int setKakaoConnection(Map<String, Object> paramMap)throws DataAccessException;	
 	public MemberVO kakaoConnectionEmailCheck(Map<String, Object> paramMap);
-	public int setKakaoConnection(Map<String, Object> paramMap);
 	public int setKakaoDisConnection(Map<String, Object> paramMap);
 
 }

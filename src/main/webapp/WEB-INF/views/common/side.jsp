@@ -93,7 +93,7 @@
 			<div class="side_div">
 				고객센터
 			</div>
-			<div style="width: auto; border: 1px solid; border-color: #bcbcbc; margin-top: 10px; margin-bottom:10px;"></div>
+			<div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
 			<ul class="side_ul">
 				<li class="side_li"><a href="${contextPath}/center/refund.do" class="side2">환불안내</a></li>
 				<li class="side_li"><a href="${contextPath}/center/notice.do" class="side2">공지사항</a></li>

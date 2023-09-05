@@ -104,7 +104,7 @@
     </form>
     <div class="social_wrap">
       <div>
-        <a id="kakao-login-btn" href="javascript:void(0)" onclick="kakaoLogin();">
+        <a id="kakao-login-btn"  href="javascript:void(0)" onclick="kakaoLogin();">
           <img src="${contextPath}/resources/images/member/kakao.png" alt="카카오로그인">
         </a>
         <p id="token-result"></p>

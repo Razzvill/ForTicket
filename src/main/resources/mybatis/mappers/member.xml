@@ -129,12 +129,13 @@
 </select>
 
 
-	<select id="kakaoConnectionCheck" resultType="Map" parameterType="java.util.Map" >
-		<![CDATA[
-		SELECT * from member
-		where email=#{email}  
-		]]>
-  	</select>
+<select id="kakaoConnectionCheck" resultType="Map" parameterType="java.util.Map">
+    <![CDATA[
+    SELECT * FROM member
+    WHERE email = #{email}
+    ]]>
+</select>
+
   	
   	<select id="kakaoConnectionEmailCheck" resultType="memberVO" parameterType="java.util.Map" >
 		<![CDATA[
@@ -150,13 +151,16 @@
 		]]>      
 	</insert>
 
-	<select id="kakaoLogin"  resultType="memberVO" parameterType="java.util.Map" >
-		<![CDATA[
-		select * from member
-		where mem_id=#{mem_id} and pwd=#{id} and api=#{flag}	
-		]]>
-  	</select>
 	
+
+<select id="kakaoLogin" resultType="memberVO" parameterType="java.util.Map">
+    <![CDATA[
+    SELECT * FROM member
+    WHERE mem_id = #{mem_id} AND pwd = #{pwd} AND api = #{flag}
+    ]]>
+</select>
+	
+
     <update id="setKakaoConnection"  parameterType="java.util.Map">
 		<![CDATA[
 		 update member SET api =#{flag}, snsid =#{pwd} WHERE email =#{email}

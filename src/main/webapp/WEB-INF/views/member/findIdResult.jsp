@@ -65,10 +65,10 @@
 
     <div class="wrap_tab">
         <div class="tab_find_id">아이디</div>
-        <div class="tab_find_pass"><a href="">비밀번호</a></div>
+        <div class="tab_find_pass">비밀번호</a></div>
     </div>
 
-    <div class="show_find_id">
+    <div class="show_find_id" style="display: block;">
         <section class="wrap_title">
             가입한 회원 정보로<br><span class="title_bold">아이디</span>를 확인하세요.
         </section>
@@ -96,6 +96,46 @@
             </section>
         </div>
     </div>
+    
+      <div class="show_find_pass" style="display: none;">
+    <section class="wrap_title">
+      가입한 이메일 주소로<br><span class="title_bold">임시 비밀번호</span>를 보내드려요.
+    </section>
+
+   <div class="section_wrap">
+       <form action="${contextPath}/member/sendEmail.do" method="post">
+          <input type="text" id="mem_id" name="mem_id" placeholder="아이디" class="input_box icon_id" required="">
+          <input type="text" id="email" name="email" placeholder="이메일" class="input_box icon_email" style="margin-top:15px;" required="">
+          <button id="checkEmailButton" class="btn_submit">임시 비밀번호 발급</button>
+       </form>
+    </div>
+  </div>
+
 </div>
+</div>
+
+
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const tabFindId = document.querySelector(".tab_find_id");
+    const tabFindPass = document.querySelector(".tab_find_pass");
+    const showFindId = document.querySelector(".show_find_id");
+    const showFindPass = document.querySelector(".show_find_pass");
+
+    tabFindId.addEventListener("click", function() {
+        tabFindId.classList.add("active");
+        tabFindPass.classList.remove("active");
+        showFindId.style.display = "block";
+        showFindPass.style.display = "none";
+    });
+
+    tabFindPass.addEventListener("click", function() {
+        tabFindPass.classList.add("active");
+        tabFindId.classList.remove("active");
+        showFindPass.style.display = "block";
+        showFindId.style.display = "none";
+    });
+});
+</script>
 </html>
