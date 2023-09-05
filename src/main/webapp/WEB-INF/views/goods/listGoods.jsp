@@ -165,7 +165,7 @@ request.setCharacterEncoding("utf-8");
 		<c:when test="${goodsType == 'drama'}">
 			연극
 		</c:when>
-		<c:when test="${goodsType =='musical'}">
+		<c:when test="${goodsType == 'musical'}">
 			뮤지컬
 		</c:when>
 		<c:otherwise>
