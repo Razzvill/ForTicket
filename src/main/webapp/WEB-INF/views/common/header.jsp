@@ -161,8 +161,6 @@
 </head>
 <body>
 <div style="width:100%;">
-	<input type="hidden" id="hiddenLogout" value="${contextPath }/member/logout.do" />
-	<input type="hidden" id="hiddenLoginType" value="${loginType}" />
 	<!-- header 상단 -->
 	<c:choose>
 	<c:when test="${isLogOn == true && type=='U' }">
