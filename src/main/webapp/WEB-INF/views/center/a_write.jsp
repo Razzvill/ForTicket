@@ -24,7 +24,7 @@
 		padding:30px;
 		font-size:15px;
 		line-height:280%;
-		border-color: #bcbcbc;
+		border-color: #FF6251;
 		padding-bottom: 50px;
 	}
 	
@@ -55,7 +55,7 @@
 <div class="center">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left; margin-bottom:10px;">1:1 답변</h2>
-        <div style="width: auto; border: 1px solid; border-color: #bcbcbc; margin-top: 10px; margin-bottom:10px;"></div>
+        <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
     </div>
     <form name = "wirte" method="post" action="${contextPath }/center/update_reply.do">
 		<table class="tb1">

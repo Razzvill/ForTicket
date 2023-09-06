@@ -21,7 +21,7 @@
 		padding:30px;
 		font-size:15px;
 		line-height:280%;
-		border-color: #bcbcbc;
+		border-color: #FF6251;
 		padding-bottom: 50px;
 	}
 	
@@ -30,15 +30,15 @@
     	margin-right:auto;
 		width: 80%;
     	border-collapse: collapse;
-    	border: 1px solid #bcbcbc;
+    	border: 1px solid #FF6251;
 		border-style: hidden;
-        box-shadow: 0 0 0 2px #bcbcbc;
+        box-shadow: 0 0 0 2px #FF6251;
         border-spacing: 0;
         border-radius: 15px;
 	}
 	
 	.view_tr1{
-		border-bottom: 1px solid #bcbcbc;
+		border-bottom: 1px solid #FF6251;
 	}
 	 
 	.view_td1{
@@ -129,7 +129,7 @@
 <div class="center">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left; margin-bottom:10px;">고객센터</h2>
-        <div style="width: auto; border: 1px solid; border-color: #bcbcbc; margin-top: 10px; margin-bottom:10px;"></div>
+        <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
     </div>
 
 <form name="frmView" method="post" action="${contextPath}">
