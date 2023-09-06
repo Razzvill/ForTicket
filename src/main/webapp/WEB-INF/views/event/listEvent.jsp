@@ -206,7 +206,7 @@ $(document).ready(function() {
 								<c:when test="${event.event_status == '종료'}">
 									<li>
 										<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
-											<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}" alt="${event.event_name}">
+											<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_fileName=${event.event_fileName}" alt="${event.event_name}">
 											<div class="eve-mlist-box">
 												<c:choose>
 													<c:when test="${event.event_type == 'disc'}">
