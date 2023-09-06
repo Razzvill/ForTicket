@@ -423,11 +423,11 @@
 		         		<c:when test="${totalEventNum>100 }">
 			                <c:forEach var="page" begin="1" end="10" step="1" >
 						         <c:if test="${section >1 && page==1 }">
-						         	<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+						         	<a class="section" href="${contextPath}/event/A_listEvent.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
 						         </c:if>
-						         	<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+						         	<a class="section" href="${contextPath}/event/A_listEvent.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
 						         <c:if test="${page ==10 }">
-						         	<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+						         	<a class="section" href="${contextPath}/event/A_listEvent.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 						         </c:if> 
 				      		</c:forEach>
 			      	</c:when>
@@ -440,10 +440,10 @@
 			      		<c:forEach var="page" begin="1" end="${totalEventNum/10 +1}" step="1">
 			      			<c:choose>
 			      				<c:when test="${page==pageNum}">
-			      					<a class="section_sel" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${page}</a>
+			      					<a class="section_sel" href="${contextPath}/event/A_listEvent.do?section=${section}&pageNum=${page}">${page}</a>
 			      				</c:when>
 			      				<c:otherwise>
-			      					<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${page}</a>
+			      					<a class="section" href="${contextPath}/event/A_listEvent.do?section=${section}&pageNum=${page}">${page}</a>
 			      				</c:otherwise>
 			      			</c:choose>
 			      		</c:forEach>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,16 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public ArrayList<OrderVO> b_myReservation(HashMap condMap) throws Exception {
 		return mypageDAO.b_myReservation(condMap);
+	}
+
+	@Override
+	public int totalResNum(String mem_id) throws DataAccessException {
+		return mypageDAO.totalResNum(mem_id);
+	}
+
+	@Override
+	public int totalBResNum(String mem_id) throws DataAccessException {
+		return mypageDAO.totalBResNum(mem_id);
 	}
 	
 }

@@ -74,7 +74,9 @@ public class MypageControllerImpl implements MypageController{
 		condMap.put("mem_id", mem_id);
 		
 		ArrayList<OrderVO> reservation_list=mypageService.myReservation(condMap);
+		int totalResNum = mypageService.totalResNum(mem_id);
 		
+		mav.addObject("totalResNum", totalResNum);
 		mav.addObject("reservation_list", reservation_list);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -140,7 +142,9 @@ public class MypageControllerImpl implements MypageController{
 			condMap.put("mem_id", mem_id);
 			
 			ArrayList<OrderVO> reservation_list=mypageService.b_myReservation(condMap);
+			int totalBResNum = mypageService.totalBResNum(mem_id);
 			
+			mav.addObject("totalBResNum", totalBResNum);
 			mav.addObject("reservation_list", reservation_list);
 			
 			String beginDate1[]=beginDate.split("-");

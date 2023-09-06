@@ -89,6 +89,19 @@
 	.font1{
 		font-size: 12px;
 	}
+	.section{
+		cursor: pointer;
+		color: black;
+		text-decoration: none;
+	}
+	.section_sel{
+		cursor: pointer;
+		color: #0066ff;
+		text-decoration: none;
+	}
+	.page1{
+		margin-top:10px;
+	}
 	</style>
 
 	<script>
@@ -366,15 +379,40 @@
 		</c:choose>
 		<tr>
 			<td colspan=8 class="fixed">
-				<c:forEach   var="page" begin="1" end="10" step="1" >
-					<c:if test="${section >1 && page==1 }">
-						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
-					</c:if>
-						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
-					<c:if test="${page ==10 }">
-						<a class="alink" href="${contextPath}/member/myreservation.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-					</c:if> 
-				</c:forEach> 
+				<div class="page1">
+	                 <c:if test="${totalResNum != null}">
+			         	<c:choose>
+			         		<c:when test="${totalResNum>100 }">
+				                <c:forEach var="page" begin="1" end="10" step="1" >
+							         <c:if test="${section >1 && page==1 }">
+							         	<a class="section" href="${contextPath}/member/myreservation.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+							         </c:if>
+							         	<a class="section" href="${contextPath}/member/myreservation.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+							         <c:if test="${page ==10 }">
+							         	<a class="section" href="${contextPath}/member/myreservation.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+							         </c:if> 
+					      		</c:forEach>
+					      	</c:when>
+					      	<c:when test="${totalResNum==100 }">
+					      		<c:forEach var="page" begin="1" end="10" step="1" >
+					      			<a class="section" href="#">${page}</a>
+					      		</c:forEach>
+					      	</c:when>
+					      	<c:when test="${totalResNum<100 }">
+					      		<c:forEach var="page" begin="1" end="${totalResNum/10 +1}" step="1">
+					      			<c:choose>
+					      				<c:when test="${page==pageNum}">
+					      					<a class="section_sel" href="${contextPath}/member/myreservation.do?section=${section}&pageNum=${page}">${page}</a>
+					      				</c:when>
+					      				<c:otherwise>
+					      					<a class="section" href="${contextPath}/member/myreservation.do?section=${section}&pageNum=${page}">${page}</a>
+					      				</c:otherwise>
+					      			</c:choose>
+					      		</c:forEach>
+					      	</c:when>
+				      	</c:choose>
+		      		</c:if>
+	      		</div>
 			</td>
 		</tr>
 	</table>

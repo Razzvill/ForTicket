@@ -55,4 +55,16 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		return adminMemberDAO.a_UpdateBus(memberVO);
 		}
 
+	//회원 수
+	@Override
+	public int totalUserNum() throws DataAccessException {
+		return adminMemberDAO.totalUserNum();
+	}
+
+	//사업자 수
+	@Override
+	public int totalBusNum() throws DataAccessException {
+		return adminMemberDAO.totalBusNum();
+	}
+
 }
