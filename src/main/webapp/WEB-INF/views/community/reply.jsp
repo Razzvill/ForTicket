@@ -82,8 +82,8 @@
 				</td>
 			</tr>
 		</table>
-		<input type="text" name="c_No" value="${reply.c_No }" readonly>
-		<input type="text" name="goods_id" value="${reply.goods_id }" readonly>
+		<input type="hidden" name="c_No" value="${reply.c_No }" readonly>
+		<input type="hidden" name="goods_id" value="${reply.goods_id }" readonly>
 	</form>
 </div>
 </body>

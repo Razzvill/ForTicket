@@ -75,7 +75,7 @@
 		width: 450px;
 		height: 200px;
 		border:1px solid  #FF6251;
-		border-radius: 20px;
+		border-radius: 10px;
 	}
 	
 	.input{
@@ -147,7 +147,8 @@
 			</tr>
 			<tr>
 				<td class="td1">내용</td>
-				<td class="td2"><textarea class="inputsize" name="c_content" value="" rows ="10" cols="65" maxlength="4000"></textarea>
+				<td class="td2">
+				<textarea class="inputsize" name="c_content" rows ="20" cols="65" maxlength="4000"></textarea>
 				</td>
 			</tr>
 			<tr>

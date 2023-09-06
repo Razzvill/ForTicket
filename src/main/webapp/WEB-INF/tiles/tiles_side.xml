@@ -46,6 +46,12 @@
 			<put-attribute name="body" value="/WEB-INF/views/member/m_Edit.jsp" />
 		</definition>
 		
+		<!-- 관심 공연 화면-->
+		<definition name="/member/basket" extends="baseLayout1">
+			<put-attribute name="title" value="관심 공연 화면" />
+			<put-attribute name="body" value="/WEB-INF/views/member/basket.jsp" />
+		</definition>
+		
 		<!-- 리뷰페이지(회원) --> 
 		<definition name="/community/review" extends="baseLayout1">
 			<put-attribute name="title" value="리뷰작성" />
