@@ -109,6 +109,7 @@ public class GoodsControllerImpl implements GoodsController{
 		String search_word = dateMap.get("search_word");
 		String beginDate=null,endDate=null;
 		
+		
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate=tempDate[0];
 		endDate=tempDate[1];
@@ -129,7 +130,21 @@ public class GoodsControllerImpl implements GoodsController{
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		
-		ArrayList goodsList = (ArrayList) goodsService.a_listGoods(condMap);
+		ArrayList goodsList = null;
+		int totalGoodsNum;
+		String mem_id = member.getMem_id();
+		
+		String type = (String)session.getAttribute("type");
+		if(type.equals("B")) {
+			condMap.put("mem_id", mem_id);
+			goodsList = (ArrayList) goodsService.b_listGoods(condMap);
+			totalGoodsNum = goodsService.totalGoodsNumById(mem_id);
+		} else {
+			goodsList = (ArrayList) goodsService.a_listGoods(condMap);
+			totalGoodsNum = goodsService.totalGoodsNum();
+		}
+		
+		
 		mav.addObject("goodsList", goodsList);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -146,6 +161,7 @@ public class GoodsControllerImpl implements GoodsController{
 		
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
+		mav.addObject("totalGoodsNum", totalGoodsNum);
 		mav.setViewName(viewName);
 		
 		return mav;

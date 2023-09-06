@@ -45,24 +45,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public ArrayList listSchedule(String mem_id) throws DataAccessException {
-		List<GoodsVO> goodsList = goodsDAO.selectGoodsById(mem_id);
-		ArrayList scheduleList = new ArrayList();
-		for(GoodsVO goods : goodsList) {
-			int goods_id = goods.getGoods_id();
-			String goods_place = goods.getGoods_place();
-			int theater_id = theaterDAO.selectIdFromName(goods_place);
-			Map<String, Object> params = new HashMap<>();
-			params.put("goods_id", goods_id);
-			params.put("theater_id", theater_id);
-			scheduleList.addAll(scheduleDAO.selectScheduleByGoods(params));
-		}
+	public ArrayList listSchedule(Map param) throws DataAccessException {
+		ArrayList scheduleList = scheduleDAO.selectScheduleByGoods(param);
 		return scheduleList;
 	}
 
 	@Override
-	public ArrayList listAdmin() throws DataAccessException {
-		ArrayList scheduleList = scheduleDAO.selectAllSchedule();
+	public ArrayList listAdmin(Map param) throws DataAccessException {
+		ArrayList scheduleList = scheduleDAO.selectAllSchedule(param);
 		return scheduleList;
 	}
 
@@ -77,15 +67,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public void newOrder(Map scMap) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+	public int totalScheduleNum() throws DataAccessException {
+		int totalSchedule = scheduleDAO.totalSchedule();
+		return totalSchedule;
 	}
 
 	@Override
-	public void cancelOrder(Map scMap) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+	public int totalScheduleNumById(String mem_id) throws DataAccessException {
+		int totalSchedule = scheduleDAO.totalScheduleById(mem_id);
+		return totalSchedule;
 	}
+
 	
 }

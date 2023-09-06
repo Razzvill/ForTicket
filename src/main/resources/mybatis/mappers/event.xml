@@ -53,6 +53,24 @@
 			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
 	</select>
 	
+	<select id="selectBusinessEventList" resultMap="eventResult"
+		parameterType="java.util.Map">
+			select * from (
+			select  ROW_NUMBER() OVER (ORDER BY event_creDate DESC) as recNum, ttt.*
+			from (select * from event where mem_id=#{mem_id} and date_format(event_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
+				<if test="search_type=='goods_name' and  search_type != null">
+					AND goods_name=#{search_word}
+				</if>
+				<if test="search_type=='event_name' and  search_type != null">
+					AND event_name=#{search_word}
+				</if>
+				<if test="search_type=='event_type' and  search_type != null">
+					AND event_type=#{search_word}
+				</if>
+			order by event_creDate desc ) as ttt ) as tttt where 
+			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
 	<select id="selectEventInfo" resultType="eventVO" parameterType="int">
 		<![CDATA[
 			SELECT * FROM event WHERE event_no=#{event_no}
@@ -154,4 +172,12 @@
 			INSERT INTO event_applied(event_no, mem_id) VALUES(#{event_no}, #{mem_id})
 		]]>
 	</insert>
+	
+	<select id="totalEvent" resultType="int">
+		SELECT count(event_no) FROM event
+	</select>
+	
+	<select id="totalEventById" resultType="int" parameterType="String">
+		SELECT count(event_no) FROM event WHERE mem_id=#{mem_id}
+	</select>
 </mapper>

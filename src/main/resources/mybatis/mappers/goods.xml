@@ -71,6 +71,24 @@
 			order by goods_creDate desc ) as ttt ) as tttt where
 			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
 	</select>
+	
+	<select id="selectBusinessGoodsList" resultMap="goodsResult"
+		parameterType="java.util.Map">
+			select * from (
+			select  ROW_NUMBER() OVER (ORDER BY goods_creDate DESC) as recNum, ttt.*
+			from (select * from goods where mem_id=#{mem_id} AND date_format(goods_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
+				<if test="search_type=='goods_id' and  search_type != null">
+					AND goods_id=#{search_word}
+				</if>
+				<if test="search_type=='goods_name' and  search_type != null">
+					AND goods_name=#{search_word}
+				</if>
+				<if test="search_type=='goods_genre' and  search_type != null">
+					AND goods_genre=#{search_word}
+				</if>
+			order by goods_creDate desc ) as ttt ) as tttt where
+			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
+	</select>
 
 	<select id="selectGoodsDetail" resultMap="goodsResult"	parameterType="int">
 	    <![CDATA[
@@ -211,5 +229,13 @@
 			and goods_type=#{goods_type}
 			order by g.goods_creDate desc)  t limit 4;
 	    ]]>
-	</select> 
+	</select>
+	
+	<select id="totalGoods" resultType="int">
+		SELECT count(goods_id) FROM goods
+	</select>
+	
+	<select id="totalGoodsById" resultType="int" parameterType="String">
+		SELECT count(goods_id) FROM goods WHERE mem_id=#{mem_id}
+	</select>
 </mapper>

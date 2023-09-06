@@ -59,6 +59,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		String search_type = dateMap.get("search_type");
 		String search_word = dateMap.get("search_word");
 		String beginDate=null,endDate=null;
+		String mem_id = memberVO.getMem_id();
 		
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate=tempDate[0];
@@ -79,14 +80,17 @@ public class ScheduleControllerImpl implements ScheduleController {
 		condMap.put("endDate", endDate);
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
+		condMap.put("mem_id", mem_id);
 		
 		ArrayList<ScheduleVO> scheduleList = null;
-		
+
+		int totalScheduleNum;
 		
 		String type = (String)session.getAttribute("type");
 		if(type.equals("B")) {
-			String mem_id = memberVO.getMem_id();
-			scheduleList = scheduleService.listSchedule(mem_id);
+			scheduleList = scheduleService.listSchedule(condMap);
+			totalScheduleNum = scheduleService.totalScheduleNumById(mem_id);
+			System.out.println(totalScheduleNum);
 			for(int i=0; i<scheduleList.size(); i++) {
 				ScheduleVO schedule = scheduleList.get(i);
 				String s_dateTime = schedule.getS_dateTime();
@@ -99,7 +103,8 @@ public class ScheduleControllerImpl implements ScheduleController {
 	            }
 			}
 		} else {
-			scheduleList = scheduleService.listAdmin();
+			scheduleList = scheduleService.listAdmin(condMap);
+			totalScheduleNum = scheduleService.totalScheduleNum();
 			for(int i=0; i<scheduleList.size(); i++) {
 				ScheduleVO schedule = scheduleList.get(i);
 				String s_dateTime = schedule.getS_dateTime();
@@ -113,6 +118,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 			}
 		}
 		mav.addObject("scheduleList", scheduleList);
+		mav.addObject("totalScheduleNum", totalScheduleNum);
 		
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");
@@ -128,6 +134,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
+		
 		mav.setViewName(viewName);
 		return mav;
 	}

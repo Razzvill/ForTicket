@@ -70,6 +70,7 @@ public class EventControllerImpl implements EventController {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
+		String mem_id = member.getMem_id();
 		mav.addObject("member", member);
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
@@ -101,6 +102,7 @@ public class EventControllerImpl implements EventController {
 		condMap.put("search_word", search_word);
 		
 		ArrayList<EventVO> eventList = (ArrayList) eventService.A_listEvents(condMap);
+		int totalEventNum = eventService.totalEventNum();
 		for(EventVO eventVO : eventList) {
 			String goods_name = goodsService.goodsName(eventVO.getGoods_id());
 			int goods_discount = goodsService.goodsDisc(eventVO.getGoods_id());
@@ -108,6 +110,7 @@ public class EventControllerImpl implements EventController {
 			eventVO.setGoods_discount(goods_discount);
 		}
 		mav.addObject("eventList", eventList);
+		mav.addObject("totalEventNum", totalEventNum);
 		
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");
@@ -123,6 +126,7 @@ public class EventControllerImpl implements EventController {
 		
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
+		
 		mav.setViewName(viewName);
 		
 		return mav;
@@ -136,6 +140,7 @@ public class EventControllerImpl implements EventController {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
+		String mem_id = member.getMem_id();
 		mav.addObject("member", member);
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
@@ -166,7 +171,9 @@ public class EventControllerImpl implements EventController {
 		condMap.put("search_type",search_type);
 		condMap.put("search_word", search_word);
 		
-		ArrayList<EventVO> eventList = (ArrayList) eventService.A_listEvents(condMap);
+		condMap.put("mem_id", mem_id);
+		ArrayList<EventVO> eventList = (ArrayList) eventService.B_listEvents(condMap);
+		int totalEventNum = eventService.totalEventNumById(mem_id);
 		for(EventVO eventVO : eventList) {
 			String goods_name = goodsService.goodsName(eventVO.getGoods_id());
 			int goods_discount = goodsService.goodsDisc(eventVO.getGoods_id());
@@ -174,6 +181,7 @@ public class EventControllerImpl implements EventController {
 			eventVO.setGoods_discount(goods_discount);
 		}
 		mav.addObject("eventList", eventList);
+		mav.addObject("totalEventNum", totalEventNum);
 		
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");

@@ -34,6 +34,12 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
+	public List b_listGoods(Map condMap) throws DataAccessException {
+		List goodsList = goodsDAO.selectBusinessGoodsList(condMap);
+		return goodsList;
+	}
+
+	@Override
 	public List findGoodsById(String mem_id) throws DataAccessException {
 		List goodsList = goodsDAO.selectGoodsById(mem_id);
 		return goodsList;
@@ -153,7 +159,7 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	//메인페이지 상품 리스트
 	@Override
-	public Map<String, List<GoodsVO>> mainListGoods() throws Exception {
+	public Map<String, List<GoodsVO>> mainListGoods() throws DataAccessException {
 		Map<String,List<GoodsVO>> goodsMap=new HashMap<String,List<GoodsVO>>();
 		List<GoodsVO> goodsList=goodsDAO.mainListGoods("drama");
 		goodsMap.put("drama",goodsList);
@@ -165,6 +171,18 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsMap.put("concert",goodsList);
 		
 		return goodsMap;
+	}
+
+	@Override
+	public int totalGoodsNum() throws DataAccessException {
+		int totalGoodsNum = goodsDAO.totalGoods();
+		return totalGoodsNum;
+	}
+
+	@Override
+	public int totalGoodsNumById(String mem_id) throws DataAccessException {
+		int totalGoodsNum = goodsDAO.totalGoodsById(mem_id);
+		return totalGoodsNum;
 	}
 	
 	
