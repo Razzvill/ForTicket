@@ -143,6 +143,12 @@
 	.page1{
 		margin-top:50px;
 	}
+	.review_link{
+		text-decoration: none;
+		cursor: pointer;
+		color: #FF6251;
+		font-weight: bold;
+	}
 </style>
 </head>
 <body>
@@ -151,7 +157,7 @@
     	<div style="text-align:left;">커뮤니티</div>
     	<div class="comm_title_more">
     		<c:if test="${isLogOn == true && type=='U'}">
-	    		<a href="${contextPath}/member/myreservation.do?mem_id=${member.mem_id }">리뷰작성</a>
+	    		<a class="review_link" href="${contextPath}/member/myreservation.do?mem_id=${member.mem_id }">리뷰작성</a>
     		</c:if>
 		</div>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 30px; margin-bottom:10px;"></div>

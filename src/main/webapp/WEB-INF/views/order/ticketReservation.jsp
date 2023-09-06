@@ -10,7 +10,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>예매 페이지</title>
- 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<style>
 	.section_box{
 		 width: 800px;
@@ -301,13 +300,6 @@
    		<span id="emailError" style="color: red;"></span>
    	</div>
  		</div>
-	
-	<div class="basket_title" style="margin-top:20px;">
-   		<span>총 결제금액
-   			<span id="total_price_view" class="pay_total pay_total_price">${item.totalPrice }</span>
-   		</span>
- 		</div>
-	
 	<div id="payment_section">
     <div class="basket_title">
 		<span>결제방법</span>
@@ -447,7 +439,7 @@
     </div>
 
     <div class="pay_btn">
-	    <a class="pay_a" href="javascript:fn_process_pay_order();">결제하기</a>
+	    <button class="pay_a" type="button" onclick="validateFormAndProceed()();">결제하기</button>
     </div>
   	</div>
 </div>
@@ -523,17 +515,23 @@
 	
     //결제 선택
     var orderPay='';
-    
+   
 	function PAYMENT_SELECT_FUNC(selectedValue) {
 		var orderPays = selectedValue;
 	    orderPay = orderPays;
 	    console.log(orderPays); // 선택한 값이 콘솔에 출력됨
 	}
 	
+	function validateFormAndProceed() {
+	    if (validateForm()) {
+	        fn_process_pay_order(); // fn_process_pay_order() 함수 호출
+	    }
+	}
+
 	//정보 미입력 시 오류
+	debugger;	
 	function validateForm() {
-		debugger;
-    var memId = document.getElementById("orderName").value;
+    var memId = document.getElementById("receiver_name").value;
 
     var email = document.getElementById("orderEmail").value;
     var phone = document.getElementById("orderPhone").value;
@@ -543,23 +541,25 @@
     
 
 
-    if (memId === "" || email === "" || phone === "" || orderPay ==="") {
+    if (memId === "" || email === "" || phone === "") {
         alert("모든 항목을 입력해주세요.");
         return false; // 폼 제출 방지
     }
-    
+    if (orderPay === "") {
+        alert("결제 항목을 선택해주세요.");
+        return false; // 폼 제출 방지
+    }
     if (!check_1 || !check_2) {
-        alert("이용약관에 동의해주세요.");
+        alert("모든 환불규정에 동의해주세요.");
         return false; // 폼 제출 방지
     }
      return true; // 폼 제출 허용
 	}
     
 
-
     function fn_process_pay_order(){
  		
- 		//debugger;
+ 		debugger;
  		
  		var formObj=document.createElement("form");
  		
