@@ -64,8 +64,17 @@
   
   function handleGoodsSelectChange() {
     var selectedOption = document.getElementById("goodsSelect").options[document.getElementById("goodsSelect").selectedIndex];
+    var g_type = selectedOption.getAttribute("data-goods-type");
+    var g_type_ko = "";
+    if(g_type=="drama"){
+    	g_type_ko = "연극";
+    } else if(g_type=="musical"){
+    	g_type_ko = "뮤지컬";
+    } else if(g_type=="concert"){
+    	g_type_ko = "공연";
+    }
     
-    document.getElementById("goods_type").value = selectedOption.getAttribute("data-goods-type");
+    document.getElementById("goods_type").value = g_type_ko;
     document.getElementById("goods_genre").value = selectedOption.getAttribute("data-goods-genre");
     document.getElementById("goods_startDate").value = selectedOption.getAttribute("data-goods-startDate");
     document.getElementById("goods_endDate").value = selectedOption.getAttribute("data-goods-endDate");

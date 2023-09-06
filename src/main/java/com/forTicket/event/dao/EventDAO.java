@@ -23,6 +23,7 @@ public interface EventDAO {
 	public void updateEventStatus(Map eventMap) throws DataAccessException;
 	public void deleteEvent(int event_no) throws DataAccessException;
 	public List selectEventImageFileList(int event_no) throws DataAccessException;
+	public List selectEventImageFileList_2(int event_no) throws DataAccessException;
 	public void insertEventImage(E_imageFileVO imageFileVO) throws DataAccessException;
 	public void updateEventImage(E_imageFileVO imageFileVO) throws DataAccessException;
 	public void deleteEventImage(int image_id) throws DataAccessException;

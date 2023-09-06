@@ -438,14 +438,12 @@ public class GoodsControllerImpl implements GoodsController{
 						image_id = Integer.parseInt((String)goodsMap.get("image_id"));
 						String originalFileName = (String)goodsMap.get("originalFileName");
 						String fileName = (String)goodsMap.get("fileName");
-						System.out.println("fileName:"+fileName);
 						File oldFile = new File(GOODS_IMAGE_REPO+"\\"+goods_id+"\\"+originalFileName);
 						oldFile.delete();
 						imageFileVO.setGoods_id(goods_id);
 						imageFileVO.setImage_id(image_id);
 						imageFileVO.setReg_id(reg_id);
 						imageFileVO.setFileName(fileName);
-						System.out.println(imageFileVO.toString());
 					}
 					
 				    goodsService.modGoodsImage(imageFileList);

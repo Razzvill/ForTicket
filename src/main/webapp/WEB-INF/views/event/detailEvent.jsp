@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:set var="imageList" value="${events.imageFileList }" />
-<c:set var="event" value="${events.eventVO}" />
+<c:set var="imageList" value="${eventMap.imageFileList }" />
+<c:set var="event" value="${eventMap.event}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
@@ -246,7 +246,7 @@ request.setCharacterEncoding("utf-8");
 
 		<div
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
-			<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}"
+			<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_fileName=${event.event_fileName}"
 				style="width: 482px; border-radius: 10px;">
 		</div>
 		
@@ -254,7 +254,6 @@ request.setCharacterEncoding("utf-8");
 		<section style="float: right; width: 307px;">
 			<div class="theater_list">
 				<div class="theater_info">
-					<p class="title">${event.event_fileName}</p>
 					<p class="title">${event.event_name}</p>
 					<p class="detail">유형 : 
 					<c:choose>
@@ -292,7 +291,7 @@ request.setCharacterEncoding("utf-8");
 					
 					<!-- 상세이미지 -->
 					<c:forEach var="image" items="${imageList}">
-						<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${image.fileName}">
+						<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_fileName=${image.fileName}">
 					</c:forEach>
 					
 					<div class="main_img"></div>
