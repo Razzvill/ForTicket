@@ -12,6 +12,7 @@ public interface EventService {
 	public List listEvents() throws DataAccessException;
 	public List A_listEvents(Map condMap) throws DataAccessException;
 	public Map eventInfo(int event_no) throws DataAccessException;
+	public Map eventDetail(int event_no) throws DataAccessException;
 	public int addEvent(Map eventMap) throws DataAccessException;
 	public void modEvent(Map eventMap) throws DataAccessException;
 	public void modEventStatus(Map eventMap) throws DataAccessException;

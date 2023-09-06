@@ -39,12 +39,12 @@
 	    position: relative;
 	    width: 100%;
 	    height: 405px;
+	    margin-right: 20px;
 	    margin-bottom: 38px;
+	    padding: 5px;
 	    overflow: hidden;
 	}
 	.event-main-list li > a img {
-	    display: block;
-	    width: 100%;
 	    height: 258px;
 	    transition: all ease-out 0.3s;
 	}
@@ -61,7 +61,7 @@
 	}
 	.event-main-list li > a .eve-mlist-mark span#disc {
 	    min-width: 67px;
-	    line-height: 18px;
+	    line-height: 25px;
 	    text-align: center;
 	    padding: 0 8px;
 	    font-size: 15px;
@@ -72,7 +72,7 @@
 	}
 	.event-main-list li > a .eve-mlist-mark span#inv {
 	    min-width: 67px;
-	    line-height: 18px;
+	    line-height: 25px;
 	    text-align: center;
 	    padding: 0 8px;
 	    font-size: 15px;
@@ -161,29 +161,34 @@ $(document).ready(function() {
 				<c:choose>
 					<c:when test="${not empty eventList}">
 						<c:forEach var="event" items="${eventList}">
-							<c:if test="${event.event_status == '진행중'}">
-								<li class="event_list">
-									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
-										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}" alt="${event.event_name}">
-										<div class="eve-mlist-box">
-											<c:choose>
-												<c:when test="${event.event_type == 'disc'}">
-													<p class="eve-mlist-mark"><span id="disc">예매 할인</span></p>
-												</c:when>
-												<c:otherwise>
-													<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
-												</c:otherwise>
-											</c:choose>
-											<p class="eve-mlist-tit">${event.event_name}</p>
-											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}
-												<c:if test="${event.event_type=='inv' }">
-												 | ${event.event_finalDate} 발표
-												</c:if>
-											</p>
-										</div>
-									</a>
-								</li>
-							</c:if>
+							<c:choose>
+								<c:when test="${event.event_status == '진행중'}">
+									<li class="event_list">
+										<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
+											<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_fileName=${event.event_fileName}" alt="${event.event_name}">
+											<div class="eve-mlist-box">
+												<c:choose>
+													<c:when test="${event.event_type == 'disc'}">
+														<p class="eve-mlist-mark"><span id="disc">예매 할인</span></p>
+													</c:when>
+													<c:otherwise>
+														<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
+													</c:otherwise>
+												</c:choose>
+												<p class="eve-mlist-tit">${event.event_name}</p>
+												<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}
+													<c:if test="${event.event_type=='inv' }">
+													 | ${event.event_finalDate} 발표
+													</c:if>
+												</p>
+											</div>
+										</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
@@ -197,28 +202,33 @@ $(document).ready(function() {
 				<c:choose>
 					<c:when test="${not empty eventList}">
 						<c:forEach var="event" items="${eventList}">
-							<c:if test="${event.event_status == '종료'}">
-								<li>
-									<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
-										<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}" alt="${event.event_name}">
-										<div class="eve-mlist-box">
-											<c:choose>
-												<c:when test="${event.event_type == 'disc'}">
-													<p class="eve-mlist-mark"><span id="disc">예매 할인</span></p>
-												</c:when>
-												<c:otherwise>
-													<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
-												</c:otherwise>
-											</c:choose>
-											<p class="eve-mlist-tit">${event.event_name}</p>
-											<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}</p>
-												<c:if test="${event.event_type=='inv' }">
-													<p>${event.event_finalDate} 발표</p>
-												</c:if>
-										</div>
-									</a>
-								</li>
-							</c:if>
+							<c:choose>
+								<c:when test="${event.event_status == '종료'}">
+									<li>
+										<a href="${contextPath}/event/detailEvent.do?event_no=${event.event_no}">
+											<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}" alt="${event.event_name}">
+											<div class="eve-mlist-box">
+												<c:choose>
+													<c:when test="${event.event_type == 'disc'}">
+														<p class="eve-mlist-mark"><span id="disc">예매 할인</span></p>
+													</c:when>
+													<c:otherwise>
+														<p class="eve-mlist-mark"><span id="inv">초대권 증정</span></p>
+													</c:otherwise>
+												</c:choose>
+												<p class="eve-mlist-tit">${event.event_name}</p>
+												<p class="eve-mlist-txt">${event.event_startDate} ~ ${event.event_endDate}</p>
+													<c:if test="${event.event_type=='inv' }">
+														<p>${event.event_finalDate} 발표</p>
+													</c:if>
+											</div>
+										</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
