@@ -59,13 +59,13 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/event/download.do")
-	protected void e_download(@RequestParam("event_image") String event_image, @RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp)
+	protected void e_download(@RequestParam("event_fileName") String event_fileName, @RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp)
 			throws Exception {
 		OutputStream out = resp.getOutputStream();
-		String downFile = EVENT_IMAGE_REPO + "\\" + event_no+"\\"+event_image;
+		String downFile = EVENT_IMAGE_REPO + "\\" + event_no+"\\"+event_fileName;
 		File file = new File(downFile);
 		resp.setHeader("Cache-Control", "no-cache");
-		resp.addHeader("Content-disposition", "attachment: fileName="+event_image);
+		resp.addHeader("Content-disposition", "attachment: fileName="+event_fileName);
 		FileInputStream in = new FileInputStream(file);
 		byte[] buffer = new byte[1024*8];
 		while(true) {
@@ -92,9 +92,9 @@ public class FileDownloadController {
 	}
 	
 	@RequestMapping("/event/thumbnails.do")
-	protected void thumbnails(@RequestParam("event_no") int event_no,@RequestParam("event_image") String event_image, HttpServletResponse response) throws Exception {
+	protected void thumbnails(@RequestParam("event_no") int event_no,@RequestParam("event_fileName") String event_fileName, HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath=GOODS_IMAGE_REPO+"\\"+event_no+"\\"+event_image;
+		String filePath=GOODS_IMAGE_REPO+"\\"+event_no+"\\"+event_fileName;
 		File image=new File(filePath);
 		
 		if (image.exists()) { 

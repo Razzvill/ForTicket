@@ -42,7 +42,17 @@ public class EventServiceImpl implements EventService {
 		Map eventMap = new HashMap();
 		EventVO eventVO = eventDAO.selectEventDetail(event_no);
 		List imageFileList = eventDAO.selectEventImageFileList(event_no);
-		eventMap.put("eventVO", eventVO);
+		eventMap.put("event", eventVO);
+		eventMap.put("imageFileList", imageFileList);
+		return eventMap;
+	}
+	
+	@Override
+	public Map eventDetail(int event_no) throws DataAccessException {
+		Map eventMap = new HashMap();
+		EventVO eventVO = eventDAO.selectEventDetail(event_no);
+		List imageFileList = eventDAO.selectEventImageFileList_2(event_no);
+		eventMap.put("event", eventVO);
 		eventMap.put("imageFileList", imageFileList);
 		return eventMap;
 	}

@@ -378,11 +378,11 @@
 		         <div class="page1">
                  <c:forEach   var="page" begin="1" end="10" step="1" >
 		         <c:if test="${section >1 && page==1 }">
-		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+		          <a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
 		         </c:if>
-		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+		          <a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
 		         <c:if test="${page ==10 }">
-		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+		          <a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 		         </c:if> 
 	      		</c:forEach> 
            		</div>

@@ -202,7 +202,7 @@ public class EventControllerImpl implements EventController {
 		resp.setContentType("html/text;charset=utf-8");
 		String viewName = (String) req.getAttribute("viewName");
 		Map event = eventService.eventInfo(event_no);
-		EventVO eventVO = (EventVO) event.get("eventVO");
+		EventVO eventVO = (EventVO) event.get("event");
 		int goods_id = eventVO.getGoods_id();
 		Map goodsMap = goodsService.goodsInfo(goods_id);
 		GoodsVO goods = (GoodsVO)goodsMap.get("goodsVO");
@@ -211,7 +211,7 @@ public class EventControllerImpl implements EventController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mav.addObject("goods", goods);
 		mav.addObject("member", member);
-		mav.addObject("events", event);
+		mav.addObject("eventMap", event);
 		return mav;
 	}
 	
@@ -375,7 +375,7 @@ public class EventControllerImpl implements EventController {
 	public ModelAndView modForm(@RequestParam("event_no") int event_no, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("utf-8");
 		String viewName = (String)req.getAttribute("viewName");
-		Map eventMap = eventService.eventInfo(event_no);
+		Map eventMap = eventService.eventDetail(event_no);
 		EventVO eventVO = (EventVO) eventMap.get("event");
 		int goods_id = eventVO.getGoods_id();
 		Map goodsMap = goodsService.goodsInfo(goods_id);
@@ -393,22 +393,39 @@ public class EventControllerImpl implements EventController {
 	@Override
 	@RequestMapping(value = "/event/modEvent.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity modEvent(@RequestParam("event_no") int event_no, @RequestParam("attribute") String attribute,
-            @RequestParam("value") String value, MultipartHttpServletRequest multipartReq, HttpServletResponse resp)
+	public ResponseEntity modEvent(MultipartHttpServletRequest multipartReq, HttpServletResponse resp)
 			throws Exception {
 		multipartReq.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		Map eventMap=new HashMap();
-		eventMap.put("event_no", event_no);
-		eventMap.put(attribute, value);
-		eventService.modEvent(eventMap);
+		Enumeration enu=multipartReq.getParameterNames();
+		while(enu.hasMoreElements()){
+			String name=(String)enu.nextElement();
+			String value=multipartReq.getParameter(name);
+			eventMap.put(name,value);
+		}
 		
+		int event_no = Integer.parseInt((String)eventMap.get("event_no"));
 		String message = null;
-		ResponseEntity resEntity = null;
+		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
-		message  = "mod_success";
-		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		return resEntity;
+		try {
+			eventService.modEvent(eventMap);
+			message = "<script>";
+			message += " alert('이벤트가 수정되었습니다.');";
+			message += "location.href='"+multipartReq.getContextPath()+"/event/B_listEvent.do';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch(Exception e) {
+			message = "<script>";
+			message += " alert('이벤트 수정에 실패했습니다.');";
+			message += "location.href='"+multipartReq.getContextPath()+"/event/modEventForm.do?event_no="+event_no+"';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		resEnt =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEnt;
 	}
 	
 	//이벤트 등록상태 수정
@@ -437,7 +454,7 @@ public class EventControllerImpl implements EventController {
 
 	//이벤트 이미지 추가
 	@Override
-	@RequestMapping(value="/addEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/event/addEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public void addNewEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
@@ -488,7 +505,7 @@ public class EventControllerImpl implements EventController {
 	
 	//이벤트 이미지 수정
 	@Override
-	@RequestMapping(value="/modEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/event/modEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public void modEventImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
@@ -517,12 +534,15 @@ public class EventControllerImpl implements EventController {
 					event_no = Integer.parseInt((String)goodsMap.get("event_no"));
 					image_id = Integer.parseInt((String)goodsMap.get("image_id"));
 					String originalFileName = (String)goodsMap.get("originalFileName");
-					File oldFile = new File(EVENT_IMAGE_REPO+"\\"+"temp"+"\\"+originalFileName);
+					String fileName = (String)goodsMap.get("fileName");
+					File oldFile = new File(EVENT_IMAGE_REPO+"\\"+event_no+"\\"+originalFileName);
 					oldFile.delete();
 					imageFileVO.setEvent_no(event_no);
 					imageFileVO.setImage_id(image_id);
 					imageFileVO.setReg_id(reg_id);
+					imageFileVO.setFileName(fileName);
 				}
+				
 				eventService.modEventImage(imageFileList);
 				for(E_imageFileVO  imageFileVO:imageFileList) {
 					imageFileName = imageFileVO.getFileName();
@@ -545,7 +565,7 @@ public class EventControllerImpl implements EventController {
 
 	//이벤트 이미지 삭제
 	@Override
-	@RequestMapping(value="/removeEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/event/removeEventImage.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public void removeEventImage(@RequestParam("event_no") int event_no, @RequestParam("image_id") int image_id, @RequestParam("imageFileName") String imageFileName, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		eventService.removeEventImage(image_id);
