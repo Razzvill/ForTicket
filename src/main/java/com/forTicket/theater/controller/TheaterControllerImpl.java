@@ -1,6 +1,10 @@
 package com.forTicket.theater.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -225,7 +232,60 @@ public class TheaterControllerImpl implements TheaterController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	@RequestMapping(value="/theater/apiLoad.do", method= {RequestMethod.GET, RequestMethod.POST})
+	private ResponseEntity loadJsonFromApi(){
+		String result="";
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html;charset=utf-8");
+		try {
+			URL url = new URL("https://api.odcloud.kr/api/15062225/v1/uddi:ebf72314-2e68-4f0f-9f2c-f3d65e38d7e3?page=1&perPage=10&serviceKey=5sLUhVVcsVMjF0nhrzssoDK5SJiA2OZOUoow5tLn0R38pBwS%2F0Nwe58BS1t5tDA5IaX1z6eGPmM9dNkffelahA%3D%3D");
+			HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+			urlConnection.setRequestMethod("GET");
+			urlConnection.setRequestProperty("Content-type", "application/json");
+			
+			BufferedReader bf = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+			result = bf.readLine();
+			
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
+			JSONArray jsonArray = (JSONArray) jsonObject.get("data");
+			for(int i=0; i<jsonArray.size(); i++) {
+				JSONObject object = (JSONObject) jsonArray.get(i);
+				String address = (String) object.get("소재지 도로명주소");
+				String name = (String) object.get("공연장명");
+				long seats_long = (long)object.get("수용인원");
+				int seats = (int) seats_long;
+				String detail = (String) object.get("전화번호");
+				String cat = (String) object.get("비고");
+				String image = "";
+				Map condMap = new HashMap();
+				condMap.put("theater_address", address);
+				condMap.put("theater_name", name);
+				condMap.put("theater_seats", seats);
+				condMap.put("theater_detail", detail);
+				condMap.put("theater_cat", cat);
+				condMap.put("theater_image", image);
+				theaterService.addTheater(condMap);
+			}
+			
+			message = "<script>";
+			message += " alert('API 로드에 성공했습니다.');";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch(Exception e) {
+			message = "<script>";
+			message += " alert('API 로드에 실패했습니다.');";
+			message += "</script>";
+			e.printStackTrace();
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		}
+		return resEnt;
+	}
+	
+	
 	private String getViewName(HttpServletRequest req) throws Exception {
 		String contextPath = req.getContextPath();
 		String uri = (String) req.getAttribute("javax.servlet.include.request_uri");
