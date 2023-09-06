@@ -32,7 +32,7 @@ public class CenterServiceImpl implements CenterService{
 		
 	//고객센터 상세화면
 	@Override
-	public CenterVO view(int center_No) throws Exception {
+	public CenterVO view(int center_No) throws DataAccessException {
 		CenterVO center = centerDAO.view(center_No);
 		return center;
 	}
@@ -45,27 +45,27 @@ public class CenterServiceImpl implements CenterService{
 	
 	//고객센터 상세 삭제하기 
 	@Override
-	public void delete(int center_No) throws Exception {
+	public void delete(int center_No) throws DataAccessException {
 		centerDAO.delete(center_No);
 	}
 	
 	//고객센터 환불목록
 	@Override
-	public ArrayList<CenterVO> re_list(HashMap condMap) throws Exception{
+	public ArrayList<CenterVO> re_list(HashMap condMap) throws DataAccessException{
 		ArrayList<CenterVO> refund_list = centerDAO.re_list(condMap);
 		return refund_list;
 	}
 	
 	//고객센터 공지목록
 	@Override
-	public ArrayList<CenterVO> no_list(HashMap condMap) throws Exception{
+	public ArrayList<CenterVO> no_list(HashMap condMap) throws DataAccessException{
 		ArrayList<CenterVO> refund_list = centerDAO.no_list(condMap);
 		return refund_list;
 	}
 	
 	//고객센터 faq목록
 	@Override
-	public ArrayList<CenterVO> faq_list(HashMap condMap) throws Exception{
+	public ArrayList<CenterVO> faq_list(HashMap condMap) throws DataAccessException{
 		ArrayList<CenterVO> refund_list = centerDAO.faq_list(condMap);
 		return refund_list;
 	}
@@ -84,13 +84,13 @@ public class CenterServiceImpl implements CenterService{
 	
 	//고객센터 1:1 삭제하기 
 	@Override
-	public void q_delete(int q_Num) throws Exception {
+	public void q_delete(int q_Num) throws DataAccessException {
 		centerDAO.q_delete(q_Num);
 	}
 	
 	//고객센터 1:1 관리자
 	@Override
-	public ArrayList<QuestionVO> a_questionList(HashMap condMap) throws Exception {
+	public ArrayList<QuestionVO> a_questionList(HashMap condMap) throws DataAccessException {
 		return centerDAO.a_questionList(condMap);
 	}
 	
@@ -104,14 +104,32 @@ public class CenterServiceImpl implements CenterService{
 	
 	//1:1답변 추가
 	@Override
-	public int update_reply(QuestionVO quesitonVO) throws Exception {
+	public int update_reply(QuestionVO quesitonVO) throws DataAccessException {
 		return centerDAO.update_reply(quesitonVO);
 	}
 
 	//1:1 삭제-관리자
 	@Override
-	public void a_delete(int q_Num) throws Exception {
+	public void a_delete(int q_Num) throws DataAccessException {
 		centerDAO.a_delete(q_Num);		
+	}
+
+	//환불안내 게시글 수
+	@Override
+	public int totalRefundNum() throws DataAccessException {
+		return centerDAO.totalRefundNum();
+	}
+
+	//공지사항 게시글 수
+	@Override
+	public int totalNoticeNum() throws DataAccessException {
+		return centerDAO.totalNoticeNum();
+	}
+
+	//FAQ 게시글 수
+	@Override
+	public int totalFAQNum() throws DataAccessException {
+		return centerDAO.totalFAQNum();
 	}
 	
 }

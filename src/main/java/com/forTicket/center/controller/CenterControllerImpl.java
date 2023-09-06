@@ -202,8 +202,10 @@ public class CenterControllerImpl implements CenterController {
 		condMap.put("pageNum", pageNum);
 
 		ArrayList<CenterVO> refund_list = centerService.re_list(condMap);
+		int totalRefundNum = centerService.totalRefundNum();
 
 		mav.addObject("refund_list", refund_list);
+		mav.addObject("totalRefundNum", totalRefundNum);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
 
@@ -238,8 +240,10 @@ public class CenterControllerImpl implements CenterController {
 		condMap.put("pageNum", pageNum);
 
 		ArrayList<CenterVO> notice_list = centerService.no_list(condMap);
+		int totalNoticeNum = centerService.totalNoticeNum();
 
 		mav.addObject("notice_list", notice_list);
+		mav.addObject("totalNoticeNum", totalNoticeNum);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
 
@@ -269,7 +273,10 @@ public class CenterControllerImpl implements CenterController {
 		condMap.put("pageNum", pageNum);
 
 		ArrayList<CenterVO> faq_list = centerService.faq_list(condMap);
+		int totalFAQNum = centerService.totalFAQNum();
+		
 		mav.addObject("faq_list", faq_list);
+		mav.addObject("totalFAQNum", totalFAQNum);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
 

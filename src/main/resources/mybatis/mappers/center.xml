@@ -220,5 +220,17 @@
 		delete from question where q_Num = #{q_Num} 
 		]]>  
 	</delete>
+	
+	<select id="totalRefundNum" resultType="int">
+		select count(center_No) from center where center_Type='refund'
+	</select>
+	
+	<select id="totalNoticeNum" resultType="int">
+		select count(center_No) from center where center_Type='notice'
+	</select>
+	
+	<select id="totalFAQNum" resultType="int">
+		select count(center_No) from center where center_Type='faq'
+	</select>
 
 </mapper>

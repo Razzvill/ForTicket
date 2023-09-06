@@ -29,7 +29,7 @@ public interface CenterDAO {
 	public void edit(Map vieswMap) throws DataAccessException;
 	
 	//고객센터 상세 삭제하기
-	public void delete(int center_No) throws Exception; 
+	public void delete(int center_No) throws DataAccessException; 
 	
 	//고객센터 환불 목록
 	public ArrayList<CenterVO> re_list(HashMap condMap) throws DataAccessException;
@@ -47,7 +47,7 @@ public interface CenterDAO {
 	public int addQue(QuestionVO questionVO) throws DataAccessException;
 	
 	//고객센터 1:1 삭제하기 - 회원 
-	public void q_delete(int q_Num) throws Exception; 
+	public void q_delete(int q_Num) throws DataAccessException; 
 	
 	//고객센터 1:1 관리자
 	public ArrayList<QuestionVO> a_questionList(HashMap condMap)  throws DataAccessException;
@@ -56,9 +56,18 @@ public interface CenterDAO {
 	public QuestionVO q_Num(int q_Num) throws DataAccessException;
 	
 	//1:1 답변업데이트
-	public int update_reply(QuestionVO quesitonVO) throws Exception; 
+	public int update_reply(QuestionVO quesitonVO) throws DataAccessException; 
 	
 	//1:1 삭제 - 관리자
-	public void a_delete(int q_Num) throws Exception; 
+	public void a_delete(int q_Num) throws DataAccessException; 
+
+	//환불안내 게시글 수
+	public int totalRefundNum() throws DataAccessException;
+	
+	//공지사항 게시글 수
+	public int totalNoticeNum() throws DataAccessException;
+	
+	//FAQ 게시글 수
+	public int totalFAQNum() throws DataAccessException;
 
 }
