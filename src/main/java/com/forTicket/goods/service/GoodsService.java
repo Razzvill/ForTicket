@@ -10,6 +10,7 @@ import com.forTicket.goods.vo.GoodsVO;
 public interface GoodsService {
 	public List listGoods() throws DataAccessException;
 	public List a_listGoods(Map condMap) throws DataAccessException;
+	public List b_listGoods(Map condMap) throws DataAccessException;
 	public List findGoodsById(String mem_id) throws DataAccessException;
 	public Map goodsInfo(int goods_id) throws DataAccessException;
 	public Map goodDetail(int goods_id) throws DataAccessException;
@@ -30,5 +31,7 @@ public interface GoodsService {
 	//리뷰 호출
 	public List reviewList(int goods_id) throws DataAccessException;
 	//메인페이지 상품 리스트
-	public Map<String,List<GoodsVO>> mainListGoods() throws Exception;
+	public Map<String,List<GoodsVO>> mainListGoods() throws DataAccessException;
+	public int totalGoodsNum() throws DataAccessException;
+	public int totalGoodsNumById(String mem_id) throws DataAccessException;
 }

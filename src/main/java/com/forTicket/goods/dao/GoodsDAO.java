@@ -15,6 +15,7 @@ import com.forTicket.goods.vo.GoodsVO;
 public interface GoodsDAO {
 	public List selectGoodsList() throws DataAccessException;
 	public List selectAdminGoodsList(Map condMap) throws DataAccessException;
+	public List selectBusinessGoodsList(Map condMap) throws DataAccessException;
 	public GoodsVO selectGoodsDetail(int goods_id) throws DataAccessException;
 	public int selectGoodsNo(Map goodsMap) throws DataAccessException;
 	public String selectGoodsNameById(int goods_id) throws DataAccessException;
@@ -38,5 +39,6 @@ public interface GoodsDAO {
 	public List reviewList(int goods_id) throws DataAccessException;
 	//메인페이지 상품 리스트
 	public List<GoodsVO> mainListGoods(String goods_type) throws DataAccessException;
-
+	public int totalGoods() throws DataAccessException;
+	public int totalGoodsById(String mem_id) throws DataAccessException;
 }

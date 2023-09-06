@@ -95,6 +95,13 @@
 		font-size: 15px;
 		font-weight: bold;
 	}
+	.section_sel{
+		cursor: pointer;
+		color: #0066ff;
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: bold;
+	}
 	
 	.page1{
 		margin-top:10px;
@@ -332,38 +339,17 @@
 		</tr>
 		<c:choose>
 			<c:when test="${not empty scheduleList}">
-				<c:choose>
-					<c:when test="${type=='B' }">
-						<c:forEach var="list" items="${scheduleList}">
-							<c:choose>
-								<c:when test="${list.reg_id==member.mem_id}">
-									<tr>
-										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
-										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
-										<td>${list.s_date}</td>
-										<td>${list.s_time}</td>
-										<td>${list.theater_name}</td>
-										<td>${list.seats}</td>
-										<td><a href="${contextPath}/schedule/removeSchedule.do?s_no=${list.s_no}" class="reply">삭제</a></td>
-									</tr>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="list" items="${scheduleList}">
-							<tr>
-								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
-								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
-								<td>${list.s_date}</td>
-								<td>${list.s_time}</td>
-								<td>${list.theater_name}</td>
-								<td>${list.seats}</td>
-								<td><a href="${contextPath}/schedule/removeSchedule.do?s_no=${list.s_no}" class="reply">삭제</a></td>
-							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
+				<c:forEach var="list" items="${scheduleList}">
+					<tr>
+						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
+						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
+						<td>${list.s_date}</td>
+						<td>${list.s_time}</td>
+						<td>${list.theater_name}</td>
+						<td>${list.seats}</td>
+						<td><a href="${contextPath}/schedule/removeSchedule.do?s_no=${list.s_no}" class="reply">삭제</a></td>
+					</tr>
+				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<tr>
@@ -376,15 +362,38 @@
 		   <tr>
              <td colspan=8 class="fixed">
 		         <div class="page1">
-                 <c:forEach   var="page" begin="1" end="10" step="1" >
-		         <c:if test="${section >1 && page==1 }">
-		          <a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
-		         </c:if>
-		          <a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
-		         <c:if test="${page ==10 }">
-		          <a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-		         </c:if> 
-	      		</c:forEach> 
+                 <c:if test="${totalScheduleNum != null}">
+		         	<c:choose>
+		         		<c:when test="${totalScheduleNum>100 }">
+			                <c:forEach var="page" begin="1" end="10" step="1" >
+						         <c:if test="${section >1 && page==1 }">
+						         	<a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+						         </c:if>
+						         	<a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+						         <c:if test="${page ==10 }">
+						         	<a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+						         </c:if> 
+				      		</c:forEach>
+			      	</c:when>
+			      	<c:when test="${totalScheduleNum==100 }">
+			      		<c:forEach var="page" begin="1" end="10" step="1" >
+			      			<a class="section" href="#">${page}</a>
+			      		</c:forEach>
+			      	</c:when>
+			      	<c:when test="${totalScheduleNum<100 }">
+			      		<c:forEach var="page" begin="1" end="${totalScheduleNum/10 +1}" step="1">
+			      			<c:choose>
+			      				<c:when test="${page==pageNum}">
+			      					<a class="section_sel" href="${contextPath}/schedule/listSchedule.do?section=${section}&pageNum=${page}">${page}</a>
+			      				</c:when>
+			      				<c:otherwise>
+			      					<a class="section" href="${contextPath}/schedule/listSchedule.do?section=${section}&pageNum=${page}">${page}</a>
+			      				</c:otherwise>
+			      			</c:choose>
+			      		</c:forEach>
+			      	</c:when>
+			      	</c:choose>
+	      		</c:if>
            		</div>
            </td>
         </tr>

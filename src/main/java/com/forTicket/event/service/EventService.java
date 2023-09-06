@@ -11,6 +11,7 @@ import com.forTicket.event.vo.E_imageFileVO;
 public interface EventService {
 	public List listEvents() throws DataAccessException;
 	public List A_listEvents(Map condMap) throws DataAccessException;
+	public List B_listEvents(Map condMap) throws DataAccessException;
 	public Map eventInfo(int event_no) throws DataAccessException;
 	public Map eventDetail(int event_no) throws DataAccessException;
 	public int addEvent(Map eventMap) throws DataAccessException;
@@ -22,4 +23,6 @@ public interface EventService {
 	public void removeEventImage(int image_id) throws DataAccessException;
 	public void removeAllEventImage(int goods_id) throws DataAccessException;
 	public void eventApply(Map condMap) throws DataAccessException;
+	public int totalEventNum() throws DataAccessException;
+	public int totalEventNumById(String mem_id) throws DataAccessException;
 }

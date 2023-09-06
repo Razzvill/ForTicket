@@ -29,4 +29,6 @@ public interface CommunityService {
 	
 	//리뷰 삭제
 	public void delete(int c_No) throws Exception;
+	
+	public int totalCommNum() throws DataAccessException;
 }

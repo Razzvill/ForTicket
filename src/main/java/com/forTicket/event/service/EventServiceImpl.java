@@ -38,6 +38,12 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public List B_listEvents(Map condMap) throws DataAccessException {
+		List eventList = eventDAO.selectBusinessEventList(condMap);
+		return eventList;
+	}
+
+	@Override
 	public Map eventInfo(int event_no) throws DataAccessException {
 		Map eventMap = new HashMap();
 		EventVO eventVO = eventDAO.selectEventDetail(event_no);
@@ -60,6 +66,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int addEvent(Map eventMap) throws DataAccessException {
 		eventDAO.insertEvent(eventMap);
+		goodsDAO.updateDisc(eventMap);
 		int event_no = eventDAO.selectEventNo(eventMap);
 		ArrayList<E_imageFileVO> imageFileList = (ArrayList) eventMap.get("imageFileList");
 		for(E_imageFileVO imageFileVO : imageFileList) {
@@ -114,6 +121,18 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public void eventApply(Map condMap) throws DataAccessException {
 		eventDAO.insertEventApply(condMap);
+	}
+
+	@Override
+	public int totalEventNum() throws DataAccessException {
+		int totalEventNum = eventDAO.totalEvent();
+		return totalEventNum;
+	}
+
+	@Override
+	public int totalEventNumById(String mem_id) throws DataAccessException {
+		int totalEventNum = eventDAO.totalEventById(mem_id);
+		return totalEventNum;
 	}
 	
 }

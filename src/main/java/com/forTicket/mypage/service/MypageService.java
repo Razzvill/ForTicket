@@ -3,6 +3,7 @@ package com.forTicket.mypage.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,5 +20,9 @@ public interface MypageService {
     
     //사업자예매내역 페이지
     public ArrayList<OrderVO> b_myReservation(HashMap condMap) throws Exception;
+    
+    public int totalResNum(String mem_id) throws DataAccessException;
+    
+    public int totalBResNum(String mem_id) throws DataAccessException;
     
 }

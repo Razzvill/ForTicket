@@ -76,7 +76,9 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		condMap.put("search_word", search_word);
 		
 		ArrayList<MemberVO> member_list=adminMemberService.a_Profile(condMap);
+		int totalUserNum = adminMemberService.totalUserNum();
 		
+		mav.addObject("totalUserNum", totalUserNum);
 		mav.addObject("member_list", member_list);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -136,7 +138,9 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		condMap.put("search_word", search_word);
 		
 		ArrayList<MemberVO> member_list=adminMemberService.a_ProfileBus(condMap);
+		int totalBusNum = adminMemberService.totalBusNum();
 		
+		mav.addObject("totalBusNum", totalBusNum);
 		mav.addObject("member_list", member_list);
 		
 		String beginDate1[]=beginDate.split("-");
