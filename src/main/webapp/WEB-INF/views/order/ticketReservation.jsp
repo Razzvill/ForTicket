@@ -301,13 +301,6 @@
    		<span id="emailError" style="color: red;"></span>
    	</div>
  		</div>
-	
-	<div class="basket_title" style="margin-top:20px;">
-   		<span>총 결제금액
-   			<span id="total_price_view" class="pay_total pay_total_price">${item.totalPrice }</span>
-   		</span>
- 		</div>
-	
 	<div id="payment_section">
     <div class="basket_title">
 		<span>결제방법</span>
@@ -523,7 +516,7 @@
 	
     //결제 선택
     var orderPay='';
-    
+   
 	function PAYMENT_SELECT_FUNC(selectedValue) {
 		var orderPays = selectedValue;
 	    orderPay = orderPays;
@@ -532,8 +525,8 @@
 	
 	//정보 미입력 시 오류
 	function validateForm() {
-		debugger;
-    var memId = document.getElementById("orderName").value;
+		debugger;	
+    var memId = document.getElementById("receiver_name").value;
 
     var email = document.getElementById("orderEmail").value;
     var phone = document.getElementById("orderPhone").value;
@@ -543,7 +536,7 @@
     
 
 
-    if (memId === "" || email === "" || phone === "" || orderPay ==="") {
+    if (memId === "" || email === "" || phone === "") {
         alert("모든 항목을 입력해주세요.");
         return false; // 폼 제출 방지
     }
@@ -559,7 +552,7 @@
 
     function fn_process_pay_order(){
  		
- 		//debugger;
+ 		debugger;
  		
  		var formObj=document.createElement("form");
  		
