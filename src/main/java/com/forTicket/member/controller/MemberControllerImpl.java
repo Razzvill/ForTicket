@@ -240,6 +240,23 @@ public class MemberControllerImpl implements MemberController{
 	    return mav;
 	}
 	
+	@Override
+	@RequestMapping(value="/member/b_updateMember.do", method = RequestMethod.GET)
+	public ModelAndView b_updateMember(MemberVO member, HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
+		int result = 0;
+		result = memberService.b_updateMember(member);
+	    ModelAndView mav = new ModelAndView("redirect:/main.do");
+	    return mav;
+	}
+
 	//회원 수정창 이동, memberVO값 가져오기
 	@Override
 	@RequestMapping(value="/member/m_Edit.do", method = RequestMethod.GET)
@@ -300,4 +317,29 @@ public class MemberControllerImpl implements MemberController{
 
 		return resultMap;		
 	}
+	
+	//회원 수정창 이동, memberVO값 가져오기
+		@Override
+		@RequestMapping(value="/member/b_Edit.do", method = RequestMethod.GET)
+		public ModelAndView b_Edit(@RequestParam("mem_id") String mem_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
+			MemberVO member = new MemberVO();
+			
+			request.setCharacterEncoding("utf-8");
+
+			String viewName = (String)request.getAttribute("viewName");
+			
+			HashMap<String,String> condMap = new HashMap<String,String>();
+			
+			ModelAndView mav = new ModelAndView();
+
+			condMap.put("mem_id", mem_id);
+
+			member = memberService.m_Edit(condMap);
+			
+			mav.addObject("taget", member);
+			
+			mav.setViewName(viewName);
+			
+			return mav;
+		}
 }
