@@ -149,6 +149,13 @@
 			<put-attribute name="title" value="1:1문의(관리자)" />
 			<put-attribute name="body" value="/WEB-INF/views/center/a_write.jsp" />
 		</definition>
+	
+	<!-- 사업자 -->
+		<!-- 회원 정보 수정 화면-->
+		<definition name="/member/b_Edit" extends="baseLayout1">
+			<put-attribute name="title" value="사업자 정보 수정" />
+			<put-attribute name="body" value="/WEB-INF/views/member/b_Edit.jsp" />
+		</definition>
 		
 </tiles-definitions>
 

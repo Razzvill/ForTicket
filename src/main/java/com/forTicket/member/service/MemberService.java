@@ -22,6 +22,7 @@ public interface MemberService {
     public void mailSend(MailDTO mailDTO) throws DataAccessException;
     public void updatePassWord(String mem_id, String pwd) throws DataAccessException;
     public int updateMember(MemberVO memberVO) throws DataAccessException;
+    public int b_updateMember(MemberVO memberVO) throws DataAccessException;
     public MemberVO m_Edit(HashMap condMap) throws DataAccessException;
     public Map<String, Object> kakaoConnectionCheck(Map<String, Object> paramMap);
     public MemberVO kakaoConnectionEmailCheck(Map<String, Object> paramMap);
