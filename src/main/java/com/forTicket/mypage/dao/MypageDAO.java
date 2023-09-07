@@ -18,4 +18,8 @@ public interface MypageDAO {
     
     //사업자상품예매페이지
     public ArrayList<OrderVO> b_myReservation(HashMap condMap) throws DataAccessException;
+    
+    public int totalResNum(String mem_id) throws DataAccessException;
+    
+    public int totalBResNum(String mem_id) throws DataAccessException;
 }

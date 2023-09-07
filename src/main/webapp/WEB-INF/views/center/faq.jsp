@@ -20,7 +20,7 @@
 		padding:30px;
 		font-size:15px;
 		line-height:280%;
-		border-color: #bcbcbc;
+		border-color: #FF6251;
 		padding-bottom: 50px;
 	}
 	
@@ -42,20 +42,20 @@
 	
 	.boardtd1{
 		border-radius: 15px 0px 0px 0px;
-        background-color: #bcbcbc;
+        background-color: #FF6251;
 	}
 	
 	.boardtd2{
-		background-color: #bcbcbc;
+		background-color: #FF6251;
 	}
 	
 	.boardtd3{
 		border-radius: 0px 15px 0px 0px;
-        background-color: #bcbcbc;
+        background-color: #FF6251;
 	}
 	
 	tr td{
-		 border-bottom: 1px dotted #bcbcbc;
+		 border-bottom: 1px dotted #FF6251;
 	}
 	
 	.cls1{
@@ -79,13 +79,21 @@
 		color: black;
 		text-decoration: none;
 	}
+	.section_sel{
+		cursor: pointer;
+		color: #0066ff;
+		text-decoration: none;
+	}
+	.page1{
+		margin-top:10px;
+	}
 	</style>
 </head>
 <body>
 <div class="center">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left; margin-bottom:10px;">FAQ</h2>
-        <div style="width: auto; border: 1px solid; border-color: #bcbcbc; margin-top: 10px; margin-bottom:10px;"></div>
+        <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
     </div>
     <div>
     	<table class="board">
@@ -119,15 +127,40 @@
 		</c:choose>
 		<tr>
 			<td colspan=8 class="fixed">
-				<c:forEach   var="page" begin="1" end="10" step="1" >
-					<c:if test="${section >1 && page==1 }">
-						<a class="section" href="${contextPath}/center/faq.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
-					</c:if>
-						<a class="section" href="${contextPath}/center/faq.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
-					<c:if test="${page ==10 }">
-						<a class="section" href="${contextPath}/center/faq.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-					</c:if> 
-				</c:forEach> 
+				<div class="page1">
+	                 <c:if test="${totalFAQNum != null}">
+			         	<c:choose>
+			         		<c:when test="${totalFAQNum>100 }">
+				                <c:forEach var="page" begin="1" end="10" step="1" >
+							         <c:if test="${section >1 && page==1 }">
+							         	<a class="section" href="${contextPath}/center/faq.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+							         </c:if>
+							         	<a class="section" href="${contextPath}/center/faq.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+							         <c:if test="${page ==10 }">
+							         	<a class="section" href="${contextPath}/center/faq.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+							         </c:if> 
+					      		</c:forEach>
+					      	</c:when>
+					      	<c:when test="${totalFAQNum==100 }">
+					      		<c:forEach var="page" begin="1" end="10" step="1" >
+					      			<a class="section" href="#">${page}</a>
+					      		</c:forEach>
+					      	</c:when>
+					      	<c:when test="${totalFAQNum<100 }">
+					      		<c:forEach var="page" begin="1" end="${totalFAQNum/10 +1}" step="1">
+					      			<c:choose>
+					      				<c:when test="${page==pageNum}">
+					      					<a class="section_sel" href="${contextPath}/center/faq.do?section=${section}&pageNum=${page}">${page}</a>
+					      				</c:when>
+					      				<c:otherwise>
+					      					<a class="section" href="${contextPath}/center/faq.do?section=${section}&pageNum=${page}">${page}</a>
+					      				</c:otherwise>
+					      			</c:choose>
+					      		</c:forEach>
+					      	</c:when>
+				      	</c:choose>
+		      		</c:if>
+	      		</div>
 			</td>
 		</tr>
 		</table>

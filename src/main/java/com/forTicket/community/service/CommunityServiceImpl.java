@@ -65,4 +65,10 @@ public class CommunityServiceImpl implements CommunityService {
 	public void delete(int c_No) throws Exception {
 		communityDAO.delete(c_No);		
 	}
+
+	@Override
+	public int totalCommNum() throws DataAccessException {
+		return communityDAO.totalCommNum();
+	}
+	
 }

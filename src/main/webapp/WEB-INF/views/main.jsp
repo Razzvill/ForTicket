@@ -203,7 +203,7 @@
 		<!-- 공연 -->
 		<div class="wrap_1100">
 			<div class="main_title">
-			연극
+			공연
 			<div class="main_title_more">
 				<a href="${contextPath}/goods/listGoods.do?goodsType=concert"> 더보기 &gt; </a>
 			</div>

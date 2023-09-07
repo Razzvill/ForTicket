@@ -95,6 +95,13 @@
 		font-size: 15px;
 		font-weight: bold;
 	}
+	.section_sel{
+		cursor: pointer;
+		color: #0066ff;
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: bold;
+	}
 	
 	.page1{
 		margin-top:10px;
@@ -336,42 +343,19 @@
 		</tr>
 		<c:choose>
 			<c:when test="${not empty goodsList}">
-				<c:choose>
-					<c:when test="${type=='B'}">
-						<c:forEach var="list" items="${goodsList}">
-							<c:choose>
-								<c:when test="${list.mem_id == member.mem_id}">
-									<tr>
-										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
-										<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
-										<td>${list.goods_genre }</td>
-										<td>${list.goods_startDate }~${list.goods_endDate }</td>
-										<td>${list.goods_place }</td>
-										<td>${list.goods_price }</td>
-										<td>${list.goods_creDate}</td>
-										<td><a href="${contextPath}/goods/modGoodsForm.do?goods_id=${list.goods_id }" class="reply">수정</a></td>
-										<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
-									</tr>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="list" items="${goodsList}">
-							<tr>
-								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
-								<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
-								<td>${list.goods_genre }</td>
-								<td>${list.goods_startDate }~${list.goods_endDate }</td>
-								<td>${list.goods_place }</td>
-								<td>${list.goods_price }</td>
-								<td>${list.goods_creDate}</td>
-								<td><a href="${contextPath}/goods/modGoodsForm.do?goods_id=${list.goods_id }" class="reply">수정</a></td>
-								<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
-							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
+				<c:forEach var="list" items="${goodsList}">
+					<tr>
+						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_id }</a></td>
+						<td><a href="${contextPath}/goods/detailGoods.do?goods_id=${list.goods_id}">${list.goods_name }</a></td>
+						<td>${list.goods_genre }</td>
+						<td>${list.goods_startDate }~${list.goods_endDate }</td>
+						<td>${list.goods_place }</td>
+						<td>${list.goods_price }</td>
+						<td>${list.goods_creDate}</td>
+						<td><a href="${contextPath}/goods/modGoodsForm.do?goods_id=${list.goods_id }" class="reply">수정</a></td>
+						<td><a href="${contextPath }/goods/removeGoods.do?goods_id=${list.goods_id }" class="reply">삭제</a></td>
+					</tr>
+				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<tr>
@@ -384,15 +368,38 @@
 		<tr>
              <td colspan=8 class="fixed">
              <div class="page1">
-                 <c:forEach   var="page" begin="1" end="10" step="1" >
-		         <c:if test="${section >1 && page==1 }">
-		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
-		         </c:if>
-		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
-		         <c:if test="${page ==10 }">
-		          <a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-		         </c:if> 
-	      		</c:forEach>
+                 <c:if test="${totalGoodsNum != null}">
+		         	<c:choose>
+		         		<c:when test="${totalGoodsNum>100 }">
+			                <c:forEach var="page" begin="1" end="10" step="1" >
+						         <c:if test="${section >1 && page==1 }">
+						         	<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+						         </c:if>
+						         	<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+						         <c:if test="${page ==10 }">
+						         	<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+						         </c:if> 
+				      		</c:forEach>
+			      	</c:when>
+			      	<c:when test="${totalGoodsNum==100 }">
+			      		<c:forEach var="page" begin="1" end="10" step="1" >
+			      			<a class="section" href="#">${page}</a>
+			      		</c:forEach>
+			      	</c:when>
+			      	<c:when test="${totalGoodsNum<100 }">
+			      		<c:forEach var="page" begin="1" end="${totalGoodsNum/10 +1}" step="1">
+			      			<c:choose>
+			      				<c:when test="${page==pageNum}">
+			      					<a class="section_sel" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${page}</a>
+			      				</c:when>
+			      				<c:otherwise>
+			      					<a class="section" href="${contextPath}/goods/a_listGoods.do?section=${section}&pageNum=${page}">${page}</a>
+			      				</c:otherwise>
+			      			</c:choose>
+			      		</c:forEach>
+			      	</c:when>
+			      	</c:choose>
+	      		</c:if>
 	      	</div> 
            </td>
         </tr>

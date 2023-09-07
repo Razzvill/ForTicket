@@ -112,7 +112,11 @@
 
     </div>
   </div>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
+Kakao.init('714b1cee4e7cce6b2f35d6356e10b558'); 
 function kakaoLogin() {
     Kakao.Auth.login({
       success: function (response) {

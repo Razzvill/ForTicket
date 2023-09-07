@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:set var="imageList" value="${events.imageFileList }" />
-<c:set var="event" value="${events.eventVO}" />
+<c:set var="imageList" value="${eventMap.imageFileList }" />
+<c:set var="event" value="${eventMap.event}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
@@ -225,13 +225,18 @@ request.setCharacterEncoding("utf-8");
 	border: 0;
 	cursor: pointer;
 }
+
+.textarea_detail1{
+		border : none;
+		background: #fff;
+	}
 </style>
 
 </head>
 
 <body>
 	<div style="padding-top: 20px; width: 815px; margin: 0 auto;">
-		<div class="now_engine" style="margin-right: 680px;">
+		<div class="now_engine" style="margin-right: 650px;">
 			🗂️ <a href="#">이벤트 &gt; </a><a href="#">
 			<c:choose>
 				<c:when test="${event.event_type == 'disc' }">
@@ -246,15 +251,14 @@ request.setCharacterEncoding("utf-8");
 
 		<div
 			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
-			<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${event.event_fileName}"
-				style="width: 482px; border-radius: 10px;">
+			<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_fileName=${event.event_fileName}"
+				style="border-radius: 10px;">
 		</div>
 		
 		<!-- 오른쪽  -->
 		<section style="float: right; width: 307px;">
 			<div class="theater_list">
 				<div class="theater_info">
-					<p class="title">${event.event_fileName}</p>
 					<p class="title">${event.event_name}</p>
 					<p class="detail">유형 : 
 					<c:choose>
@@ -272,7 +276,9 @@ request.setCharacterEncoding("utf-8");
 					<c:if test="${event.event_type == 'inv'}">
 						<p class="detail">당첨자 발표 : ${event.event_finalDate}</p>
 					</c:if>
-					<p class="detail">이벤트 내용 : ${event.event_detail}</p>
+					<p class="detail">이벤트 내용 :
+					</p>
+					<textarea class="textarea_detail1" rows="5" cols ="80" disabled>${event.event_detail}</textarea>
 				</div>
 			</div>
 			<div class="submit_btn">
@@ -292,7 +298,7 @@ request.setCharacterEncoding("utf-8");
 					
 					<!-- 상세이미지 -->
 					<c:forEach var="image" items="${imageList}">
-						<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_image=${image.fileName}">
+						<img src="${contextPath}/event/download.do?event_no=${event.event_no}&event_fileName=${image.fileName}">
 					</c:forEach>
 					
 					<div class="main_img"></div>

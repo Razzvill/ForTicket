@@ -28,7 +28,7 @@
 			from (
 				select * 
 				from member 
-				where b_number IS NULL 
+				where type='U'
 				and date_format(joinDate,'%Y-%m-%d') between #{beginDate} and #{endDate} 
 				<if test="search_type=='all' and  search_type != null" >
 		        	and (phone=#{search_word} OR mem_name=#{search_word} OR mem_id=#{search_word})
@@ -56,7 +56,7 @@
 			 from (		
 		    	SELECT *
 		    	FROM member
-		    	WHERE b_number IS NOT NULL
+		    	WHERE type='B'
 		    	AND DATE_FORMAT(joinDate, '%Y-%m-%d') BETWEEN #{beginDate} AND #{endDate}
 		    	<if test="search_type=='all' and  search_type != null" >
 		        	and (b_name=#{search_word} OR mem_id=#{search_word} OR b_number=#{search_word} OR b_phone=#{search_word})
@@ -118,6 +118,14 @@
 			mem_id=#{mem_id}
       ]]>      
    </update> 
+   
+   <select id="totalUserNum" resultType="int">
+   		select count(mem_id) from member where type='U'
+   </select>
+   
+   <select id="totalBusNum" resultType="int">
+   		select count(mem_id) from member where type='B'
+   </select>
 </mapper>
    
    	

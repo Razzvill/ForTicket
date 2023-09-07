@@ -50,6 +50,15 @@
 	     	where
 			mem_id=#{mem_id}
 	]]>      
+	  </update>
+	  
+	<update id="b_updateMember"  parameterType="memberVO">
+	<![CDATA[
+		update member
+	     	set b_name=#{b_name}, pwd=#{pwd},b_number = #{b_number}, b_phone=#{b_phone}, email=#{email}, post=#{post} , addr1=#{addr1}, addr2=#{addr2}
+	     	where
+			mem_id=#{mem_id}
+	]]>      
 	  </update> 
 	    
 	<delete id="deleteMember"  parameterType="String">

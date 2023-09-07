@@ -103,5 +103,17 @@
 		WHERE recNum BETWEEN (#{section} - 1) * 100 + (#{pageNum} - 1) * 10 + 1 AND (#{section} - 1) * 100 + (#{pageNum}) * 10;		    
 	</select>
 	
+	<select id="totalResNum" resultType="int" parameterType="String">
+		select count(order_no) from `order` where mem_id=#{mem_id}
+	</select>
+	
+	<select id="totalBResNum" resultType="int" parameterType="String">
+		SELECT COUNT(order_no) FROM (
+	    SELECT DISTINCT `order`.order_no 
+	    FROM `order` 
+	    INNER JOIN goods ON `order`.goods_id = goods.goods_id 
+	    WHERE goods.mem_id = #{mem_id}
+		) AS t_order;
+	</select>
 </mapper>
 	

@@ -20,7 +20,7 @@
 		padding:30px;
 		font-size:15px;
 		line-height:280%;
-		border-color: #bcbcbc;
+		border-color: #FF6251;
 		padding-bottom: 50px;
 	}
 	
@@ -35,18 +35,23 @@
 	}
 	
 	.boardtr{
-		 border-bottom: 2px solid #bcbcbc;
+		 border-bottom: 2px solid #FF6251;
 	}
 	
 	.boardtd{
-		font-size: 15px;
-		font-weight: 600;
+	border-radius: 15px 0px 0px 0px;
+		width:550px;
+		background-color: #FF6251;
 	}
 	
 	.boardtd1{
-		font-size: 15px;
-		font-weight: 600;
 		width:550px;
+		background-color: #FF6251;
+	}
+	.boardtd3{
+	border-radius: 0px 15px 0px 0px;
+		width:550px;
+		background-color: #FF6251;
 	}
 	
 	.cls1{
@@ -111,16 +116,16 @@
 <div class="center">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left; margin-bottom:10px;">1:1문의</h2>
-        <div style="width: auto; border: 1px solid; border-color: #bcbcbc; margin-top: 10px; margin-bottom:10px;"></div>
+        <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>
     </div>
 	<div>
     	<table class="board">
 		<tr class="boardtr">
 			<td class="boardtd">번호</td>
-			<td class="boardtd">답변상태</td>
+			<td class="boardtd1">답변상태</td>
 			<td class="boardtd1">제목</td>
-			<td class="boardtd">등록일</td>
-			<td class="boardtd">삭제</td>
+			<td class="boardtd1">등록일</td>
+			<td class="boardtd3">삭제</td>
 		</tr>
 		<c:choose>
 		    <c:when test="${empty que_List}">

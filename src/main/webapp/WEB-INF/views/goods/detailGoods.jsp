@@ -289,6 +289,19 @@ request.setCharacterEncoding("utf-8");
 	    position: relative;
 	    text-align: left;
 	}
+	.detail_div{
+		float: left;
+		position: relative;
+		width: 482px;
+		margin-right: 20px;
+		border-radius: 10px;
+	}
+	.detail_image{
+		border-radius: 10px;
+	}
+	.textarea_detail1{
+		border : none;
+	}
 
 </style>
 
@@ -300,10 +313,8 @@ request.setCharacterEncoding("utf-8");
 			🗂️ <a href="#">공연 &gt; </a><a href="#">${goods.goods_genre} </a>
 		</div>
 
-		<div
-			style="float: left; position: relative; width: 482px; margin-right: 20px; border-radius: 10px;">
-			<img src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}"
-				style="width: 482px; border-radius: 10px;">
+		<div class="detail_div">
+			<img class="detail_image" src="${contextPath}/goods/download.do?goods_id=${goods.goods_id}&goods_fileName=${goods.goods_fileName}">
 		</div>
 		
 		<!-- 오른쪽  -->
@@ -338,11 +349,16 @@ request.setCharacterEncoding("utf-8");
 					<c:when test="${goods.goods_seats == 'Y'}">
 						<button onClick="location.href='${contextPath}/order/order_seat.do?goods_id=${goods.goods_id}'" class="">예매하기</button>
 					</c:when>
+					<c:when test="${isLogOn == true && type=='U' }">
+						<button onClick="location.href='${contextPath}/order/order_seatNone.do?goods_id=${goods.goods_id}'" class="">예매하기</button>
+					</c:when>
+					<c:when test="${type=='B' || type=='admin'}">
+					</c:when>
 					<c:otherwise>
 						<button onClick="location.href='${contextPath}/order/order_seatNone.do?goods_id=${goods.goods_id}'" class="">예매하기</button>
 					</c:otherwise>
 				</c:choose>
-				<button href="#" class="">관심 ☆</button>
+				<button onClick="location.href='${contextPath}/member/basket.do?goods_id=${goods.goods_id}'" class="">관심 ☆</button>
 			</div>
 		</section>
 
@@ -428,7 +444,7 @@ request.setCharacterEncoding("utf-8");
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">이용정보</div>
 						<div class="viewpage_text radius_box">
-							<p>${goods.goods_info}</p>
+							<textarea class="textarea_detail1" rows="13" cols ="80" disabled>${goods.goods_info}</textarea>
 						</div>
 					</div>
 					
@@ -453,7 +469,7 @@ request.setCharacterEncoding("utf-8");
 					<div style="margin-top: 25px;">
 						<div class="viewpage_noti">유의사항</div>
 						<div class="viewpage_text radius_box">
-							<p>${goods.goods_notice}</p>
+							<textarea class="textarea_detail1" rows="10" cols ="80" disabled>${goods.goods_notice}</textarea>
 						</div>
 					</div>
 
@@ -520,48 +536,6 @@ request.setCharacterEncoding("utf-8");
 				</div>
 			</div>
 		</section>
-		</div>
-<script>
-	//코드에 필요한 요소들 변수에 할당 (전체 ui를 감싸는 div, 내용 텍스트, 더보기/줄이기 텍스트)
-	//debugger;
-	var arrMoreText = document.getElementsByClassName("more-text");
-	var arrMoreTextLen = arrMoreText.length;
-	
-	for(var i =0; i<arrMoreTextLen; i++){
-		let moreTextObj = arrMoreText[i];
-		
-		moreTextObj.addEventListener('click', () => {
-			
-			moreTextObj.childNodes.forEach(function(v){//v = nodeList
-				if(v.nodeName === "SPAN"){
-					if(v.style.display === "inline-block"){
-						v.style.display = "";
-					}else{
-						v.style.display = 'inline-block';
-					}
-				}
-			});
-		});
-	}
-
-	/*
-	// 더보기 텍스트 클릭시 이벤트
-	moreText.addEventListener('click', () => {
-		
-	moreText.style.display = 'none'; // 더보기 텍스트 삭제
-    lessText.style.display = 'inline-block'; // 줄이기 텍스트 표시
-    text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
-    });
-
-	// 줄이기 텍스트 클릭시 이벤트
-    lessText.addEventListener('click', () => {
-
-    lessText.style.display = 'none'; // 줄이기 텍스트 삭제
-    moreText.style.display = 'inline-block'; // 더보기 텍스트 표시
-    text.style.display = '-webkit-box'; // 텍스트의 속성을 다시 -webkit-box로 표시
-    });
-	*/
-</script>
+	</div>
 </body>
-
 </html>

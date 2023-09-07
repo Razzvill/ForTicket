@@ -123,6 +123,11 @@ public class MemberServiceImpl implements MemberService {
 			}
 	    
 	    @Override
+		public int b_updateMember(MemberVO memberVO) throws DataAccessException {
+	    	return memberDAO.b_updateMember(memberVO);
+		}
+
+		@Override
 		public MemberVO m_Edit(HashMap condMap) throws DataAccessException{
 			return memberDAO.m_Edit(condMap);
 		}

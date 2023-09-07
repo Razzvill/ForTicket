@@ -12,7 +12,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>관리자 사업자 수정</title>
+	<title>사업자 정보 수정</title>
 	<style>
 	.search{
 		width: 80%;
@@ -79,7 +79,7 @@
 
 <body>
 <div class="mypage4">
-<form method="post"   action="${contextPath}/admin/a_UpdateBus.do">
+<form method="GET"   action="${contextPath}/member/b_updateMember.do">
 	<div style="margin-bottom:20px;">
     	<h2 style="text-align:left;">사업자 정보</h2>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 10px; margin-bottom:10px;"></div>

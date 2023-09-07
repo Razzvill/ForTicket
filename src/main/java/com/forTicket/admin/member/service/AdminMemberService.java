@@ -25,5 +25,10 @@ public interface AdminMemberService {
 	
 	//사업자 수정 
 	public int a_UpdateBus(MemberVO memberVO) throws DataAccessException;
+
+	//회원 수 
+	public int totalUserNum() throws DataAccessException;
 	
+	//사업자 수
+	public int totalBusNum() throws DataAccessException;
 }

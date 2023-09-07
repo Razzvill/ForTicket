@@ -36,7 +36,7 @@ public class CommunityControllerImpl implements CommunityController{
 	private static final String COMMUNITY_IMAGE_REPO = "C:\\forTicket\\community";
 	
 	@Autowired
-	private CommunityService communutyService;
+	private CommunityService communityService;
 	
 	@Autowired
 	private CommunityVO communityVO;
@@ -69,8 +69,10 @@ public class CommunityControllerImpl implements CommunityController{
 
 		condMap.put("pageNum", pageNum);
 
-		ArrayList<CommunityVO> u_commulist = communutyService.u_commulist(condMap);
+		ArrayList<CommunityVO> u_commulist = communityService.u_commulist(condMap);
+		int totalCommNum = communityService.totalCommNum();
 
+		mav.addObject("totalCommNum", totalCommNum);
 		mav.addObject("u_commulist", u_commulist);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
@@ -84,7 +86,7 @@ public class CommunityControllerImpl implements CommunityController{
 	public ModelAndView review(@ModelAttribute("order_No") int order_No, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	String viewName = (String) request.getAttribute("viewName");
     	
-    	orderVO = communutyService.review(order_No);
+    	orderVO = communityService.review(order_No);
     	
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName(viewName);
@@ -124,7 +126,7 @@ public class CommunityControllerImpl implements CommunityController{
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		
 		try {
-			int c_No = communutyService.add_review(reviewMap);
+			int c_No = communityService.add_review(reviewMap);
 			
 			System.out.println("c_No"+ c_No);
 		
@@ -170,7 +172,7 @@ public class CommunityControllerImpl implements CommunityController{
 		
 		communityVO.setC_No(c_No);
 		
-		CommunityVO community = communutyService.c_No(c_No);
+		CommunityVO community = communityService.c_No(c_No);
 		
 		mav.addObject("reply",community);
 		mav.setViewName(viewName);
@@ -193,7 +195,7 @@ public class CommunityControllerImpl implements CommunityController{
 		int result = 0;
 		
 		try {
-			result = communutyService.update_reply(communityVO);
+			result = communityService.update_reply(communityVO);
 			message = "<script>";
 			message += " alert('답글을 추가했습니다.');";
 			message += " location.href='" + request.getContextPath() + "/community/u_Commu.do"
@@ -227,7 +229,7 @@ public class CommunityControllerImpl implements CommunityController{
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 			
 		try {
-			communutyService.delete(c_No);
+			communityService.delete(c_No);
 			File destDir = new File(COMMUNITY_IMAGE_REPO + "\\" + c_No);
 			FileUtils.deleteDirectory(destDir);
 			message = "<script>";

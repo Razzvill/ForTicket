@@ -32,9 +32,10 @@ public interface CommunityDAO {
 	public CommunityVO c_No(int c_No) throws DataAccessException;
 	
 	//답변업데이트
-	public int update_reply(CommunityVO communityVO) throws Exception; 
+	public int update_reply(CommunityVO communityVO) throws DataAccessException; 
 	
 	//리뷰 삭제
-	public void delete(int c_No) throws Exception; 
+	public void delete(int c_No) throws DataAccessException; 
 	
+	public int totalCommNum() throws DataAccessException;
 }

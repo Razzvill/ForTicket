@@ -110,6 +110,16 @@
 		font-size: 15px;
 		font-weight: bold;
 	}
+	.section_sel{
+		cursor: pointer;
+		color: #0066ff;
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	.page1{
+		margin-top:10px;
+	}
 	
 	.reply{
 		cursor: pointer;
@@ -133,6 +143,12 @@
 	.page1{
 		margin-top:50px;
 	}
+	.review_link{
+		text-decoration: none;
+		cursor: pointer;
+		color: #FF6251;
+		font-weight: bold;
+	}
 </style>
 </head>
 <body>
@@ -141,7 +157,7 @@
     	<div style="text-align:left;">커뮤니티</div>
     	<div class="comm_title_more">
     		<c:if test="${isLogOn == true && type=='U'}">
-	    		<a href="${contextPath}/member/myreservation.do?mem_id=${member.mem_id }">리뷰작성</a>
+	    		<a class="review_link" href="${contextPath}/member/myreservation.do?mem_id=${member.mem_id }">리뷰작성</a>
     		</c:if>
 		</div>
         <div style="width: auto; border: 1px solid; border-color: #FF6251; margin-top: 30px; margin-bottom:10px;"></div>
@@ -205,15 +221,38 @@
 		</c:otherwise>
 	</c:choose>
 	<div class="page1">
-	<c:forEach var="page" begin="1" end="10" step="1" >
-		<c:if test="${section >1 && page==1 }">
-			<a class="section" href="${contextPath}/community/u_Commu.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
-		</c:if>
-			<a class="section" href="${contextPath}/community/u_Commu.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
-		<c:if test="${page ==10 }">
-			<a class="section" href="${contextPath}/community/u_Commu.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-		</c:if> 
-	</c:forEach>
+	<c:if test="${totalCommNum != null}">
+			         	<c:choose>
+			         		<c:when test="${totalCommNum>100 }">
+				                <c:forEach var="page" begin="1" end="10" step="1" >
+							         <c:if test="${section >1 && page==1 }">
+							         	<a class="section" href="${contextPath}/community/u_Commu.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;pre &nbsp;</a>
+							         </c:if>
+							         	<a class="section" href="${contextPath}/community/u_Commu.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+							         <c:if test="${page ==10 }">
+							         	<a class="section" href="${contextPath}/community/u_Commu.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+							         </c:if> 
+					      		</c:forEach>
+					      	</c:when>
+					      	<c:when test="${totalCommNum==100 }">
+					      		<c:forEach var="page" begin="1" end="10" step="1" >
+					      			<a class="section" href="#">${page}</a>
+					      		</c:forEach>
+					      	</c:when>
+					      	<c:when test="${totalCommNum<100 }">
+					      		<c:forEach var="page" begin="1" end="${totalCommNum/10 +1}" step="1">
+					      			<c:choose>
+					      				<c:when test="${page==pageNum}">
+					      					<a class="section_sel" href="${contextPath}/community/u_Commu.do?section=${section}&pageNum=${page}">${page}</a>
+					      				</c:when>
+					      				<c:otherwise>
+					      					<a class="section" href="${contextPath}/community/u_Commu.do?section=${section}&pageNum=${page}">${page}</a>
+					      				</c:otherwise>
+					      			</c:choose>
+					      		</c:forEach>
+					      	</c:when>
+				      	</c:choose>
+		      		</c:if>
 	</div> 
 </div>
 <script>

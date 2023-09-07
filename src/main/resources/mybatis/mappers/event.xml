@@ -30,7 +30,7 @@
 	<select id="selectAllEventList" resultMap="eventResult">
 		<![CDATA[
 			SELECT g.*, d.fileName FROM event g, event_detail_images d 
-			where d.fileType='main_image'
+			where d.fileType='main_image' and g.event_no=d.event_no
 			ORDER BY event_creDate DESC
 		]]>
 	</select>
@@ -40,6 +40,24 @@
 			select * from (
 			select  ROW_NUMBER() OVER (ORDER BY event_creDate DESC) as recNum, ttt.*
 			from (select * from event where  date_format(event_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
+				<if test="search_type=='goods_name' and  search_type != null">
+					AND goods_name=#{search_word}
+				</if>
+				<if test="search_type=='event_name' and  search_type != null">
+					AND event_name=#{search_word}
+				</if>
+				<if test="search_type=='event_type' and  search_type != null">
+					AND event_type=#{search_word}
+				</if>
+			order by event_creDate desc ) as ttt ) as tttt where 
+			recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
+	<select id="selectBusinessEventList" resultMap="eventResult"
+		parameterType="java.util.Map">
+			select * from (
+			select  ROW_NUMBER() OVER (ORDER BY event_creDate DESC) as recNum, ttt.*
+			from (select * from event where mem_id=#{mem_id} and date_format(event_creDate,'%Y-%m-%d')  between #{beginDate} and #{endDate}
 				<if test="search_type=='goods_name' and  search_type != null">
 					AND goods_name=#{search_word}
 				</if>
@@ -83,7 +101,7 @@
 
 	<update id="updateEvent" parameterType="java.util.Map">
 		<![CDATA[
-			UPDATE event SET event_name=#{event_name}, event_startDate=#{event_startDate}, event_endDate=#{event_endDate}, event_type=#{event_type}, event_detail=#{event_detail}, event_status=#{event_status}, event_image=#{event_image}, event_finalDate=#{event_finalDate}, goods_id=#{goods_id} WHERE event_no=#{event_no}
+			UPDATE event SET event_name=#{event_name}, event_startDate=#{event_startDate}, event_endDate=#{event_endDate}, event_type=#{event_type}, event_detail=#{event_detail}, event_status=#{event_status}, event_finalDate=#{event_finalDate}, goods_id=#{goods_id} WHERE event_no=#{event_no}
 		]]>
 	</update>
 	
@@ -107,6 +125,15 @@
 		    	select * from  event_detail_images 
 		    	where fileType!='main_image'
 			    and event_no=#{event_no}
+			    order by image_id asc
+    	]]>
+	</select>
+	
+	<select id="selectEventImageFileList_2" resultMap="imageResult"   parameterType="int"  >
+	    <![CDATA[
+		    	select * from  event_detail_images 
+		    	where 
+			    event_no=#{event_no}
 			    order by image_id asc
     	]]>
 	</select>
@@ -145,4 +172,12 @@
 			INSERT INTO event_applied(event_no, mem_id) VALUES(#{event_no}, #{mem_id})
 		]]>
 	</insert>
+	
+	<select id="totalEvent" resultType="int">
+		SELECT count(event_no) FROM event
+	</select>
+	
+	<select id="totalEventById" resultType="int" parameterType="String">
+		SELECT count(event_no) FROM event WHERE mem_id=#{mem_id}
+	</select>
 </mapper>
