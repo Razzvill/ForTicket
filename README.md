@@ -26,7 +26,7 @@
 23.08.01 ~ 23.09.08
 
 ## 개발 환경
-언어: Java(jdk 1.8), HTML5, CSS3, JavaScript, JQuery(3.7.1)
-프레임워크: Spring Boot(2.7.13)
-IDE: STS(4.10.0 RELEASE)
-빌드: Gradle(4.10.2)
+언어: Java(jdk 1.8), HTML5, CSS3, JavaScript, JQuery(3.7.1) <br>
+프레임워크: Spring Boot(2.7.13) <br>
+IDE: STS(4.10.0 RELEASE) <br>
+빌드: Gradle(4.10.2) <br>
